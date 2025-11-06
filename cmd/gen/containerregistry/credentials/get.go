@@ -30,7 +30,6 @@ func Get(ctx context.Context, parent *cobra.Command, credentialsService containe
 		Use:     "get",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

@@ -36,7 +36,6 @@ func AttachSecurityGroup(ctx context.Context, parent *cobra.Command, portService
 		Use:     "attach-security-group [portID] [securityGroupID]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

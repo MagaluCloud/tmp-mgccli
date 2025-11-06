@@ -39,10 +39,9 @@ func List(ctx context.Context, parent *cobra.Command, instanceService computeSdk
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort] [Expand] [Name]",
+		Use:     "list [Limit] [Name] [Offset] [Sort]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

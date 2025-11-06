@@ -34,7 +34,6 @@ func Start(ctx context.Context, parent *cobra.Command, instanceService computeSd
 		Use:     "start [id]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

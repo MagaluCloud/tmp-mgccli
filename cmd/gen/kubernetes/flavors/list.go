@@ -14,8 +14,6 @@ import (
 	"context"
 
 	
-	"fmt"
-	
 	"github.com/magaluCloud/mgccli/beautiful"
 	
 	"github.com/spf13/cobra"
@@ -39,10 +37,9 @@ func List(ctx context.Context, parent *cobra.Command, flavorService kubernetesSd
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort] [Expand]",
+		Use:     "list [Limit] [Offset] [Sort]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
@@ -53,13 +50,8 @@ func List(ctx context.Context, parent *cobra.Command, flavorService kubernetesSd
 
 		
 			
-			if len(args) > 0{
-				cmd.Flags().Set("expand", args[0])
-			}
 			if opts_ExpandFlag.IsChanged() {
 				opts.Expand = *opts_ExpandFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o expand como argumento ou usar a flag --expand")
 			}// CobraFlagsAssign
 			
 			if opts_LimitFlag.IsChanged() {

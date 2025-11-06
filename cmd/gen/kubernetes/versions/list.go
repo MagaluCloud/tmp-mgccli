@@ -30,7 +30,6 @@ func List(ctx context.Context, parent *cobra.Command, versionService kubernetesS
 		Use:     "list",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

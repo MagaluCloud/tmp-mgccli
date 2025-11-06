@@ -37,10 +37,9 @@ func Get(ctx context.Context, parent *cobra.Command, imagesService containerregi
 	
 
 	cmd := &cobra.Command{
-		Use:     "get [registryID] [repositoryName] [digestOrTag]",
+		Use:     "get [digestOrTag] [registryID] [repositoryName]",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

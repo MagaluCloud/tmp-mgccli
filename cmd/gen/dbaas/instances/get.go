@@ -35,10 +35,9 @@ func Get(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.In
 	
 
 	cmd := &cobra.Command{
-		Use:     "get [id] [ExpandedFields]",
+		Use:     "get [id]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
@@ -52,21 +51,16 @@ func Get(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.In
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("expanded-fields", args[0])
-			}
-			if opts_ExpandedFieldsFlag.IsChanged() {
-				opts.ExpandedFields = *opts_ExpandedFieldsFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o expanded-fields como argumento ou usar a flag --expanded-fields")
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
 				cmd.Flags().Set("id", args[0])
 			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
+			}// CobraFlagsAssign
+			
+			if opts_ExpandedFieldsFlag.IsChanged() {
+				opts.ExpandedFields = *opts_ExpandedFieldsFlag.Value
 			}// CobraFlagsAssign
 			
 

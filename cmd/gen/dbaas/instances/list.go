@@ -14,8 +14,6 @@ import (
 	"context"
 
 	
-	"fmt"
-	
 	"github.com/magaluCloud/mgccli/beautiful"
 	
 	"github.com/spf13/cobra"
@@ -51,10 +49,9 @@ func List(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.I
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [VolumeSizeLte] [Status] [VolumeSizeLt] [ExpandedFields] [Offset] [Limit] [EngineID] [VolumeSize] [VolumeSizeGt] [VolumeSizeGte]",
+		Use:     "list [EngineID] [Limit] [Offset] [Status] [VolumeSize] [VolumeSizeGt] [VolumeSizeGte] [VolumeSizeLt] [VolumeSizeLte]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
@@ -65,17 +62,12 @@ func List(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.I
 
 		
 			
-			if len(args) > 0{
-				cmd.Flags().Set("expanded-fields", args[0])
-			}
-			if opts_ExpandedFieldsFlag.IsChanged() {
-				opts.ExpandedFields = *opts_ExpandedFieldsFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o expanded-fields como argumento ou usar a flag --expanded-fields")
-			}// CobraFlagsAssign
-			
 			if opts_EngineIDFlag.IsChanged() {
 				opts.EngineID = opts_EngineIDFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_ExpandedFieldsFlag.IsChanged() {
+				opts.ExpandedFields = *opts_ExpandedFieldsFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_LimitFlag.IsChanged() {

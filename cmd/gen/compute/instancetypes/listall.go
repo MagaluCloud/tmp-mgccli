@@ -36,7 +36,6 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceTypeService com
 		Use:     "list-all",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

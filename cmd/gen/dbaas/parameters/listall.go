@@ -36,7 +36,6 @@ func ListAll(ctx context.Context, parent *cobra.Command, parameterService dbaasS
 		Use:     "list-all [ParameterGroupID]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

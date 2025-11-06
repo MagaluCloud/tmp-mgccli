@@ -34,7 +34,6 @@ func Stop(ctx context.Context, parent *cobra.Command, instanceService computeSdk
 		Use:     "stop [id]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

@@ -34,7 +34,6 @@ func ListAll(ctx context.Context, parent *cobra.Command, eventTypeService auditS
 		Use:     "list-all",
 		Short:   "Audit provides functionality to interact with the MagaluCloud audit service.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

@@ -33,10 +33,9 @@ func Delete(ctx context.Context, parent *cobra.Command, networkBackendService lb
 	
 
 	cmd := &cobra.Command{
-		Use:     "delete [lbID] [backendID]",
+		Use:     "delete [backendID] [lbID]",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

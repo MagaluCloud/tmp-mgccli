@@ -48,7 +48,6 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService kubernete
 		Use:     "create",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

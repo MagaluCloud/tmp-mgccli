@@ -41,10 +41,9 @@ func ListEngineParameters(ctx context.Context, parent *cobra.Command, engineServ
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-engine-parameters [engineID] [Limit] [Dynamic] [Modifiable] [Offset]",
+		Use:     "list-engine-parameters [Dynamic] [Limit] [Modifiable] [Offset] [engineID]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
