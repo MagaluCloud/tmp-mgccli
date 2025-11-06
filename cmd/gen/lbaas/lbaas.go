@@ -10,12 +10,6 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas/networkacls"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas/networkbackends"
@@ -29,6 +23,12 @@ import (
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas/networklisteners"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas/networkloadbalancers"
+	
+	"github.com/spf13/cobra"
+	
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
+	
+	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
 	
 )
 
@@ -52,9 +52,9 @@ This package allows you to manage network load balancers, listeners, backends, h
 	
 	networkacls.NetworkACLsCmd(ctx, cmd, lbaasService.NetworkACLs())
 	
-	networkbackends.NetworkBackendsCmd(ctx, cmd, lbaasService.NetworkBackends())
-	
 	networkbackendtargets.NetworkBackendTargetsCmd(ctx, cmd, lbaasService.NetworkBackendTargets())
+	
+	networkbackends.NetworkBackendsCmd(ctx, cmd, lbaasService.NetworkBackends())
 	
 	networkcertificates.NetworkCertificatesCmd(ctx, cmd, lbaasService.NetworkCertificates())
 	

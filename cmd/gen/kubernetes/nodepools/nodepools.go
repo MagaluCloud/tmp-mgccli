@@ -25,17 +25,17 @@ func NodepoolsCmd(ctx context.Context, parent *cobra.Command, nodePoolService ku
 	}
 
 	
-	Nodes(ctx, cmd, nodePoolService)
-	
-	List(ctx, cmd, nodePoolService)
-	
 	Create(ctx, cmd, nodePoolService)
+	
+	Delete(ctx, cmd, nodePoolService)
 	
 	Get(ctx, cmd, nodePoolService)
 	
-	Update(ctx, cmd, nodePoolService)
+	List(ctx, cmd, nodePoolService)
 	
-	Delete(ctx, cmd, nodePoolService)
+	Nodes(ctx, cmd, nodePoolService)
+	
+	Update(ctx, cmd, nodePoolService)
 	
 
 	parent.AddCommand(cmd)

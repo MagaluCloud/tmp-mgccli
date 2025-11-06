@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 
@@ -42,9 +42,9 @@ func Resize(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			req := dbaasSdk.InstanceResizeRequest{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			

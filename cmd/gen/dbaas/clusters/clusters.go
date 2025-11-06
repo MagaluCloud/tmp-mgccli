@@ -25,23 +25,23 @@ func ClustersCmd(ctx context.Context, parent *cobra.Command, clusterService dbaa
 	}
 
 	
+	Create(ctx, cmd, clusterService)
+	
+	Delete(ctx, cmd, clusterService)
+	
+	Get(ctx, cmd, clusterService)
+	
 	List(ctx, cmd, clusterService)
 	
 	ListAll(ctx, cmd, clusterService)
 	
-	Create(ctx, cmd, clusterService)
-	
-	Get(ctx, cmd, clusterService)
-	
-	Update(ctx, cmd, clusterService)
-	
 	Resize(ctx, cmd, clusterService)
-	
-	Delete(ctx, cmd, clusterService)
 	
 	Start(ctx, cmd, clusterService)
 	
 	Stop(ctx, cmd, clusterService)
+	
+	Update(ctx, cmd, clusterService)
 	
 
 	parent.AddCommand(cmd)

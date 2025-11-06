@@ -14,21 +14,19 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
 	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
+	
 )
 
 func ListPorts(ctx context.Context, parent *cobra.Command, vPCService networkSdk.VPCService) {
-	
-	var vpcIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var detailedFlag *flags.BoolFlag //CobraFlagsDefinition
 	
@@ -37,6 +35,8 @@ func ListPorts(ctx context.Context, parent *cobra.Command, vPCService networkSdk
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var vpcIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -48,25 +48,16 @@ func ListPorts(ctx context.Context, parent *cobra.Command, vPCService networkSdk
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var vpcID string// ServiceSDKParamCreate
+			opts := networkSdk.ListOptions{}// ServiceSDKParamCreate
 			
 			var detailed bool// ServiceSDKParamCreate
 			
-			opts := networkSdk.ListOptions{}// ServiceSDKParamCreate
+			var vpcID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("vpc-id", args[0])
-			}
-			if vpcIDFlag.IsChanged() {
-				vpcID = *vpcIDFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o vpc-id como argumento ou usar a flag --vpc-id")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("detailed", args[0])
@@ -75,6 +66,15 @@ func ListPorts(ctx context.Context, parent *cobra.Command, vPCService networkSdk
 				detailed = *detailedFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o detailed como argumento ou usar a flag --detailed")
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("vpc-id", args[0])
+			}
+			if vpcIDFlag.IsChanged() {
+				vpcID = *vpcIDFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o vpc-id como argumento ou usar a flag --vpc-id")
 			}// CobraFlagsAssign
 			
 			if opts_LimitFlag.IsChanged() {
@@ -103,8 +103,6 @@ func ListPorts(ctx context.Context, parent *cobra.Command, vPCService networkSdk
 	}
 	
 	
-	vpcIDFlag = flags.NewStr(cmd, "vpc-id", "", " (required)")//CobraFlagsCreation
-	
 	detailedFlag = flags.NewBool(cmd, "detailed", false, " (required)")//CobraFlagsCreation
 	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
@@ -112,6 +110,8 @@ func ListPorts(ctx context.Context, parent *cobra.Command, vPCService networkSdk
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	
+	vpcIDFlag = flags.NewStr(cmd, "vpc-id", "", " (required)")//CobraFlagsCreation
 	
 
 

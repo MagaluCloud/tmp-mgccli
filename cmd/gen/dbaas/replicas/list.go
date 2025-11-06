@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func List(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk.ReplicaService) {
 	
-	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
-	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_SourceIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -49,12 +49,12 @@ func List(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk.Re
 
 		
 			
-			if opts_OffsetFlag.IsChanged() {
-				opts.Offset = opts_OffsetFlag.Value
-			}// CobraFlagsAssign
-			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_OffsetFlag.IsChanged() {
+				opts.Offset = opts_OffsetFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_SourceIDFlag.IsChanged() {
@@ -75,9 +75,9 @@ func List(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk.Re
 	}
 	
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
-	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	opts_SourceIDFlag = flags.NewStr(cmd, "source-id", "", " (required)")//CobraFlagsCreation
 	

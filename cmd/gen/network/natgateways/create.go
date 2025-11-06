@@ -14,25 +14,25 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/beautiful"
 	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
 	
 )
 
 func Create(ctx context.Context, parent *cobra.Command, natGatewayService networkSdk.NatGatewayService) {
 	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_ZoneFlag *flags.StrFlag //CobraFlagsDefinition
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_VPCIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_ZoneFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -51,20 +51,20 @@ func Create(ctx context.Context, parent *cobra.Command, natGatewayService networ
 
 		
 			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_ZoneFlag.IsChanged() {
-				req.Zone = *req_ZoneFlag.Value
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_VPCIDFlag.IsChanged() {
 				req.VPCID = *req_VPCIDFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_ZoneFlag.IsChanged() {
+				req.Zone = *req_ZoneFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -81,13 +81,13 @@ func Create(ctx context.Context, parent *cobra.Command, natGatewayService networ
 	}
 	
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
-	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
-	req_ZoneFlag = flags.NewStr(cmd, "zone", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_VPCIDFlag = flags.NewStr(cmd, "vpcid", "", " (required)")//CobraFlagsCreation
+	
+	req_ZoneFlag = flags.NewStr(cmd, "zone", "", " (required)")//CobraFlagsCreation
 	
 
 

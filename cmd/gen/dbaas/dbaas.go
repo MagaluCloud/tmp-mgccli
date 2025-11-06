@@ -10,25 +10,25 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
-	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
+	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/clusters"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/engines"
 	
-	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/instancetypes"
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/instances"
 	
-	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/replicas"
-	
-	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/parametersgroup"
+	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/instancetypes"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/parameters"
 	
-	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/clusters"
+	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/parametersgroup"
+	
+	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/replicas"
+	
+	"github.com/spf13/cobra"
+	
+	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
+	
+	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
 	
 )
 
@@ -50,19 +50,19 @@ This package allows you to manage database instances, clusters, replicas, engine
     
 
 	
+	clusters.ClustersCmd(ctx, cmd, dbaasService.Clusters())
+	
 	engines.EnginesCmd(ctx, cmd, dbaasService.Engines())
 	
 	instancetypes.InstanceTypesCmd(ctx, cmd, dbaasService.InstanceTypes())
 	
 	instances.InstancesCmd(ctx, cmd, dbaasService.Instances())
 	
-	replicas.ReplicasCmd(ctx, cmd, dbaasService.Replicas())
+	parameters.ParametersCmd(ctx, cmd, dbaasService.Parameters())
 	
 	parametersgroup.ParametersGroupCmd(ctx, cmd, dbaasService.ParametersGroup())
 	
-	parameters.ParametersCmd(ctx, cmd, dbaasService.Parameters())
-	
-	clusters.ClustersCmd(ctx, cmd, dbaasService.Clusters())
+	replicas.ReplicasCmd(ctx, cmd, dbaasService.Replicas())
 	
 
 	parent.AddCommand(cmd)

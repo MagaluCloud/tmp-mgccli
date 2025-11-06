@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func ListAll(ctx context.Context, parent *cobra.Command, imageService computeSdk.ImageService) {
 	
-	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var opts_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -47,12 +47,12 @@ func ListAll(ctx context.Context, parent *cobra.Command, imageService computeSdk
 
 		
 			
-			if opts_SortFlag.IsChanged() {
-				opts.Sort = opts_SortFlag.Value
-			}// CobraFlagsAssign
-			
 			if opts_AvailabilityZoneFlag.IsChanged() {
 				opts.AvailabilityZone = opts_AvailabilityZoneFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_SortFlag.IsChanged() {
+				opts.Sort = opts_SortFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -69,9 +69,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, imageService computeSdk
 	}
 	
 	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
-	
 	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", " (required)")//CobraFlagsCreation
+	
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	
 
 

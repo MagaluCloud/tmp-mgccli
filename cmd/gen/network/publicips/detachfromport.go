@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"fmt"
 	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
 	
 )
 
 func DetachFromPort(ctx context.Context, parent *cobra.Command, publicIPService networkSdk.PublicIPService) {
 	
-	var publicIPIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var portIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var publicIPIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -40,23 +40,14 @@ func DetachFromPort(ctx context.Context, parent *cobra.Command, publicIPService 
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var publicIPID string// ServiceSDKParamCreate
-			
 			var portID string// ServiceSDKParamCreate
+			
+			var publicIPID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("public-ipid", args[0])
-			}
-			if publicIPIDFlag.IsChanged() {
-				publicIPID = *publicIPIDFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o public-ipid como argumento ou usar a flag --public-ipid")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("port-id", args[0])
@@ -65,6 +56,15 @@ func DetachFromPort(ctx context.Context, parent *cobra.Command, publicIPService 
 				portID = *portIDFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o port-id como argumento ou usar a flag --port-id")
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("public-ipid", args[0])
+			}
+			if publicIPIDFlag.IsChanged() {
+				publicIPID = *publicIPIDFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o public-ipid como argumento ou usar a flag --public-ipid")
 			}// CobraFlagsAssign
 			
 
@@ -79,9 +79,9 @@ func DetachFromPort(ctx context.Context, parent *cobra.Command, publicIPService 
 	}
 	
 	
-	publicIPIDFlag = flags.NewStr(cmd, "public-ipid", "", " (required)")//CobraFlagsCreation
-	
 	portIDFlag = flags.NewStr(cmd, "port-id", "", " (required)")//CobraFlagsCreation
+	
+	publicIPIDFlag = flags.NewStr(cmd, "public-ipid", "", " (required)")//CobraFlagsCreation
 	
 
 

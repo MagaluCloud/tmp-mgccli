@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"fmt"
 	
-	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
+	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
 	
 )
 

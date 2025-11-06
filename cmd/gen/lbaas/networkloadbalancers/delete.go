@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"fmt"
 	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
@@ -40,9 +40,9 @@ func Delete(ctx context.Context, parent *cobra.Command, networkLoadBalancerServi
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			options := lbaasSdk.DeleteNetworkLoadBalancerRequest{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			

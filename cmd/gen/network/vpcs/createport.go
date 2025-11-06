@@ -14,33 +14,33 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
 	
 )
 
 func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSdk.VPCService) {
 	
-	var vpcIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	var opts_ZoneFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_HasPIPFlag *flags.BoolFlag //CobraFlagsDefinition
 	
 	var req_HasSGFlag *flags.BoolFlag //CobraFlagsDefinition
 	
-	var req_SubnetsFlag *flags.StrSliceFlag //CobraFlagsDefinition
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_SecurityGroupsFlag *flags.StrSliceFlag //CobraFlagsDefinition
 	
-	var opts_ZoneFlag *flags.StrFlag //CobraFlagsDefinition
+	var req_SubnetsFlag *flags.StrSliceFlag //CobraFlagsDefinition
+	
+	var vpcIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -52,25 +52,16 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var vpcID string// ServiceSDKParamCreate
+			opts := networkSdk.PortCreateOptions{}// ServiceSDKParamCreate
 			
 			req := networkSdk.PortCreateRequest{}// ServiceSDKParamCreate
 			
-			opts := networkSdk.PortCreateOptions{}// ServiceSDKParamCreate
+			var vpcID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("vpc-id", args[0])
-			}
-			if vpcIDFlag.IsChanged() {
-				vpcID = *vpcIDFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o vpc-id como argumento ou usar a flag --vpc-id")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("name", args[0])
@@ -81,6 +72,19 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 				return fmt.Errorf("é necessário fornecer o name como argumento ou usar a flag --name")
 			}// CobraFlagsAssign
 			
+			if len(args) > 0{
+				cmd.Flags().Set("vpc-id", args[0])
+			}
+			if vpcIDFlag.IsChanged() {
+				vpcID = *vpcIDFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o vpc-id como argumento ou usar a flag --vpc-id")
+			}// CobraFlagsAssign
+			
+			if opts_ZoneFlag.IsChanged() {
+				opts.Zone = opts_ZoneFlag.Value
+			}// CobraFlagsAssign
+			
 			if req_HasPIPFlag.IsChanged() {
 				req.HasPIP = req_HasPIPFlag.Value
 			}// CobraFlagsAssign
@@ -89,16 +93,12 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 				req.HasSG = req_HasSGFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_SubnetsFlag.IsChanged() {
-				req.Subnets = req_SubnetsFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_SecurityGroupsFlag.IsChanged() {
 				req.SecurityGroups = req_SecurityGroupsFlag.Value
 			}// CobraFlagsAssign
 			
-			if opts_ZoneFlag.IsChanged() {
-				opts.Zone = opts_ZoneFlag.Value
+			if req_SubnetsFlag.IsChanged() {
+				req.Subnets = req_SubnetsFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -115,19 +115,19 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 	}
 	
 	
-	vpcIDFlag = flags.NewStr(cmd, "vpc-id", "", " (required)")//CobraFlagsCreation
-	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	opts_ZoneFlag = flags.NewStr(cmd, "zone", "", "")//CobraFlagsCreation
 	
 	req_HasPIPFlag = flags.NewBool(cmd, "has-pip", false, "")//CobraFlagsCreation
 	
 	req_HasSGFlag = flags.NewBool(cmd, "has-sg", false, "")//CobraFlagsCreation
 	
-	req_SubnetsFlag = flags.NewStrSlice(cmd, "subnets", []string{}, "")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_SecurityGroupsFlag = flags.NewStrSlice(cmd, "security-groups", []string{}, "")//CobraFlagsCreation
 	
-	opts_ZoneFlag = flags.NewStr(cmd, "zone", "", "")//CobraFlagsCreation
+	req_SubnetsFlag = flags.NewStrSlice(cmd, "subnets", []string{}, "")//CobraFlagsCreation
+	
+	vpcIDFlag = flags.NewStr(cmd, "vpc-id", "", " (required)")//CobraFlagsCreation
 	
 
 

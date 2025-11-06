@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"fmt"
 	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
 	
 )
 

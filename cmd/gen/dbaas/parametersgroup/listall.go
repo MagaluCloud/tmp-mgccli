@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func ListAll(ctx context.Context, parent *cobra.Command, parameterGroupService dbaasSdk.ParameterGroupService) {
 	
-	var filterOpts_TypeFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var filterOpts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var filterOpts_TypeFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -47,12 +47,12 @@ func ListAll(ctx context.Context, parent *cobra.Command, parameterGroupService d
 
 		
 			
-			if filterOpts_TypeFlag.IsChanged() {
-				filterOpts.Type = (*dbaasSdk.ParameterGroupType)(filterOpts_TypeFlag.Value)
-			}// CobraFlagsAssign
-			
 			if filterOpts_EngineIDFlag.IsChanged() {
 				filterOpts.EngineID = filterOpts_EngineIDFlag.Value
+			}// CobraFlagsAssign
+			
+			if filterOpts_TypeFlag.IsChanged() {
+				filterOpts.Type = (*dbaasSdk.ParameterGroupType)(filterOpts_TypeFlag.Value)
 			}// CobraFlagsAssign
 			
 
@@ -69,9 +69,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, parameterGroupService d
 	}
 	
 	
-	filterOpts_TypeFlag = flags.NewStr(cmd, "type", "", " (required)")//CobraFlagsCreation
-	
 	filterOpts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
+	
+	filterOpts_TypeFlag = flags.NewStr(cmd, "type", "", " (required)")//CobraFlagsCreation
 	
 
 

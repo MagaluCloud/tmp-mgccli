@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 
@@ -30,9 +30,9 @@ func CreateSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 	
 	var instanceIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -44,9 +44,9 @@ func CreateSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var instanceID string// ServiceSDKParamCreate
-			
 			req := dbaasSdk.SnapshotCreateRequest{}// ServiceSDKParamCreate
+			
+			var instanceID string// ServiceSDKParamCreate
 			
 			
 			
@@ -91,9 +91,9 @@ func CreateSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 	
 	instanceIDFlag = flags.NewStr(cmd, "instance-id", "", " (required)")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
-	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
+	
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 
 

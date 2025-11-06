@@ -14,11 +14,11 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 

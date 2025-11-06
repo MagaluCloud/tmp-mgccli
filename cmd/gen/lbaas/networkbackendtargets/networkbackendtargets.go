@@ -27,9 +27,9 @@ func NetworkBackendTargetsCmd(ctx context.Context, parent *cobra.Command, networ
 	
 	Create(ctx, cmd, networkBackendTargetService)
 	
-	Replace(ctx, cmd, networkBackendTargetService)
-	
 	Delete(ctx, cmd, networkBackendTargetService)
+	
+	Replace(ctx, cmd, networkBackendTargetService)
 	
 
 	parent.AddCommand(cmd)

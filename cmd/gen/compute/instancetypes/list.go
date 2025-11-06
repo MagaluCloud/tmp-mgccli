@@ -14,25 +14,25 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func List(ctx context.Context, parent *cobra.Command, instanceTypeService computeSdk.InstanceTypeService) {
+	
+	var opts_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var opts_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -51,6 +51,10 @@ func List(ctx context.Context, parent *cobra.Command, instanceTypeService comput
 
 		
 			
+			if opts_AvailabilityZoneFlag.IsChanged() {
+				opts.AvailabilityZone = *opts_AvailabilityZoneFlag.Value
+			}// CobraFlagsAssign
+			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
 			}// CobraFlagsAssign
@@ -61,10 +65,6 @@ func List(ctx context.Context, parent *cobra.Command, instanceTypeService comput
 			
 			if opts_SortFlag.IsChanged() {
 				opts.Sort = opts_SortFlag.Value
-			}// CobraFlagsAssign
-			
-			if opts_AvailabilityZoneFlag.IsChanged() {
-				opts.AvailabilityZone = *opts_AvailabilityZoneFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -81,13 +81,13 @@ func List(ctx context.Context, parent *cobra.Command, instanceTypeService comput
 	}
 	
 	
+	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", "")//CobraFlagsCreation
+	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
 	opts_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
-	
-	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", "")//CobraFlagsCreation
 	
 
 

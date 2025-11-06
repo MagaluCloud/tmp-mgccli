@@ -14,23 +14,23 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func ListAll(ctx context.Context, parent *cobra.Command, repositoriesService containerregistrySdk.RepositoriesService) {
 	
-	var registryIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var filterOpts_SortFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var registryIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -42,14 +42,18 @@ func ListAll(ctx context.Context, parent *cobra.Command, repositoriesService con
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var registryID string// ServiceSDKParamCreate
-			
 			filterOpts := containerregistrySdk.RepositoryFilterOptions{}// ServiceSDKParamCreate
+			
+			var registryID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
+			
+			if filterOpts_SortFlag.IsChanged() {
+				filterOpts.Sort = filterOpts_SortFlag.Value
+			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("registry-id", args[0])
@@ -58,10 +62,6 @@ func ListAll(ctx context.Context, parent *cobra.Command, repositoriesService con
 				registryID = *registryIDFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o registry-id como argumento ou usar a flag --registry-id")
-			}// CobraFlagsAssign
-			
-			if filterOpts_SortFlag.IsChanged() {
-				filterOpts.Sort = filterOpts_SortFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -78,9 +78,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, repositoriesService con
 	}
 	
 	
-	registryIDFlag = flags.NewStr(cmd, "registry-id", "", " (required)")//CobraFlagsCreation
-	
 	filterOpts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	
+	registryIDFlag = flags.NewStr(cmd, "registry-id", "", " (required)")//CobraFlagsCreation
 	
 
 

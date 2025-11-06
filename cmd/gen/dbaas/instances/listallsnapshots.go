@@ -14,25 +14,25 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func ListAllSnapshots(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.InstanceService) {
 	
-	var instanceIDFlag *flags.StrFlag //CobraFlagsDefinition
+	var filterOpts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var filterOpts_TypeFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var filterOpts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
+	var instanceIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -44,14 +44,22 @@ func ListAllSnapshots(ctx context.Context, parent *cobra.Command, instanceServic
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var instanceID string// ServiceSDKParamCreate
-			
 			filterOpts := dbaasSdk.SnapshotFilterOptions{}// ServiceSDKParamCreate
+			
+			var instanceID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
+			
+			if filterOpts_StatusFlag.IsChanged() {
+				filterOpts.Status = (*dbaasSdk.SnapshotStatus)(filterOpts_StatusFlag.Value)
+			}// CobraFlagsAssign
+			
+			if filterOpts_TypeFlag.IsChanged() {
+				filterOpts.Type = (*dbaasSdk.SnapshotType)(filterOpts_TypeFlag.Value)
+			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("instance-id", args[0])
@@ -60,14 +68,6 @@ func ListAllSnapshots(ctx context.Context, parent *cobra.Command, instanceServic
 				instanceID = *instanceIDFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o instance-id como argumento ou usar a flag --instance-id")
-			}// CobraFlagsAssign
-			
-			if filterOpts_TypeFlag.IsChanged() {
-				filterOpts.Type = (*dbaasSdk.SnapshotType)(filterOpts_TypeFlag.Value)
-			}// CobraFlagsAssign
-			
-			if filterOpts_StatusFlag.IsChanged() {
-				filterOpts.Status = (*dbaasSdk.SnapshotStatus)(filterOpts_StatusFlag.Value)
 			}// CobraFlagsAssign
 			
 
@@ -84,11 +84,11 @@ func ListAllSnapshots(ctx context.Context, parent *cobra.Command, instanceServic
 	}
 	
 	
-	instanceIDFlag = flags.NewStr(cmd, "instance-id", "", " (required)")//CobraFlagsCreation
+	filterOpts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
 	
 	filterOpts_TypeFlag = flags.NewStr(cmd, "type", "", "")//CobraFlagsCreation
 	
-	filterOpts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
+	instanceIDFlag = flags.NewStr(cmd, "instance-id", "", " (required)")//CobraFlagsCreation
 	
 
 

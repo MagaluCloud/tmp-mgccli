@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 

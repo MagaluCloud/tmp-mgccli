@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 
@@ -40,9 +40,9 @@ func Get(ctx context.Context, parent *cobra.Command, volumeService blockstorageS
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			expand := []blockstorageSdk.SnapshotExpand{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			

@@ -25,25 +25,25 @@ func VolumesCmd(ctx context.Context, parent *cobra.Command, volumeService blocks
 	}
 
 	
+	Attach(ctx, cmd, volumeService)
+	
+	Create(ctx, cmd, volumeService)
+	
+	Delete(ctx, cmd, volumeService)
+	
+	Detach(ctx, cmd, volumeService)
+	
+	Extend(ctx, cmd, volumeService)
+	
+	Get(ctx, cmd, volumeService)
+	
 	List(ctx, cmd, volumeService)
 	
 	ListAll(ctx, cmd, volumeService)
 	
-	Create(ctx, cmd, volumeService)
-	
-	Get(ctx, cmd, volumeService)
-	
-	Delete(ctx, cmd, volumeService)
-	
 	Rename(ctx, cmd, volumeService)
 	
-	Extend(ctx, cmd, volumeService)
-	
 	Retype(ctx, cmd, volumeService)
-	
-	Attach(ctx, cmd, volumeService)
-	
-	Detach(ctx, cmd, volumeService)
 	
 
 	parent.AddCommand(cmd)

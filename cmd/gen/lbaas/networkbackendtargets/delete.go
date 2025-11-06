@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"fmt"
 	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
 func Delete(ctx context.Context, parent *cobra.Command, networkBackendTargetService lbaasSdk.NetworkBackendTargetService) {
 	
-	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var backendIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var targetIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -42,9 +42,9 @@ func Delete(ctx context.Context, parent *cobra.Command, networkBackendTargetServ
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var lbID string// ServiceSDKParamCreate
-			
 			var backendID string// ServiceSDKParamCreate
+			
+			var lbID string// ServiceSDKParamCreate
 			
 			var targetID string// ServiceSDKParamCreate
 			
@@ -54,21 +54,21 @@ func Delete(ctx context.Context, parent *cobra.Command, networkBackendTargetServ
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("lb-id", args[0])
-			}
-			if lbIDFlag.IsChanged() {
-				lbID = *lbIDFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
 				cmd.Flags().Set("backend-id", args[0])
 			}
 			if backendIDFlag.IsChanged() {
 				backendID = *backendIDFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o backend-id como argumento ou usar a flag --backend-id")
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("lb-id", args[0])
+			}
+			if lbIDFlag.IsChanged() {
+				lbID = *lbIDFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
@@ -92,9 +92,9 @@ func Delete(ctx context.Context, parent *cobra.Command, networkBackendTargetServ
 	}
 	
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
-	
 	backendIDFlag = flags.NewStr(cmd, "backend-id", "", " (required)")//CobraFlagsCreation
+	
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
 	targetIDFlag = flags.NewStr(cmd, "target-id", "", " (required)")//CobraFlagsCreation
 	

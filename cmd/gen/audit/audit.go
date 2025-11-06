@@ -10,15 +10,15 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
-	auditSdk "github.com/MagaluCloud/mgc-sdk-go/audit"
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/audit/events"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/audit/eventtypes"
+	
+	"github.com/spf13/cobra"
+	
+	auditSdk "github.com/MagaluCloud/mgc-sdk-go/audit"
+	
+	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
 	
 )
 
@@ -38,9 +38,9 @@ This package allows listing audit events and event types.
     
 
 	
-	events.EventsCmd(ctx, cmd, auditService.Events())
-	
 	eventtypes.EventTypesCmd(ctx, cmd, auditService.EventTypes())
+	
+	events.EventsCmd(ctx, cmd, auditService.Events())
 	
 
 	parent.AddCommand(cmd)

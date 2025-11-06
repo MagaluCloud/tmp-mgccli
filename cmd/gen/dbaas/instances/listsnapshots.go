@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 
@@ -30,11 +30,11 @@ func ListSnapshots(ctx context.Context, parent *cobra.Command, instanceService d
 	
 	var instanceIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var opts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
+	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
-	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
+	var opts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var opts_TypeFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -48,9 +48,9 @@ func ListSnapshots(ctx context.Context, parent *cobra.Command, instanceService d
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var instanceID string// ServiceSDKParamCreate
-			
 			opts := dbaasSdk.ListSnapshotOptions{}// ServiceSDKParamCreate
+			
+			var instanceID string// ServiceSDKParamCreate
 			
 			
 			
@@ -66,16 +66,16 @@ func ListSnapshots(ctx context.Context, parent *cobra.Command, instanceService d
 				return fmt.Errorf("é necessário fornecer o instance-id como argumento ou usar a flag --instance-id")
 			}// CobraFlagsAssign
 			
-			if opts_StatusFlag.IsChanged() {
-				opts.Status = (*dbaasSdk.SnapshotStatus)(opts_StatusFlag.Value)
+			if opts_LimitFlag.IsChanged() {
+				opts.Limit = opts_LimitFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_OffsetFlag.IsChanged() {
 				opts.Offset = opts_OffsetFlag.Value
 			}// CobraFlagsAssign
 			
-			if opts_LimitFlag.IsChanged() {
-				opts.Limit = opts_LimitFlag.Value
+			if opts_StatusFlag.IsChanged() {
+				opts.Status = (*dbaasSdk.SnapshotStatus)(opts_StatusFlag.Value)
 			}// CobraFlagsAssign
 			
 			if opts_TypeFlag.IsChanged() {
@@ -98,11 +98,11 @@ func ListSnapshots(ctx context.Context, parent *cobra.Command, instanceService d
 	
 	instanceIDFlag = flags.NewStr(cmd, "instance-id", "", " (required)")//CobraFlagsCreation
 	
-	opts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
+	opts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
 	
 	opts_TypeFlag = flags.NewStr(cmd, "type", "", "")//CobraFlagsCreation
 	

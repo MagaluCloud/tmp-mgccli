@@ -14,25 +14,25 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func ListAll(ctx context.Context, parent *cobra.Command, volumeTypeService blockstorageSdk.VolumeTypeService) {
 	
+	var filterOpts_AllowsEncryptionFlag *flags.BoolFlag //CobraFlagsDefinition
+	
 	var filterOpts_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var filterOpts_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var filterOpts_AllowsEncryptionFlag *flags.BoolFlag //CobraFlagsDefinition
 	
 	var filterOpts_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -53,6 +53,14 @@ func ListAll(ctx context.Context, parent *cobra.Command, volumeTypeService block
 
 		
 			
+			if filterOpts_AllowsEncryptionFlag.IsChanged() {
+				filterOpts.AllowsEncryption = filterOpts_AllowsEncryptionFlag.Value
+			}// CobraFlagsAssign
+			
+			if filterOpts_SortFlag.IsChanged() {
+				filterOpts.Sort = filterOpts_SortFlag.Value
+			}// CobraFlagsAssign
+			
 			if len(args) > 0{
 				cmd.Flags().Set("availability-zone", args[0])
 			}
@@ -71,14 +79,6 @@ func ListAll(ctx context.Context, parent *cobra.Command, volumeTypeService block
 				return fmt.Errorf("é necessário fornecer o name como argumento ou usar a flag --name")
 			}// CobraFlagsAssign
 			
-			if filterOpts_AllowsEncryptionFlag.IsChanged() {
-				filterOpts.AllowsEncryption = filterOpts_AllowsEncryptionFlag.Value
-			}// CobraFlagsAssign
-			
-			if filterOpts_SortFlag.IsChanged() {
-				filterOpts.Sort = filterOpts_SortFlag.Value
-			}// CobraFlagsAssign
-			
 
 			volumetype, err := volumeTypeService.ListAll(ctx, filterOpts)
 			
@@ -93,11 +93,11 @@ func ListAll(ctx context.Context, parent *cobra.Command, volumeTypeService block
 	}
 	
 	
+	filterOpts_AllowsEncryptionFlag = flags.NewBool(cmd, "allows-encryption", false, " (required)")//CobraFlagsCreation
+	
 	filterOpts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", " (required)")//CobraFlagsCreation
 	
 	filterOpts_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
-	
-	filterOpts_AllowsEncryptionFlag = flags.NewBool(cmd, "allows-encryption", false, " (required)")//CobraFlagsCreation
 	
 	filterOpts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	

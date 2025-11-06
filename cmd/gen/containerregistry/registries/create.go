@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 

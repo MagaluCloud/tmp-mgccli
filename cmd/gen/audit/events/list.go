@@ -14,17 +14,19 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	auditSdk "github.com/MagaluCloud/mgc-sdk-go/audit"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func List(ctx context.Context, parent *cobra.Command, eventService auditSdk.EventService) {
+	
+	var params_AuthIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var params_DataFlag *flags.StrMapFlag //CobraFlagsDefinition
 	
@@ -32,19 +34,17 @@ func List(ctx context.Context, parent *cobra.Command, eventService auditSdk.Even
 	
 	var params_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
-	var params_TimeFlag *flags.TimeFlag //CobraFlagsDefinition
-	
-	var params_SourceLikeFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var params_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
-	
-	var params_TypeLikeFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var params_ProductLikeFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var params_AuthIDFlag *flags.StrFlag //CobraFlagsDefinition
+	var params_SourceLikeFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var params_TenantIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var params_TimeFlag *flags.TimeFlag //CobraFlagsDefinition
+	
+	var params_TypeLikeFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -63,6 +63,10 @@ func List(ctx context.Context, parent *cobra.Command, eventService auditSdk.Even
 
 		
 			
+			if params_AuthIDFlag.IsChanged() {
+				params.AuthID = params_AuthIDFlag.Value
+			}// CobraFlagsAssign
+			
 			if params_DataFlag.IsChanged() {
 				params.Data = *params_DataFlag.Value
 			}// CobraFlagsAssign
@@ -75,32 +79,28 @@ func List(ctx context.Context, parent *cobra.Command, eventService auditSdk.Even
 				params.Limit = params_LimitFlag.Value
 			}// CobraFlagsAssign
 			
-			if params_TimeFlag.IsChanged() {
-				params.Time = params_TimeFlag.Value
-			}// CobraFlagsAssign
-			
-			if params_SourceLikeFlag.IsChanged() {
-				params.SourceLike = params_SourceLikeFlag.Value
-			}// CobraFlagsAssign
-			
 			if params_OffsetFlag.IsChanged() {
 				params.Offset = params_OffsetFlag.Value
-			}// CobraFlagsAssign
-			
-			if params_TypeLikeFlag.IsChanged() {
-				params.TypeLike = params_TypeLikeFlag.Value
 			}// CobraFlagsAssign
 			
 			if params_ProductLikeFlag.IsChanged() {
 				params.ProductLike = params_ProductLikeFlag.Value
 			}// CobraFlagsAssign
 			
-			if params_AuthIDFlag.IsChanged() {
-				params.AuthID = params_AuthIDFlag.Value
+			if params_SourceLikeFlag.IsChanged() {
+				params.SourceLike = params_SourceLikeFlag.Value
 			}// CobraFlagsAssign
 			
 			if params_TenantIDFlag.IsChanged() {
 				params.TenantID = params_TenantIDFlag.Value
+			}// CobraFlagsAssign
+			
+			if params_TimeFlag.IsChanged() {
+				params.Time = params_TimeFlag.Value
+			}// CobraFlagsAssign
+			
+			if params_TypeLikeFlag.IsChanged() {
+				params.TypeLike = params_TypeLikeFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -117,25 +117,25 @@ func List(ctx context.Context, parent *cobra.Command, eventService auditSdk.Even
 	}
 	
 	
+	params_AuthIDFlag = flags.NewStr(cmd, "auth-id", "", "")//CobraFlagsCreation
+	
 	params_DataFlag = flags.NewStrMap(cmd, "data", map[string]string{}, "")//CobraFlagsCreation
 	
 	params_IDFlag = flags.NewStr(cmd, "id", "", "")//CobraFlagsCreation
 	
 	params_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
-	params_TimeFlag = flags.NewTime(cmd, "time", "", "")//CobraFlagsCreation
-	
-	params_SourceLikeFlag = flags.NewStr(cmd, "source-like", "", "")//CobraFlagsCreation
-	
 	params_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
-	
-	params_TypeLikeFlag = flags.NewStr(cmd, "type-like", "", "")//CobraFlagsCreation
 	
 	params_ProductLikeFlag = flags.NewStr(cmd, "product-like", "", "")//CobraFlagsCreation
 	
-	params_AuthIDFlag = flags.NewStr(cmd, "auth-id", "", "")//CobraFlagsCreation
+	params_SourceLikeFlag = flags.NewStr(cmd, "source-like", "", "")//CobraFlagsCreation
 	
 	params_TenantIDFlag = flags.NewStr(cmd, "tenant-id", "", "")//CobraFlagsCreation
+	
+	params_TimeFlag = flags.NewTime(cmd, "time", "", "")//CobraFlagsCreation
+	
+	params_TypeLikeFlag = flags.NewStr(cmd, "type-like", "", "")//CobraFlagsCreation
 	
 
 

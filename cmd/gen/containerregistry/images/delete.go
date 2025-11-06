@@ -14,23 +14,23 @@ import (
 	"context"
 
 	
+	"fmt"
+	
 	"github.com/spf13/cobra"
 	
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
-	
 )
 
 func Delete(ctx context.Context, parent *cobra.Command, imagesService containerregistrySdk.ImagesService) {
 	
+	var digestOrTagFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var registryIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var repositoryNameFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var digestOrTagFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -42,16 +42,25 @@ func Delete(ctx context.Context, parent *cobra.Command, imagesService containerr
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
+			var digestOrTag string// ServiceSDKParamCreate
+			
 			var registryID string// ServiceSDKParamCreate
 			
 			var repositoryName string// ServiceSDKParamCreate
-			
-			var digestOrTag string// ServiceSDKParamCreate
 			
 			
 			
 
 		
+			
+			if len(args) > 0{
+				cmd.Flags().Set("digest-or-tag", args[0])
+			}
+			if digestOrTagFlag.IsChanged() {
+				digestOrTag = *digestOrTagFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o digest-or-tag como argumento ou usar a flag --digest-or-tag")
+			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("registry-id", args[0])
@@ -71,15 +80,6 @@ func Delete(ctx context.Context, parent *cobra.Command, imagesService containerr
 				return fmt.Errorf("é necessário fornecer o repository-name como argumento ou usar a flag --repository-name")
 			}// CobraFlagsAssign
 			
-			if len(args) > 0{
-				cmd.Flags().Set("digest-or-tag", args[0])
-			}
-			if digestOrTagFlag.IsChanged() {
-				digestOrTag = *digestOrTagFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o digest-or-tag como argumento ou usar a flag --digest-or-tag")
-			}// CobraFlagsAssign
-			
 
 			err := imagesService.Delete(ctx, registryID, repositoryName, digestOrTag)
 			
@@ -92,11 +92,11 @@ func Delete(ctx context.Context, parent *cobra.Command, imagesService containerr
 	}
 	
 	
+	digestOrTagFlag = flags.NewStr(cmd, "digest-or-tag", "", " (required)")//CobraFlagsCreation
+	
 	registryIDFlag = flags.NewStr(cmd, "registry-id", "", " (required)")//CobraFlagsCreation
 	
 	repositoryNameFlag = flags.NewStr(cmd, "repository-name", "", " (required)")//CobraFlagsCreation
-	
-	digestOrTagFlag = flags.NewStr(cmd, "digest-or-tag", "", " (required)")//CobraFlagsCreation
 	
 
 

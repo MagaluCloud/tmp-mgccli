@@ -25,27 +25,27 @@ func VPCsCmd(ctx context.Context, parent *cobra.Command, vPCService networkSdk.V
 	}
 
 	
-	List(ctx, cmd, vPCService)
-	
-	Get(ctx, cmd, vPCService)
-	
 	Create(ctx, cmd, vPCService)
-	
-	Delete(ctx, cmd, vPCService)
-	
-	Rename(ctx, cmd, vPCService)
-	
-	ListPorts(ctx, cmd, vPCService)
 	
 	CreatePort(ctx, cmd, vPCService)
 	
-	ListPublicIPs(ctx, cmd, vPCService)
-	
 	CreatePublicIP(ctx, cmd, vPCService)
+	
+	CreateSubnet(ctx, cmd, vPCService)
+	
+	Delete(ctx, cmd, vPCService)
+	
+	Get(ctx, cmd, vPCService)
+	
+	List(ctx, cmd, vPCService)
+	
+	ListPorts(ctx, cmd, vPCService)
+	
+	ListPublicIPs(ctx, cmd, vPCService)
 	
 	ListSubnets(ctx, cmd, vPCService)
 	
-	CreateSubnet(ctx, cmd, vPCService)
+	Rename(ctx, cmd, vPCService)
 	
 
 	parent.AddCommand(cmd)

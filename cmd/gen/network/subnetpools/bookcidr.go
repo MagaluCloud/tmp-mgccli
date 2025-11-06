@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
 	
 )
 
@@ -44,9 +44,9 @@ func BookCIDR(ctx context.Context, parent *cobra.Command, subnetPoolService netw
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			req := networkSdk.BookCIDRRequest{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			

@@ -14,23 +14,23 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	auditSdk "github.com/MagaluCloud/mgc-sdk-go/audit"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func List(ctx context.Context, parent *cobra.Command, eventTypeService auditSdk.EventTypeService) {
 	
-	var params_TenantIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var params_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var params_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var params_TenantIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -49,16 +49,16 @@ func List(ctx context.Context, parent *cobra.Command, eventTypeService auditSdk.
 
 		
 			
-			if params_TenantIDFlag.IsChanged() {
-				params.TenantID = params_TenantIDFlag.Value
-			}// CobraFlagsAssign
-			
 			if params_LimitFlag.IsChanged() {
 				params.Limit = params_LimitFlag.Value
 			}// CobraFlagsAssign
 			
 			if params_OffsetFlag.IsChanged() {
 				params.Offset = params_OffsetFlag.Value
+			}// CobraFlagsAssign
+			
+			if params_TenantIDFlag.IsChanged() {
+				params.TenantID = params_TenantIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -75,11 +75,11 @@ func List(ctx context.Context, parent *cobra.Command, eventTypeService auditSdk.
 	}
 	
 	
-	params_TenantIDFlag = flags.NewStr(cmd, "tenant-id", "", "")//CobraFlagsCreation
-	
 	params_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
 	params_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
+	
+	params_TenantIDFlag = flags.NewStr(cmd, "tenant-id", "", "")//CobraFlagsCreation
 	
 
 

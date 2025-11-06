@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 
@@ -30,11 +30,11 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 	
 	var idFlag *flags.StrFlag //CobraFlagsDefinition
 	
+	var req_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_SSHKeyNameFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_UserDataFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -48,9 +48,9 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			req := computeSdk.RestoreSnapshotRequest{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			
@@ -77,12 +77,12 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 				return fmt.Errorf("é necessário fornecer o name como argumento ou usar a flag --name")
 			}// CobraFlagsAssign
 			
-			if req_SSHKeyNameFlag.IsChanged() {
-				req.SSHKeyName = req_SSHKeyNameFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_AvailabilityZoneFlag.IsChanged() {
 				req.AvailabilityZone = req_AvailabilityZoneFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_SSHKeyNameFlag.IsChanged() {
+				req.SSHKeyName = req_SSHKeyNameFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_UserDataFlag.IsChanged() {
@@ -105,11 +105,11 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 	
 	idFlag = flags.NewStr(cmd, "id", "", " (required)")//CobraFlagsCreation
 	
+	req_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", "")//CobraFlagsCreation
+	
 	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_SSHKeyNameFlag = flags.NewStr(cmd, "sshkey-name", "", "")//CobraFlagsCreation
-	
-	req_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", "")//CobraFlagsCreation
 	
 	req_UserDataFlag = flags.NewStr(cmd, "user-data", "", "")//CobraFlagsCreation
 	

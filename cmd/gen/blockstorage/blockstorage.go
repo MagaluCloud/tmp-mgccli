@@ -10,19 +10,19 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage/schedulers"
 	
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
-	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage/snapshots"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage/volumes"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage/volumetypes"
 	
-	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage/snapshots"
+	"github.com/spf13/cobra"
 	
-	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage/schedulers"
+	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+	
+	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
 	
 )
 
@@ -44,13 +44,13 @@ This package allows managing volumes, volume types, and snapshots.
     
 
 	
-	volumes.VolumesCmd(ctx, cmd, blockstorageService.Volumes())
-	
-	volumetypes.VolumeTypesCmd(ctx, cmd, blockstorageService.VolumeTypes())
+	schedulers.SchedulersCmd(ctx, cmd, blockstorageService.Schedulers())
 	
 	snapshots.SnapshotsCmd(ctx, cmd, blockstorageService.Snapshots())
 	
-	schedulers.SchedulersCmd(ctx, cmd, blockstorageService.Schedulers())
+	volumetypes.VolumeTypesCmd(ctx, cmd, blockstorageService.VolumeTypes())
+	
+	volumes.VolumesCmd(ctx, cmd, blockstorageService.Volumes())
 	
 
 	parent.AddCommand(cmd)

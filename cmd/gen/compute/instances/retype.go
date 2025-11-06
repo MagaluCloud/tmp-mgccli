@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
+	"fmt"
+	
 	"github.com/spf13/cobra"
 	
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
 	
 )
 
@@ -42,9 +42,9 @@ func Retype(ctx context.Context, parent *cobra.Command, instanceService computeS
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			req := computeSdk.RetypeRequest{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			

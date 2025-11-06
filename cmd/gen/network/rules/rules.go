@@ -25,13 +25,13 @@ func RulesCmd(ctx context.Context, parent *cobra.Command, ruleService networkSdk
 	}
 
 	
-	List(ctx, cmd, ruleService)
-	
-	Get(ctx, cmd, ruleService)
-	
 	Create(ctx, cmd, ruleService)
 	
 	Delete(ctx, cmd, ruleService)
+	
+	Get(ctx, cmd, ruleService)
+	
+	List(ctx, cmd, ruleService)
 	
 
 	parent.AddCommand(cmd)

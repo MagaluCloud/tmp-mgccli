@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
+	"fmt"
+	
 	"github.com/spf13/cobra"
 	
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
 	
 )
 
@@ -40,23 +40,14 @@ func Copy(ctx context.Context, parent *cobra.Command, snapshotService computeSdk
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			req := computeSdk.CopySnapshotRequest{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("id", args[0])
-			}
-			if idFlag.IsChanged() {
-				id = *idFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("destination-region", args[0])
@@ -65,6 +56,15 @@ func Copy(ctx context.Context, parent *cobra.Command, snapshotService computeSdk
 				req.DestinationRegion = *req_DestinationRegionFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o destination-region como argumento ou usar a flag --destination-region")
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("id", args[0])
+			}
+			if idFlag.IsChanged() {
+				id = *idFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
 			}// CobraFlagsAssign
 			
 

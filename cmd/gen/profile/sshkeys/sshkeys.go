@@ -10,13 +10,13 @@ import (
 	"context"
 
 	
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
-	sshkeysSdk "github.com/MagaluCloud/mgc-sdk-go/sshkeys"
+	"github.com/magaluCloud/mgccli/cmd/gen/profile/sshkeys/keys"
 	
 	"github.com/spf13/cobra"
 	
-	"github.com/magaluCloud/mgccli/cmd/gen/profile/sshkeys/keys"
+	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
+	
+	sshkeysSdk "github.com/MagaluCloud/mgc-sdk-go/sshkeys"
 	
 )
 

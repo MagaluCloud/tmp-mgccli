@@ -14,23 +14,23 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
 func Get(ctx context.Context, parent *cobra.Command, networkHealthCheckService lbaasSdk.NetworkHealthCheckService) {
 	
-	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var healthCheckIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -42,23 +42,14 @@ func Get(ctx context.Context, parent *cobra.Command, networkHealthCheckService l
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var lbID string// ServiceSDKParamCreate
-			
 			var healthCheckID string// ServiceSDKParamCreate
+			
+			var lbID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("lb-id", args[0])
-			}
-			if lbIDFlag.IsChanged() {
-				lbID = *lbIDFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("health-check-id", args[0])
@@ -67,6 +58,15 @@ func Get(ctx context.Context, parent *cobra.Command, networkHealthCheckService l
 				healthCheckID = *healthCheckIDFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o health-check-id como argumento ou usar a flag --health-check-id")
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("lb-id", args[0])
+			}
+			if lbIDFlag.IsChanged() {
+				lbID = *lbIDFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
 			}// CobraFlagsAssign
 			
 
@@ -83,9 +83,9 @@ func Get(ctx context.Context, parent *cobra.Command, networkHealthCheckService l
 	}
 	
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
-	
 	healthCheckIDFlag = flags.NewStr(cmd, "health-check-id", "", " (required)")//CobraFlagsCreation
+	
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
 
 

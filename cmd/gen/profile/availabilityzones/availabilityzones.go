@@ -10,13 +10,13 @@ import (
 	"context"
 
 	
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
-	availabilityzonesSdk "github.com/MagaluCloud/mgc-sdk-go/availabilityzones"
+	"github.com/magaluCloud/mgccli/cmd/gen/profile/availabilityzones/availabilityzones"
 	
 	"github.com/spf13/cobra"
 	
-	"github.com/magaluCloud/mgccli/cmd/gen/profile/availabilityzones/availabilityzones"
+	availabilityzonesSdk "github.com/MagaluCloud/mgc-sdk-go/availabilityzones"
+	
+	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
 	
 )
 

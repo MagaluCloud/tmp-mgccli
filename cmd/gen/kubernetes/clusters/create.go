@@ -14,33 +14,33 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/beautiful"
 	
-	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
+	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
 	
 )
 
 func Create(ctx context.Context, parent *cobra.Command, clusterService kubernetesSdk.ClusterService) {
 	
-	var req_NodePoolsFlag *flags.JSONArrayValue[kubernetesSdk.CreateNodePoolRequest] //CobraFlagsDefinition
-	
 	var req_AllowedCIDRsFlag *flags.StrSliceFlag //CobraFlagsDefinition
 	
-	var req_ServicesIpV4CIDRFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_ClusterIPv4CIDRFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_VersionFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_EnabledServerGroupFlag *flags.BoolFlag //CobraFlagsDefinition
+	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_NodePoolsFlag *flags.JSONArrayValue[kubernetesSdk.CreateNodePoolRequest] //CobraFlagsDefinition
+	
+	var req_ServicesIpV4CIDRFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_VersionFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -59,28 +59,12 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService kubernete
 
 		
 			
-			if req_NodePoolsFlag.IsChanged() {
-				req.NodePools = req_NodePoolsFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_AllowedCIDRsFlag.IsChanged() {
 				req.AllowedCIDRs = req_AllowedCIDRsFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_ServicesIpV4CIDRFlag.IsChanged() {
-				req.ServicesIpV4CIDR = req_ServicesIpV4CIDRFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_ClusterIPv4CIDRFlag.IsChanged() {
 				req.ClusterIPv4CIDR = req_ClusterIPv4CIDRFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_VersionFlag.IsChanged() {
-				req.Version = req_VersionFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_DescriptionFlag.IsChanged() {
@@ -89,6 +73,22 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService kubernete
 			
 			if req_EnabledServerGroupFlag.IsChanged() {
 				req.EnabledServerGroup = req_EnabledServerGroupFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NodePoolsFlag.IsChanged() {
+				req.NodePools = req_NodePoolsFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_ServicesIpV4CIDRFlag.IsChanged() {
+				req.ServicesIpV4CIDR = req_ServicesIpV4CIDRFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_VersionFlag.IsChanged() {
+				req.Version = req_VersionFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -105,21 +105,21 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService kubernete
 	}
 	
 	
-	req_NodePoolsFlag = flags.NewJSONArrayValue[kubernetesSdk.CreateNodePoolRequest](cmd, "node-pools", "",)//CobraFlagsCreation
-	
 	req_AllowedCIDRsFlag = flags.NewStrSlice(cmd, "allowed-cidrs", []string{}, "")//CobraFlagsCreation
 	
-	req_ServicesIpV4CIDRFlag = flags.NewStr(cmd, "services-ip-v4cidr", "", "")//CobraFlagsCreation
-	
 	req_ClusterIPv4CIDRFlag = flags.NewStr(cmd, "cluster-ipv4cidr", "", "")//CobraFlagsCreation
-	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
-	
-	req_VersionFlag = flags.NewStr(cmd, "version", "", "")//CobraFlagsCreation
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
 	req_EnabledServerGroupFlag = flags.NewBool(cmd, "enabled-server-group", false, "")//CobraFlagsCreation
+	
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	
+	req_NodePoolsFlag = flags.NewJSONArrayValue[kubernetesSdk.CreateNodePoolRequest](cmd, "node-pools", "",)//CobraFlagsCreation
+	
+	req_ServicesIpV4CIDRFlag = flags.NewStr(cmd, "services-ip-v4cidr", "", "")//CobraFlagsCreation
+	
+	req_VersionFlag = flags.NewStr(cmd, "version", "", "")//CobraFlagsCreation
 	
 
 

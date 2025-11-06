@@ -14,25 +14,25 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func Get(ctx context.Context, parent *cobra.Command, imagesService containerregistrySdk.ImagesService) {
 	
+	var digestOrTagFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var registryIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var repositoryNameFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var digestOrTagFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -44,16 +44,25 @@ func Get(ctx context.Context, parent *cobra.Command, imagesService containerregi
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
+			var digestOrTag string// ServiceSDKParamCreate
+			
 			var registryID string// ServiceSDKParamCreate
 			
 			var repositoryName string// ServiceSDKParamCreate
-			
-			var digestOrTag string// ServiceSDKParamCreate
 			
 			
 			
 
 		
+			
+			if len(args) > 0{
+				cmd.Flags().Set("digest-or-tag", args[0])
+			}
+			if digestOrTagFlag.IsChanged() {
+				digestOrTag = *digestOrTagFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o digest-or-tag como argumento ou usar a flag --digest-or-tag")
+			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("registry-id", args[0])
@@ -73,15 +82,6 @@ func Get(ctx context.Context, parent *cobra.Command, imagesService containerregi
 				return fmt.Errorf("é necessário fornecer o repository-name como argumento ou usar a flag --repository-name")
 			}// CobraFlagsAssign
 			
-			if len(args) > 0{
-				cmd.Flags().Set("digest-or-tag", args[0])
-			}
-			if digestOrTagFlag.IsChanged() {
-				digestOrTag = *digestOrTagFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o digest-or-tag como argumento ou usar a flag --digest-or-tag")
-			}// CobraFlagsAssign
-			
 
 			imageresponse, err := imagesService.Get(ctx, registryID, repositoryName, digestOrTag)
 			
@@ -96,11 +96,11 @@ func Get(ctx context.Context, parent *cobra.Command, imagesService containerregi
 	}
 	
 	
+	digestOrTagFlag = flags.NewStr(cmd, "digest-or-tag", "", " (required)")//CobraFlagsCreation
+	
 	registryIDFlag = flags.NewStr(cmd, "registry-id", "", " (required)")//CobraFlagsCreation
 	
 	repositoryNameFlag = flags.NewStr(cmd, "repository-name", "", " (required)")//CobraFlagsCreation
-	
-	digestOrTagFlag = flags.NewStr(cmd, "digest-or-tag", "", " (required)")//CobraFlagsCreation
 	
 
 

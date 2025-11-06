@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
+	"fmt"
+	
 	"github.com/spf13/cobra"
 	
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
 	
 )
 
@@ -38,9 +38,9 @@ func DetachVolume(ctx context.Context, parent *cobra.Command, schedulerService b
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			req := blockstorageSdk.SchedulerVolumeIdentifierPayload{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			

@@ -14,23 +14,23 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func Get(ctx context.Context, parent *cobra.Command, snapshotService blockstorageSdk.SnapshotService) {
 	
-	var idFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var expandFlag *flags.StrSliceFlag //CobraFlagsDefinition
+	
+	var idFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -42,14 +42,21 @@ func Get(ctx context.Context, parent *cobra.Command, snapshotService blockstorag
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			var expand []blockstorageSdk.SnapshotExpand// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			
 
 		
+			
+			if expandFlag.IsChanged() {
+				expand = make([]blockstorageSdk.SnapshotExpand, len(*expandFlag.Value))
+				for i, v := range *expandFlag.Value {
+					expand[i] = blockstorageSdk.SnapshotExpand(v)
+				}
+			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("id", args[0])
@@ -58,13 +65,6 @@ func Get(ctx context.Context, parent *cobra.Command, snapshotService blockstorag
 				id = *idFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
-			}// CobraFlagsAssign
-			
-			if expandFlag.IsChanged() {
-				expand = make([]blockstorageSdk.SnapshotExpand, len(*expandFlag.Value))
-				for i, v := range *expandFlag.Value {
-					expand[i] = blockstorageSdk.SnapshotExpand(v)
-				}
 			}// CobraFlagsAssign
 			
 
@@ -81,9 +81,9 @@ func Get(ctx context.Context, parent *cobra.Command, snapshotService blockstorag
 	}
 	
 	
-	idFlag = flags.NewStr(cmd, "id", "", " (required)")//CobraFlagsCreation
-	
 	expandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
+	
+	idFlag = flags.NewStr(cmd, "id", "", " (required)")//CobraFlagsCreation
 	
 
 

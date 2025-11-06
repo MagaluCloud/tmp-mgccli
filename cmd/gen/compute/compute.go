@@ -10,19 +10,19 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
-	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
+	"github.com/magaluCloud/mgccli/cmd/gen/compute/images"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/compute/instances"
-	
-	"github.com/magaluCloud/mgccli/cmd/gen/compute/images"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/compute/instancetypes"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/compute/snapshots"
+	
+	"github.com/spf13/cobra"
+	
+	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
+	
+	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
 	
 )
 
@@ -44,11 +44,11 @@ This package allows managing virtual machine instances, images, instance types, 
     
 
 	
-	instances.InstancesCmd(ctx, cmd, computeService.Instances())
-	
 	images.ImagesCmd(ctx, cmd, computeService.Images())
 	
 	instancetypes.InstanceTypesCmd(ctx, cmd, computeService.InstanceTypes())
+	
+	instances.InstancesCmd(ctx, cmd, computeService.Instances())
 	
 	snapshots.SnapshotsCmd(ctx, cmd, computeService.Snapshots())
 	

@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
+	"fmt"
+	
 	"github.com/spf13/cobra"
 	
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
-	
 )
 
 func Attach(ctx context.Context, parent *cobra.Command, volumeService blockstorageSdk.VolumeService) {
 	
-	var volumeIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var instanceIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var volumeIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -40,23 +40,14 @@ func Attach(ctx context.Context, parent *cobra.Command, volumeService blockstora
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var volumeID string// ServiceSDKParamCreate
-			
 			var instanceID string// ServiceSDKParamCreate
+			
+			var volumeID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("volume-id", args[0])
-			}
-			if volumeIDFlag.IsChanged() {
-				volumeID = *volumeIDFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o volume-id como argumento ou usar a flag --volume-id")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("instance-id", args[0])
@@ -65,6 +56,15 @@ func Attach(ctx context.Context, parent *cobra.Command, volumeService blockstora
 				instanceID = *instanceIDFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o instance-id como argumento ou usar a flag --instance-id")
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("volume-id", args[0])
+			}
+			if volumeIDFlag.IsChanged() {
+				volumeID = *volumeIDFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o volume-id como argumento ou usar a flag --volume-id")
 			}// CobraFlagsAssign
 			
 
@@ -79,9 +79,9 @@ func Attach(ctx context.Context, parent *cobra.Command, volumeService blockstora
 	}
 	
 	
-	volumeIDFlag = flags.NewStr(cmd, "volume-id", "", " (required)")//CobraFlagsCreation
-	
 	instanceIDFlag = flags.NewStr(cmd, "instance-id", "", " (required)")//CobraFlagsCreation
+	
+	volumeIDFlag = flags.NewStr(cmd, "volume-id", "", " (required)")//CobraFlagsCreation
 	
 
 

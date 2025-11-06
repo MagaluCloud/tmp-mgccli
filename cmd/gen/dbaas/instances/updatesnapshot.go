@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 
@@ -30,11 +30,11 @@ func UpdateSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 	
 	var instanceIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var snapshotIDFlag *flags.StrFlag //CobraFlagsDefinition
+	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
+	var snapshotIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -46,11 +46,11 @@ func UpdateSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
+			req := dbaasSdk.SnapshotUpdateRequest{}// ServiceSDKParamCreate
+			
 			var instanceID string// ServiceSDKParamCreate
 			
 			var snapshotID string// ServiceSDKParamCreate
-			
-			req := dbaasSdk.SnapshotUpdateRequest{}// ServiceSDKParamCreate
 			
 			
 			
@@ -75,12 +75,12 @@ func UpdateSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 				return fmt.Errorf("é necessário fornecer o snapshot-id como argumento ou usar a flag --snapshot-id")
 			}// CobraFlagsAssign
 			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -99,11 +99,11 @@ func UpdateSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 	
 	instanceIDFlag = flags.NewStr(cmd, "instance-id", "", " (required)")//CobraFlagsCreation
 	
-	snapshotIDFlag = flags.NewStr(cmd, "snapshot-id", "", " (required)")//CobraFlagsCreation
+	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
 	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
+	snapshotIDFlag = flags.NewStr(cmd, "snapshot-id", "", " (required)")//CobraFlagsCreation
 	
 
 

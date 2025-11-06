@@ -14,39 +14,39 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.InstanceService) {
 	
-	var req_PasswordFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_BackupStartAtFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_BackupRetentionDaysFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var req_BackupStartAtFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_InstanceTypeIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_ParameterGroupIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_PasswordFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_UserFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_Volume_SizeFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var req_Volume_TypeFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_ParameterGroupIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -65,20 +65,16 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 
 		
 			
-			if req_PasswordFlag.IsChanged() {
-				req.Password = *req_PasswordFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_AvailabilityZoneFlag.IsChanged() {
 				req.AvailabilityZone = req_AvailabilityZoneFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_BackupStartAtFlag.IsChanged() {
-				req.BackupStartAt = req_BackupStartAtFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_BackupRetentionDaysFlag.IsChanged() {
 				req.BackupRetentionDays = req_BackupRetentionDaysFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_BackupStartAtFlag.IsChanged() {
+				req.BackupStartAt = req_BackupStartAtFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_EngineIDFlag.IsChanged() {
@@ -87,6 +83,18 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 			
 			if req_InstanceTypeIDFlag.IsChanged() {
 				req.InstanceTypeID = req_InstanceTypeIDFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_ParameterGroupIDFlag.IsChanged() {
+				req.ParameterGroupID = req_ParameterGroupIDFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_PasswordFlag.IsChanged() {
+				req.Password = *req_PasswordFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_UserFlag.IsChanged() {
@@ -99,14 +107,6 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 			
 			if req_Volume_TypeFlag.IsChanged() {
 				req.Volume.Type = *req_Volume_TypeFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_ParameterGroupIDFlag.IsChanged() {
-				req.ParameterGroupID = req_ParameterGroupIDFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -123,27 +123,27 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 	}
 	
 	
-	req_PasswordFlag = flags.NewStr(cmd, "password", "", " (required)")//CobraFlagsCreation
-	
 	req_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", "")//CobraFlagsCreation
 	
-	req_BackupStartAtFlag = flags.NewStr(cmd, "backup-start-at", "", "")//CobraFlagsCreation
-	
 	req_BackupRetentionDaysFlag = flags.NewInt(cmd, "backup-retention-days", 0, "")//CobraFlagsCreation
+	
+	req_BackupStartAtFlag = flags.NewStr(cmd, "backup-start-at", "", "")//CobraFlagsCreation
 	
 	req_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", "")//CobraFlagsCreation
 	
 	req_InstanceTypeIDFlag = flags.NewStr(cmd, "instance-type-id", "", "")//CobraFlagsCreation
+	
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	
+	req_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", "")//CobraFlagsCreation
+	
+	req_PasswordFlag = flags.NewStr(cmd, "password", "", " (required)")//CobraFlagsCreation
 	
 	req_UserFlag = flags.NewStr(cmd, "user", "", " (required)")//CobraFlagsCreation
 	
 	req_Volume_SizeFlag = flags.NewInt(cmd, "volume.size", 0, " (required)")//CobraFlagsCreation
 	
 	req_Volume_TypeFlag = flags.NewStr(cmd, "volume.type", "", "")//CobraFlagsCreation
-	
-	req_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", "")//CobraFlagsCreation
-	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 
 
