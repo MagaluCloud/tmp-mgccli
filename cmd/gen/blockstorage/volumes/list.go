@@ -26,18 +26,18 @@ import (
 
 func List(ctx context.Context, parent *cobra.Command, volumeService blockstorageSdk.VolumeService) {
 	
-	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var opts_ExpandFlag *flags.StrSliceFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
+	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Sort] [Expand] [Limit] [Offset]",
+		Use:     "list [Expand] [Limit] [Offset] [Sort]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		
@@ -50,10 +50,6 @@ func List(ctx context.Context, parent *cobra.Command, volumeService blockstorage
 			
 
 		
-			
-			if opts_SortFlag.IsChanged() {
-				opts.Sort = opts_SortFlag.Value
-			}// CobraFlagsAssign
 			
 			if opts_ExpandFlag.IsChanged() {
 				opts.Expand = make([]blockstorageSdk.VolumeExpand, len(*opts_ExpandFlag.Value))
@@ -70,6 +66,10 @@ func List(ctx context.Context, parent *cobra.Command, volumeService blockstorage
 				opts.Offset = opts_OffsetFlag.Value
 			}// CobraFlagsAssign
 			
+			if opts_SortFlag.IsChanged() {
+				opts.Sort = opts_SortFlag.Value
+			}// CobraFlagsAssign
+			
 
 			listvolumesresponse, err := volumeService.List(ctx, opts)
 			
@@ -84,13 +84,13 @@ func List(ctx context.Context, parent *cobra.Command, volumeService blockstorage
 	}
 	
 	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
-	
 	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
 	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	
 
 

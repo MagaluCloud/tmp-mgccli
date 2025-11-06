@@ -28,19 +28,19 @@ func Create(ctx context.Context, parent *cobra.Command, networkBackendService lb
 	
 	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_HealthCheckIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_HealthCheckNameFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_TargetsFlag *flags.JSONArrayValue[lbaasSdk.NetworkBackendInstanceTargetRequest] //CobraFlagsDefinition
-	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_PanicThresholdFlag *flags.Float64Flag //CobraFlagsDefinition
 	
+	var req_TargetsFlag *flags.JSONArrayValue[lbaasSdk.NetworkBackendInstanceTargetRequest] //CobraFlagsDefinition
+	
+	var req_HealthCheckNameFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var req_CloseConnectionsOnHostHealthFailureFlag *flags.BoolFlag //CobraFlagsDefinition
+	
+	var req_HealthCheckIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -65,32 +65,32 @@ func Create(ctx context.Context, parent *cobra.Command, networkBackendService lb
 				lbID = *lbIDFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_HealthCheckIDFlag.IsChanged() {
-				req.HealthCheckID = req_HealthCheckIDFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_HealthCheckNameFlag.IsChanged() {
-				req.HealthCheckName = req_HealthCheckNameFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_TargetsFlag.IsChanged() {
-				req.Targets = req_TargetsFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_PanicThresholdFlag.IsChanged() {
 				req.PanicThreshold = req_PanicThresholdFlag.Value
 			}// CobraFlagsAssign
 			
+			if req_TargetsFlag.IsChanged() {
+				req.Targets = req_TargetsFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_HealthCheckNameFlag.IsChanged() {
+				req.HealthCheckName = req_HealthCheckNameFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+			}// CobraFlagsAssign
+			
 			if req_CloseConnectionsOnHostHealthFailureFlag.IsChanged() {
 				req.CloseConnectionsOnHostHealthFailure = req_CloseConnectionsOnHostHealthFailureFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_HealthCheckIDFlag.IsChanged() {
+				req.HealthCheckID = req_HealthCheckIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -109,19 +109,19 @@ func Create(ctx context.Context, parent *cobra.Command, networkBackendService lb
 	
 	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
-	req_HealthCheckIDFlag = flags.NewStr(cmd, "health-check-id", "", "")//CobraFlagsCreation
-	
-	req_HealthCheckNameFlag = flags.NewStr(cmd, "health-check-name", "", "")//CobraFlagsCreation
-	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
-	
-	req_TargetsFlag = flags.NewJSONArrayValue[lbaasSdk.NetworkBackendInstanceTargetRequest](cmd, "targets", "",)//CobraFlagsCreation
-	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_PanicThresholdFlag = flags.NewFloat64(cmd, "panic-threshold", 0, "")//CobraFlagsCreation
 	
+	req_TargetsFlag = flags.NewJSONArrayValue[lbaasSdk.NetworkBackendInstanceTargetRequest](cmd, "targets", "",)//CobraFlagsCreation
+	
+	req_HealthCheckNameFlag = flags.NewStr(cmd, "health-check-name", "", "")//CobraFlagsCreation
+	
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	
 	req_CloseConnectionsOnHostHealthFailureFlag = flags.NewBool(cmd, "close-connections-on-host-health-failure", false, "")//CobraFlagsCreation
+	
+	req_HealthCheckIDFlag = flags.NewStr(cmd, "health-check-id", "", "")//CobraFlagsCreation
 	
 
 

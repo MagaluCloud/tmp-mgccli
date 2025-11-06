@@ -30,18 +30,18 @@ func ListEngineParameters(ctx context.Context, parent *cobra.Command, engineServ
 	
 	var engineIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
-	
-	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
-	
 	var opts_DynamicFlag *flags.BoolFlag //CobraFlagsDefinition
 	
 	var opts_ModifiableFlag *flags.BoolFlag //CobraFlagsDefinition
 	
+	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-engine-parameters [engineID] [Offset] [Limit] [Dynamic] [Modifiable]",
+		Use:     "list-engine-parameters [engineID] [Dynamic] [Modifiable] [Offset] [Limit]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		
@@ -66,20 +66,20 @@ func ListEngineParameters(ctx context.Context, parent *cobra.Command, engineServ
 				return fmt.Errorf("é necessário fornecer o engine-id como argumento ou usar a flag --engine-id")
 			}// CobraFlagsAssign
 			
-			if opts_OffsetFlag.IsChanged() {
-				opts.Offset = opts_OffsetFlag.Value
-			}// CobraFlagsAssign
-			
-			if opts_LimitFlag.IsChanged() {
-				opts.Limit = opts_LimitFlag.Value
-			}// CobraFlagsAssign
-			
 			if opts_DynamicFlag.IsChanged() {
 				opts.Dynamic = opts_DynamicFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_ModifiableFlag.IsChanged() {
 				opts.Modifiable = opts_ModifiableFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_OffsetFlag.IsChanged() {
+				opts.Offset = opts_OffsetFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_LimitFlag.IsChanged() {
+				opts.Limit = opts_LimitFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -98,13 +98,13 @@ func ListEngineParameters(ctx context.Context, parent *cobra.Command, engineServ
 	
 	engineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
-	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
-	
 	opts_DynamicFlag = flags.NewBool(cmd, "dynamic", false, " (required)")//CobraFlagsCreation
 	
 	opts_ModifiableFlag = flags.NewBool(cmd, "modifiable", false, " (required)")//CobraFlagsCreation
+	
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
 
 

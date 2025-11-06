@@ -26,6 +26,8 @@ import (
 
 func List(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasSdk.InstanceTypeService) {
 	
+	var opts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var opts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var opts_CompatibleProductFlag *flags.StrFlag //CobraFlagsDefinition
@@ -33,8 +35,6 @@ func List(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasS
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
-	
-	var opts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -53,6 +53,10 @@ func List(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasS
 
 		
 			
+			if opts_StatusFlag.IsChanged() {
+				opts.Status = opts_StatusFlag.Value
+			}// CobraFlagsAssign
+			
 			if opts_EngineIDFlag.IsChanged() {
 				opts.EngineID = opts_EngineIDFlag.Value
 			}// CobraFlagsAssign
@@ -69,10 +73,6 @@ func List(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasS
 				opts.Limit = opts_LimitFlag.Value
 			}// CobraFlagsAssign
 			
-			if opts_StatusFlag.IsChanged() {
-				opts.Status = opts_StatusFlag.Value
-			}// CobraFlagsAssign
-			
 
 			listinstancetypesresponse, err := instanceTypeService.List(ctx, opts)
 			
@@ -87,6 +87,8 @@ func List(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasS
 	}
 	
 	
+	opts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
+	
 	opts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", "")//CobraFlagsCreation
 	
 	opts_CompatibleProductFlag = flags.NewStr(cmd, "compatible-product", "", "")//CobraFlagsCreation
@@ -94,8 +96,6 @@ func List(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasS
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
-	
-	opts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
 	
 
 

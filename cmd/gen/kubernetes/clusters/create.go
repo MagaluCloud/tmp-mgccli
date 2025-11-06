@@ -26,6 +26,8 @@ import (
 
 func Create(ctx context.Context, parent *cobra.Command, clusterService kubernetesSdk.ClusterService) {
 	
+	var req_NodePoolsFlag *flags.JSONArrayValue[kubernetesSdk.CreateNodePoolRequest] //CobraFlagsDefinition
+	
 	var req_AllowedCIDRsFlag *flags.StrSliceFlag //CobraFlagsDefinition
 	
 	var req_ServicesIpV4CIDRFlag *flags.StrFlag //CobraFlagsDefinition
@@ -39,8 +41,6 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService kubernete
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_EnabledServerGroupFlag *flags.BoolFlag //CobraFlagsDefinition
-	
-	var req_NodePoolsFlag *flags.JSONArrayValue[kubernetesSdk.CreateNodePoolRequest] //CobraFlagsDefinition
 	
 	
 
@@ -58,6 +58,10 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService kubernete
 			
 
 		
+			
+			if req_NodePoolsFlag.IsChanged() {
+				req.NodePools = req_NodePoolsFlag.Value
+			}// CobraFlagsAssign
 			
 			if req_AllowedCIDRsFlag.IsChanged() {
 				req.AllowedCIDRs = req_AllowedCIDRsFlag.Value
@@ -87,10 +91,6 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService kubernete
 				req.EnabledServerGroup = req_EnabledServerGroupFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_NodePoolsFlag.IsChanged() {
-				req.NodePools = req_NodePoolsFlag.Value
-			}// CobraFlagsAssign
-			
 
 			createclusterresponse, err := clusterService.Create(ctx, req)
 			
@@ -105,6 +105,8 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService kubernete
 	}
 	
 	
+	req_NodePoolsFlag = flags.NewJSONArrayValue[kubernetesSdk.CreateNodePoolRequest](cmd, "node-pools", "",)//CobraFlagsCreation
+	
 	req_AllowedCIDRsFlag = flags.NewStrSlice(cmd, "allowed-cidrs", []string{}, "")//CobraFlagsCreation
 	
 	req_ServicesIpV4CIDRFlag = flags.NewStr(cmd, "services-ip-v4cidr", "", "")//CobraFlagsCreation
@@ -118,8 +120,6 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService kubernete
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
 	req_EnabledServerGroupFlag = flags.NewBool(cmd, "enabled-server-group", false, "")//CobraFlagsCreation
-	
-	req_NodePoolsFlag = flags.NewJSONArrayValue[kubernetesSdk.CreateNodePoolRequest](cmd, "node-pools", "",)//CobraFlagsCreation
 	
 
 

@@ -26,8 +26,6 @@ import (
 
 func ListAll(ctx context.Context, parent *cobra.Command, eventService auditSdk.EventService) {
 	
-	var params_TimeFlag *flags.TimeFlag //CobraFlagsDefinition
-	
 	var params_TypeLikeFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var params_ProductLikeFlag *flags.StrFlag //CobraFlagsDefinition
@@ -41,6 +39,8 @@ func ListAll(ctx context.Context, parent *cobra.Command, eventService auditSdk.E
 	var params_IDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var params_SourceLikeFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var params_TimeFlag *flags.TimeFlag //CobraFlagsDefinition
 	
 	
 
@@ -58,10 +58,6 @@ func ListAll(ctx context.Context, parent *cobra.Command, eventService auditSdk.E
 			
 
 		
-			
-			if params_TimeFlag.IsChanged() {
-				params.Time = params_TimeFlag.Value
-			}// CobraFlagsAssign
 			
 			if params_TypeLikeFlag.IsChanged() {
 				params.TypeLike = params_TypeLikeFlag.Value
@@ -91,6 +87,10 @@ func ListAll(ctx context.Context, parent *cobra.Command, eventService auditSdk.E
 				params.SourceLike = params_SourceLikeFlag.Value
 			}// CobraFlagsAssign
 			
+			if params_TimeFlag.IsChanged() {
+				params.Time = params_TimeFlag.Value
+			}// CobraFlagsAssign
+			
 
 			event, err := eventService.ListAll(ctx, &params)
 			
@@ -105,8 +105,6 @@ func ListAll(ctx context.Context, parent *cobra.Command, eventService auditSdk.E
 	}
 	
 	
-	params_TimeFlag = flags.NewTime(cmd, "time", "", "")//CobraFlagsCreation
-	
 	params_TypeLikeFlag = flags.NewStr(cmd, "type-like", "", "")//CobraFlagsCreation
 	
 	params_ProductLikeFlag = flags.NewStr(cmd, "product-like", "", "")//CobraFlagsCreation
@@ -120,6 +118,8 @@ func ListAll(ctx context.Context, parent *cobra.Command, eventService auditSdk.E
 	params_IDFlag = flags.NewStr(cmd, "id", "", "")//CobraFlagsCreation
 	
 	params_SourceLikeFlag = flags.NewStr(cmd, "source-like", "", "")//CobraFlagsCreation
+	
+	params_TimeFlag = flags.NewTime(cmd, "time", "", "")//CobraFlagsCreation
 	
 
 

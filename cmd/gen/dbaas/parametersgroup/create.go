@@ -26,11 +26,11 @@ import (
 
 func Create(ctx context.Context, parent *cobra.Command, parameterGroupService dbaasSdk.ParameterGroupService) {
 	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var req_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -49,16 +49,16 @@ func Create(ctx context.Context, parent *cobra.Command, parameterGroupService db
 
 		
 			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+			}// CobraFlagsAssign
+			
 			if req_EngineIDFlag.IsChanged() {
 				req.EngineID = *req_EngineIDFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -75,11 +75,11 @@ func Create(ctx context.Context, parent *cobra.Command, parameterGroupService db
 	}
 	
 	
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	
 	req_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
-	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 
 

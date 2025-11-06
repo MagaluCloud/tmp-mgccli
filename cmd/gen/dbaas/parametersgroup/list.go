@@ -26,18 +26,18 @@ import (
 
 func List(ctx context.Context, parent *cobra.Command, parameterGroupService dbaasSdk.ParameterGroupService) {
 	
-	var opts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_TypeFlag *flags.StrFlag //CobraFlagsDefinition
 	
+	var opts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [EngineID] [Offset] [Limit] [Type]",
+		Use:     "list [Offset] [Limit] [Type] [EngineID]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		
@@ -51,10 +51,6 @@ func List(ctx context.Context, parent *cobra.Command, parameterGroupService dbaa
 
 		
 			
-			if opts_EngineIDFlag.IsChanged() {
-				opts.EngineID = opts_EngineIDFlag.Value
-			}// CobraFlagsAssign
-			
 			if opts_OffsetFlag.IsChanged() {
 				opts.Offset = opts_OffsetFlag.Value
 			}// CobraFlagsAssign
@@ -65,6 +61,10 @@ func List(ctx context.Context, parent *cobra.Command, parameterGroupService dbaa
 			
 			if opts_TypeFlag.IsChanged() {
 				opts.Type = (*dbaasSdk.ParameterGroupType)(opts_TypeFlag.Value)
+			}// CobraFlagsAssign
+			
+			if opts_EngineIDFlag.IsChanged() {
+				opts.EngineID = opts_EngineIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -81,13 +81,13 @@ func List(ctx context.Context, parent *cobra.Command, parameterGroupService dbaa
 	}
 	
 	
-	opts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
-	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
 	opts_TypeFlag = flags.NewStr(cmd, "type", "", " (required)")//CobraFlagsCreation
+	
+	opts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
 	
 
 
