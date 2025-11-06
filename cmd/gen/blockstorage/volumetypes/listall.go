@@ -39,10 +39,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, volumeTypeService block
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [AvailabilityZone] [Name] [AllowsEncryption] [Sort]",
+		Use:     "list-all [AllowsEncryption] [AvailabilityZone] [Name] [Sort]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

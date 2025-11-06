@@ -36,7 +36,6 @@ func Get(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.KeySe
 		Use:     "get [keyID]",
 		Short:   "",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

@@ -33,10 +33,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, snapshotService compute
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [Expand] [Sort]",
+		Use:     "list-all [Sort]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

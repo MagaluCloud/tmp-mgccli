@@ -36,7 +36,6 @@ func List(ctx context.Context, parent *cobra.Command, service availabilityzonesS
 		Use:     "list [ShowBlocked]",
 		Short:   "",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

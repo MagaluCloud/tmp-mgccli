@@ -38,7 +38,6 @@ func Retype(ctx context.Context, parent *cobra.Command, volumeService blockstora
 		Use:     "retype [id]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

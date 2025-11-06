@@ -35,10 +35,9 @@ func List(ctx context.Context, parent *cobra.Command, subnetPoolService networkS
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Sort] [Limit] [Offset]",
+		Use:     "list [Limit] [Offset] [Sort]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

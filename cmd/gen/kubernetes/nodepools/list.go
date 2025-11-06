@@ -41,10 +41,9 @@ func List(ctx context.Context, parent *cobra.Command, nodePoolService kubernetes
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [clusterID] [Sort] [Expand] [Limit] [Offset]",
+		Use:     "list [Limit] [Offset] [Sort] [clusterID]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
@@ -66,13 +65,8 @@ func List(ctx context.Context, parent *cobra.Command, nodePoolService kubernetes
 				return fmt.Errorf("é necessário fornecer o cluster-id como argumento ou usar a flag --cluster-id")
 			}// CobraFlagsAssign
 			
-			if len(args) > 0{
-				cmd.Flags().Set("expand", args[0])
-			}
 			if opts_ExpandFlag.IsChanged() {
 				opts.Expand = *opts_ExpandFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o expand como argumento ou usar a flag --expand")
 			}// CobraFlagsAssign
 			
 			if opts_LimitFlag.IsChanged() {

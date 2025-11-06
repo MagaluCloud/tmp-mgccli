@@ -14,8 +14,6 @@ import (
 	"context"
 
 	
-	"fmt"
-	
 	"github.com/magaluCloud/mgccli/beautiful"
 	
 	"github.com/spf13/cobra"
@@ -47,10 +45,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceService dbaasSd
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [VolumeSize] [VolumeSizeGt] [VolumeSizeGte] [VolumeSizeLt] [VolumeSizeLte] [ExpandedFields] [Status] [EngineID]",
+		Use:     "list-all [EngineID] [Status] [VolumeSize] [VolumeSizeGt] [VolumeSizeGte] [VolumeSizeLt] [VolumeSizeLte]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
@@ -63,6 +60,10 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceService dbaasSd
 			
 			if filterOpts_EngineIDFlag.IsChanged() {
 				filterOpts.EngineID = filterOpts_EngineIDFlag.Value
+			}// CobraFlagsAssign
+			
+			if filterOpts_ExpandedFieldsFlag.IsChanged() {
+				filterOpts.ExpandedFields = *filterOpts_ExpandedFieldsFlag.Value
 			}// CobraFlagsAssign
 			
 			if filterOpts_StatusFlag.IsChanged() {
@@ -87,15 +88,6 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceService dbaasSd
 			
 			if filterOpts_VolumeSizeLteFlag.IsChanged() {
 				filterOpts.VolumeSizeLte = filterOpts_VolumeSizeLteFlag.Value
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
-				cmd.Flags().Set("expanded-fields", args[0])
-			}
-			if filterOpts_ExpandedFieldsFlag.IsChanged() {
-				filterOpts.ExpandedFields = *filterOpts_ExpandedFieldsFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o expanded-fields como argumento ou usar a flag --expanded-fields")
 			}// CobraFlagsAssign
 			
 

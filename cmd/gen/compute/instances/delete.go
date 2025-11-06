@@ -33,10 +33,9 @@ func Delete(ctx context.Context, parent *cobra.Command, instanceService computeS
 	
 
 	cmd := &cobra.Command{
-		Use:     "delete [id] [deletePublicIP]",
+		Use:     "delete [deletePublicIP] [id]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

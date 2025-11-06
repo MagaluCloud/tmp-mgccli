@@ -35,10 +35,9 @@ func Get(ctx context.Context, parent *cobra.Command, instanceService computeSdk.
 	
 
 	cmd := &cobra.Command{
-		Use:     "get [id] [expand]",
+		Use:     "get [id]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

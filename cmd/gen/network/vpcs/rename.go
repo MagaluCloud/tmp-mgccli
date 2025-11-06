@@ -36,7 +36,6 @@ func Rename(ctx context.Context, parent *cobra.Command, vPCService networkSdk.VP
 		Use:     "rename [id] [newName]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

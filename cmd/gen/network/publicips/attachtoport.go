@@ -33,10 +33,9 @@ func AttachToPort(ctx context.Context, parent *cobra.Command, publicIPService ne
 	
 
 	cmd := &cobra.Command{
-		Use:     "attach-to-port [publicIPID] [portID]",
+		Use:     "attach-to-port [portID] [publicIPID]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

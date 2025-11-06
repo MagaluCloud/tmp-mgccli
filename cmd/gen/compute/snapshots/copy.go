@@ -33,10 +33,9 @@ func Copy(ctx context.Context, parent *cobra.Command, snapshotService computeSdk
 	
 
 	cmd := &cobra.Command{
-		Use:     "copy [id] [DestinationRegion]",
+		Use:     "copy [DestinationRegion] [id]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

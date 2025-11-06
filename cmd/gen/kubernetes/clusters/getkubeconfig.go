@@ -36,7 +36,6 @@ func GetKubeConfig(ctx context.Context, parent *cobra.Command, clusterService ku
 		Use:     "get-kube-config [clusterID]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

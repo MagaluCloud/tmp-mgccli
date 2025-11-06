@@ -34,7 +34,6 @@ func ListAll(ctx context.Context, parent *cobra.Command, registriesService conta
 		Use:     "list-all [Sort]",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
-		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
