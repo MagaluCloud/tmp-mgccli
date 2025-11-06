@@ -43,7 +43,7 @@ func List(ctx context.Context, parent *cobra.Command, imagesService containerreg
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [registryID] [repositoryName] [Offset] [Limit] [Sort] [Expand]",
+		Use:     "list [registryID] [repositoryName] [Expand] [Offset] [Limit] [Sort]",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
 		

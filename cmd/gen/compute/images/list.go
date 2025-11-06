@@ -37,7 +37,7 @@ func List(ctx context.Context, parent *cobra.Command, imageService computeSdk.Im
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [AvailabilityZone] [Limit] [Offset] [Sort]",
+		Use:     "list [Limit] [Offset] [Sort] [AvailabilityZone]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		

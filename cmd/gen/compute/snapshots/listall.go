@@ -33,7 +33,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, snapshotService compute
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [Sort] [Expand]",
+		Use:     "list-all [Expand] [Sort]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		
