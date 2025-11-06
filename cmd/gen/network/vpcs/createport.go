@@ -30,8 +30,6 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 	
 	var vpcIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_SecurityGroupsFlag *flags.StrSliceFlag //CobraFlagsDefinition
-	
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_HasPIPFlag *flags.BoolFlag //CobraFlagsDefinition
@@ -39,6 +37,8 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 	var req_HasSGFlag *flags.BoolFlag //CobraFlagsDefinition
 	
 	var req_SubnetsFlag *flags.StrSliceFlag //CobraFlagsDefinition
+	
+	var req_SecurityGroupsFlag *flags.StrSliceFlag //CobraFlagsDefinition
 	
 	var opts_ZoneFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -72,10 +72,6 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 				return fmt.Errorf("é necessário fornecer o vpc-id como argumento ou usar a flag --vpc-id")
 			}// CobraFlagsAssign
 			
-			if req_SecurityGroupsFlag.IsChanged() {
-				req.SecurityGroups = req_SecurityGroupsFlag.Value
-			}// CobraFlagsAssign
-			
 			if len(args) > 0{
 				cmd.Flags().Set("name", args[0])
 			}
@@ -95,6 +91,10 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 			
 			if req_SubnetsFlag.IsChanged() {
 				req.Subnets = req_SubnetsFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_SecurityGroupsFlag.IsChanged() {
+				req.SecurityGroups = req_SecurityGroupsFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_ZoneFlag.IsChanged() {
@@ -117,8 +117,6 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 	
 	vpcIDFlag = flags.NewStr(cmd, "vpc-id", "", " (required)")//CobraFlagsCreation
 	
-	req_SecurityGroupsFlag = flags.NewStrSlice(cmd, "security-groups", []string{}, "")//CobraFlagsCreation
-	
 	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_HasPIPFlag = flags.NewBool(cmd, "has-pip", false, "")//CobraFlagsCreation
@@ -126,6 +124,8 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 	req_HasSGFlag = flags.NewBool(cmd, "has-sg", false, "")//CobraFlagsCreation
 	
 	req_SubnetsFlag = flags.NewStrSlice(cmd, "subnets", []string{}, "")//CobraFlagsCreation
+	
+	req_SecurityGroupsFlag = flags.NewStrSlice(cmd, "security-groups", []string{}, "")//CobraFlagsCreation
 	
 	opts_ZoneFlag = flags.NewStr(cmd, "zone", "", "")//CobraFlagsCreation
 	

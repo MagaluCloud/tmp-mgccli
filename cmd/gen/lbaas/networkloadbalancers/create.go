@@ -30,23 +30,23 @@ func Create(ctx context.Context, parent *cobra.Command, networkLoadBalancerServi
 	
 	var create_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var create_ListenersFlag *flags.JSONArrayValue[lbaasSdk.NetworkListenerRequest] //CobraFlagsDefinition
+	var create_TypeFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var create_BackendsFlag *flags.JSONArrayValue[lbaasSdk.CreateNetworkBackendRequest] //CobraFlagsDefinition
 	
-	var create_TLSCertificatesFlag *flags.JSONArrayValue[lbaasSdk.CreateNetworkCertificateRequest] //CobraFlagsDefinition
+	var create_HealthChecksFlag *flags.JSONArrayValue[lbaasSdk.CreateNetworkHealthCheckRequest] //CobraFlagsDefinition
 	
 	var create_ACLsFlag *flags.JSONArrayValue[lbaasSdk.CreateNetworkACLRequest] //CobraFlagsDefinition
 	
-	var create_PublicIPIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var create_TypeFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var create_HealthChecksFlag *flags.JSONArrayValue[lbaasSdk.CreateNetworkHealthCheckRequest] //CobraFlagsDefinition
-	
 	var create_VPCIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
+	var create_ListenersFlag *flags.JSONArrayValue[lbaasSdk.NetworkListenerRequest] //CobraFlagsDefinition
+	
+	var create_TLSCertificatesFlag *flags.JSONArrayValue[lbaasSdk.CreateNetworkCertificateRequest] //CobraFlagsDefinition
+	
 	var create_SubnetPoolIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var create_PublicIPIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -73,40 +73,40 @@ func Create(ctx context.Context, parent *cobra.Command, networkLoadBalancerServi
 				create.Description = create_DescriptionFlag.Value
 			}// CobraFlagsAssign
 			
-			if create_ListenersFlag.IsChanged() {
-				create.Listeners = *create_ListenersFlag.Value
+			if create_TypeFlag.IsChanged() {
+				create.Type = create_TypeFlag.Value
 			}// CobraFlagsAssign
 			
 			if create_BackendsFlag.IsChanged() {
 				create.Backends = *create_BackendsFlag.Value
 			}// CobraFlagsAssign
 			
-			if create_TLSCertificatesFlag.IsChanged() {
-				create.TLSCertificates = *create_TLSCertificatesFlag.Value
+			if create_HealthChecksFlag.IsChanged() {
+				create.HealthChecks = *create_HealthChecksFlag.Value
 			}// CobraFlagsAssign
 			
 			if create_ACLsFlag.IsChanged() {
 				create.ACLs = *create_ACLsFlag.Value
 			}// CobraFlagsAssign
 			
-			if create_PublicIPIDFlag.IsChanged() {
-				create.PublicIPID = create_PublicIPIDFlag.Value
-			}// CobraFlagsAssign
-			
-			if create_TypeFlag.IsChanged() {
-				create.Type = create_TypeFlag.Value
-			}// CobraFlagsAssign
-			
-			if create_HealthChecksFlag.IsChanged() {
-				create.HealthChecks = *create_HealthChecksFlag.Value
-			}// CobraFlagsAssign
-			
 			if create_VPCIDFlag.IsChanged() {
 				create.VPCID = *create_VPCIDFlag.Value
 			}// CobraFlagsAssign
 			
+			if create_ListenersFlag.IsChanged() {
+				create.Listeners = *create_ListenersFlag.Value
+			}// CobraFlagsAssign
+			
+			if create_TLSCertificatesFlag.IsChanged() {
+				create.TLSCertificates = *create_TLSCertificatesFlag.Value
+			}// CobraFlagsAssign
+			
 			if create_SubnetPoolIDFlag.IsChanged() {
 				create.SubnetPoolID = create_SubnetPoolIDFlag.Value
+			}// CobraFlagsAssign
+			
+			if create_PublicIPIDFlag.IsChanged() {
+				create.PublicIPID = create_PublicIPIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -127,23 +127,23 @@ func Create(ctx context.Context, parent *cobra.Command, networkLoadBalancerServi
 	
 	create_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
-	create_ListenersFlag = flags.NewJSONArrayValue[lbaasSdk.NetworkListenerRequest](cmd, "listeners", "",)//CobraFlagsCreation
+	create_TypeFlag = flags.NewStr(cmd, "type", "", "")//CobraFlagsCreation
 	
 	create_BackendsFlag = flags.NewJSONArrayValue[lbaasSdk.CreateNetworkBackendRequest](cmd, "backends", "",)//CobraFlagsCreation
 	
-	create_TLSCertificatesFlag = flags.NewJSONArrayValue[lbaasSdk.CreateNetworkCertificateRequest](cmd, "tlscertificates", "",)//CobraFlagsCreation
+	create_HealthChecksFlag = flags.NewJSONArrayValue[lbaasSdk.CreateNetworkHealthCheckRequest](cmd, "health-checks", "",)//CobraFlagsCreation
 	
 	create_ACLsFlag = flags.NewJSONArrayValue[lbaasSdk.CreateNetworkACLRequest](cmd, "acls", "",)//CobraFlagsCreation
 	
-	create_PublicIPIDFlag = flags.NewStr(cmd, "public-ipid", "", "")//CobraFlagsCreation
-	
-	create_TypeFlag = flags.NewStr(cmd, "type", "", "")//CobraFlagsCreation
-	
-	create_HealthChecksFlag = flags.NewJSONArrayValue[lbaasSdk.CreateNetworkHealthCheckRequest](cmd, "health-checks", "",)//CobraFlagsCreation
-	
 	create_VPCIDFlag = flags.NewStr(cmd, "vpcid", "", " (required)")//CobraFlagsCreation
 	
+	create_ListenersFlag = flags.NewJSONArrayValue[lbaasSdk.NetworkListenerRequest](cmd, "listeners", "",)//CobraFlagsCreation
+	
+	create_TLSCertificatesFlag = flags.NewJSONArrayValue[lbaasSdk.CreateNetworkCertificateRequest](cmd, "tlscertificates", "",)//CobraFlagsCreation
+	
 	create_SubnetPoolIDFlag = flags.NewStr(cmd, "subnet-pool-id", "", "")//CobraFlagsCreation
+	
+	create_PublicIPIDFlag = flags.NewStr(cmd, "public-ipid", "", "")//CobraFlagsCreation
 	
 
 

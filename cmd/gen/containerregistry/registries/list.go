@@ -26,16 +26,16 @@ import (
 
 func List(ctx context.Context, parent *cobra.Command, registriesService containerregistrySdk.RegistriesService) {
 	
+	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
-	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Offset] [Limit] [Sort]",
+		Use:     "list [Sort] [Offset] [Limit]",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
 		
@@ -49,16 +49,16 @@ func List(ctx context.Context, parent *cobra.Command, registriesService containe
 
 		
 			
+			if opts_SortFlag.IsChanged() {
+				opts.Sort = opts_SortFlag.Value
+			}// CobraFlagsAssign
+			
 			if opts_OffsetFlag.IsChanged() {
 				opts.Offset = opts_OffsetFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
-			}// CobraFlagsAssign
-			
-			if opts_SortFlag.IsChanged() {
-				opts.Sort = opts_SortFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -75,11 +75,11 @@ func List(ctx context.Context, parent *cobra.Command, registriesService containe
 	}
 	
 	
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
-	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	
 
 

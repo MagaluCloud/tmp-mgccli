@@ -28,6 +28,8 @@ func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.R
 	
 	var securityGroupIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
+	var req_ProtocolFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var req_RemoteIPPrefixFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_EtherTypeFlag *flags.StrFlag //CobraFlagsDefinition
@@ -39,8 +41,6 @@ func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.R
 	var req_PortRangeMinFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var req_PortRangeMaxFlag *flags.IntFlag //CobraFlagsDefinition
-	
-	var req_ProtocolFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -63,6 +63,10 @@ func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.R
 			
 			if securityGroupIDFlag.IsChanged() {
 				securityGroupID = *securityGroupIDFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_ProtocolFlag.IsChanged() {
+				req.Protocol = req_ProtocolFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_RemoteIPPrefixFlag.IsChanged() {
@@ -89,10 +93,6 @@ func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.R
 				req.PortRangeMax = req_PortRangeMaxFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_ProtocolFlag.IsChanged() {
-				req.Protocol = req_ProtocolFlag.Value
-			}// CobraFlagsAssign
-			
 
 			result, err := ruleService.Create(ctx, securityGroupID, req)
 			
@@ -109,6 +109,8 @@ func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.R
 	
 	securityGroupIDFlag = flags.NewStr(cmd, "security-group-id", "", " (required)")//CobraFlagsCreation
 	
+	req_ProtocolFlag = flags.NewStr(cmd, "protocol", "", "")//CobraFlagsCreation
+	
 	req_RemoteIPPrefixFlag = flags.NewStr(cmd, "remote-ipprefix", "", "")//CobraFlagsCreation
 	
 	req_EtherTypeFlag = flags.NewStr(cmd, "ether-type", "", " (required)")//CobraFlagsCreation
@@ -120,8 +122,6 @@ func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.R
 	req_PortRangeMinFlag = flags.NewInt(cmd, "port-range-min", 0, "")//CobraFlagsCreation
 	
 	req_PortRangeMaxFlag = flags.NewInt(cmd, "port-range-max", 0, "")//CobraFlagsCreation
-	
-	req_ProtocolFlag = flags.NewStr(cmd, "protocol", "", "")//CobraFlagsCreation
 	
 
 

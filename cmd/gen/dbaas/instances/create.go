@@ -26,6 +26,10 @@ import (
 
 func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.InstanceService) {
 	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var req_InstanceTypeIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_PasswordFlag *flags.StrFlag //CobraFlagsDefinition
@@ -37,10 +41,6 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 	var req_BackupStartAtFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_BackupRetentionDaysFlag *flags.IntFlag //CobraFlagsDefinition
-	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_UserFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -65,6 +65,14 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 
 		
 			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_EngineIDFlag.IsChanged() {
+				req.EngineID = req_EngineIDFlag.Value
+			}// CobraFlagsAssign
+			
 			if req_InstanceTypeIDFlag.IsChanged() {
 				req.InstanceTypeID = req_InstanceTypeIDFlag.Value
 			}// CobraFlagsAssign
@@ -87,14 +95,6 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 			
 			if req_BackupRetentionDaysFlag.IsChanged() {
 				req.BackupRetentionDays = req_BackupRetentionDaysFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_EngineIDFlag.IsChanged() {
-				req.EngineID = req_EngineIDFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_UserFlag.IsChanged() {
@@ -123,6 +123,10 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 	}
 	
 	
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	
+	req_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", "")//CobraFlagsCreation
+	
 	req_InstanceTypeIDFlag = flags.NewStr(cmd, "instance-type-id", "", "")//CobraFlagsCreation
 	
 	req_PasswordFlag = flags.NewStr(cmd, "password", "", " (required)")//CobraFlagsCreation
@@ -134,10 +138,6 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 	req_BackupStartAtFlag = flags.NewStr(cmd, "backup-start-at", "", "")//CobraFlagsCreation
 	
 	req_BackupRetentionDaysFlag = flags.NewInt(cmd, "backup-retention-days", 0, "")//CobraFlagsCreation
-	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
-	
-	req_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", "")//CobraFlagsCreation
 	
 	req_UserFlag = flags.NewStr(cmd, "user", "", " (required)")//CobraFlagsCreation
 	

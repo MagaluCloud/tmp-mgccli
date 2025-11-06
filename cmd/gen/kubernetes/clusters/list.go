@@ -28,18 +28,18 @@ import (
 
 func List(ctx context.Context, parent *cobra.Command, clusterService kubernetesSdk.ClusterService) {
 	
-	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
-	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var opts_ExpandFlag *flags.StrSliceFlag //CobraFlagsDefinition
 	
+	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort] [Expand]",
+		Use:     "list [Offset] [Sort] [Expand] [Limit]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
 		
@@ -52,10 +52,6 @@ func List(ctx context.Context, parent *cobra.Command, clusterService kubernetesS
 			
 
 		
-			
-			if opts_LimitFlag.IsChanged() {
-				opts.Limit = opts_LimitFlag.Value
-			}// CobraFlagsAssign
 			
 			if opts_OffsetFlag.IsChanged() {
 				opts.Offset = opts_OffsetFlag.Value
@@ -74,6 +70,10 @@ func List(ctx context.Context, parent *cobra.Command, clusterService kubernetesS
 				return fmt.Errorf("é necessário fornecer o expand como argumento ou usar a flag --expand")
 			}// CobraFlagsAssign
 			
+			if opts_LimitFlag.IsChanged() {
+				opts.Limit = opts_LimitFlag.Value
+			}// CobraFlagsAssign
+			
 
 			clusterlist, err := clusterService.List(ctx, opts)
 			
@@ -88,13 +88,13 @@ func List(ctx context.Context, parent *cobra.Command, clusterService kubernetesS
 	}
 	
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
-	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	
 	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
+	
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
 
 

@@ -30,16 +30,16 @@ func List(ctx context.Context, parent *cobra.Command, networkCertificateService 
 	
 	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var options_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
-	
 	var options_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var options_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
+	var options_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [lbID] [Offset] [Limit] [Sort]",
+		Use:     "list [lbID] [Limit] [Sort] [Offset]",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `doto3`,
 		
@@ -64,16 +64,16 @@ func List(ctx context.Context, parent *cobra.Command, networkCertificateService 
 				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
 			}// CobraFlagsAssign
 			
-			if options_OffsetFlag.IsChanged() {
-				options.Offset = options_OffsetFlag.Value
-			}// CobraFlagsAssign
-			
 			if options_LimitFlag.IsChanged() {
 				options.Limit = options_LimitFlag.Value
 			}// CobraFlagsAssign
 			
 			if options_SortFlag.IsChanged() {
 				options.Sort = options_SortFlag.Value
+			}// CobraFlagsAssign
+			
+			if options_OffsetFlag.IsChanged() {
+				options.Offset = options_OffsetFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -92,11 +92,11 @@ func List(ctx context.Context, parent *cobra.Command, networkCertificateService 
 	
 	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
-	options_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
-	
 	options_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
 	options_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	
+	options_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 
 
