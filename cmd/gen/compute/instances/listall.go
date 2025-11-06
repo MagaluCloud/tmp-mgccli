@@ -26,16 +26,16 @@ import (
 
 func ListAll(ctx context.Context, parent *cobra.Command, instanceService computeSdk.InstanceService) {
 	
-	var opts_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var opts_ExpandFlag *flags.StrSliceFlag //CobraFlagsDefinition
 	
+	var opts_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [Name] [Sort] [Expand]",
+		Use:     "list-all [Sort] [Expand] [Name]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		
@@ -49,10 +49,6 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceService compute
 
 		
 			
-			if opts_NameFlag.IsChanged() {
-				opts.Name = opts_NameFlag.Value
-			}// CobraFlagsAssign
-			
 			if opts_SortFlag.IsChanged() {
 				opts.Sort = opts_SortFlag.Value
 			}// CobraFlagsAssign
@@ -62,6 +58,10 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceService compute
 				for i, v := range *opts_ExpandFlag.Value {
 					opts.Expand[i] = computeSdk.InstanceExpand(v)
 				}
+			}// CobraFlagsAssign
+			
+			if opts_NameFlag.IsChanged() {
+				opts.Name = opts_NameFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -78,11 +78,11 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceService compute
 	}
 	
 	
-	opts_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
-	
 	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	
 	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
+	
+	opts_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 
 

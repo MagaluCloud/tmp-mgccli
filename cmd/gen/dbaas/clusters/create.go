@@ -26,23 +26,23 @@ import (
 
 func Create(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk.ClusterService) {
 	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var req_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_InstanceTypeIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_UserFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_Volume_SizeFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var req_Volume_TypeFlag *flags.StrFlag //CobraFlagsDefinition
 	
+	var req_ParameterGroupIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var req_BackupRetentionDaysFlag *flags.IntFlag //CobraFlagsDefinition
 	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	var req_UserFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_PasswordFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_ParameterGroupIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_BackupStartAtFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -63,16 +63,16 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk.
 
 		
 			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+			}// CobraFlagsAssign
+			
 			if req_EngineIDFlag.IsChanged() {
 				req.EngineID = *req_EngineIDFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_InstanceTypeIDFlag.IsChanged() {
 				req.InstanceTypeID = *req_InstanceTypeIDFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_UserFlag.IsChanged() {
-				req.User = *req_UserFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_Volume_SizeFlag.IsChanged() {
@@ -83,20 +83,20 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk.
 				req.Volume.Type = req_Volume_TypeFlag.Value
 			}// CobraFlagsAssign
 			
+			if req_ParameterGroupIDFlag.IsChanged() {
+				req.ParameterGroupID = req_ParameterGroupIDFlag.Value
+			}// CobraFlagsAssign
+			
 			if req_BackupRetentionDaysFlag.IsChanged() {
 				req.BackupRetentionDays = req_BackupRetentionDaysFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
+			if req_UserFlag.IsChanged() {
+				req.User = *req_UserFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_PasswordFlag.IsChanged() {
 				req.Password = *req_PasswordFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_ParameterGroupIDFlag.IsChanged() {
-				req.ParameterGroupID = req_ParameterGroupIDFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_BackupStartAtFlag.IsChanged() {
@@ -117,23 +117,23 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk.
 	}
 	
 	
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	
 	req_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
 	
 	req_InstanceTypeIDFlag = flags.NewStr(cmd, "instance-type-id", "", " (required)")//CobraFlagsCreation
-	
-	req_UserFlag = flags.NewStr(cmd, "user", "", " (required)")//CobraFlagsCreation
 	
 	req_Volume_SizeFlag = flags.NewInt(cmd, "volume.size", 0, " (required)")//CobraFlagsCreation
 	
 	req_Volume_TypeFlag = flags.NewStr(cmd, "volume.type", "", "")//CobraFlagsCreation
 	
+	req_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", "")//CobraFlagsCreation
+	
 	req_BackupRetentionDaysFlag = flags.NewInt(cmd, "backup-retention-days", 0, "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_UserFlag = flags.NewStr(cmd, "user", "", " (required)")//CobraFlagsCreation
 	
 	req_PasswordFlag = flags.NewStr(cmd, "password", "", " (required)")//CobraFlagsCreation
-	
-	req_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", "")//CobraFlagsCreation
 	
 	req_BackupStartAtFlag = flags.NewStr(cmd, "backup-start-at", "", "")//CobraFlagsCreation
 	

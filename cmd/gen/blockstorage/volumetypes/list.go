@@ -28,8 +28,6 @@ import (
 
 func List(ctx context.Context, parent *cobra.Command, volumeTypeService blockstorageSdk.VolumeTypeService) {
 	
-	var opts_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var opts_AllowsEncryptionFlag *flags.BoolFlag //CobraFlagsDefinition
 	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
@@ -40,10 +38,12 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 	
 	var opts_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
 	
+	var opts_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Name] [AllowsEncryption] [Offset] [Limit] [Sort] [AvailabilityZone]",
+		Use:     "list [AllowsEncryption] [Offset] [Limit] [Sort] [AvailabilityZone] [Name]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		
@@ -56,15 +56,6 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("name", args[0])
-			}
-			if opts_NameFlag.IsChanged() {
-				opts.Name = *opts_NameFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o name como argumento ou usar a flag --name")
-			}// CobraFlagsAssign
 			
 			if opts_AllowsEncryptionFlag.IsChanged() {
 				opts.AllowsEncryption = opts_AllowsEncryptionFlag.Value
@@ -91,6 +82,15 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 				return fmt.Errorf("é necessário fornecer o availability-zone como argumento ou usar a flag --availability-zone")
 			}// CobraFlagsAssign
 			
+			if len(args) > 0{
+				cmd.Flags().Set("name", args[0])
+			}
+			if opts_NameFlag.IsChanged() {
+				opts.Name = *opts_NameFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o name como argumento ou usar a flag --name")
+			}// CobraFlagsAssign
+			
 
 			listvolumetypesresponse, err := volumeTypeService.List(ctx, opts)
 			
@@ -105,8 +105,6 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 	}
 	
 	
-	opts_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
-	
 	opts_AllowsEncryptionFlag = flags.NewBool(cmd, "allows-encryption", false, " (required)")//CobraFlagsCreation
 	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
@@ -116,6 +114,8 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	
 	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", " (required)")//CobraFlagsCreation
+	
+	opts_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 
 

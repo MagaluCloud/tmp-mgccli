@@ -30,13 +30,13 @@ func Create(ctx context.Context, parent *cobra.Command, networkListenerService l
 	
 	var backendIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_TLSCertificateIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_PortFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var req_TLSCertificateIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -67,10 +67,6 @@ func Create(ctx context.Context, parent *cobra.Command, networkListenerService l
 				backendID = *backendIDFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_TLSCertificateIDFlag.IsChanged() {
-				req.TLSCertificateID = req_TLSCertificateIDFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
@@ -81,6 +77,10 @@ func Create(ctx context.Context, parent *cobra.Command, networkListenerService l
 			
 			if req_PortFlag.IsChanged() {
 				req.Port = *req_PortFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_TLSCertificateIDFlag.IsChanged() {
+				req.TLSCertificateID = req_TLSCertificateIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -101,13 +101,13 @@ func Create(ctx context.Context, parent *cobra.Command, networkListenerService l
 	
 	backendIDFlag = flags.NewStr(cmd, "backend-id", "", " (required)")//CobraFlagsCreation
 	
-	req_TLSCertificateIDFlag = flags.NewStr(cmd, "tlscertificate-id", "", "")//CobraFlagsCreation
-	
 	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
 	req_PortFlag = flags.NewInt(cmd, "port", 0, " (required)")//CobraFlagsCreation
+	
+	req_TLSCertificateIDFlag = flags.NewStr(cmd, "tlscertificate-id", "", "")//CobraFlagsCreation
 	
 
 

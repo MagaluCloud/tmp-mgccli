@@ -26,6 +26,8 @@ import (
 
 func Create(ctx context.Context, parent *cobra.Command, schedulerService blockstorageSdk.SchedulerService) {
 	
+	var req_Snapshot_TypeFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var req_Policy_RetentionInDaysFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var req_Policy_Frequency_Daily_StartTimeFlag *flags.StrFlag //CobraFlagsDefinition
@@ -33,8 +35,6 @@ func Create(ctx context.Context, parent *cobra.Command, schedulerService blockst
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_Snapshot_TypeFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -53,6 +53,10 @@ func Create(ctx context.Context, parent *cobra.Command, schedulerService blockst
 
 		
 			
+			if req_Snapshot_TypeFlag.IsChanged() {
+				req.Snapshot.Type = *req_Snapshot_TypeFlag.Value
+			}// CobraFlagsAssign
+			
 			if req_Policy_RetentionInDaysFlag.IsChanged() {
 				req.Policy.RetentionInDays = *req_Policy_RetentionInDaysFlag.Value
 			}// CobraFlagsAssign
@@ -69,10 +73,6 @@ func Create(ctx context.Context, parent *cobra.Command, schedulerService blockst
 				req.Description = req_DescriptionFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_Snapshot_TypeFlag.IsChanged() {
-				req.Snapshot.Type = *req_Snapshot_TypeFlag.Value
-			}// CobraFlagsAssign
-			
 
 			result, err := schedulerService.Create(ctx, req)
 			
@@ -87,6 +87,8 @@ func Create(ctx context.Context, parent *cobra.Command, schedulerService blockst
 	}
 	
 	
+	req_Snapshot_TypeFlag = flags.NewStr(cmd, "snapshot.type", "", " (required)")//CobraFlagsCreation
+	
 	req_Policy_RetentionInDaysFlag = flags.NewInt(cmd, "policy.retention-in-days", 0, " (required)")//CobraFlagsCreation
 	
 	req_Policy_Frequency_Daily_StartTimeFlag = flags.NewStr(cmd, "policy.frequency.daily.start-time", "", " (required)")//CobraFlagsCreation
@@ -94,8 +96,6 @@ func Create(ctx context.Context, parent *cobra.Command, schedulerService blockst
 	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
-	
-	req_Snapshot_TypeFlag = flags.NewStr(cmd, "snapshot.type", "", " (required)")//CobraFlagsCreation
 	
 
 

@@ -32,9 +32,9 @@ func Replace(ctx context.Context, parent *cobra.Command, networkBackendTargetSer
 	
 	var backendIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_HealthCheckIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_TargetsFlag *flags.JSONArrayValue[lbaasSdk.NetworkBackendInstanceTargetRequest] //CobraFlagsDefinition
+	
+	var req_HealthCheckIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -75,12 +75,12 @@ func Replace(ctx context.Context, parent *cobra.Command, networkBackendTargetSer
 				return fmt.Errorf("é necessário fornecer o backend-id como argumento ou usar a flag --backend-id")
 			}// CobraFlagsAssign
 			
-			if req_HealthCheckIDFlag.IsChanged() {
-				req.HealthCheckID = req_HealthCheckIDFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_TargetsFlag.IsChanged() {
 				req.Targets = *req_TargetsFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_HealthCheckIDFlag.IsChanged() {
+				req.HealthCheckID = req_HealthCheckIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -101,9 +101,9 @@ func Replace(ctx context.Context, parent *cobra.Command, networkBackendTargetSer
 	
 	backendIDFlag = flags.NewStr(cmd, "backend-id", "", " (required)")//CobraFlagsCreation
 	
-	req_HealthCheckIDFlag = flags.NewStr(cmd, "health-check-id", "", "")//CobraFlagsCreation
-	
 	req_TargetsFlag = flags.NewJSONArrayValue[lbaasSdk.NetworkBackendInstanceTargetRequest](cmd, "targets", "",)//CobraFlagsCreation
+	
+	req_HealthCheckIDFlag = flags.NewStr(cmd, "health-check-id", "", "")//CobraFlagsCreation
 	
 
 

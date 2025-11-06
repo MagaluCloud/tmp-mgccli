@@ -26,14 +26,14 @@ import (
 
 func ListAll(ctx context.Context, parent *cobra.Command, schedulerService blockstorageSdk.SchedulerService) {
 	
-	var filterOpts_SortFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var filterOpts_ExpandFlag *flags.StrSliceFlag //CobraFlagsDefinition
+	
+	var filterOpts_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [Sort] [Expand]",
+		Use:     "list-all [Expand] [Sort]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		
@@ -47,15 +47,15 @@ func ListAll(ctx context.Context, parent *cobra.Command, schedulerService blocks
 
 		
 			
-			if filterOpts_SortFlag.IsChanged() {
-				filterOpts.Sort = filterOpts_SortFlag.Value
-			}// CobraFlagsAssign
-			
 			if filterOpts_ExpandFlag.IsChanged() {
 				filterOpts.Expand = make([]blockstorageSdk.ExpandSchedulers, len(*filterOpts_ExpandFlag.Value))
 				for i, v := range *filterOpts_ExpandFlag.Value {
 					filterOpts.Expand[i] = blockstorageSdk.ExpandSchedulers(v)
 				}
+			}// CobraFlagsAssign
+			
+			if filterOpts_SortFlag.IsChanged() {
+				filterOpts.Sort = filterOpts_SortFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -72,9 +72,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, schedulerService blocks
 	}
 	
 	
-	filterOpts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
-	
 	filterOpts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
+	
+	filterOpts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	
 
 

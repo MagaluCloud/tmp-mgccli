@@ -26,8 +26,6 @@ import (
 
 func List(ctx context.Context, parent *cobra.Command, instanceService computeSdk.InstanceService) {
 	
-	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
-	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
@@ -36,10 +34,12 @@ func List(ctx context.Context, parent *cobra.Command, instanceService computeSdk
 	
 	var opts_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
+	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort] [Expand] [Name]",
+		Use:     "list [Offset] [Sort] [Expand] [Name] [Limit]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		
@@ -52,10 +52,6 @@ func List(ctx context.Context, parent *cobra.Command, instanceService computeSdk
 			
 
 		
-			
-			if opts_LimitFlag.IsChanged() {
-				opts.Limit = opts_LimitFlag.Value
-			}// CobraFlagsAssign
 			
 			if opts_OffsetFlag.IsChanged() {
 				opts.Offset = opts_OffsetFlag.Value
@@ -76,6 +72,10 @@ func List(ctx context.Context, parent *cobra.Command, instanceService computeSdk
 				opts.Name = opts_NameFlag.Value
 			}// CobraFlagsAssign
 			
+			if opts_LimitFlag.IsChanged() {
+				opts.Limit = opts_LimitFlag.Value
+			}// CobraFlagsAssign
+			
 
 			listinstancesresponse, err := instanceService.List(ctx, opts)
 			
@@ -90,8 +90,6 @@ func List(ctx context.Context, parent *cobra.Command, instanceService computeSdk
 	}
 	
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
-	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
@@ -99,6 +97,8 @@ func List(ctx context.Context, parent *cobra.Command, instanceService computeSdk
 	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
 	
 	opts_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
 
 

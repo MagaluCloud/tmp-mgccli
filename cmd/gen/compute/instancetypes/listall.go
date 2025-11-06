@@ -26,9 +26,9 @@ import (
 
 func ListAll(ctx context.Context, parent *cobra.Command, instanceTypeService computeSdk.InstanceTypeService) {
 	
-	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var opts_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -47,12 +47,12 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceTypeService com
 
 		
 			
-			if opts_SortFlag.IsChanged() {
-				opts.Sort = opts_SortFlag.Value
-			}// CobraFlagsAssign
-			
 			if opts_AvailabilityZoneFlag.IsChanged() {
 				opts.AvailabilityZone = *opts_AvailabilityZoneFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_SortFlag.IsChanged() {
+				opts.Sort = opts_SortFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -69,9 +69,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceTypeService com
 	}
 	
 	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
-	
 	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", "")//CobraFlagsCreation
+	
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
 	
 
 

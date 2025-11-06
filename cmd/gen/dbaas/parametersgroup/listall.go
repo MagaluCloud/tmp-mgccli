@@ -26,14 +26,14 @@ import (
 
 func ListAll(ctx context.Context, parent *cobra.Command, parameterGroupService dbaasSdk.ParameterGroupService) {
 	
-	var filterOpts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var filterOpts_TypeFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var filterOpts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [EngineID] [Type]",
+		Use:     "list-all [Type] [EngineID]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		
@@ -47,12 +47,12 @@ func ListAll(ctx context.Context, parent *cobra.Command, parameterGroupService d
 
 		
 			
-			if filterOpts_EngineIDFlag.IsChanged() {
-				filterOpts.EngineID = filterOpts_EngineIDFlag.Value
-			}// CobraFlagsAssign
-			
 			if filterOpts_TypeFlag.IsChanged() {
 				filterOpts.Type = (*dbaasSdk.ParameterGroupType)(filterOpts_TypeFlag.Value)
+			}// CobraFlagsAssign
+			
+			if filterOpts_EngineIDFlag.IsChanged() {
+				filterOpts.EngineID = filterOpts_EngineIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -69,9 +69,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, parameterGroupService d
 	}
 	
 	
-	filterOpts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
-	
 	filterOpts_TypeFlag = flags.NewStr(cmd, "type", "", " (required)")//CobraFlagsCreation
+	
+	filterOpts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
 	
 
 

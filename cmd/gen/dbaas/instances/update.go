@@ -30,11 +30,11 @@ func Update(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 	
 	var idFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_ParameterGroupIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_BackupRetentionDaysFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var req_BackupStartAtFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_ParameterGroupIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -64,16 +64,16 @@ func Update(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
 			}// CobraFlagsAssign
 			
-			if req_ParameterGroupIDFlag.IsChanged() {
-				req.ParameterGroupID = req_ParameterGroupIDFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_BackupRetentionDaysFlag.IsChanged() {
 				req.BackupRetentionDays = req_BackupRetentionDaysFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_BackupStartAtFlag.IsChanged() {
 				req.BackupStartAt = req_BackupStartAtFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_ParameterGroupIDFlag.IsChanged() {
+				req.ParameterGroupID = req_ParameterGroupIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -92,11 +92,11 @@ func Update(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 	
 	idFlag = flags.NewStr(cmd, "id", "", " (required)")//CobraFlagsCreation
 	
-	req_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", "")//CobraFlagsCreation
-	
 	req_BackupRetentionDaysFlag = flags.NewInt(cmd, "backup-retention-days", 0, "")//CobraFlagsCreation
 	
 	req_BackupStartAtFlag = flags.NewStr(cmd, "backup-start-at", "", "")//CobraFlagsCreation
+	
+	req_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", "")//CobraFlagsCreation
 	
 
 
