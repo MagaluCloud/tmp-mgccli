@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"fmt"
 	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
 	
 )
 
@@ -40,9 +40,9 @@ func Update(ctx context.Context, parent *cobra.Command, portService networkSdk.P
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			req := networkSdk.PortUpdateRequest{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			

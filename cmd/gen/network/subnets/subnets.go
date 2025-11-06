@@ -25,9 +25,9 @@ func SubnetsCmd(ctx context.Context, parent *cobra.Command, subnetService networ
 	}
 
 	
-	Get(ctx, cmd, subnetService)
-	
 	Delete(ctx, cmd, subnetService)
+	
+	Get(ctx, cmd, subnetService)
 	
 	Update(ctx, cmd, subnetService)
 	

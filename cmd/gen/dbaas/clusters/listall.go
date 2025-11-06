@@ -14,23 +14,23 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func ListAll(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk.ClusterService) {
 	
+	var filterOpts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var filterOpts_ParameterGroupIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var filterOpts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var filterOpts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var filterOpts_VolumeSizeFlag *flags.IntFlag //CobraFlagsDefinition
 	
@@ -45,7 +45,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [ParameterGroupID] [Status] [EngineID] [VolumeSize] [VolumeSizeGt] [VolumeSizeGte] [VolumeSizeLt] [VolumeSizeLte]",
+		Use:     "list-all [EngineID] [VolumeSize] [VolumeSizeGt] [VolumeSizeGte] [VolumeSizeLt] [VolumeSizeLte] [ParameterGroupID] [Status]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		
@@ -59,16 +59,16 @@ func ListAll(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk
 
 		
 			
+			if filterOpts_EngineIDFlag.IsChanged() {
+				filterOpts.EngineID = filterOpts_EngineIDFlag.Value
+			}// CobraFlagsAssign
+			
 			if filterOpts_ParameterGroupIDFlag.IsChanged() {
 				filterOpts.ParameterGroupID = filterOpts_ParameterGroupIDFlag.Value
 			}// CobraFlagsAssign
 			
 			if filterOpts_StatusFlag.IsChanged() {
 				filterOpts.Status = (*dbaasSdk.ClusterStatus)(filterOpts_StatusFlag.Value)
-			}// CobraFlagsAssign
-			
-			if filterOpts_EngineIDFlag.IsChanged() {
-				filterOpts.EngineID = filterOpts_EngineIDFlag.Value
 			}// CobraFlagsAssign
 			
 			if filterOpts_VolumeSizeFlag.IsChanged() {
@@ -105,11 +105,11 @@ func ListAll(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk
 	}
 	
 	
+	filterOpts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
+	
 	filterOpts_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", " (required)")//CobraFlagsCreation
 	
 	filterOpts_StatusFlag = flags.NewStr(cmd, "status", "", " (required)")//CobraFlagsCreation
-	
-	filterOpts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
 	
 	filterOpts_VolumeSizeFlag = flags.NewInt(cmd, "volume-size", 0, " (required)")//CobraFlagsCreation
 	

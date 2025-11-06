@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func ListAll(ctx context.Context, parent *cobra.Command, volumeService blockstorageSdk.VolumeService) {
 	
-	var filterOpts_SortFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var filterOpts_ExpandFlag *flags.StrSliceFlag //CobraFlagsDefinition
+	
+	var filterOpts_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -47,15 +47,15 @@ func ListAll(ctx context.Context, parent *cobra.Command, volumeService blockstor
 
 		
 			
-			if filterOpts_SortFlag.IsChanged() {
-				filterOpts.Sort = filterOpts_SortFlag.Value
-			}// CobraFlagsAssign
-			
 			if filterOpts_ExpandFlag.IsChanged() {
 				filterOpts.Expand = make([]blockstorageSdk.VolumeExpand, len(*filterOpts_ExpandFlag.Value))
 				for i, v := range *filterOpts_ExpandFlag.Value {
 					filterOpts.Expand[i] = blockstorageSdk.VolumeExpand(v)
 				}
+			}// CobraFlagsAssign
+			
+			if filterOpts_SortFlag.IsChanged() {
+				filterOpts.Sort = filterOpts_SortFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -72,9 +72,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, volumeService blockstor
 	}
 	
 	
-	filterOpts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
-	
 	filterOpts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
+	
+	filterOpts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	
 
 

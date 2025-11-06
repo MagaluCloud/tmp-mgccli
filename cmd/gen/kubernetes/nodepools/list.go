@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
 	
 )
 
@@ -30,27 +30,27 @@ func List(ctx context.Context, parent *cobra.Command, nodePoolService kubernetes
 	
 	var clusterIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
-	
-	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var opts_ExpandFlag *flags.StrSliceFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
+	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [clusterID] [Offset] [Sort] [Expand] [Limit]",
+		Use:     "list [clusterID] [Limit] [Offset] [Sort] [Expand]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
 		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var clusterID string// ServiceSDKParamCreate
-			
 			opts := kubernetesSdk.ListOptions{}// ServiceSDKParamCreate
+			
+			var clusterID string// ServiceSDKParamCreate
 			
 			
 			
@@ -66,14 +66,6 @@ func List(ctx context.Context, parent *cobra.Command, nodePoolService kubernetes
 				return fmt.Errorf("é necessário fornecer o cluster-id como argumento ou usar a flag --cluster-id")
 			}// CobraFlagsAssign
 			
-			if opts_OffsetFlag.IsChanged() {
-				opts.Offset = opts_OffsetFlag.Value
-			}// CobraFlagsAssign
-			
-			if opts_SortFlag.IsChanged() {
-				opts.Sort = opts_SortFlag.Value
-			}// CobraFlagsAssign
-			
 			if len(args) > 0{
 				cmd.Flags().Set("expand", args[0])
 			}
@@ -85,6 +77,14 @@ func List(ctx context.Context, parent *cobra.Command, nodePoolService kubernetes
 			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_OffsetFlag.IsChanged() {
+				opts.Offset = opts_OffsetFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_SortFlag.IsChanged() {
+				opts.Sort = opts_SortFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -103,13 +103,13 @@ func List(ctx context.Context, parent *cobra.Command, nodePoolService kubernetes
 	
 	clusterIDFlag = flags.NewStr(cmd, "cluster-id", "", " (required)")//CobraFlagsCreation
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
-	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
-	
 	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
 	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	
 
 

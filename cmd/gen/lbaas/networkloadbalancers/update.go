@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
@@ -30,9 +30,9 @@ func Update(ctx context.Context, parent *cobra.Command, networkLoadBalancerServi
 	
 	var idFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var loadBalancer_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var loadBalancer_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var loadBalancer_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -44,9 +44,9 @@ func Update(ctx context.Context, parent *cobra.Command, networkLoadBalancerServi
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			loadBalancer := lbaasSdk.UpdateNetworkLoadBalancerRequest{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			
@@ -62,12 +62,12 @@ func Update(ctx context.Context, parent *cobra.Command, networkLoadBalancerServi
 				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
 			}// CobraFlagsAssign
 			
-			if loadBalancer_NameFlag.IsChanged() {
-				loadBalancer.Name = loadBalancer_NameFlag.Value
-			}// CobraFlagsAssign
-			
 			if loadBalancer_DescriptionFlag.IsChanged() {
 				loadBalancer.Description = loadBalancer_DescriptionFlag.Value
+			}// CobraFlagsAssign
+			
+			if loadBalancer_NameFlag.IsChanged() {
+				loadBalancer.Name = loadBalancer_NameFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -86,9 +86,9 @@ func Update(ctx context.Context, parent *cobra.Command, networkLoadBalancerServi
 	
 	idFlag = flags.NewStr(cmd, "id", "", " (required)")//CobraFlagsCreation
 	
-	loadBalancer_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
-	
 	loadBalancer_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
+	
+	loadBalancer_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 
 

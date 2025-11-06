@@ -25,37 +25,37 @@ func InstancesCmd(ctx context.Context, parent *cobra.Command, instanceService db
 	}
 
 	
+	Create(ctx, cmd, instanceService)
+	
+	CreateSnapshot(ctx, cmd, instanceService)
+	
+	Delete(ctx, cmd, instanceService)
+	
+	DeleteSnapshot(ctx, cmd, instanceService)
+	
+	Get(ctx, cmd, instanceService)
+	
+	GetSnapshot(ctx, cmd, instanceService)
+	
 	List(ctx, cmd, instanceService)
 	
 	ListAll(ctx, cmd, instanceService)
 	
-	Get(ctx, cmd, instanceService)
+	ListAllSnapshots(ctx, cmd, instanceService)
 	
-	Create(ctx, cmd, instanceService)
-	
-	Delete(ctx, cmd, instanceService)
-	
-	Update(ctx, cmd, instanceService)
+	ListSnapshots(ctx, cmd, instanceService)
 	
 	Resize(ctx, cmd, instanceService)
+	
+	RestoreSnapshot(ctx, cmd, instanceService)
 	
 	Start(ctx, cmd, instanceService)
 	
 	Stop(ctx, cmd, instanceService)
 	
-	ListSnapshots(ctx, cmd, instanceService)
-	
-	ListAllSnapshots(ctx, cmd, instanceService)
-	
-	CreateSnapshot(ctx, cmd, instanceService)
-	
-	GetSnapshot(ctx, cmd, instanceService)
+	Update(ctx, cmd, instanceService)
 	
 	UpdateSnapshot(ctx, cmd, instanceService)
-	
-	DeleteSnapshot(ctx, cmd, instanceService)
-	
-	RestoreSnapshot(ctx, cmd, instanceService)
 	
 
 	parent.AddCommand(cmd)

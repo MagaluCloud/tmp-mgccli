@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 
@@ -30,9 +30,9 @@ func Update(ctx context.Context, parent *cobra.Command, parameterGroupService db
 	
 	var IDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -44,9 +44,9 @@ func Update(ctx context.Context, parent *cobra.Command, parameterGroupService db
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var ID string// ServiceSDKParamCreate
-			
 			req := dbaasSdk.ParameterGroupUpdateRequest{}// ServiceSDKParamCreate
+			
+			var ID string// ServiceSDKParamCreate
 			
 			
 			
@@ -62,12 +62,12 @@ func Update(ctx context.Context, parent *cobra.Command, parameterGroupService db
 				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
 			}// CobraFlagsAssign
 			
-			if req_NameFlag.IsChanged() {
-				req.Name = req_NameFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -86,9 +86,9 @@ func Update(ctx context.Context, parent *cobra.Command, parameterGroupService db
 	
 	IDFlag = flags.NewStr(cmd, "id", "", " (required)")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
-	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
+	
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 
 

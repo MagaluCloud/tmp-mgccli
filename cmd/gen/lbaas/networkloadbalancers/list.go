@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/beautiful"
 	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
 func List(ctx context.Context, parent *cobra.Command, networkLoadBalancerService lbaasSdk.NetworkLoadBalancerService) {
 	
-	var options_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
-	
 	var options_LimitFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var options_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var options_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -49,12 +49,12 @@ func List(ctx context.Context, parent *cobra.Command, networkLoadBalancerService
 
 		
 			
-			if options_OffsetFlag.IsChanged() {
-				options.Offset = options_OffsetFlag.Value
-			}// CobraFlagsAssign
-			
 			if options_LimitFlag.IsChanged() {
 				options.Limit = options_LimitFlag.Value
+			}// CobraFlagsAssign
+			
+			if options_OffsetFlag.IsChanged() {
+				options.Offset = options_OffsetFlag.Value
 			}// CobraFlagsAssign
 			
 			if options_SortFlag.IsChanged() {
@@ -75,9 +75,9 @@ func List(ctx context.Context, parent *cobra.Command, networkLoadBalancerService
 	}
 	
 	
-	options_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
-	
 	options_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	
+	options_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	options_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	

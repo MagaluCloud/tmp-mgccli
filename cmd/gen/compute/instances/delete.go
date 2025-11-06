@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
+	"fmt"
+	
 	"github.com/spf13/cobra"
 	
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
-	
 )
 
 func Delete(ctx context.Context, parent *cobra.Command, instanceService computeSdk.InstanceService) {
 	
-	var idFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var deletePublicIPFlag *flags.BoolFlag //CobraFlagsDefinition
+	
+	var idFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -40,23 +40,14 @@ func Delete(ctx context.Context, parent *cobra.Command, instanceService computeS
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			var deletePublicIP bool// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("id", args[0])
-			}
-			if idFlag.IsChanged() {
-				id = *idFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("delete-public-ip", args[0])
@@ -65,6 +56,15 @@ func Delete(ctx context.Context, parent *cobra.Command, instanceService computeS
 				deletePublicIP = *deletePublicIPFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o delete-public-ip como argumento ou usar a flag --delete-public-ip")
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("id", args[0])
+			}
+			if idFlag.IsChanged() {
+				id = *idFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
 			}// CobraFlagsAssign
 			
 
@@ -79,9 +79,9 @@ func Delete(ctx context.Context, parent *cobra.Command, instanceService computeS
 	}
 	
 	
-	idFlag = flags.NewStr(cmd, "id", "", " (required)")//CobraFlagsCreation
-	
 	deletePublicIPFlag = flags.NewBool(cmd, "delete-public-ip", false, " (required)")//CobraFlagsCreation
+	
+	idFlag = flags.NewStr(cmd, "id", "", " (required)")//CobraFlagsCreation
 	
 
 

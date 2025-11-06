@@ -14,30 +14,30 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func List(ctx context.Context, parent *cobra.Command, parameterGroupService dbaasSdk.ParameterGroupService) {
 	
-	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
+	var opts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
-	var opts_TypeFlag *flags.StrFlag //CobraFlagsDefinition
+	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
-	var opts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
+	var opts_TypeFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Offset] [Limit] [Type] [EngineID]",
+		Use:     "list [Limit] [Type] [EngineID] [Offset]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		
@@ -51,20 +51,20 @@ func List(ctx context.Context, parent *cobra.Command, parameterGroupService dbaa
 
 		
 			
-			if opts_OffsetFlag.IsChanged() {
-				opts.Offset = opts_OffsetFlag.Value
+			if opts_EngineIDFlag.IsChanged() {
+				opts.EngineID = opts_EngineIDFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
 			}// CobraFlagsAssign
 			
-			if opts_TypeFlag.IsChanged() {
-				opts.Type = (*dbaasSdk.ParameterGroupType)(opts_TypeFlag.Value)
+			if opts_OffsetFlag.IsChanged() {
+				opts.Offset = opts_OffsetFlag.Value
 			}// CobraFlagsAssign
 			
-			if opts_EngineIDFlag.IsChanged() {
-				opts.EngineID = opts_EngineIDFlag.Value
+			if opts_TypeFlag.IsChanged() {
+				opts.Type = (*dbaasSdk.ParameterGroupType)(opts_TypeFlag.Value)
 			}// CobraFlagsAssign
 			
 
@@ -81,13 +81,13 @@ func List(ctx context.Context, parent *cobra.Command, parameterGroupService dbaa
 	}
 	
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	opts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
 	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
-	opts_TypeFlag = flags.NewStr(cmd, "type", "", " (required)")//CobraFlagsCreation
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
-	opts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
+	opts_TypeFlag = flags.NewStr(cmd, "type", "", " (required)")//CobraFlagsCreation
 	
 
 

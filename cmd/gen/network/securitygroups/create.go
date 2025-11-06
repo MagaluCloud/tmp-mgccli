@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/beautiful"
 	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
 	
 )
 
 func Create(ctx context.Context, parent *cobra.Command, securityGroupService networkSdk.SecurityGroupService) {
 	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_SkipDefaultRulesFlag *flags.BoolFlag //CobraFlagsDefinition
 	
@@ -49,12 +49,12 @@ func Create(ctx context.Context, parent *cobra.Command, securityGroupService net
 
 		
 			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_SkipDefaultRulesFlag.IsChanged() {
@@ -75,9 +75,9 @@ func Create(ctx context.Context, parent *cobra.Command, securityGroupService net
 	}
 	
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
-	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
+	
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_SkipDefaultRulesFlag = flags.NewBool(cmd, "skip-default-rules", false, "")//CobraFlagsCreation
 	

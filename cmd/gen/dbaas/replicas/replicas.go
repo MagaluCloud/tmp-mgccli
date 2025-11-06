@@ -25,15 +25,15 @@ func ReplicasCmd(ctx context.Context, parent *cobra.Command, replicaService dbaa
 	}
 
 	
-	List(ctx, cmd, replicaService)
-	
-	ListAll(ctx, cmd, replicaService)
-	
-	Get(ctx, cmd, replicaService)
-	
 	Create(ctx, cmd, replicaService)
 	
 	Delete(ctx, cmd, replicaService)
+	
+	Get(ctx, cmd, replicaService)
+	
+	List(ctx, cmd, replicaService)
+	
+	ListAll(ctx, cmd, replicaService)
 	
 	Resize(ctx, cmd, replicaService)
 	

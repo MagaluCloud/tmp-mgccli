@@ -10,19 +10,19 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
-	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/credentials"
+	
+	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/images"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/registries"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/repositories"
 	
-	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/images"
+	"github.com/spf13/cobra"
+	
+	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
+	
+	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
 	
 )
 
@@ -46,11 +46,11 @@ This package allows you to manage container registries, repositories, images, an
 	
 	credentials.CredentialsCmd(ctx, cmd, containerregistryService.Credentials())
 	
+	images.ImagesCmd(ctx, cmd, containerregistryService.Images())
+	
 	registries.RegistriesCmd(ctx, cmd, containerregistryService.Registries())
 	
 	repositories.RepositoriesCmd(ctx, cmd, containerregistryService.Repositories())
-	
-	images.ImagesCmd(ctx, cmd, containerregistryService.Images())
 	
 
 	parent.AddCommand(cmd)

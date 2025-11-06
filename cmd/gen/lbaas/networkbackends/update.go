@@ -14,23 +14,23 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
 func Update(ctx context.Context, parent *cobra.Command, networkBackendService lbaasSdk.NetworkBackendService) {
 	
-	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var backendIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_CloseConnectionsOnHostHealthFailureFlag *flags.BoolFlag //CobraFlagsDefinition
 	
@@ -48,25 +48,16 @@ func Update(ctx context.Context, parent *cobra.Command, networkBackendService lb
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var lbID string// ServiceSDKParamCreate
+			req := lbaasSdk.UpdateNetworkBackendRequest{}// ServiceSDKParamCreate
 			
 			var backendID string// ServiceSDKParamCreate
 			
-			req := lbaasSdk.UpdateNetworkBackendRequest{}// ServiceSDKParamCreate
+			var lbID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("lb-id", args[0])
-			}
-			if lbIDFlag.IsChanged() {
-				lbID = *lbIDFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("backend-id", args[0])
@@ -75,6 +66,15 @@ func Update(ctx context.Context, parent *cobra.Command, networkBackendService lb
 				backendID = *backendIDFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o backend-id como argumento ou usar a flag --backend-id")
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("lb-id", args[0])
+			}
+			if lbIDFlag.IsChanged() {
+				lbID = *lbIDFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
 			}// CobraFlagsAssign
 			
 			if req_CloseConnectionsOnHostHealthFailureFlag.IsChanged() {
@@ -103,9 +103,9 @@ func Update(ctx context.Context, parent *cobra.Command, networkBackendService lb
 	}
 	
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
-	
 	backendIDFlag = flags.NewStr(cmd, "backend-id", "", " (required)")//CobraFlagsCreation
+	
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
 	req_CloseConnectionsOnHostHealthFailureFlag = flags.NewBool(cmd, "close-connections-on-host-health-failure", false, "")//CobraFlagsCreation
 	

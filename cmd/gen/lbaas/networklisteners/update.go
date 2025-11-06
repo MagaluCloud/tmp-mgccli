@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"fmt"
 	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
@@ -30,9 +30,9 @@ func Update(ctx context.Context, parent *cobra.Command, networkListenerService l
 	
 	var listenerIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_TLSCertificateIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_TLSCertificateIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -44,11 +44,11 @@ func Update(ctx context.Context, parent *cobra.Command, networkListenerService l
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
+			req := lbaasSdk.UpdateNetworkListenerRequest{}// ServiceSDKParamCreate
+			
 			var lbID string// ServiceSDKParamCreate
 			
 			var listenerID string// ServiceSDKParamCreate
-			
-			req := lbaasSdk.UpdateNetworkListenerRequest{}// ServiceSDKParamCreate
 			
 			
 			
@@ -73,12 +73,12 @@ func Update(ctx context.Context, parent *cobra.Command, networkListenerService l
 				return fmt.Errorf("é necessário fornecer o listener-id como argumento ou usar a flag --listener-id")
 			}// CobraFlagsAssign
 			
-			if req_TLSCertificateIDFlag.IsChanged() {
-				req.TLSCertificateID = req_TLSCertificateIDFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_NameFlag.IsChanged() {
 				req.Name = req_NameFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_TLSCertificateIDFlag.IsChanged() {
+				req.TLSCertificateID = req_TLSCertificateIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -97,9 +97,9 @@ func Update(ctx context.Context, parent *cobra.Command, networkListenerService l
 	
 	listenerIDFlag = flags.NewStr(cmd, "listener-id", "", " (required)")//CobraFlagsCreation
 	
-	req_TLSCertificateIDFlag = flags.NewStr(cmd, "tlscertificate-id", "", "")//CobraFlagsCreation
-	
 	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
+	
+	req_TLSCertificateIDFlag = flags.NewStr(cmd, "tlscertificate-id", "", "")//CobraFlagsCreation
 	
 
 

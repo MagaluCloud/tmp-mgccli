@@ -25,15 +25,15 @@ func ParametersCmd(ctx context.Context, parent *cobra.Command, parameterService 
 	}
 
 	
+	Create(ctx, cmd, parameterService)
+	
+	Delete(ctx, cmd, parameterService)
+	
 	List(ctx, cmd, parameterService)
 	
 	ListAll(ctx, cmd, parameterService)
 	
-	Create(ctx, cmd, parameterService)
-	
 	Update(ctx, cmd, parameterService)
-	
-	Delete(ctx, cmd, parameterService)
 	
 
 	parent.AddCommand(cmd)

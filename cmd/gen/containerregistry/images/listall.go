@@ -14,48 +14,59 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func ListAll(ctx context.Context, parent *cobra.Command, imagesService containerregistrySdk.ImagesService) {
-	
-	var registryIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var repositoryNameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var filterOpts_ExpandFlag *flags.StrSliceFlag //CobraFlagsDefinition
 	
 	var filterOpts_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
+	var registryIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var repositoryNameFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [registryID] [repositoryName] [Expand] [Sort]",
+		Use:     "list-all [registryID] [repositoryName] [Sort] [Expand]",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
 		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
+			filterOpts := containerregistrySdk.ImageFilterOptions{}// ServiceSDKParamCreate
+			
 			var registryID string// ServiceSDKParamCreate
 			
 			var repositoryName string// ServiceSDKParamCreate
-			
-			filterOpts := containerregistrySdk.ImageFilterOptions{}// ServiceSDKParamCreate
 			
 			
 			
 
 		
+			
+			if filterOpts_ExpandFlag.IsChanged() {
+				filterOpts.Expand = make([]containerregistrySdk.ImageExpand, len(*filterOpts_ExpandFlag.Value))
+				for i, v := range *filterOpts_ExpandFlag.Value {
+					filterOpts.Expand[i] = containerregistrySdk.ImageExpand(v)
+				}
+			}// CobraFlagsAssign
+			
+			if filterOpts_SortFlag.IsChanged() {
+				filterOpts.Sort = filterOpts_SortFlag.Value
+			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("registry-id", args[0])
@@ -75,17 +86,6 @@ func ListAll(ctx context.Context, parent *cobra.Command, imagesService container
 				return fmt.Errorf("é necessário fornecer o repository-name como argumento ou usar a flag --repository-name")
 			}// CobraFlagsAssign
 			
-			if filterOpts_ExpandFlag.IsChanged() {
-				filterOpts.Expand = make([]containerregistrySdk.ImageExpand, len(*filterOpts_ExpandFlag.Value))
-				for i, v := range *filterOpts_ExpandFlag.Value {
-					filterOpts.Expand[i] = containerregistrySdk.ImageExpand(v)
-				}
-			}// CobraFlagsAssign
-			
-			if filterOpts_SortFlag.IsChanged() {
-				filterOpts.Sort = filterOpts_SortFlag.Value
-			}// CobraFlagsAssign
-			
 
 			imageresponse, err := imagesService.ListAll(ctx, registryID, repositoryName, filterOpts)
 			
@@ -100,13 +100,13 @@ func ListAll(ctx context.Context, parent *cobra.Command, imagesService container
 	}
 	
 	
-	registryIDFlag = flags.NewStr(cmd, "registry-id", "", " (required)")//CobraFlagsCreation
-	
-	repositoryNameFlag = flags.NewStr(cmd, "repository-name", "", " (required)")//CobraFlagsCreation
-	
 	filterOpts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
 	
 	filterOpts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	
+	registryIDFlag = flags.NewStr(cmd, "registry-id", "", " (required)")//CobraFlagsCreation
+	
+	repositoryNameFlag = flags.NewStr(cmd, "repository-name", "", " (required)")//CobraFlagsCreation
 	
 
 

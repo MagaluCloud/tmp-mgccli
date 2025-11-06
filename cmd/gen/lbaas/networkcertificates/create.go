@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/beautiful"
 	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
@@ -28,11 +28,11 @@ func Create(ctx context.Context, parent *cobra.Command, networkCertificateServic
 	
 	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	var req_CertificateFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_CertificateFlag *flags.StrFlag //CobraFlagsDefinition
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_PrivateKeyFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -46,9 +46,9 @@ func Create(ctx context.Context, parent *cobra.Command, networkCertificateServic
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var lbID string// ServiceSDKParamCreate
-			
 			req := lbaasSdk.CreateNetworkCertificateRequest{}// ServiceSDKParamCreate
+			
+			var lbID string// ServiceSDKParamCreate
 			
 			
 			
@@ -59,16 +59,16 @@ func Create(ctx context.Context, parent *cobra.Command, networkCertificateServic
 				lbID = *lbIDFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
+			if req_CertificateFlag.IsChanged() {
+				req.Certificate = *req_CertificateFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_CertificateFlag.IsChanged() {
-				req.Certificate = *req_CertificateFlag.Value
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_PrivateKeyFlag.IsChanged() {
@@ -91,11 +91,11 @@ func Create(ctx context.Context, parent *cobra.Command, networkCertificateServic
 	
 	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_CertificateFlag = flags.NewStr(cmd, "certificate", "", " (required)")//CobraFlagsCreation
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
-	req_CertificateFlag = flags.NewStr(cmd, "certificate", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_PrivateKeyFlag = flags.NewStr(cmd, "private-key", "", " (required)")//CobraFlagsCreation
 	

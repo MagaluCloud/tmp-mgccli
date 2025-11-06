@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/beautiful"
 	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
 func Create(ctx context.Context, parent *cobra.Command, networkBackendTargetService lbaasSdk.NetworkBackendTargetService) {
 	
-	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var backendIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_HealthCheckIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -44,23 +44,23 @@ func Create(ctx context.Context, parent *cobra.Command, networkBackendTargetServ
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var lbID string// ServiceSDKParamCreate
+			req := lbaasSdk.CreateNetworkBackendTargetRequest{}// ServiceSDKParamCreate
 			
 			var backendID string// ServiceSDKParamCreate
 			
-			req := lbaasSdk.CreateNetworkBackendTargetRequest{}// ServiceSDKParamCreate
+			var lbID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
 			
-			if lbIDFlag.IsChanged() {
-				lbID = *lbIDFlag.Value
-			}// CobraFlagsAssign
-			
 			if backendIDFlag.IsChanged() {
 				backendID = *backendIDFlag.Value
+			}// CobraFlagsAssign
+			
+			if lbIDFlag.IsChanged() {
+				lbID = *lbIDFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_HealthCheckIDFlag.IsChanged() {
@@ -85,9 +85,9 @@ func Create(ctx context.Context, parent *cobra.Command, networkBackendTargetServ
 	}
 	
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
-	
 	backendIDFlag = flags.NewStr(cmd, "backend-id", "", " (required)")//CobraFlagsCreation
+	
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
 	req_HealthCheckIDFlag = flags.NewStr(cmd, "health-check-id", "", "")//CobraFlagsCreation
 	

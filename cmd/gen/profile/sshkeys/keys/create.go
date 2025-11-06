@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/beautiful"
 	
-	sshkeysSdk "github.com/MagaluCloud/mgc-sdk-go/sshkeys"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
+	sshkeysSdk "github.com/MagaluCloud/mgc-sdk-go/sshkeys"
 	
 )
 
 func Create(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.KeyService) {
 	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_KeyFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -47,12 +47,12 @@ func Create(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.Ke
 
 		
 			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_KeyFlag.IsChanged() {
 				req.Key = *req_KeyFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -69,9 +69,9 @@ func Create(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.Ke
 	}
 	
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
-	
 	req_KeyFlag = flags.NewStr(cmd, "key", "", " (required)")//CobraFlagsCreation
+	
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 
 

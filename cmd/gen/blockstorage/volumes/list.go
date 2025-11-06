@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 
@@ -37,7 +37,7 @@ func List(ctx context.Context, parent *cobra.Command, volumeService blockstorage
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Expand] [Limit] [Offset] [Sort]",
+		Use:     "list [Limit] [Offset] [Sort] [Expand]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		

@@ -25,17 +25,17 @@ func PortsCmd(ctx context.Context, parent *cobra.Command, portService networkSdk
 	}
 
 	
-	List(ctx, cmd, portService)
-	
-	Get(ctx, cmd, portService)
+	AttachSecurityGroup(ctx, cmd, portService)
 	
 	Delete(ctx, cmd, portService)
 	
-	Update(ctx, cmd, portService)
-	
-	AttachSecurityGroup(ctx, cmd, portService)
-	
 	DetachSecurityGroup(ctx, cmd, portService)
+	
+	Get(ctx, cmd, portService)
+	
+	List(ctx, cmd, portService)
+	
+	Update(ctx, cmd, portService)
 	
 
 	parent.AddCommand(cmd)

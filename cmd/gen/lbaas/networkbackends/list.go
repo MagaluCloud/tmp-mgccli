@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
@@ -30,25 +30,25 @@ func List(ctx context.Context, parent *cobra.Command, networkBackendService lbaa
 	
 	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var options_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
-	
 	var options_LimitFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var options_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var options_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [lbID] [Offset] [Limit] [Sort]",
+		Use:     "list [lbID] [Sort] [Offset] [Limit]",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `doto3`,
 		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var lbID string// ServiceSDKParamCreate
-			
 			options := lbaasSdk.ListNetworkLoadBalancerRequest{}// ServiceSDKParamCreate
+			
+			var lbID string// ServiceSDKParamCreate
 			
 			
 			
@@ -64,12 +64,12 @@ func List(ctx context.Context, parent *cobra.Command, networkBackendService lbaa
 				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
 			}// CobraFlagsAssign
 			
-			if options_OffsetFlag.IsChanged() {
-				options.Offset = options_OffsetFlag.Value
-			}// CobraFlagsAssign
-			
 			if options_LimitFlag.IsChanged() {
 				options.Limit = options_LimitFlag.Value
+			}// CobraFlagsAssign
+			
+			if options_OffsetFlag.IsChanged() {
+				options.Offset = options_OffsetFlag.Value
 			}// CobraFlagsAssign
 			
 			if options_SortFlag.IsChanged() {
@@ -92,9 +92,9 @@ func List(ctx context.Context, parent *cobra.Command, networkBackendService lbaa
 	
 	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
-	options_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
-	
 	options_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	
+	options_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	options_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	

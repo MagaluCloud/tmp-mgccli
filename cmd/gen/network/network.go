@@ -10,27 +10,27 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
-	"github.com/magaluCloud/mgccli/cmd/gen/network/vpcs"
-	
-	"github.com/magaluCloud/mgccli/cmd/gen/network/subnets"
+	"github.com/magaluCloud/mgccli/cmd/gen/network/natgateways"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/network/ports"
 	
-	"github.com/magaluCloud/mgccli/cmd/gen/network/securitygroups"
+	"github.com/magaluCloud/mgccli/cmd/gen/network/publicips"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/network/rules"
 	
-	"github.com/magaluCloud/mgccli/cmd/gen/network/publicips"
+	"github.com/magaluCloud/mgccli/cmd/gen/network/securitygroups"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/network/subnetpools"
 	
-	"github.com/magaluCloud/mgccli/cmd/gen/network/natgateways"
+	"github.com/magaluCloud/mgccli/cmd/gen/network/subnets"
+	
+	"github.com/magaluCloud/mgccli/cmd/gen/network/vpcs"
+	
+	"github.com/spf13/cobra"
+	
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
+	
+	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
 	
 )
 
@@ -52,21 +52,21 @@ This package allows you to manage VPCs, subnets, ports, security groups, rules, 
     
 
 	
-	vpcs.VPCsCmd(ctx, cmd, networkService.VPCs())
-	
-	subnets.SubnetsCmd(ctx, cmd, networkService.Subnets())
+	natgateways.NatGatewaysCmd(ctx, cmd, networkService.NatGateways())
 	
 	ports.PortsCmd(ctx, cmd, networkService.Ports())
 	
-	securitygroups.SecurityGroupsCmd(ctx, cmd, networkService.SecurityGroups())
+	publicips.PublicIPsCmd(ctx, cmd, networkService.PublicIPs())
 	
 	rules.RulesCmd(ctx, cmd, networkService.Rules())
 	
-	publicips.PublicIPsCmd(ctx, cmd, networkService.PublicIPs())
+	securitygroups.SecurityGroupsCmd(ctx, cmd, networkService.SecurityGroups())
 	
 	subnetpools.SubnetPoolsCmd(ctx, cmd, networkService.SubnetPools())
 	
-	natgateways.NatGatewaysCmd(ctx, cmd, networkService.NatGateways())
+	subnets.SubnetsCmd(ctx, cmd, networkService.Subnets())
+	
+	vpcs.VPCsCmd(ctx, cmd, networkService.VPCs())
 	
 
 	parent.AddCommand(cmd)

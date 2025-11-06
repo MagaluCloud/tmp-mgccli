@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"fmt"
 	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
 	
 )
 
@@ -40,23 +40,14 @@ func UnbookCIDR(ctx context.Context, parent *cobra.Command, subnetPoolService ne
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			req := networkSdk.UnbookCIDRRequest{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("id", args[0])
-			}
-			if idFlag.IsChanged() {
-				id = *idFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("cidr", args[0])
@@ -65,6 +56,15 @@ func UnbookCIDR(ctx context.Context, parent *cobra.Command, subnetPoolService ne
 				req.CIDR = *req_CIDRFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o cidr como argumento ou usar a flag --cidr")
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("id", args[0])
+			}
+			if idFlag.IsChanged() {
+				id = *idFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
 			}// CobraFlagsAssign
 			
 

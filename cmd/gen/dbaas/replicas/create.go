@@ -14,23 +14,23 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func Create(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk.ReplicaService) {
 	
-	var req_SourceIDFlag *flags.StrFlag //CobraFlagsDefinition
+	var req_InstanceTypeIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_InstanceTypeIDFlag *flags.StrFlag //CobraFlagsDefinition
+	var req_SourceIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -49,16 +49,16 @@ func Create(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk.
 
 		
 			
-			if req_SourceIDFlag.IsChanged() {
-				req.SourceID = *req_SourceIDFlag.Value
+			if req_InstanceTypeIDFlag.IsChanged() {
+				req.InstanceTypeID = req_InstanceTypeIDFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_InstanceTypeIDFlag.IsChanged() {
-				req.InstanceTypeID = req_InstanceTypeIDFlag.Value
+			if req_SourceIDFlag.IsChanged() {
+				req.SourceID = *req_SourceIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -75,11 +75,11 @@ func Create(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk.
 	}
 	
 	
-	req_SourceIDFlag = flags.NewStr(cmd, "source-id", "", " (required)")//CobraFlagsCreation
+	req_InstanceTypeIDFlag = flags.NewStr(cmd, "instance-type-id", "", "")//CobraFlagsCreation
 	
 	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
-	req_InstanceTypeIDFlag = flags.NewStr(cmd, "instance-type-id", "", "")//CobraFlagsCreation
+	req_SourceIDFlag = flags.NewStr(cmd, "source-id", "", " (required)")//CobraFlagsCreation
 	
 
 

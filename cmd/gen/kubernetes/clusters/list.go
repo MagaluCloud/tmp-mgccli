@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
 	
 )
 
@@ -39,7 +39,7 @@ func List(ctx context.Context, parent *cobra.Command, clusterService kubernetesS
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Expand] [Limit] [Offset] [Sort]",
+		Use:     "list [Limit] [Offset] [Sort] [Expand]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
 		

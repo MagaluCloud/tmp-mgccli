@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/beautiful"
 	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
 	
 )
 
@@ -28,9 +28,9 @@ func Create(ctx context.Context, parent *cobra.Command, subnetPoolService networ
 	
 	var req_CIDRFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_TypeFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -55,12 +55,12 @@ func Create(ctx context.Context, parent *cobra.Command, subnetPoolService networ
 				req.CIDR = req_CIDRFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = *req_DescriptionFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_TypeFlag.IsChanged() {
@@ -83,9 +83,9 @@ func Create(ctx context.Context, parent *cobra.Command, subnetPoolService networ
 	
 	req_CIDRFlag = flags.NewStr(cmd, "cidr", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
-	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", " (required)")//CobraFlagsCreation
+	
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_TypeFlag = flags.NewStr(cmd, "type", "", "")//CobraFlagsCreation
 	

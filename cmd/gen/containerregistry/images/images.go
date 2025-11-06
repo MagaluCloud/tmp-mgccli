@@ -25,13 +25,13 @@ func ImagesCmd(ctx context.Context, parent *cobra.Command, imagesService contain
 	}
 
 	
-	List(ctx, cmd, imagesService)
-	
-	ListAll(ctx, cmd, imagesService)
-	
 	Delete(ctx, cmd, imagesService)
 	
 	Get(ctx, cmd, imagesService)
+	
+	List(ctx, cmd, imagesService)
+	
+	ListAll(ctx, cmd, imagesService)
 	
 
 	parent.AddCommand(cmd)

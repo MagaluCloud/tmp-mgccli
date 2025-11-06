@@ -9,45 +9,45 @@ import (
 	"context"
 
 
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
+	"github.com/magaluCloud/mgccli/cmd/gen/audit"
 
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage"
+
+	"github.com/magaluCloud/mgccli/cmd/gen/compute"
+
+	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry"
+
+	"github.com/magaluCloud/mgccli/cmd/gen/dbaas"
 
 	"github.com/magaluCloud/mgccli/cmd/gen/kubernetes"
 
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas"
 
-	"github.com/magaluCloud/mgccli/cmd/gen/audit"
-
-	"github.com/magaluCloud/mgccli/cmd/gen/dbaas"
-
-	"github.com/magaluCloud/mgccli/cmd/gen/compute"
-
-	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage"
-
-	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry"
-
 	"github.com/magaluCloud/mgccli/cmd/gen/network"
 
 	"github.com/magaluCloud/mgccli/cmd/gen/profile"
+
+	"github.com/spf13/cobra"
+
+	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
 
 )
 
 func RootGen(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 
-	kubernetes.KubernetesCmd(ctx, parent, sdkCoreConfig)
-
-	lbaas.LbaasCmd(ctx, parent, sdkCoreConfig)
-
 	audit.AuditCmd(ctx, parent, sdkCoreConfig)
-
-	dbaas.DbaasCmd(ctx, parent, sdkCoreConfig)
-
-	compute.ComputeCmd(ctx, parent, sdkCoreConfig)
 
 	blockstorage.BlockstorageCmd(ctx, parent, sdkCoreConfig)
 
+	compute.ComputeCmd(ctx, parent, sdkCoreConfig)
+
 	containerregistry.ContainerregistryCmd(ctx, parent, sdkCoreConfig)
+
+	dbaas.DbaasCmd(ctx, parent, sdkCoreConfig)
+
+	kubernetes.KubernetesCmd(ctx, parent, sdkCoreConfig)
+
+	lbaas.LbaasCmd(ctx, parent, sdkCoreConfig)
 
 	network.NetworkCmd(ctx, parent, sdkCoreConfig)
 

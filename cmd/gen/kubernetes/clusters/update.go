@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
 	
 )
 
@@ -42,9 +42,9 @@ func Update(ctx context.Context, parent *cobra.Command, clusterService kubernete
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var clusterID string// ServiceSDKParamCreate
-			
 			req := kubernetesSdk.PatchClusterRequest{}// ServiceSDKParamCreate
+			
+			var clusterID string// ServiceSDKParamCreate
 			
 			
 			

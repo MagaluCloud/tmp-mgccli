@@ -25,17 +25,17 @@ func ParametersGroupCmd(ctx context.Context, parent *cobra.Command, parameterGro
 	}
 
 	
+	Create(ctx, cmd, parameterGroupService)
+	
+	Delete(ctx, cmd, parameterGroupService)
+	
+	Get(ctx, cmd, parameterGroupService)
+	
 	List(ctx, cmd, parameterGroupService)
 	
 	ListAll(ctx, cmd, parameterGroupService)
 	
-	Create(ctx, cmd, parameterGroupService)
-	
-	Get(ctx, cmd, parameterGroupService)
-	
 	Update(ctx, cmd, parameterGroupService)
-	
-	Delete(ctx, cmd, parameterGroupService)
 	
 
 	parent.AddCommand(cmd)

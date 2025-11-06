@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	sshkeysSdk "github.com/MagaluCloud/mgc-sdk-go/sshkeys"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	sshkeysSdk "github.com/MagaluCloud/mgc-sdk-go/sshkeys"
 	
 )
 

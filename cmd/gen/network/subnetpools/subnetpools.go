@@ -25,15 +25,15 @@ func SubnetPoolsCmd(ctx context.Context, parent *cobra.Command, subnetPoolServic
 	}
 
 	
-	List(ctx, cmd, subnetPoolService)
-	
-	Get(ctx, cmd, subnetPoolService)
+	BookCIDR(ctx, cmd, subnetPoolService)
 	
 	Create(ctx, cmd, subnetPoolService)
 	
 	Delete(ctx, cmd, subnetPoolService)
 	
-	BookCIDR(ctx, cmd, subnetPoolService)
+	Get(ctx, cmd, subnetPoolService)
+	
+	List(ctx, cmd, subnetPoolService)
 	
 	UnbookCIDR(ctx, cmd, subnetPoolService)
 	

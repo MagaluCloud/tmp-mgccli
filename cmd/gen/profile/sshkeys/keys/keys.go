@@ -25,13 +25,13 @@ func KeysCmd(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.K
 	}
 
 	
-	List(ctx, cmd, keyService)
-	
 	Create(ctx, cmd, keyService)
+	
+	Delete(ctx, cmd, keyService)
 	
 	Get(ctx, cmd, keyService)
 	
-	Delete(ctx, cmd, keyService)
+	List(ctx, cmd, keyService)
 	
 
 	parent.AddCommand(cmd)

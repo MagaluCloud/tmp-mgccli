@@ -25,15 +25,15 @@ func PublicIPsCmd(ctx context.Context, parent *cobra.Command, publicIPService ne
 	}
 
 	
-	List(ctx, cmd, publicIPService)
-	
-	Get(ctx, cmd, publicIPService)
+	AttachToPort(ctx, cmd, publicIPService)
 	
 	Delete(ctx, cmd, publicIPService)
 	
-	AttachToPort(ctx, cmd, publicIPService)
-	
 	DetachFromPort(ctx, cmd, publicIPService)
+	
+	Get(ctx, cmd, publicIPService)
+	
+	List(ctx, cmd, publicIPService)
 	
 
 	parent.AddCommand(cmd)

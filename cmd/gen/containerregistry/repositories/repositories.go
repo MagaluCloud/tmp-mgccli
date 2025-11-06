@@ -25,13 +25,13 @@ func RepositoriesCmd(ctx context.Context, parent *cobra.Command, repositoriesSer
 	}
 
 	
-	List(ctx, cmd, repositoriesService)
-	
-	ListAll(ctx, cmd, repositoriesService)
+	Delete(ctx, cmd, repositoriesService)
 	
 	Get(ctx, cmd, repositoriesService)
 	
-	Delete(ctx, cmd, repositoriesService)
+	List(ctx, cmd, repositoriesService)
+	
+	ListAll(ctx, cmd, repositoriesService)
 	
 
 	parent.AddCommand(cmd)

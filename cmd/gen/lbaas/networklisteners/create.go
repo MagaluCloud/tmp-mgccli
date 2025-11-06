@@ -14,25 +14,25 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/beautiful"
 	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
 func Create(ctx context.Context, parent *cobra.Command, networkListenerService lbaasSdk.NetworkListenerService) {
 	
-	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var backendIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_PortFlag *flags.IntFlag //CobraFlagsDefinition
 	
@@ -48,31 +48,31 @@ func Create(ctx context.Context, parent *cobra.Command, networkListenerService l
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var lbID string// ServiceSDKParamCreate
+			req := lbaasSdk.CreateNetworkListenerRequest{}// ServiceSDKParamCreate
 			
 			var backendID string// ServiceSDKParamCreate
 			
-			req := lbaasSdk.CreateNetworkListenerRequest{}// ServiceSDKParamCreate
+			var lbID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
 			
-			if lbIDFlag.IsChanged() {
-				lbID = *lbIDFlag.Value
-			}// CobraFlagsAssign
-			
 			if backendIDFlag.IsChanged() {
 				backendID = *backendIDFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
+			if lbIDFlag.IsChanged() {
+				lbID = *lbIDFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_PortFlag.IsChanged() {
@@ -97,13 +97,13 @@ func Create(ctx context.Context, parent *cobra.Command, networkListenerService l
 	}
 	
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
-	
 	backendIDFlag = flags.NewStr(cmd, "backend-id", "", " (required)")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
+	
+	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_PortFlag = flags.NewInt(cmd, "port", 0, " (required)")//CobraFlagsCreation
 	

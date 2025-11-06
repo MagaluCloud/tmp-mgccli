@@ -14,17 +14,19 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func List(ctx context.Context, parent *cobra.Command, imageService computeSdk.ImageService) {
+	
+	var opts_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
@@ -32,12 +34,10 @@ func List(ctx context.Context, parent *cobra.Command, imageService computeSdk.Im
 	
 	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var opts_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort] [AvailabilityZone]",
+		Use:     "list [AvailabilityZone] [Limit] [Offset] [Sort]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		
@@ -51,6 +51,10 @@ func List(ctx context.Context, parent *cobra.Command, imageService computeSdk.Im
 
 		
 			
+			if opts_AvailabilityZoneFlag.IsChanged() {
+				opts.AvailabilityZone = opts_AvailabilityZoneFlag.Value
+			}// CobraFlagsAssign
+			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
 			}// CobraFlagsAssign
@@ -61,10 +65,6 @@ func List(ctx context.Context, parent *cobra.Command, imageService computeSdk.Im
 			
 			if opts_SortFlag.IsChanged() {
 				opts.Sort = opts_SortFlag.Value
-			}// CobraFlagsAssign
-			
-			if opts_AvailabilityZoneFlag.IsChanged() {
-				opts.AvailabilityZone = opts_AvailabilityZoneFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -81,13 +81,13 @@ func List(ctx context.Context, parent *cobra.Command, imageService computeSdk.Im
 	}
 	
 	
+	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", " (required)")//CobraFlagsCreation
+	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
-	
-	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", " (required)")//CobraFlagsCreation
 	
 
 

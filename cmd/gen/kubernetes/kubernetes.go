@@ -10,12 +10,6 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
-	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/kubernetes/clusters"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/kubernetes/flavors"
@@ -23,6 +17,12 @@ import (
 	"github.com/magaluCloud/mgccli/cmd/gen/kubernetes/nodepools"
 	
 	"github.com/magaluCloud/mgccli/cmd/gen/kubernetes/versions"
+	
+	"github.com/spf13/cobra"
+	
+	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
+	
+	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
 	
 )
 

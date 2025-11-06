@@ -14,27 +14,27 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func List(ctx context.Context, parent *cobra.Command, repositoriesService containerregistrySdk.RepositoriesService) {
 	
-	var registryIDFlag *flags.StrFlag //CobraFlagsDefinition
+	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
-	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
-	
 	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var registryIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -46,9 +46,9 @@ func List(ctx context.Context, parent *cobra.Command, repositoriesService contai
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var registryID string// ServiceSDKParamCreate
-			
 			opts := containerregistrySdk.RepositoryListOptions{}// ServiceSDKParamCreate
+			
+			var registryID string// ServiceSDKParamCreate
 			
 			
 			
@@ -64,12 +64,12 @@ func List(ctx context.Context, parent *cobra.Command, repositoriesService contai
 				return fmt.Errorf("é necessário fornecer o registry-id como argumento ou usar a flag --registry-id")
 			}// CobraFlagsAssign
 			
-			if opts_OffsetFlag.IsChanged() {
-				opts.Offset = opts_OffsetFlag.Value
-			}// CobraFlagsAssign
-			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_OffsetFlag.IsChanged() {
+				opts.Offset = opts_OffsetFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_SortFlag.IsChanged() {
@@ -90,13 +90,13 @@ func List(ctx context.Context, parent *cobra.Command, repositoriesService contai
 	}
 	
 	
-	registryIDFlag = flags.NewStr(cmd, "registry-id", "", " (required)")//CobraFlagsCreation
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
-	
 	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	
+	registryIDFlag = flags.NewStr(cmd, "registry-id", "", " (required)")//CobraFlagsCreation
 	
 
 

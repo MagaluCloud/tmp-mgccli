@@ -14,21 +14,19 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
 	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
+	
 )
 
 func List(ctx context.Context, parent *cobra.Command, natGatewayService networkSdk.NatGatewayService) {
-	
-	var vpcIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
@@ -36,19 +34,21 @@ func List(ctx context.Context, parent *cobra.Command, natGatewayService networkS
 	
 	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
+	var vpcIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [vpcID] [Limit] [Offset] [Sort]",
+		Use:     "list [vpcID] [Sort] [Limit] [Offset]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var vpcID string// ServiceSDKParamCreate
-			
 			opts := networkSdk.ListOptions{}// ServiceSDKParamCreate
+			
+			var vpcID string// ServiceSDKParamCreate
 			
 			
 			
@@ -90,13 +90,13 @@ func List(ctx context.Context, parent *cobra.Command, natGatewayService networkS
 	}
 	
 	
-	vpcIDFlag = flags.NewStr(cmd, "vpc-id", "", " (required)")//CobraFlagsCreation
-	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	
+	vpcIDFlag = flags.NewStr(cmd, "vpc-id", "", " (required)")//CobraFlagsCreation
 	
 
 

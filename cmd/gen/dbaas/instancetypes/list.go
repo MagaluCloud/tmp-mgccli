@@ -14,27 +14,27 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func List(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasSdk.InstanceTypeService) {
 	
-	var opts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
+	var opts_CompatibleProductFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var opts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var opts_CompatibleProductFlag *flags.StrFlag //CobraFlagsDefinition
+	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
-	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
+	var opts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -53,24 +53,24 @@ func List(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasS
 
 		
 			
-			if opts_StatusFlag.IsChanged() {
-				opts.Status = opts_StatusFlag.Value
+			if opts_CompatibleProductFlag.IsChanged() {
+				opts.CompatibleProduct = opts_CompatibleProductFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_EngineIDFlag.IsChanged() {
 				opts.EngineID = opts_EngineIDFlag.Value
 			}// CobraFlagsAssign
 			
-			if opts_CompatibleProductFlag.IsChanged() {
-				opts.CompatibleProduct = opts_CompatibleProductFlag.Value
+			if opts_LimitFlag.IsChanged() {
+				opts.Limit = opts_LimitFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_OffsetFlag.IsChanged() {
 				opts.Offset = opts_OffsetFlag.Value
 			}// CobraFlagsAssign
 			
-			if opts_LimitFlag.IsChanged() {
-				opts.Limit = opts_LimitFlag.Value
+			if opts_StatusFlag.IsChanged() {
+				opts.Status = opts_StatusFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -87,15 +87,15 @@ func List(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasS
 	}
 	
 	
-	opts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
+	opts_CompatibleProductFlag = flags.NewStr(cmd, "compatible-product", "", "")//CobraFlagsCreation
 	
 	opts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", "")//CobraFlagsCreation
 	
-	opts_CompatibleProductFlag = flags.NewStr(cmd, "compatible-product", "", "")//CobraFlagsCreation
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
+	opts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
 	
 
 

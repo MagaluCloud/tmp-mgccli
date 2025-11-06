@@ -14,19 +14,21 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
 	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
+	
 )
 
 func List(ctx context.Context, parent *cobra.Command, flavorService kubernetesSdk.FlavorService) {
+	
+	var opts_ExpandFlag *flags.StrSliceFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
@@ -34,12 +36,10 @@ func List(ctx context.Context, parent *cobra.Command, flavorService kubernetesSd
 	
 	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var opts_ExpandFlag *flags.StrSliceFlag //CobraFlagsDefinition
-	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort] [Expand]",
+		Use:     "list [Sort] [Expand] [Limit] [Offset]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
 		
@@ -53,6 +53,15 @@ func List(ctx context.Context, parent *cobra.Command, flavorService kubernetesSd
 
 		
 			
+			if len(args) > 0{
+				cmd.Flags().Set("expand", args[0])
+			}
+			if opts_ExpandFlag.IsChanged() {
+				opts.Expand = *opts_ExpandFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o expand como argumento ou usar a flag --expand")
+			}// CobraFlagsAssign
+			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
 			}// CobraFlagsAssign
@@ -63,15 +72,6 @@ func List(ctx context.Context, parent *cobra.Command, flavorService kubernetesSd
 			
 			if opts_SortFlag.IsChanged() {
 				opts.Sort = opts_SortFlag.Value
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
-				cmd.Flags().Set("expand", args[0])
-			}
-			if opts_ExpandFlag.IsChanged() {
-				opts.Expand = *opts_ExpandFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o expand como argumento ou usar a flag --expand")
 			}// CobraFlagsAssign
 			
 
@@ -88,13 +88,13 @@ func List(ctx context.Context, parent *cobra.Command, flavorService kubernetesSd
 	}
 	
 	
+	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
+	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
-	
-	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
 	
 
 

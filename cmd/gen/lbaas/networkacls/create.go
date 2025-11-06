@@ -14,13 +14,13 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/beautiful"
 	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
@@ -28,9 +28,9 @@ func Create(ctx context.Context, parent *cobra.Command, networkACLService lbaasS
 	
 	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_RemoteIPPrefixFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_RemoteIPPrefixFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -42,9 +42,9 @@ func Create(ctx context.Context, parent *cobra.Command, networkACLService lbaasS
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var lbID string// ServiceSDKParamCreate
-			
 			req := lbaasSdk.CreateNetworkACLRequest{}// ServiceSDKParamCreate
+			
+			var lbID string// ServiceSDKParamCreate
 			
 			
 			
@@ -55,12 +55,12 @@ func Create(ctx context.Context, parent *cobra.Command, networkACLService lbaasS
 				lbID = *lbIDFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_RemoteIPPrefixFlag.IsChanged() {
-				req.RemoteIPPrefix = *req_RemoteIPPrefixFlag.Value
-			}// CobraFlagsAssign
-			
 			if req_NameFlag.IsChanged() {
 				req.Name = req_NameFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_RemoteIPPrefixFlag.IsChanged() {
+				req.RemoteIPPrefix = *req_RemoteIPPrefixFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -79,9 +79,9 @@ func Create(ctx context.Context, parent *cobra.Command, networkACLService lbaasS
 	
 	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
-	req_RemoteIPPrefixFlag = flags.NewStr(cmd, "remote-ipprefix", "", " (required)")//CobraFlagsCreation
-	
 	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
+	
+	req_RemoteIPPrefixFlag = flags.NewStr(cmd, "remote-ipprefix", "", " (required)")//CobraFlagsCreation
 	
 
 

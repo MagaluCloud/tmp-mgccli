@@ -14,33 +14,33 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"github.com/magaluCloud/mgccli/beautiful"
 	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
 	
 )
 
 func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.RuleService) {
 	
-	var securityGroupIDFlag *flags.StrFlag //CobraFlagsDefinition
+	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_DirectionFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_EtherTypeFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_PortRangeMaxFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var req_PortRangeMinFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var req_ProtocolFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_RemoteIPPrefixFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_EtherTypeFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_DirectionFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_PortRangeMinFlag *flags.IntFlag //CobraFlagsDefinition
-	
-	var req_PortRangeMaxFlag *flags.IntFlag //CobraFlagsDefinition
+	var securityGroupIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -52,17 +52,33 @@ func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.R
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var securityGroupID string// ServiceSDKParamCreate
-			
 			req := networkSdk.RuleCreateRequest{}// ServiceSDKParamCreate
+			
+			var securityGroupID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
 			
-			if securityGroupIDFlag.IsChanged() {
-				securityGroupID = *securityGroupIDFlag.Value
+			if req_DescriptionFlag.IsChanged() {
+				req.Description = req_DescriptionFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_DirectionFlag.IsChanged() {
+				req.Direction = req_DirectionFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_EtherTypeFlag.IsChanged() {
+				req.EtherType = *req_EtherTypeFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_PortRangeMaxFlag.IsChanged() {
+				req.PortRangeMax = req_PortRangeMaxFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_PortRangeMinFlag.IsChanged() {
+				req.PortRangeMin = req_PortRangeMinFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_ProtocolFlag.IsChanged() {
@@ -73,24 +89,8 @@ func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.R
 				req.RemoteIPPrefix = req_RemoteIPPrefixFlag.Value
 			}// CobraFlagsAssign
 			
-			if req_EtherTypeFlag.IsChanged() {
-				req.EtherType = *req_EtherTypeFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_DescriptionFlag.IsChanged() {
-				req.Description = req_DescriptionFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_DirectionFlag.IsChanged() {
-				req.Direction = req_DirectionFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_PortRangeMinFlag.IsChanged() {
-				req.PortRangeMin = req_PortRangeMinFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_PortRangeMaxFlag.IsChanged() {
-				req.PortRangeMax = req_PortRangeMaxFlag.Value
+			if securityGroupIDFlag.IsChanged() {
+				securityGroupID = *securityGroupIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -107,21 +107,21 @@ func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.R
 	}
 	
 	
-	securityGroupIDFlag = flags.NewStr(cmd, "security-group-id", "", " (required)")//CobraFlagsCreation
+	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
+	
+	req_DirectionFlag = flags.NewStr(cmd, "direction", "", "")//CobraFlagsCreation
+	
+	req_EtherTypeFlag = flags.NewStr(cmd, "ether-type", "", " (required)")//CobraFlagsCreation
+	
+	req_PortRangeMaxFlag = flags.NewInt(cmd, "port-range-max", 0, "")//CobraFlagsCreation
+	
+	req_PortRangeMinFlag = flags.NewInt(cmd, "port-range-min", 0, "")//CobraFlagsCreation
 	
 	req_ProtocolFlag = flags.NewStr(cmd, "protocol", "", "")//CobraFlagsCreation
 	
 	req_RemoteIPPrefixFlag = flags.NewStr(cmd, "remote-ipprefix", "", "")//CobraFlagsCreation
 	
-	req_EtherTypeFlag = flags.NewStr(cmd, "ether-type", "", " (required)")//CobraFlagsCreation
-	
-	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
-	
-	req_DirectionFlag = flags.NewStr(cmd, "direction", "", "")//CobraFlagsCreation
-	
-	req_PortRangeMinFlag = flags.NewInt(cmd, "port-range-min", 0, "")//CobraFlagsCreation
-	
-	req_PortRangeMaxFlag = flags.NewInt(cmd, "port-range-max", 0, "")//CobraFlagsCreation
+	securityGroupIDFlag = flags.NewStr(cmd, "security-group-id", "", " (required)")//CobraFlagsCreation
 	
 
 

@@ -25,13 +25,13 @@ func SecurityGroupsCmd(ctx context.Context, parent *cobra.Command, securityGroup
 	}
 
 	
-	List(ctx, cmd, securityGroupService)
-	
-	Get(ctx, cmd, securityGroupService)
-	
 	Create(ctx, cmd, securityGroupService)
 	
 	Delete(ctx, cmd, securityGroupService)
+	
+	Get(ctx, cmd, securityGroupService)
+	
+	List(ctx, cmd, securityGroupService)
 	
 
 	parent.AddCommand(cmd)

@@ -27,13 +27,13 @@ func RegistriesCmd(ctx context.Context, parent *cobra.Command, registriesService
 	
 	Create(ctx, cmd, registriesService)
 	
-	List(ctx, cmd, registriesService)
-	
-	ListAll(ctx, cmd, registriesService)
+	Delete(ctx, cmd, registriesService)
 	
 	Get(ctx, cmd, registriesService)
 	
-	Delete(ctx, cmd, registriesService)
+	List(ctx, cmd, registriesService)
+	
+	ListAll(ctx, cmd, registriesService)
 	
 
 	parent.AddCommand(cmd)

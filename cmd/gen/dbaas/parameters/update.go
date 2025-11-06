@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 
@@ -42,11 +42,11 @@ func Update(ctx context.Context, parent *cobra.Command, parameterService dbaasSd
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
+			req := dbaasSdk.ParameterUpdateRequest{}// ServiceSDKParamCreate
+			
 			var groupID string// ServiceSDKParamCreate
 			
 			var parameterID string// ServiceSDKParamCreate
-			
-			req := dbaasSdk.ParameterUpdateRequest{}// ServiceSDKParamCreate
 			
 			
 			

@@ -14,23 +14,23 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"github.com/magaluCloud/mgccli/beautiful"
-	
 )
 
 func ListAll(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasSdk.InstanceTypeService) {
 	
-	var filterOpts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
+	var filterOpts_CompatibleProductFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var filterOpts_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var filterOpts_CompatibleProductFlag *flags.StrFlag //CobraFlagsDefinition
+	var filterOpts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -49,16 +49,16 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceTypeService dba
 
 		
 			
-			if filterOpts_StatusFlag.IsChanged() {
-				filterOpts.Status = filterOpts_StatusFlag.Value
+			if filterOpts_CompatibleProductFlag.IsChanged() {
+				filterOpts.CompatibleProduct = filterOpts_CompatibleProductFlag.Value
 			}// CobraFlagsAssign
 			
 			if filterOpts_EngineIDFlag.IsChanged() {
 				filterOpts.EngineID = filterOpts_EngineIDFlag.Value
 			}// CobraFlagsAssign
 			
-			if filterOpts_CompatibleProductFlag.IsChanged() {
-				filterOpts.CompatibleProduct = filterOpts_CompatibleProductFlag.Value
+			if filterOpts_StatusFlag.IsChanged() {
+				filterOpts.Status = filterOpts_StatusFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -75,11 +75,11 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceTypeService dba
 	}
 	
 	
-	filterOpts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
+	filterOpts_CompatibleProductFlag = flags.NewStr(cmd, "compatible-product", "", "")//CobraFlagsCreation
 	
 	filterOpts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", "")//CobraFlagsCreation
 	
-	filterOpts_CompatibleProductFlag = flags.NewStr(cmd, "compatible-product", "", "")//CobraFlagsCreation
+	filterOpts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
 	
 
 

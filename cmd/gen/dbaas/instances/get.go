@@ -14,15 +14,15 @@ import (
 	"context"
 
 	
+	"fmt"
+	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
-	"fmt"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 
@@ -42,23 +42,14 @@ func Get(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.In
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var id string// ServiceSDKParamCreate
-			
 			opts := dbaasSdk.GetInstanceOptions{}// ServiceSDKParamCreate
+			
+			var id string// ServiceSDKParamCreate
 			
 			
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("id", args[0])
-			}
-			if idFlag.IsChanged() {
-				id = *idFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("expanded-fields", args[0])
@@ -67,6 +58,15 @@ func Get(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.In
 				opts.ExpandedFields = *opts_ExpandedFieldsFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o expanded-fields como argumento ou usar a flag --expanded-fields")
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("id", args[0])
+			}
+			if idFlag.IsChanged() {
+				id = *idFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
 			}// CobraFlagsAssign
 			
 

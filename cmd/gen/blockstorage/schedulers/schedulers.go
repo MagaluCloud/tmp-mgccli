@@ -25,19 +25,19 @@ func SchedulersCmd(ctx context.Context, parent *cobra.Command, schedulerService 
 	}
 
 	
-	List(ctx, cmd, schedulerService)
-	
-	ListAll(ctx, cmd, schedulerService)
+	AttachVolume(ctx, cmd, schedulerService)
 	
 	Create(ctx, cmd, schedulerService)
 	
-	Get(ctx, cmd, schedulerService)
-	
 	Delete(ctx, cmd, schedulerService)
 	
-	AttachVolume(ctx, cmd, schedulerService)
-	
 	DetachVolume(ctx, cmd, schedulerService)
+	
+	Get(ctx, cmd, schedulerService)
+	
+	List(ctx, cmd, schedulerService)
+	
+	ListAll(ctx, cmd, schedulerService)
 	
 
 	parent.AddCommand(cmd)

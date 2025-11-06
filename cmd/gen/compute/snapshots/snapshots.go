@@ -25,21 +25,21 @@ func SnapshotsCmd(ctx context.Context, parent *cobra.Command, snapshotService co
 	}
 
 	
+	Copy(ctx, cmd, snapshotService)
+	
+	Create(ctx, cmd, snapshotService)
+	
+	Delete(ctx, cmd, snapshotService)
+	
+	Get(ctx, cmd, snapshotService)
+	
 	List(ctx, cmd, snapshotService)
 	
 	ListAll(ctx, cmd, snapshotService)
 	
-	Create(ctx, cmd, snapshotService)
-	
-	Get(ctx, cmd, snapshotService)
-	
-	Delete(ctx, cmd, snapshotService)
-	
 	Rename(ctx, cmd, snapshotService)
 	
 	Restore(ctx, cmd, snapshotService)
-	
-	Copy(ctx, cmd, snapshotService)
 	
 
 	parent.AddCommand(cmd)

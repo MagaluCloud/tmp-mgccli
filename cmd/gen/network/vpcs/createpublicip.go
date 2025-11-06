@@ -14,23 +14,23 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
-	
-	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
-	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
-	
 	"fmt"
 	
 	"github.com/magaluCloud/mgccli/beautiful"
+	
+	"github.com/spf13/cobra"
+	
+	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
+	
+	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
 	
 )
 
 func CreatePublicIP(ctx context.Context, parent *cobra.Command, vPCService networkSdk.VPCService) {
 	
-	var vpcIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var vpcIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -42,9 +42,9 @@ func CreatePublicIP(ctx context.Context, parent *cobra.Command, vPCService netwo
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var vpcID string// ServiceSDKParamCreate
-			
 			req := networkSdk.PublicIPCreateRequest{}// ServiceSDKParamCreate
+			
+			var vpcID string// ServiceSDKParamCreate
 			
 			
 			
@@ -78,9 +78,9 @@ func CreatePublicIP(ctx context.Context, parent *cobra.Command, vPCService netwo
 	}
 	
 	
-	vpcIDFlag = flags.NewStr(cmd, "vpc-id", "", " (required)")//CobraFlagsCreation
-	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
+	
+	vpcIDFlag = flags.NewStr(cmd, "vpc-id", "", " (required)")//CobraFlagsCreation
 	
 
 

@@ -14,21 +14,21 @@ import (
 	"context"
 
 	
-	"github.com/spf13/cobra"
+	"fmt"
 	
-	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
+	"github.com/spf13/cobra"
 	
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	
-	"fmt"
+	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
 	
 )
 
 func Update(ctx context.Context, parent *cobra.Command, networkCertificateService lbaasSdk.NetworkCertificateService) {
 	
-	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var certicateIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var lbIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_CertificateFlag *flags.StrFlag //CobraFlagsDefinition
 	
@@ -44,25 +44,16 @@ func Update(ctx context.Context, parent *cobra.Command, networkCertificateServic
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
-			var lbID string// ServiceSDKParamCreate
+			req := lbaasSdk.UpdateNetworkCertificateRequest{}// ServiceSDKParamCreate
 			
 			var certicateID string// ServiceSDKParamCreate
 			
-			req := lbaasSdk.UpdateNetworkCertificateRequest{}// ServiceSDKParamCreate
+			var lbID string// ServiceSDKParamCreate
 			
 			
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("lb-id", args[0])
-			}
-			if lbIDFlag.IsChanged() {
-				lbID = *lbIDFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("certicate-id", args[0])
@@ -80,6 +71,15 @@ func Update(ctx context.Context, parent *cobra.Command, networkCertificateServic
 				req.Certificate = *req_CertificateFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o certificate como argumento ou usar a flag --certificate")
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("lb-id", args[0])
+			}
+			if lbIDFlag.IsChanged() {
+				lbID = *lbIDFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
@@ -103,9 +103,9 @@ func Update(ctx context.Context, parent *cobra.Command, networkCertificateServic
 	}
 	
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
-	
 	certicateIDFlag = flags.NewStr(cmd, "certicate-id", "", " (required)")//CobraFlagsCreation
+	
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
 	req_CertificateFlag = flags.NewStr(cmd, "certificate", "", " (required)")//CobraFlagsCreation
 	

@@ -14,11 +14,11 @@ import (
 	"context"
 
 	
+	"github.com/magaluCloud/mgccli/beautiful"
+	
 	"github.com/spf13/cobra"
 	
 	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
-	"github.com/magaluCloud/mgccli/beautiful"
 	
 )
 

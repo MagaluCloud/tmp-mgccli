@@ -25,15 +25,23 @@ func InstancesCmd(ctx context.Context, parent *cobra.Command, instanceService co
 	}
 
 	
-	List(ctx, cmd, instanceService)
-	
-	ListAll(ctx, cmd, instanceService)
+	AttachNetworkInterface(ctx, cmd, instanceService)
 	
 	Create(ctx, cmd, instanceService)
 	
+	Delete(ctx, cmd, instanceService)
+	
+	DetachNetworkInterface(ctx, cmd, instanceService)
+	
 	Get(ctx, cmd, instanceService)
 	
-	Delete(ctx, cmd, instanceService)
+	GetFirstWindowsPassword(ctx, cmd, instanceService)
+	
+	InitLog(ctx, cmd, instanceService)
+	
+	List(ctx, cmd, instanceService)
+	
+	ListAll(ctx, cmd, instanceService)
 	
 	Rename(ctx, cmd, instanceService)
 	
@@ -44,14 +52,6 @@ func InstancesCmd(ctx context.Context, parent *cobra.Command, instanceService co
 	Stop(ctx, cmd, instanceService)
 	
 	Suspend(ctx, cmd, instanceService)
-	
-	GetFirstWindowsPassword(ctx, cmd, instanceService)
-	
-	AttachNetworkInterface(ctx, cmd, instanceService)
-	
-	DetachNetworkInterface(ctx, cmd, instanceService)
-	
-	InitLog(ctx, cmd, instanceService)
 	
 
 	parent.AddCommand(cmd)
