@@ -35,7 +35,7 @@ func List(ctx context.Context, parent *cobra.Command, subnetPoolService networkS
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort]",
+		Use:     "list [Sort] [Limit] [Offset]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		

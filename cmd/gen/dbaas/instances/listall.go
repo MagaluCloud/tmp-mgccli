@@ -47,7 +47,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceService dbaasSd
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [VolumeSizeLte] [ExpandedFields] [Status] [EngineID] [VolumeSize] [VolumeSizeGt] [VolumeSizeGte] [VolumeSizeLt]",
+		Use:     "list-all [VolumeSize] [VolumeSizeGt] [VolumeSizeGte] [VolumeSizeLt] [VolumeSizeLte] [ExpandedFields] [Status] [EngineID]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		

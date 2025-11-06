@@ -41,7 +41,7 @@ func List(ctx context.Context, parent *cobra.Command, nodePoolService kubernetes
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [clusterID] [Limit] [Offset] [Sort] [Expand]",
+		Use:     "list [clusterID] [Sort] [Expand] [Limit] [Offset]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
 		

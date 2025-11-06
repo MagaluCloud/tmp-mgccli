@@ -33,7 +33,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, parameterGroupService d
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [Type] [EngineID]",
+		Use:     "list-all [EngineID] [Type]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		

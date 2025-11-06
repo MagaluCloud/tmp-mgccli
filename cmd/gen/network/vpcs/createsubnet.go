@@ -47,7 +47,7 @@ func CreateSubnet(ctx context.Context, parent *cobra.Command, vPCService network
 	
 
 	cmd := &cobra.Command{
-		Use:     "create-subnet [vpcID] [CIDRBlock] [IPVersion] [Name]",
+		Use:     "create-subnet [vpcID] [Name] [CIDRBlock] [IPVersion]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		

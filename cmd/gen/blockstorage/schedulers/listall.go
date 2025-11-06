@@ -33,7 +33,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, schedulerService blocks
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [Expand] [Sort]",
+		Use:     "list-all [Sort] [Expand]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		

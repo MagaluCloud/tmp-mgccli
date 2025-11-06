@@ -39,7 +39,7 @@ func List(ctx context.Context, parent *cobra.Command, flavorService kubernetesSd
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Sort] [Expand] [Limit] [Offset]",
+		Use:     "list [Limit] [Offset] [Sort] [Expand]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
 		
