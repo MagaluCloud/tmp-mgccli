@@ -26,15 +26,15 @@ import (
 
 func Create(ctx context.Context, parent *cobra.Command, schedulerService blockstorageSdk.SchedulerService) {
 	
+	var req_Policy_RetentionInDaysFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var req_Policy_Frequency_Daily_StartTimeFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_DescriptionFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_Snapshot_TypeFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var req_Policy_RetentionInDaysFlag *flags.IntFlag //CobraFlagsDefinition
-	
-	var req_Policy_Frequency_Daily_StartTimeFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -53,6 +53,14 @@ func Create(ctx context.Context, parent *cobra.Command, schedulerService blockst
 
 		
 			
+			if req_Policy_RetentionInDaysFlag.IsChanged() {
+				req.Policy.RetentionInDays = *req_Policy_RetentionInDaysFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_Policy_Frequency_Daily_StartTimeFlag.IsChanged() {
+				req.Policy.Frequency.Daily.StartTime = *req_Policy_Frequency_Daily_StartTimeFlag.Value
+			}// CobraFlagsAssign
+			
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
@@ -63,14 +71,6 @@ func Create(ctx context.Context, parent *cobra.Command, schedulerService blockst
 			
 			if req_Snapshot_TypeFlag.IsChanged() {
 				req.Snapshot.Type = *req_Snapshot_TypeFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_Policy_RetentionInDaysFlag.IsChanged() {
-				req.Policy.RetentionInDays = *req_Policy_RetentionInDaysFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_Policy_Frequency_Daily_StartTimeFlag.IsChanged() {
-				req.Policy.Frequency.Daily.StartTime = *req_Policy_Frequency_Daily_StartTimeFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -87,15 +87,15 @@ func Create(ctx context.Context, parent *cobra.Command, schedulerService blockst
 	}
 	
 	
+	req_Policy_RetentionInDaysFlag = flags.NewInt(cmd, "policy.retention-in-days", 0, " (required)")//CobraFlagsCreation
+	
+	req_Policy_Frequency_Daily_StartTimeFlag = flags.NewStr(cmd, "policy.frequency.daily.start-time", "", " (required)")//CobraFlagsCreation
+	
 	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
 	req_Snapshot_TypeFlag = flags.NewStr(cmd, "snapshot.type", "", " (required)")//CobraFlagsCreation
-	
-	req_Policy_RetentionInDaysFlag = flags.NewInt(cmd, "policy.retention-in-days", 0, " (required)")//CobraFlagsCreation
-	
-	req_Policy_Frequency_Daily_StartTimeFlag = flags.NewStr(cmd, "policy.frequency.daily.start-time", "", " (required)")//CobraFlagsCreation
 	
 
 

@@ -28,10 +28,6 @@ import (
 
 func List(ctx context.Context, parent *cobra.Command, volumeTypeService blockstorageSdk.VolumeTypeService) {
 	
-	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var opts_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var opts_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var opts_AllowsEncryptionFlag *flags.BoolFlag //CobraFlagsDefinition
@@ -40,10 +36,14 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
+	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var opts_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Sort] [AvailabilityZone] [Name] [AllowsEncryption] [Offset] [Limit]",
+		Use:     "list [Name] [AllowsEncryption] [Offset] [Limit] [Sort] [AvailabilityZone]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		
@@ -56,19 +56,6 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 			
 
 		
-			
-			if opts_SortFlag.IsChanged() {
-				opts.Sort = opts_SortFlag.Value
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
-				cmd.Flags().Set("availability-zone", args[0])
-			}
-			if opts_AvailabilityZoneFlag.IsChanged() {
-				opts.AvailabilityZone = *opts_AvailabilityZoneFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o availability-zone como argumento ou usar a flag --availability-zone")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("name", args[0])
@@ -91,6 +78,19 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 				opts.Limit = opts_LimitFlag.Value
 			}// CobraFlagsAssign
 			
+			if opts_SortFlag.IsChanged() {
+				opts.Sort = opts_SortFlag.Value
+			}// CobraFlagsAssign
+			
+			if len(args) > 0{
+				cmd.Flags().Set("availability-zone", args[0])
+			}
+			if opts_AvailabilityZoneFlag.IsChanged() {
+				opts.AvailabilityZone = *opts_AvailabilityZoneFlag.Value
+			} else {
+				return fmt.Errorf("é necessário fornecer o availability-zone como argumento ou usar a flag --availability-zone")
+			}// CobraFlagsAssign
+			
 
 			listvolumetypesresponse, err := volumeTypeService.List(ctx, opts)
 			
@@ -105,10 +105,6 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 	}
 	
 	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
-	
-	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", " (required)")//CobraFlagsCreation
-	
 	opts_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	opts_AllowsEncryptionFlag = flags.NewBool(cmd, "allows-encryption", false, " (required)")//CobraFlagsCreation
@@ -116,6 +112,10 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	
+	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", " (required)")//CobraFlagsCreation
 	
 
 

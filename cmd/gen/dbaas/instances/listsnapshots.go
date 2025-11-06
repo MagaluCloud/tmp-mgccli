@@ -30,13 +30,13 @@ func ListSnapshots(ctx context.Context, parent *cobra.Command, instanceService d
 	
 	var instanceIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var opts_TypeFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var opts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var opts_TypeFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -66,10 +66,6 @@ func ListSnapshots(ctx context.Context, parent *cobra.Command, instanceService d
 				return fmt.Errorf("é necessário fornecer o instance-id como argumento ou usar a flag --instance-id")
 			}// CobraFlagsAssign
 			
-			if opts_TypeFlag.IsChanged() {
-				opts.Type = (*dbaasSdk.SnapshotType)(opts_TypeFlag.Value)
-			}// CobraFlagsAssign
-			
 			if opts_StatusFlag.IsChanged() {
 				opts.Status = (*dbaasSdk.SnapshotStatus)(opts_StatusFlag.Value)
 			}// CobraFlagsAssign
@@ -80,6 +76,10 @@ func ListSnapshots(ctx context.Context, parent *cobra.Command, instanceService d
 			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_TypeFlag.IsChanged() {
+				opts.Type = (*dbaasSdk.SnapshotType)(opts_TypeFlag.Value)
 			}// CobraFlagsAssign
 			
 
@@ -98,13 +98,13 @@ func ListSnapshots(ctx context.Context, parent *cobra.Command, instanceService d
 	
 	instanceIDFlag = flags.NewStr(cmd, "instance-id", "", " (required)")//CobraFlagsCreation
 	
-	opts_TypeFlag = flags.NewStr(cmd, "type", "", "")//CobraFlagsCreation
-	
 	opts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
 	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
+	
+	opts_TypeFlag = flags.NewStr(cmd, "type", "", "")//CobraFlagsCreation
 	
 
 

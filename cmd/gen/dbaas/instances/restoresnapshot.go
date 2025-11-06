@@ -32,13 +32,13 @@ func RestoreSnapshot(ctx context.Context, parent *cobra.Command, instanceService
 	
 	var snapshotIDFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_BackupRetentionDaysFlag *flags.IntFlag //CobraFlagsDefinition
-	
-	var req_BackupStartAtFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_InstanceTypeIDFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_BackupRetentionDaysFlag *flags.IntFlag //CobraFlagsDefinition
+	
+	var req_BackupStartAtFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -81,14 +81,6 @@ func RestoreSnapshot(ctx context.Context, parent *cobra.Command, instanceService
 				return fmt.Errorf("é necessário fornecer o snapshot-id como argumento ou usar a flag --snapshot-id")
 			}// CobraFlagsAssign
 			
-			if req_BackupRetentionDaysFlag.IsChanged() {
-				req.BackupRetentionDays = req_BackupRetentionDaysFlag.Value
-			}// CobraFlagsAssign
-			
-			if req_BackupStartAtFlag.IsChanged() {
-				req.BackupStartAt = req_BackupStartAtFlag.Value
-			}// CobraFlagsAssign
-			
 			if len(args) > 0{
 				cmd.Flags().Set("name", args[0])
 			}
@@ -105,6 +97,14 @@ func RestoreSnapshot(ctx context.Context, parent *cobra.Command, instanceService
 				req.InstanceTypeID = *req_InstanceTypeIDFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o instance-type-id como argumento ou usar a flag --instance-type-id")
+			}// CobraFlagsAssign
+			
+			if req_BackupRetentionDaysFlag.IsChanged() {
+				req.BackupRetentionDays = req_BackupRetentionDaysFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_BackupStartAtFlag.IsChanged() {
+				req.BackupStartAt = req_BackupStartAtFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -125,13 +125,13 @@ func RestoreSnapshot(ctx context.Context, parent *cobra.Command, instanceService
 	
 	snapshotIDFlag = flags.NewStr(cmd, "snapshot-id", "", " (required)")//CobraFlagsCreation
 	
-	req_BackupRetentionDaysFlag = flags.NewInt(cmd, "backup-retention-days", 0, "")//CobraFlagsCreation
-	
-	req_BackupStartAtFlag = flags.NewStr(cmd, "backup-start-at", "", "")//CobraFlagsCreation
-	
 	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_InstanceTypeIDFlag = flags.NewStr(cmd, "instance-type-id", "", " (required)")//CobraFlagsCreation
+	
+	req_BackupRetentionDaysFlag = flags.NewInt(cmd, "backup-retention-days", 0, "")//CobraFlagsCreation
+	
+	req_BackupStartAtFlag = flags.NewStr(cmd, "backup-start-at", "", "")//CobraFlagsCreation
 	
 
 

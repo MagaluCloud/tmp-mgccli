@@ -32,18 +32,18 @@ func List(ctx context.Context, parent *cobra.Command, imagesService containerreg
 	
 	var repositoryNameFlag *flags.StrFlag //CobraFlagsDefinition
 	
+	var opts_ExpandFlag *flags.StrSliceFlag //CobraFlagsDefinition
+	
+	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
-	var opts_SortFlag *flags.StrFlag //CobraFlagsDefinition
-	
-	var opts_ExpandFlag *flags.StrSliceFlag //CobraFlagsDefinition
-	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [registryID] [repositoryName] [Offset] [Limit] [Sort] [Expand]",
+		Use:     "list [registryID] [repositoryName] [Expand] [Sort] [Offset] [Limit]",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
 		
@@ -79,23 +79,23 @@ func List(ctx context.Context, parent *cobra.Command, imagesService containerreg
 				return fmt.Errorf("é necessário fornecer o repository-name como argumento ou usar a flag --repository-name")
 			}// CobraFlagsAssign
 			
-			if opts_OffsetFlag.IsChanged() {
-				opts.Offset = opts_OffsetFlag.Value
-			}// CobraFlagsAssign
-			
-			if opts_LimitFlag.IsChanged() {
-				opts.Limit = opts_LimitFlag.Value
+			if opts_ExpandFlag.IsChanged() {
+				opts.Expand = make([]containerregistrySdk.ImageExpand, len(*opts_ExpandFlag.Value))
+				for i, v := range *opts_ExpandFlag.Value {
+					opts.Expand[i] = containerregistrySdk.ImageExpand(v)
+				}
 			}// CobraFlagsAssign
 			
 			if opts_SortFlag.IsChanged() {
 				opts.Sort = opts_SortFlag.Value
 			}// CobraFlagsAssign
 			
-			if opts_ExpandFlag.IsChanged() {
-				opts.Expand = make([]containerregistrySdk.ImageExpand, len(*opts_ExpandFlag.Value))
-				for i, v := range *opts_ExpandFlag.Value {
-					opts.Expand[i] = containerregistrySdk.ImageExpand(v)
-				}
+			if opts_OffsetFlag.IsChanged() {
+				opts.Offset = opts_OffsetFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_LimitFlag.IsChanged() {
+				opts.Limit = opts_LimitFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -116,13 +116,13 @@ func List(ctx context.Context, parent *cobra.Command, imagesService containerreg
 	
 	repositoryNameFlag = flags.NewStr(cmd, "repository-name", "", " (required)")//CobraFlagsCreation
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
-	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
 	
 	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
 	
-	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
 	
 
 

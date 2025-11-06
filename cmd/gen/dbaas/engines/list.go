@@ -26,16 +26,16 @@ import (
 
 func List(ctx context.Context, parent *cobra.Command, engineService dbaasSdk.EngineService) {
 	
+	var opts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
+	
 	var opts_OffsetFlag *flags.IntFlag //CobraFlagsDefinition
 	
 	var opts_LimitFlag *flags.IntFlag //CobraFlagsDefinition
 	
-	var opts_StatusFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Offset] [Limit] [Status]",
+		Use:     "list [Status] [Offset] [Limit]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		
@@ -49,16 +49,16 @@ func List(ctx context.Context, parent *cobra.Command, engineService dbaasSdk.Eng
 
 		
 			
+			if opts_StatusFlag.IsChanged() {
+				opts.Status = opts_StatusFlag.Value
+			}// CobraFlagsAssign
+			
 			if opts_OffsetFlag.IsChanged() {
 				opts.Offset = opts_OffsetFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
-			}// CobraFlagsAssign
-			
-			if opts_StatusFlag.IsChanged() {
-				opts.Status = opts_StatusFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -75,11 +75,11 @@ func List(ctx context.Context, parent *cobra.Command, engineService dbaasSdk.Eng
 	}
 	
 	
+	opts_StatusFlag = flags.NewStr(cmd, "status", "", " (required)")//CobraFlagsCreation
+	
 	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
 	
 	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
-	
-	opts_StatusFlag = flags.NewStr(cmd, "status", "", " (required)")//CobraFlagsCreation
 	
 
 

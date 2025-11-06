@@ -30,13 +30,13 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 	
 	var idFlag *flags.StrFlag //CobraFlagsDefinition
 	
-	var req_UserDataFlag *flags.StrFlag //CobraFlagsDefinition
-	
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_SSHKeyNameFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	var req_AvailabilityZoneFlag *flags.StrFlag //CobraFlagsDefinition
+	
+	var req_UserDataFlag *flags.StrFlag //CobraFlagsDefinition
 	
 	
 
@@ -68,10 +68,6 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
 			}// CobraFlagsAssign
 			
-			if req_UserDataFlag.IsChanged() {
-				req.UserData = req_UserDataFlag.Value
-			}// CobraFlagsAssign
-			
 			if len(args) > 0{
 				cmd.Flags().Set("name", args[0])
 			}
@@ -87,6 +83,10 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 			
 			if req_AvailabilityZoneFlag.IsChanged() {
 				req.AvailabilityZone = req_AvailabilityZoneFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_UserDataFlag.IsChanged() {
+				req.UserData = req_UserDataFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -105,13 +105,13 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 	
 	idFlag = flags.NewStr(cmd, "id", "", " (required)")//CobraFlagsCreation
 	
-	req_UserDataFlag = flags.NewStr(cmd, "user-data", "", "")//CobraFlagsCreation
-	
 	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
 	
 	req_SSHKeyNameFlag = flags.NewStr(cmd, "sshkey-name", "", "")//CobraFlagsCreation
 	
 	req_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", "")//CobraFlagsCreation
+	
+	req_UserDataFlag = flags.NewStr(cmd, "user-data", "", "")//CobraFlagsCreation
 	
 
 
