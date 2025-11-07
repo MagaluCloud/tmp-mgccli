@@ -1,0 +1,46 @@
+# Binários do CLIgen
+cligen
+cligen-*
+cli
+
+# Diretórios temporários
+tmp-*
+bak-*
+bkp-*
+dist/
+
+# Diretórios gerados
+base-cli-gen/*
+base-cli-custom/cmd/**/*.keep
+base-cli/cli
+
+# Cobertura de testes
+coverage.out
+coverage.html
+*.test
+*.prof
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Logs
+*.log
+
+# Dependências vendorizadas (se usar vendor)
+vendor/
+
+# Arquivos de build temporários
+*.bak
+*.tmp
