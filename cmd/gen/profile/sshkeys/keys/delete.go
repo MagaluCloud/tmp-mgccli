@@ -33,7 +33,7 @@ func Delete(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.Ke
 	
 
 	cmd := &cobra.Command{
-		Use:     "delete [keyID]",
+		Use:     "delete [key-id]",
 		Short:   "",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

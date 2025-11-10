@@ -132,15 +132,15 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 	
 	req_InstanceTypeIDFlag = flags.NewStr(cmd, "instance-type-id", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	req_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", "")//CobraFlagsCreation
 	
-	req_PasswordFlag = flags.NewStr(cmd, "password", "", " (required)")//CobraFlagsCreation
+	req_PasswordFlag = flags.NewStr(cmd, "password", "", "")//CobraFlagsCreation
 	
-	req_UserFlag = flags.NewStr(cmd, "user", "", " (required)")//CobraFlagsCreation
+	req_UserFlag = flags.NewStr(cmd, "user", "", "")//CobraFlagsCreation
 	
-	req_Volume_SizeFlag = flags.NewInt(cmd, "volume.size", 0, " (required)")//CobraFlagsCreation
+	req_Volume_SizeFlag = flags.NewInt(cmd, "volume.size", 0, "")//CobraFlagsCreation
 	
 	req_Volume_TypeFlag = flags.NewStr(cmd, "volume.type", "", "")//CobraFlagsCreation
 	

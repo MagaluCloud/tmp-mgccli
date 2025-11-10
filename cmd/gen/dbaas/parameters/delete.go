@@ -33,7 +33,7 @@ func Delete(ctx context.Context, parent *cobra.Command, parameterService dbaasSd
 	
 
 	cmd := &cobra.Command{
-		Use:     "delete [groupID] [parameterID]",
+		Use:     "delete [group-id] [parameter-id]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -58,7 +58,7 @@ func Delete(ctx context.Context, parent *cobra.Command, parameterService dbaasSd
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("parameter-id", args[0])
+				cmd.Flags().Set("parameter-id", args[1])
 			}
 			if parameterIDFlag.IsChanged() {
 				parameterID = *parameterIDFlag.Value

@@ -35,7 +35,7 @@ func Get(ctx context.Context, parent *cobra.Command, networkHealthCheckService l
 	
 
 	cmd := &cobra.Command{
-		Use:     "get [healthCheckID] [lbID]",
+		Use:     "get [lb-id] [health-check-id]",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -51,7 +51,7 @@ func Get(ctx context.Context, parent *cobra.Command, networkHealthCheckService l
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("health-check-id", args[0])
+				cmd.Flags().Set("health-check-id", args[1])
 			}
 			if healthCheckIDFlag.IsChanged() {
 				healthCheckID = *healthCheckIDFlag.Value

@@ -84,9 +84,9 @@ func Create(ctx context.Context, parent *cobra.Command, networkBackendTargetServ
 	}
 	
 	
-	backendIDFlag = flags.NewStr(cmd, "backend-id", "", " (required)")//CobraFlagsCreation
+	backendIDFlag = flags.NewStr(cmd, "backend-id", "", "")//CobraFlagsCreation
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", "")//CobraFlagsCreation
 	
 	req_HealthCheckIDFlag = flags.NewStr(cmd, "health-check-id", "", "")//CobraFlagsCreation
 	

@@ -88,15 +88,15 @@ func Create(ctx context.Context, parent *cobra.Command, networkCertificateServic
 	}
 	
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", "")//CobraFlagsCreation
 	
-	req_CertificateFlag = flags.NewStr(cmd, "certificate", "", " (required)")//CobraFlagsCreation
+	req_CertificateFlag = flags.NewStr(cmd, "certificate", "", "")//CobraFlagsCreation
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	req_PrivateKeyFlag = flags.NewStr(cmd, "private-key", "", " (required)")//CobraFlagsCreation
+	req_PrivateKeyFlag = flags.NewStr(cmd, "private-key", "", "")//CobraFlagsCreation
 	
 
 

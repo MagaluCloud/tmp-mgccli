@@ -35,7 +35,7 @@ func Get(ctx context.Context, parent *cobra.Command, nodePoolService kubernetesS
 	
 
 	cmd := &cobra.Command{
-		Use:     "get [clusterID] [nodePoolID]",
+		Use:     "get [cluster-id] [node-pool-id]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -60,7 +60,7 @@ func Get(ctx context.Context, parent *cobra.Command, nodePoolService kubernetesS
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("node-pool-id", args[0])
+				cmd.Flags().Set("node-pool-id", args[1])
 			}
 			if nodePoolIDFlag.IsChanged() {
 				nodePoolID = *nodePoolIDFlag.Value

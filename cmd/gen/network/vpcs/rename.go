@@ -33,7 +33,7 @@ func Rename(ctx context.Context, parent *cobra.Command, vPCService networkSdk.VP
 	
 
 	cmd := &cobra.Command{
-		Use:     "rename [id] [newName]",
+		Use:     "rename [id] [new-name]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -58,7 +58,7 @@ func Rename(ctx context.Context, parent *cobra.Command, vPCService networkSdk.VP
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("new-name", args[0])
+				cmd.Flags().Set("new-name", args[1])
 			}
 			if newNameFlag.IsChanged() {
 				newName = *newNameFlag.Value

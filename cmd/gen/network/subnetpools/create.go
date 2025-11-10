@@ -82,9 +82,9 @@ func Create(ctx context.Context, parent *cobra.Command, subnetPoolService networ
 	
 	req_CIDRFlag = flags.NewStr(cmd, "cidr", "", "")//CobraFlagsCreation
 	
-	req_DescriptionFlag = flags.NewStr(cmd, "description", "", " (required)")//CobraFlagsCreation
+	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	req_TypeFlag = flags.NewStr(cmd, "type", "", "")//CobraFlagsCreation
 	

@@ -82,11 +82,11 @@ func Create(ctx context.Context, parent *cobra.Command, natGatewayService networ
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	req_VPCIDFlag = flags.NewStr(cmd, "vpcid", "", " (required)")//CobraFlagsCreation
+	req_VPCIDFlag = flags.NewStr(cmd, "vpcid", "", "")//CobraFlagsCreation
 	
-	req_ZoneFlag = flags.NewStr(cmd, "zone", "", " (required)")//CobraFlagsCreation
+	req_ZoneFlag = flags.NewStr(cmd, "zone", "", "")//CobraFlagsCreation
 	
 
 

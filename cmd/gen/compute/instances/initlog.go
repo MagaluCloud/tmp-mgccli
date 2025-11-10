@@ -35,7 +35,7 @@ func InitLog(ctx context.Context, parent *cobra.Command, instanceService compute
 	
 
 	cmd := &cobra.Command{
-		Use:     "init-log [id] [maxLines]",
+		Use:     "init-log [id] [max-lines]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

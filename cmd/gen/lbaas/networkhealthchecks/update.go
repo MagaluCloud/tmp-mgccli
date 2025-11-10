@@ -49,7 +49,7 @@ func Update(ctx context.Context, parent *cobra.Command, networkHealthCheckServic
 	
 
 	cmd := &cobra.Command{
-		Use:     "update [Port] [healthCheckID] [lbID]",
+		Use:     "update [lb-id] [health-check-id] [port]",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -67,7 +67,7 @@ func Update(ctx context.Context, parent *cobra.Command, networkHealthCheckServic
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("health-check-id", args[0])
+				cmd.Flags().Set("health-check-id", args[1])
 			}
 			if healthCheckIDFlag.IsChanged() {
 				healthCheckID = *healthCheckIDFlag.Value
@@ -85,7 +85,7 @@ func Update(ctx context.Context, parent *cobra.Command, networkHealthCheckServic
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("port", args[0])
+				cmd.Flags().Set("port", args[2])
 			}
 			if req_PortFlag.IsChanged() {
 				req.Port = *req_PortFlag.Value

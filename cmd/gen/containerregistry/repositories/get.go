@@ -35,7 +35,7 @@ func Get(ctx context.Context, parent *cobra.Command, repositoriesService contain
 	
 
 	cmd := &cobra.Command{
-		Use:     "get [registryID] [repositoryName]",
+		Use:     "get [registry-id] [repository-name]",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -60,7 +60,7 @@ func Get(ctx context.Context, parent *cobra.Command, repositoriesService contain
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("repository-name", args[0])
+				cmd.Flags().Set("repository-name", args[1])
 			}
 			if repositoryNameFlag.IsChanged() {
 				repositoryName = *repositoryNameFlag.Value

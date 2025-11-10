@@ -33,7 +33,7 @@ func Get(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.KeySe
 	
 
 	cmd := &cobra.Command{
-		Use:     "get [keyID]",
+		Use:     "get [key-id]",
 		Short:   "",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

@@ -39,7 +39,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, volumeTypeService block
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [AllowsEncryption] [AvailabilityZone] [Name] [Sort]",
+		Use:     "list-all [availability-zone] [name] [allows-encryption] [sort]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -70,7 +70,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, volumeTypeService block
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("name", args[0])
+				cmd.Flags().Set("name", args[1])
 			}
 			if filterOpts_NameFlag.IsChanged() {
 				filterOpts.Name = *filterOpts_NameFlag.Value

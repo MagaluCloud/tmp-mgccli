@@ -76,7 +76,7 @@ func Create(ctx context.Context, parent *cobra.Command, securityGroupService net
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	req_SkipDefaultRulesFlag = flags.NewBool(cmd, "skip-default-rules", false, "")//CobraFlagsCreation
 	

@@ -35,7 +35,7 @@ func Delete(ctx context.Context, parent *cobra.Command, imagesService containerr
 	
 
 	cmd := &cobra.Command{
-		Use:     "delete [digestOrTag] [registryID] [repositoryName]",
+		Use:     "delete [registry-id] [repository-name] [digest-or-tag]",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -53,7 +53,7 @@ func Delete(ctx context.Context, parent *cobra.Command, imagesService containerr
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("digest-or-tag", args[0])
+				cmd.Flags().Set("digest-or-tag", args[2])
 			}
 			if digestOrTagFlag.IsChanged() {
 				digestOrTag = *digestOrTagFlag.Value
@@ -71,7 +71,7 @@ func Delete(ctx context.Context, parent *cobra.Command, imagesService containerr
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("repository-name", args[0])
+				cmd.Flags().Set("repository-name", args[1])
 			}
 			if repositoryNameFlag.IsChanged() {
 				repositoryName = *repositoryNameFlag.Value

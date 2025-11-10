@@ -43,7 +43,7 @@ func List(ctx context.Context, parent *cobra.Command, imagesService containerreg
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort] [registryID] [repositoryName]",
+		Use:     "list [registry-id] [repository-name] [limit] [sort] [offset]",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -70,7 +70,7 @@ func List(ctx context.Context, parent *cobra.Command, imagesService containerreg
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("repository-name", args[0])
+				cmd.Flags().Set("repository-name", args[1])
 			}
 			if repositoryNameFlag.IsChanged() {
 				repositoryName = *repositoryNameFlag.Value

@@ -33,7 +33,7 @@ func Delete(ctx context.Context, parent *cobra.Command, instanceService computeS
 	
 
 	cmd := &cobra.Command{
-		Use:     "delete [deletePublicIP] [id]",
+		Use:     "delete [id] [delete-public-ip]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -49,7 +49,7 @@ func Delete(ctx context.Context, parent *cobra.Command, instanceService computeS
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("delete-public-ip", args[0])
+				cmd.Flags().Set("delete-public-ip", args[1])
 			}
 			if deletePublicIPFlag.IsChanged() {
 				deletePublicIP = *deletePublicIPFlag.Value

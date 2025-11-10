@@ -37,7 +37,7 @@ func Update(ctx context.Context, parent *cobra.Command, nodePoolService kubernet
 	
 
 	cmd := &cobra.Command{
-		Use:     "update [clusterID] [nodePoolID]",
+		Use:     "update [cluster-id] [node-pool-id]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -66,7 +66,7 @@ func Update(ctx context.Context, parent *cobra.Command, nodePoolService kubernet
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("node-pool-id", args[0])
+				cmd.Flags().Set("node-pool-id", args[1])
 			}
 			if nodePoolIDFlag.IsChanged() {
 				nodePoolID = *nodePoolIDFlag.Value

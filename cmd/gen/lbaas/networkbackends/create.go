@@ -106,7 +106,7 @@ func Create(ctx context.Context, parent *cobra.Command, networkBackendService lb
 	}
 	
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", "")//CobraFlagsCreation
 	
 	req_CloseConnectionsOnHostHealthFailureFlag = flags.NewBool(cmd, "close-connections-on-host-health-failure", false, "")//CobraFlagsCreation
 	
@@ -116,7 +116,7 @@ func Create(ctx context.Context, parent *cobra.Command, networkBackendService lb
 	
 	req_HealthCheckNameFlag = flags.NewStr(cmd, "health-check-name", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	req_PanicThresholdFlag = flags.NewFloat64(cmd, "panic-threshold", 0, "")//CobraFlagsCreation
 	

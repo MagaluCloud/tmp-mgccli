@@ -33,7 +33,7 @@ func Extend(ctx context.Context, parent *cobra.Command, volumeService blockstora
 	
 
 	cmd := &cobra.Command{
-		Use:     "extend [Size] [id]",
+		Use:     "extend [id] [size]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -58,7 +58,7 @@ func Extend(ctx context.Context, parent *cobra.Command, volumeService blockstora
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("size", args[0])
+				cmd.Flags().Set("size", args[1])
 			}
 			if req_SizeFlag.IsChanged() {
 				req.Size = *req_SizeFlag.Value

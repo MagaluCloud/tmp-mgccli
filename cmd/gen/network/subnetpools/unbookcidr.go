@@ -33,7 +33,7 @@ func UnbookCIDR(ctx context.Context, parent *cobra.Command, subnetPoolService ne
 	
 
 	cmd := &cobra.Command{
-		Use:     "unbook-c-i-d-r [CIDR] [id]",
+		Use:     "unbook-c-i-d-r [id] [cidr]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -49,7 +49,7 @@ func UnbookCIDR(ctx context.Context, parent *cobra.Command, subnetPoolService ne
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("cidr", args[0])
+				cmd.Flags().Set("cidr", args[1])
 			}
 			if req_CIDRFlag.IsChanged() {
 				req.CIDR = *req_CIDRFlag.Value

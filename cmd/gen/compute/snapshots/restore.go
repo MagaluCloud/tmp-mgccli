@@ -41,7 +41,7 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 	
 
 	cmd := &cobra.Command{
-		Use:     "restore [Name] [id]",
+		Use:     "restore [id] [name]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -68,7 +68,7 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("name", args[0])
+				cmd.Flags().Set("name", args[1])
 			}
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value

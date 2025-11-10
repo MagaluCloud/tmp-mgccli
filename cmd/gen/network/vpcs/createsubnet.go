@@ -47,7 +47,7 @@ func CreateSubnet(ctx context.Context, parent *cobra.Command, vPCService network
 	
 
 	cmd := &cobra.Command{
-		Use:     "create-subnet [CIDRBlock] [IPVersion] [Name] [vpcID]",
+		Use:     "create-subnet [vpc-id] [name] [cidrblock] [ipversion]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -65,7 +65,7 @@ func CreateSubnet(ctx context.Context, parent *cobra.Command, vPCService network
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("cidrblock", args[0])
+				cmd.Flags().Set("cidrblock", args[2])
 			}
 			if req_CIDRBlockFlag.IsChanged() {
 				req.CIDRBlock = *req_CIDRBlockFlag.Value
@@ -74,7 +74,7 @@ func CreateSubnet(ctx context.Context, parent *cobra.Command, vPCService network
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("ipversion", args[0])
+				cmd.Flags().Set("ipversion", args[3])
 			}
 			if req_IPVersionFlag.IsChanged() {
 				req.IPVersion = *req_IPVersionFlag.Value
@@ -83,7 +83,7 @@ func CreateSubnet(ctx context.Context, parent *cobra.Command, vPCService network
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("name", args[0])
+				cmd.Flags().Set("name", args[1])
 			}
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value

@@ -37,7 +37,7 @@ func List(ctx context.Context, parent *cobra.Command, snapshotService blockstora
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort]",
+		Use:     "list [limit] [offset] [sort]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

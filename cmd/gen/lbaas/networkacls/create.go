@@ -76,11 +76,11 @@ func Create(ctx context.Context, parent *cobra.Command, networkACLService lbaasS
 	}
 	
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", "")//CobraFlagsCreation
 	
 	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	req_RemoteIPPrefixFlag = flags.NewStr(cmd, "remote-ipprefix", "", " (required)")//CobraFlagsCreation
+	req_RemoteIPPrefixFlag = flags.NewStr(cmd, "remote-ipprefix", "", "")//CobraFlagsCreation
 	
 
 

@@ -35,7 +35,7 @@ func GetSnapshot(ctx context.Context, parent *cobra.Command, instanceService dba
 	
 
 	cmd := &cobra.Command{
-		Use:     "get-snapshot [instanceID] [snapshotID]",
+		Use:     "get-snapshot [instance-id] [snapshot-id]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -60,7 +60,7 @@ func GetSnapshot(ctx context.Context, parent *cobra.Command, instanceService dba
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("snapshot-id", args[0])
+				cmd.Flags().Set("snapshot-id", args[1])
 			}
 			if snapshotIDFlag.IsChanged() {
 				snapshotID = *snapshotIDFlag.Value

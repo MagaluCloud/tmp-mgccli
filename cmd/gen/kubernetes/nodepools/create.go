@@ -120,21 +120,21 @@ func Create(ctx context.Context, parent *cobra.Command, nodePoolService kubernet
 	}
 	
 	
-	clusterIDFlag = flags.NewStr(cmd, "cluster-id", "", " (required)")//CobraFlagsCreation
+	clusterIDFlag = flags.NewStr(cmd, "cluster-id", "", "")//CobraFlagsCreation
 	
-	req_AutoScale_MaxReplicasFlag = flags.NewInt(cmd, "auto-scale.max-replicas", 0, " (required)")//CobraFlagsCreation
+	req_AutoScale_MaxReplicasFlag = flags.NewInt(cmd, "auto-scale.max-replicas", 0, "")//CobraFlagsCreation
 	
-	req_AutoScale_MinReplicasFlag = flags.NewInt(cmd, "auto-scale.min-replicas", 0, " (required)")//CobraFlagsCreation
+	req_AutoScale_MinReplicasFlag = flags.NewInt(cmd, "auto-scale.min-replicas", 0, "")//CobraFlagsCreation
 	
 	req_AvailabilityZonesFlag = flags.NewStrSlice(cmd, "availability-zones", []string{}, "")//CobraFlagsCreation
 	
-	req_FlavorFlag = flags.NewStr(cmd, "flavor", "", " (required)")//CobraFlagsCreation
+	req_FlavorFlag = flags.NewStr(cmd, "flavor", "", "")//CobraFlagsCreation
 	
 	req_MaxPodsPerNodeFlag = flags.NewInt(cmd, "max-pods-per-node", 0, "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	req_ReplicasFlag = flags.NewInt(cmd, "replicas", 0, " (required)")//CobraFlagsCreation
+	req_ReplicasFlag = flags.NewInt(cmd, "replicas", 0, "")//CobraFlagsCreation
 	
 	req_TagsFlag = flags.NewStrSlice(cmd, "tags", []string{}, "")//CobraFlagsCreation
 	

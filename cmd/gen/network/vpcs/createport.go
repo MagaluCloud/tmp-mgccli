@@ -45,7 +45,7 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 	
 
 	cmd := &cobra.Command{
-		Use:     "create-port [Name] [vpcID]",
+		Use:     "create-port [vpc-id] [name]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -63,7 +63,7 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("name", args[0])
+				cmd.Flags().Set("name", args[1])
 			}
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
