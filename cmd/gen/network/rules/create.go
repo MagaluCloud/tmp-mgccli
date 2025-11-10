@@ -110,7 +110,7 @@ func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.R
 	
 	req_DirectionFlag = flags.NewStr(cmd, "direction", "", "")//CobraFlagsCreation
 	
-	req_EtherTypeFlag = flags.NewStr(cmd, "ether-type", "", " (required)")//CobraFlagsCreation
+	req_EtherTypeFlag = flags.NewStr(cmd, "ether-type", "", "")//CobraFlagsCreation
 	
 	req_PortRangeMaxFlag = flags.NewInt(cmd, "port-range-max", 0, "")//CobraFlagsCreation
 	
@@ -120,7 +120,7 @@ func Create(ctx context.Context, parent *cobra.Command, ruleService networkSdk.R
 	
 	req_RemoteIPPrefixFlag = flags.NewStr(cmd, "remote-ipprefix", "", "")//CobraFlagsCreation
 	
-	securityGroupIDFlag = flags.NewStr(cmd, "security-group-id", "", " (required)")//CobraFlagsCreation
+	securityGroupIDFlag = flags.NewStr(cmd, "security-group-id", "", "")//CobraFlagsCreation
 	
 
 

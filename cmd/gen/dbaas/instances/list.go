@@ -49,7 +49,7 @@ func List(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.I
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [EngineID] [Limit] [Offset] [Status] [VolumeSize] [VolumeSizeGt] [VolumeSizeGte] [VolumeSizeLt] [VolumeSizeLte]",
+		Use:     "list [limit] [volume-size] [volume-size-gt] [volume-size-lt] [volume-size-lte] [offset] [status] [engine-id] [volume-size-gte]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

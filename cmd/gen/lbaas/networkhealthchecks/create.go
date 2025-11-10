@@ -124,7 +124,7 @@ func Create(ctx context.Context, parent *cobra.Command, networkHealthCheckServic
 	}
 	
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", "")//CobraFlagsCreation
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
@@ -136,11 +136,11 @@ func Create(ctx context.Context, parent *cobra.Command, networkHealthCheckServic
 	
 	req_IntervalSecondsFlag = flags.NewInt(cmd, "interval-seconds", 0, "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	req_PathFlag = flags.NewStr(cmd, "path", "", "")//CobraFlagsCreation
 	
-	req_PortFlag = flags.NewInt(cmd, "port", 0, " (required)")//CobraFlagsCreation
+	req_PortFlag = flags.NewInt(cmd, "port", 0, "")//CobraFlagsCreation
 	
 	req_TimeoutSecondsFlag = flags.NewInt(cmd, "timeout-seconds", 0, "")//CobraFlagsCreation
 	

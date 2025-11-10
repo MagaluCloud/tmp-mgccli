@@ -35,7 +35,7 @@ func List(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.KeyS
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort]",
+		Use:     "list [limit] [offset] [sort]",
 		Short:   "",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

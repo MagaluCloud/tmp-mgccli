@@ -96,15 +96,15 @@ func Create(ctx context.Context, parent *cobra.Command, networkListenerService l
 	}
 	
 	
-	backendIDFlag = flags.NewStr(cmd, "backend-id", "", " (required)")//CobraFlagsCreation
+	backendIDFlag = flags.NewStr(cmd, "backend-id", "", "")//CobraFlagsCreation
 	
-	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
+	lbIDFlag = flags.NewStr(cmd, "lb-id", "", "")//CobraFlagsCreation
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	req_PortFlag = flags.NewInt(cmd, "port", 0, " (required)")//CobraFlagsCreation
+	req_PortFlag = flags.NewInt(cmd, "port", 0, "")//CobraFlagsCreation
 	
 	req_TLSCertificateIDFlag = flags.NewStr(cmd, "tlscertificate-id", "", "")//CobraFlagsCreation
 	

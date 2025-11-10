@@ -37,7 +37,7 @@ func Update(ctx context.Context, parent *cobra.Command, networkCertificateServic
 	
 
 	cmd := &cobra.Command{
-		Use:     "update [Certificate] [PrivateKey] [certicateID] [lbID]",
+		Use:     "update [lb-id] [certicate-id] [certificate] [private-key]",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -55,7 +55,7 @@ func Update(ctx context.Context, parent *cobra.Command, networkCertificateServic
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("certicate-id", args[0])
+				cmd.Flags().Set("certicate-id", args[1])
 			}
 			if certicateIDFlag.IsChanged() {
 				certicateID = *certicateIDFlag.Value
@@ -64,7 +64,7 @@ func Update(ctx context.Context, parent *cobra.Command, networkCertificateServic
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("certificate", args[0])
+				cmd.Flags().Set("certificate", args[2])
 			}
 			if req_CertificateFlag.IsChanged() {
 				req.Certificate = *req_CertificateFlag.Value
@@ -82,7 +82,7 @@ func Update(ctx context.Context, parent *cobra.Command, networkCertificateServic
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("private-key", args[0])
+				cmd.Flags().Set("private-key", args[3])
 			}
 			if req_PrivateKeyFlag.IsChanged() {
 				req.PrivateKey = *req_PrivateKeyFlag.Value

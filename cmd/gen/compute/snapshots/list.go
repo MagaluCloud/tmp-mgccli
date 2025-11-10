@@ -37,7 +37,7 @@ func List(ctx context.Context, parent *cobra.Command, snapshotService computeSdk
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort]",
+		Use:     "list [limit] [offset] [sort]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

@@ -33,7 +33,7 @@ func Rename(ctx context.Context, parent *cobra.Command, snapshotService blocksto
 	
 
 	cmd := &cobra.Command{
-		Use:     "rename [id] [newName]",
+		Use:     "rename [id] [new-name]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -58,7 +58,7 @@ func Rename(ctx context.Context, parent *cobra.Command, snapshotService blocksto
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("new-name", args[0])
+				cmd.Flags().Set("new-name", args[1])
 			}
 			if newNameFlag.IsChanged() {
 				newName = *newNameFlag.Value

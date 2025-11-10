@@ -76,9 +76,9 @@ func Create(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk.
 	
 	req_InstanceTypeIDFlag = flags.NewStr(cmd, "instance-type-id", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	req_SourceIDFlag = flags.NewStr(cmd, "source-id", "", " (required)")//CobraFlagsCreation
+	req_SourceIDFlag = flags.NewStr(cmd, "source-id", "", "")//CobraFlagsCreation
 	
 
 

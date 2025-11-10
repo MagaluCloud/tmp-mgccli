@@ -39,7 +39,7 @@ func List(ctx context.Context, parent *cobra.Command, natGatewayService networkS
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort] [vpcID]",
+		Use:     "list [vpc-id] [limit] [offset] [sort]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

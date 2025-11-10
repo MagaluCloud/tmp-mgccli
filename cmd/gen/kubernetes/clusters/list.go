@@ -37,7 +37,7 @@ func List(ctx context.Context, parent *cobra.Command, clusterService kubernetesS
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [Limit] [Offset] [Sort]",
+		Use:     "list [limit] [offset] [sort]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

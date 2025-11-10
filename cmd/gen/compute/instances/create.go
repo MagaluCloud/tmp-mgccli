@@ -124,7 +124,7 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService computeS
 	
 	req_MachineType_NameFlag = flags.NewStr(cmd, "machine-type.name", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	req_SshKeyNameFlag = flags.NewStr(cmd, "ssh-key-name", "", "")//CobraFlagsCreation
 	

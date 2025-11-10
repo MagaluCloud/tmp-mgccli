@@ -33,7 +33,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, parameterGroupService d
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [EngineID] [Type]",
+		Use:     "list-all [type] [engine-id]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

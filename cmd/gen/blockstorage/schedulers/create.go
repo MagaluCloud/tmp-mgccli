@@ -88,13 +88,13 @@ func Create(ctx context.Context, parent *cobra.Command, schedulerService blockst
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	req_Policy_Frequency_Daily_StartTimeFlag = flags.NewStr(cmd, "policy.frequency.daily.start-time", "", " (required)")//CobraFlagsCreation
+	req_Policy_Frequency_Daily_StartTimeFlag = flags.NewStr(cmd, "policy.frequency.daily.start-time", "", "")//CobraFlagsCreation
 	
-	req_Policy_RetentionInDaysFlag = flags.NewInt(cmd, "policy.retention-in-days", 0, " (required)")//CobraFlagsCreation
+	req_Policy_RetentionInDaysFlag = flags.NewInt(cmd, "policy.retention-in-days", 0, "")//CobraFlagsCreation
 	
-	req_Snapshot_TypeFlag = flags.NewStr(cmd, "snapshot.type", "", " (required)")//CobraFlagsCreation
+	req_Snapshot_TypeFlag = flags.NewStr(cmd, "snapshot.type", "", "")//CobraFlagsCreation
 	
 
 

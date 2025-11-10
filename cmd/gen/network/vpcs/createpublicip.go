@@ -35,7 +35,7 @@ func CreatePublicIP(ctx context.Context, parent *cobra.Command, vPCService netwo
 	
 
 	cmd := &cobra.Command{
-		Use:     "create-public-i-p [vpcID]",
+		Use:     "create-public-i-p [vpc-id]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

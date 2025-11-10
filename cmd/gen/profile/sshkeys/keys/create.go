@@ -68,9 +68,9 @@ func Create(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.Ke
 	}
 	
 	
-	req_KeyFlag = flags.NewStr(cmd, "key", "", " (required)")//CobraFlagsCreation
+	req_KeyFlag = flags.NewStr(cmd, "key", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 
 

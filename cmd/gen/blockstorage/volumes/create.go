@@ -96,11 +96,11 @@ func Create(ctx context.Context, parent *cobra.Command, volumeService blockstora
 	
 	req_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", "")//CobraFlagsCreation
 	
-	req_EncryptedFlag = flags.NewBool(cmd, "encrypted", false, " (required)")//CobraFlagsCreation
+	req_EncryptedFlag = flags.NewBool(cmd, "encrypted", false, "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	req_SizeFlag = flags.NewInt(cmd, "size", 0, " (required)")//CobraFlagsCreation
+	req_SizeFlag = flags.NewInt(cmd, "size", 0, "")//CobraFlagsCreation
 	
 	req_Type_IDFlag = flags.NewStr(cmd, "type.id", "", "")//CobraFlagsCreation
 	

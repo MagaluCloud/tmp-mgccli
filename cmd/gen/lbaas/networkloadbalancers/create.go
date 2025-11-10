@@ -132,7 +132,7 @@ func Create(ctx context.Context, parent *cobra.Command, networkLoadBalancerServi
 	
 	create_ListenersFlag = flags.NewJSONArrayValue[lbaasSdk.NetworkListenerRequest](cmd, "listeners", "",)//CobraFlagsCreation
 	
-	create_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	create_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	create_PublicIPIDFlag = flags.NewStr(cmd, "public-ipid", "", "")//CobraFlagsCreation
 	
@@ -142,7 +142,7 @@ func Create(ctx context.Context, parent *cobra.Command, networkLoadBalancerServi
 	
 	create_TypeFlag = flags.NewStr(cmd, "type", "", "")//CobraFlagsCreation
 	
-	create_VPCIDFlag = flags.NewStr(cmd, "vpcid", "", " (required)")//CobraFlagsCreation
+	create_VPCIDFlag = flags.NewStr(cmd, "vpcid", "", "")//CobraFlagsCreation
 	
 
 

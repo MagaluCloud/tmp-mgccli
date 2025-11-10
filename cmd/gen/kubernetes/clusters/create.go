@@ -112,7 +112,7 @@ func Create(ctx context.Context, parent *cobra.Command, clusterService kubernete
 	
 	req_EnabledServerGroupFlag = flags.NewBool(cmd, "enabled-server-group", false, "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	req_NodePoolsFlag = flags.NewJSONArrayValue[kubernetesSdk.CreateNodePoolRequest](cmd, "node-pools", "",)//CobraFlagsCreation
 	

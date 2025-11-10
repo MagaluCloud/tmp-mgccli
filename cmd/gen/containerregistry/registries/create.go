@@ -62,7 +62,7 @@ func Create(ctx context.Context, parent *cobra.Command, registriesService contai
 	}
 	
 	
-	request_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	request_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 
 

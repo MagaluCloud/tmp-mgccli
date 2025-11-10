@@ -62,7 +62,7 @@ func Create(ctx context.Context, parent *cobra.Command, snapshotService computeS
 	}
 	
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 
 

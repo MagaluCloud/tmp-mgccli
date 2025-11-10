@@ -41,7 +41,7 @@ func ListPorts(ctx context.Context, parent *cobra.Command, vPCService networkSdk
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-ports [Limit] [Offset] [Sort] [detailed] [vpcID]",
+		Use:     "list-ports [vpc-id] [detailed] [offset] [sort] [limit]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -59,7 +59,7 @@ func ListPorts(ctx context.Context, parent *cobra.Command, vPCService networkSdk
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("detailed", args[0])
+				cmd.Flags().Set("detailed", args[1])
 			}
 			if detailedFlag.IsChanged() {
 				detailed = *detailedFlag.Value

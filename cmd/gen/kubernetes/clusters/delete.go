@@ -31,7 +31,7 @@ func Delete(ctx context.Context, parent *cobra.Command, clusterService kubernete
 	
 
 	cmd := &cobra.Command{
-		Use:     "delete [clusterID]",
+		Use:     "delete [cluster-id]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{

@@ -35,7 +35,7 @@ func Delete(ctx context.Context, parent *cobra.Command, networkBackendTargetServ
 	
 
 	cmd := &cobra.Command{
-		Use:     "delete [backendID] [lbID] [targetID]",
+		Use:     "delete [lb-id] [backend-id] [target-id]",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -53,7 +53,7 @@ func Delete(ctx context.Context, parent *cobra.Command, networkBackendTargetServ
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("backend-id", args[0])
+				cmd.Flags().Set("backend-id", args[1])
 			}
 			if backendIDFlag.IsChanged() {
 				backendID = *backendIDFlag.Value
@@ -71,7 +71,7 @@ func Delete(ctx context.Context, parent *cobra.Command, networkBackendTargetServ
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("target-id", args[0])
+				cmd.Flags().Set("target-id", args[2])
 			}
 			if targetIDFlag.IsChanged() {
 				targetID = *targetIDFlag.Value

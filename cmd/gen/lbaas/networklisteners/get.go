@@ -35,7 +35,7 @@ func Get(ctx context.Context, parent *cobra.Command, networkListenerService lbaa
 	
 
 	cmd := &cobra.Command{
-		Use:     "get [lbID] [listenerID]",
+		Use:     "get [lb-id] [listener-id]",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -60,7 +60,7 @@ func Get(ctx context.Context, parent *cobra.Command, networkListenerService lbaa
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("listener-id", args[0])
+				cmd.Flags().Set("listener-id", args[1])
 			}
 			if listenerIDFlag.IsChanged() {
 				listenerID = *listenerIDFlag.Value

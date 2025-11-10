@@ -43,7 +43,7 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [AllowsEncryption] [AvailabilityZone] [Limit] [Name] [Offset] [Sort]",
+		Use:     "list [allows-encryption] [offset] [limit] [sort] [availability-zone] [name]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -57,7 +57,7 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("availability-zone", args[0])
+				cmd.Flags().Set("availability-zone", args[4])
 			}
 			if opts_AvailabilityZoneFlag.IsChanged() {
 				opts.AvailabilityZone = *opts_AvailabilityZoneFlag.Value
@@ -66,7 +66,7 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("name", args[0])
+				cmd.Flags().Set("name", args[5])
 			}
 			if opts_NameFlag.IsChanged() {
 				opts.Name = *opts_NameFlag.Value

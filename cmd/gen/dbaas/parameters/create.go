@@ -70,9 +70,9 @@ func Create(ctx context.Context, parent *cobra.Command, parameterService dbaasSd
 	}
 	
 	
-	groupIDFlag = flags.NewStr(cmd, "group-id", "", " (required)")//CobraFlagsCreation
+	groupIDFlag = flags.NewStr(cmd, "group-id", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 
 

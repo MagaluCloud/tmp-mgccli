@@ -33,7 +33,7 @@ func Copy(ctx context.Context, parent *cobra.Command, snapshotService computeSdk
 	
 
 	cmd := &cobra.Command{
-		Use:     "copy [DestinationRegion] [id]",
+		Use:     "copy [id] [destination-region]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -49,7 +49,7 @@ func Copy(ctx context.Context, parent *cobra.Command, snapshotService computeSdk
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("destination-region", args[0])
+				cmd.Flags().Set("destination-region", args[1])
 			}
 			if req_DestinationRegionFlag.IsChanged() {
 				req.DestinationRegion = *req_DestinationRegionFlag.Value

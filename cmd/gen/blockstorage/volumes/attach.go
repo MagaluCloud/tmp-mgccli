@@ -33,7 +33,7 @@ func Attach(ctx context.Context, parent *cobra.Command, volumeService blockstora
 	
 
 	cmd := &cobra.Command{
-		Use:     "attach [instanceID] [volumeID]",
+		Use:     "attach [volume-id] [instance-id]",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -49,7 +49,7 @@ func Attach(ctx context.Context, parent *cobra.Command, volumeService blockstora
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("instance-id", args[0])
+				cmd.Flags().Set("instance-id", args[1])
 			}
 			if instanceIDFlag.IsChanged() {
 				instanceID = *instanceIDFlag.Value
