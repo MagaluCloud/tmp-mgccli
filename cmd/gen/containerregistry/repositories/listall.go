@@ -35,7 +35,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, repositoriesService con
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [registry-id] [sort]",
+		Use:     "list-all [registry-id]",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -77,7 +77,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, repositoriesService con
 	}
 	
 	
-	filterOpts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	filterOpts_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
 	
 	registryIDFlag = flags.NewStr(cmd, "registry-id", "", " (required)")//CobraFlagsCreation
 	

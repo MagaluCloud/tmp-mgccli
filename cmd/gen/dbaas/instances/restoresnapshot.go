@@ -43,7 +43,7 @@ func RestoreSnapshot(ctx context.Context, parent *cobra.Command, instanceService
 	
 
 	cmd := &cobra.Command{
-		Use:     "restore-snapshot [instance-id] [snapshot-id] [name] [instance-type-id]",
+		Use:     "restore-snapshot [instance-id] [snapshot-id]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -72,24 +72,6 @@ func RestoreSnapshot(ctx context.Context, parent *cobra.Command, instanceService
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("instance-type-id", args[3])
-			}
-			if req_InstanceTypeIDFlag.IsChanged() {
-				req.InstanceTypeID = *req_InstanceTypeIDFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o instance-type-id como argumento ou usar a flag --instance-type-id")
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
-				cmd.Flags().Set("name", args[2])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o name como argumento ou usar a flag --name")
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
 				cmd.Flags().Set("snapshot-id", args[1])
 			}
 			if snapshotIDFlag.IsChanged() {
@@ -104,6 +86,14 @@ func RestoreSnapshot(ctx context.Context, parent *cobra.Command, instanceService
 			
 			if req_BackupStartAtFlag.IsChanged() {
 				req.BackupStartAt = req_BackupStartAtFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_InstanceTypeIDFlag.IsChanged() {
+				req.InstanceTypeID = *req_InstanceTypeIDFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -126,9 +116,9 @@ func RestoreSnapshot(ctx context.Context, parent *cobra.Command, instanceService
 	
 	req_BackupStartAtFlag = flags.NewStr(cmd, "backup-start-at", "", "")//CobraFlagsCreation
 	
-	req_InstanceTypeIDFlag = flags.NewStr(cmd, "instance-type-id", "", " (required)")//CobraFlagsCreation
+	req_InstanceTypeIDFlag = flags.NewStr(cmd, "instance-type-id", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	snapshotIDFlag = flags.NewStr(cmd, "snapshot-id", "", " (required)")//CobraFlagsCreation
 	

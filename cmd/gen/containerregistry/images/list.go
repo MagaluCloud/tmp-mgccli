@@ -43,7 +43,7 @@ func List(ctx context.Context, parent *cobra.Command, imagesService containerreg
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [registry-id] [repository-name] [limit] [sort] [offset]",
+		Use:     "list [registry-id] [repository-name]",
 		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -113,11 +113,11 @@ func List(ctx context.Context, parent *cobra.Command, imagesService containerreg
 	
 	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
 	
 	registryIDFlag = flags.NewStr(cmd, "registry-id", "", " (required)")//CobraFlagsCreation
 	

@@ -33,7 +33,7 @@ func UnbookCIDR(ctx context.Context, parent *cobra.Command, subnetPoolService ne
 	
 
 	cmd := &cobra.Command{
-		Use:     "unbook-c-i-d-r [id] [cidr]",
+		Use:     "unbook-c-i-d-r [id]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -49,21 +49,16 @@ func UnbookCIDR(ctx context.Context, parent *cobra.Command, subnetPoolService ne
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("cidr", args[1])
-			}
-			if req_CIDRFlag.IsChanged() {
-				req.CIDR = *req_CIDRFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o cidr como argumento ou usar a flag --cidr")
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
 				cmd.Flags().Set("id", args[0])
 			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
+			}// CobraFlagsAssign
+			
+			if req_CIDRFlag.IsChanged() {
+				req.CIDR = *req_CIDRFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -80,7 +75,7 @@ func UnbookCIDR(ctx context.Context, parent *cobra.Command, subnetPoolService ne
 	
 	idFlag = flags.NewStr(cmd, "id", "", " (required)")//CobraFlagsCreation
 	
-	req_CIDRFlag = flags.NewStr(cmd, "cidr", "", " (required)")//CobraFlagsCreation
+	req_CIDRFlag = flags.NewStr(cmd, "cidr", "", "")//CobraFlagsCreation
 	
 
 

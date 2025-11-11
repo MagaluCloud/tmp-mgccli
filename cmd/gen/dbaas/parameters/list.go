@@ -14,8 +14,6 @@ import (
 	"context"
 
 	
-	"fmt"
-	
 	"github.com/magaluCloud/mgccli/beautiful"
 	
 	"github.com/spf13/cobra"
@@ -37,7 +35,7 @@ func List(ctx context.Context, parent *cobra.Command, parameterService dbaasSdk.
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [parameter-group-id] [offset] [limit]",
+		Use:     "list",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -50,21 +48,16 @@ func List(ctx context.Context, parent *cobra.Command, parameterService dbaasSdk.
 
 		
 			
-			if len(args) > 0{
-				cmd.Flags().Set("parameter-group-id", args[0])
-			}
-			if opts_ParameterGroupIDFlag.IsChanged() {
-				opts.ParameterGroupID = *opts_ParameterGroupIDFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o parameter-group-id como argumento ou usar a flag --parameter-group-id")
-			}// CobraFlagsAssign
-			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_OffsetFlag.IsChanged() {
 				opts.Offset = opts_OffsetFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_ParameterGroupIDFlag.IsChanged() {
+				opts.ParameterGroupID = *opts_ParameterGroupIDFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -81,11 +74,11 @@ func List(ctx context.Context, parent *cobra.Command, parameterService dbaasSdk.
 	}
 	
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
-	opts_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", " (required)")//CobraFlagsCreation
+	opts_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", "")//CobraFlagsCreation
 	
 
 

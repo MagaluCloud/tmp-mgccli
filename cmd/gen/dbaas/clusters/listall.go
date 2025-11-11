@@ -45,7 +45,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [parameter-group-id] [status] [engine-id] [volume-size] [volume-size-gt] [volume-size-gte] [volume-size-lt] [volume-size-lte]",
+		Use:     "list-all",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -104,21 +104,21 @@ func ListAll(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk
 	}
 	
 	
-	filterOpts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
+	filterOpts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", "")//CobraFlagsCreation
 	
-	filterOpts_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", " (required)")//CobraFlagsCreation
+	filterOpts_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", "")//CobraFlagsCreation
 	
-	filterOpts_StatusFlag = flags.NewStr(cmd, "status", "", " (required)")//CobraFlagsCreation
+	filterOpts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
 	
-	filterOpts_VolumeSizeFlag = flags.NewInt(cmd, "volume-size", 0, " (required)")//CobraFlagsCreation
+	filterOpts_VolumeSizeFlag = flags.NewInt(cmd, "volume-size", 0, "")//CobraFlagsCreation
 	
-	filterOpts_VolumeSizeGtFlag = flags.NewInt(cmd, "volume-size-gt", 0, " (required)")//CobraFlagsCreation
+	filterOpts_VolumeSizeGtFlag = flags.NewInt(cmd, "volume-size-gt", 0, "")//CobraFlagsCreation
 	
-	filterOpts_VolumeSizeGteFlag = flags.NewInt(cmd, "volume-size-gte", 0, " (required)")//CobraFlagsCreation
+	filterOpts_VolumeSizeGteFlag = flags.NewInt(cmd, "volume-size-gte", 0, "")//CobraFlagsCreation
 	
-	filterOpts_VolumeSizeLtFlag = flags.NewInt(cmd, "volume-size-lt", 0, " (required)")//CobraFlagsCreation
+	filterOpts_VolumeSizeLtFlag = flags.NewInt(cmd, "volume-size-lt", 0, "")//CobraFlagsCreation
 	
-	filterOpts_VolumeSizeLteFlag = flags.NewInt(cmd, "volume-size-lte", 0, " (required)")//CobraFlagsCreation
+	filterOpts_VolumeSizeLteFlag = flags.NewInt(cmd, "volume-size-lte", 0, "")//CobraFlagsCreation
 	
 
 

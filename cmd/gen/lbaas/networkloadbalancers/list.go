@@ -35,7 +35,7 @@ func List(ctx context.Context, parent *cobra.Command, networkLoadBalancerService
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [sort] [offset] [limit]",
+		Use:     "list",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -74,11 +74,11 @@ func List(ctx context.Context, parent *cobra.Command, networkLoadBalancerService
 	}
 	
 	
-	options_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	options_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
-	options_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	options_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
-	options_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	options_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
 	
 
 

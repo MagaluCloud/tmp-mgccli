@@ -47,7 +47,7 @@ func CreateSubnet(ctx context.Context, parent *cobra.Command, vPCService network
 	
 
 	cmd := &cobra.Command{
-		Use:     "create-subnet [vpc-id] [name] [cidrblock] [ipversion]",
+		Use:     "create-subnet [vpc-id]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -65,33 +65,6 @@ func CreateSubnet(ctx context.Context, parent *cobra.Command, vPCService network
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("cidrblock", args[2])
-			}
-			if req_CIDRBlockFlag.IsChanged() {
-				req.CIDRBlock = *req_CIDRBlockFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o cidrblock como argumento ou usar a flag --cidrblock")
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
-				cmd.Flags().Set("ipversion", args[3])
-			}
-			if req_IPVersionFlag.IsChanged() {
-				req.IPVersion = *req_IPVersionFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o ipversion como argumento ou usar a flag --ipversion")
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
-				cmd.Flags().Set("name", args[1])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o name como argumento ou usar a flag --name")
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
 				cmd.Flags().Set("vpc-id", args[0])
 			}
 			if vpcIDFlag.IsChanged() {
@@ -104,12 +77,24 @@ func CreateSubnet(ctx context.Context, parent *cobra.Command, vPCService network
 				opts.Zone = opts_ZoneFlag.Value
 			}// CobraFlagsAssign
 			
+			if req_CIDRBlockFlag.IsChanged() {
+				req.CIDRBlock = *req_CIDRBlockFlag.Value
+			}// CobraFlagsAssign
+			
 			if req_DNSNameserversFlag.IsChanged() {
 				req.DNSNameservers = req_DNSNameserversFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_IPVersionFlag.IsChanged() {
+				req.IPVersion = *req_IPVersionFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_SubnetPoolIDFlag.IsChanged() {
@@ -132,15 +117,15 @@ func CreateSubnet(ctx context.Context, parent *cobra.Command, vPCService network
 	
 	opts_ZoneFlag = flags.NewStr(cmd, "zone", "", "")//CobraFlagsCreation
 	
-	req_CIDRBlockFlag = flags.NewStr(cmd, "cidrblock", "", " (required)")//CobraFlagsCreation
+	req_CIDRBlockFlag = flags.NewStr(cmd, "cidrblock", "", "")//CobraFlagsCreation
 	
 	req_DNSNameserversFlag = flags.NewStrSlice(cmd, "dnsnameservers", []string{}, "")//CobraFlagsCreation
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
-	req_IPVersionFlag = flags.NewInt(cmd, "ipversion", 0, " (required)")//CobraFlagsCreation
+	req_IPVersionFlag = flags.NewInt(cmd, "ipversion", 0, "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	req_SubnetPoolIDFlag = flags.NewStr(cmd, "subnet-pool-id", "", "")//CobraFlagsCreation
 	

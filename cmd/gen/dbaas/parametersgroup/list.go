@@ -37,7 +37,7 @@ func List(ctx context.Context, parent *cobra.Command, parameterGroupService dbaa
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [offset] [limit] [type] [engine-id]",
+		Use:     "list",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -80,13 +80,13 @@ func List(ctx context.Context, parent *cobra.Command, parameterGroupService dbaa
 	}
 	
 	
-	opts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
+	opts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", "")//CobraFlagsCreation
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
-	opts_TypeFlag = flags.NewStr(cmd, "type", "", " (required)")//CobraFlagsCreation
+	opts_TypeFlag = flags.NewStr(cmd, "type", "", "")//CobraFlagsCreation
 	
 
 

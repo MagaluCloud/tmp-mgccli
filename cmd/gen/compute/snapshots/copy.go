@@ -33,7 +33,7 @@ func Copy(ctx context.Context, parent *cobra.Command, snapshotService computeSdk
 	
 
 	cmd := &cobra.Command{
-		Use:     "copy [id] [destination-region]",
+		Use:     "copy [id]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -49,21 +49,16 @@ func Copy(ctx context.Context, parent *cobra.Command, snapshotService computeSdk
 		
 			
 			if len(args) > 0{
-				cmd.Flags().Set("destination-region", args[1])
-			}
-			if req_DestinationRegionFlag.IsChanged() {
-				req.DestinationRegion = *req_DestinationRegionFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o destination-region como argumento ou usar a flag --destination-region")
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
 				cmd.Flags().Set("id", args[0])
 			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 			} else {
 				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
+			}// CobraFlagsAssign
+			
+			if req_DestinationRegionFlag.IsChanged() {
+				req.DestinationRegion = *req_DestinationRegionFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -80,7 +75,7 @@ func Copy(ctx context.Context, parent *cobra.Command, snapshotService computeSdk
 	
 	idFlag = flags.NewStr(cmd, "id", "", " (required)")//CobraFlagsCreation
 	
-	req_DestinationRegionFlag = flags.NewStr(cmd, "destination-region", "", "DestinationRegion is the region where the snapshot should be copied (required)")//CobraFlagsCreation
+	req_DestinationRegionFlag = flags.NewStr(cmd, "destination-region", "", "DestinationRegion is the region where the snapshot should be copied")//CobraFlagsCreation
 	
 
 

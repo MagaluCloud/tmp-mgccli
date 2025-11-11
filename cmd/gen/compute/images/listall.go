@@ -33,7 +33,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, imageService computeSdk
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [sort] [availability-zone]",
+		Use:     "list-all",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -68,9 +68,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, imageService computeSdk
 	}
 	
 	
-	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", " (required)")//CobraFlagsCreation
+	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", "")//CobraFlagsCreation
 	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
 	
 
 

@@ -41,7 +41,7 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 	
 
 	cmd := &cobra.Command{
-		Use:     "restore [id] [name]",
+		Use:     "restore [id]",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -67,17 +67,12 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
 			}// CobraFlagsAssign
 			
-			if len(args) > 0{
-				cmd.Flags().Set("name", args[1])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o name como argumento ou usar a flag --name")
-			}// CobraFlagsAssign
-			
 			if req_AvailabilityZoneFlag.IsChanged() {
 				req.AvailabilityZone = req_AvailabilityZoneFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_SSHKeyNameFlag.IsChanged() {
@@ -106,7 +101,7 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 	
 	req_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	req_SSHKeyNameFlag = flags.NewStr(cmd, "sshkey-name", "", "")//CobraFlagsCreation
 	

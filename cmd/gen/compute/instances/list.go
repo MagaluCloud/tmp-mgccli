@@ -39,7 +39,7 @@ func List(ctx context.Context, parent *cobra.Command, instanceService computeSdk
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [limit] [offset] [sort] [name]",
+		Use:     "list",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -91,13 +91,13 @@ func List(ctx context.Context, parent *cobra.Command, instanceService computeSdk
 	
 	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
-	opts_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	opts_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
 	
 
 

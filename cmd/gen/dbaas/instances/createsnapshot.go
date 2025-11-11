@@ -37,7 +37,7 @@ func CreateSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 	
 
 	cmd := &cobra.Command{
-		Use:     "create-snapshot [instance-id] [name]",
+		Use:     "create-snapshot [instance-id]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -61,17 +61,12 @@ func CreateSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 				return fmt.Errorf("é necessário fornecer o instance-id como argumento ou usar a flag --instance-id")
 			}// CobraFlagsAssign
 			
-			if len(args) > 0{
-				cmd.Flags().Set("name", args[1])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o name como argumento ou usar a flag --name")
-			}// CobraFlagsAssign
-			
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 
@@ -92,7 +87,7 @@ func CreateSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 	
 	req_DescriptionFlag = flags.NewStr(cmd, "description", "", "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 
 

@@ -41,7 +41,7 @@ func List(ctx context.Context, parent *cobra.Command, nodePoolService kubernetes
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [cluster-id] [offset] [sort] [limit]",
+		Use:     "list [cluster-id]",
 		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -99,11 +99,11 @@ func List(ctx context.Context, parent *cobra.Command, nodePoolService kubernetes
 	
 	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
 	
 
 
