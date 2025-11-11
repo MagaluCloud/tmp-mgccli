@@ -31,7 +31,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [source-id]",
+		Use:     "list-all",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -62,7 +62,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk
 	}
 	
 	
-	opts_SourceIDFlag = flags.NewStr(cmd, "source-id", "", " (required)")//CobraFlagsCreation
+	opts_SourceIDFlag = flags.NewStr(cmd, "source-id", "", "")//CobraFlagsCreation
 	
 
 

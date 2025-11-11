@@ -14,8 +14,6 @@ import (
 	"context"
 
 	
-	"fmt"
-	
 	"github.com/magaluCloud/mgccli/beautiful"
 	
 	"github.com/spf13/cobra"
@@ -33,7 +31,7 @@ func List(ctx context.Context, parent *cobra.Command, service availabilityzonesS
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [show-blocked]",
+		Use:     "list",
 		Short:   "",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -46,13 +44,8 @@ func List(ctx context.Context, parent *cobra.Command, service availabilityzonesS
 
 		
 			
-			if len(args) > 0{
-				cmd.Flags().Set("show-blocked", args[0])
-			}
 			if opts_ShowBlockedFlag.IsChanged() {
 				opts.ShowBlocked = *opts_ShowBlockedFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o show-blocked como argumento ou usar a flag --show-blocked")
 			}// CobraFlagsAssign
 			
 
@@ -69,7 +62,7 @@ func List(ctx context.Context, parent *cobra.Command, service availabilityzonesS
 	}
 	
 	
-	opts_ShowBlockedFlag = flags.NewBool(cmd, "show-blocked", false, " (required)")//CobraFlagsCreation
+	opts_ShowBlockedFlag = flags.NewBool(cmd, "show-blocked", false, "")//CobraFlagsCreation
 	
 
 

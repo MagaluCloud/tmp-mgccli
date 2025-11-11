@@ -45,7 +45,7 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 	
 
 	cmd := &cobra.Command{
-		Use:     "create-port [vpc-id] [name]",
+		Use:     "create-port [vpc-id]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -61,15 +61,6 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 			
 
 		
-			
-			if len(args) > 0{
-				cmd.Flags().Set("name", args[1])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o name como argumento ou usar a flag --name")
-			}// CobraFlagsAssign
 			
 			if len(args) > 0{
 				cmd.Flags().Set("vpc-id", args[0])
@@ -90,6 +81,10 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 			
 			if req_HasSGFlag.IsChanged() {
 				req.HasSG = req_HasSGFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_SecurityGroupsFlag.IsChanged() {
@@ -120,7 +115,7 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vPCService networkSd
 	
 	req_HasSGFlag = flags.NewBool(cmd, "has-sg", false, "")//CobraFlagsCreation
 	
-	req_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	req_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
 	req_SecurityGroupsFlag = flags.NewStrSlice(cmd, "security-groups", []string{}, "")//CobraFlagsCreation
 	

@@ -33,7 +33,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, schedulerService blocks
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [sort]",
+		Use:     "list-all",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -73,7 +73,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, schedulerService blocks
 	
 	filterOpts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
 	
-	filterOpts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	filterOpts_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
 	
 
 

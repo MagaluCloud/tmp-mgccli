@@ -45,7 +45,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceService dbaasSd
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [volume-size-gte] [volume-size-lt] [volume-size-lte] [status] [engine-id] [volume-size] [volume-size-gt]",
+		Use:     "list-all",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -104,21 +104,21 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceService dbaasSd
 	}
 	
 	
-	filterOpts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
+	filterOpts_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", "")//CobraFlagsCreation
 	
 	filterOpts_ExpandedFieldsFlag = flags.NewStrSlice(cmd, "expanded-fields", []string{}, "")//CobraFlagsCreation
 	
-	filterOpts_StatusFlag = flags.NewStr(cmd, "status", "", " (required)")//CobraFlagsCreation
+	filterOpts_StatusFlag = flags.NewStr(cmd, "status", "", "")//CobraFlagsCreation
 	
-	filterOpts_VolumeSizeFlag = flags.NewInt(cmd, "volume-size", 0, " (required)")//CobraFlagsCreation
+	filterOpts_VolumeSizeFlag = flags.NewInt(cmd, "volume-size", 0, "")//CobraFlagsCreation
 	
-	filterOpts_VolumeSizeGtFlag = flags.NewInt(cmd, "volume-size-gt", 0, " (required)")//CobraFlagsCreation
+	filterOpts_VolumeSizeGtFlag = flags.NewInt(cmd, "volume-size-gt", 0, "")//CobraFlagsCreation
 	
-	filterOpts_VolumeSizeGteFlag = flags.NewInt(cmd, "volume-size-gte", 0, " (required)")//CobraFlagsCreation
+	filterOpts_VolumeSizeGteFlag = flags.NewInt(cmd, "volume-size-gte", 0, "")//CobraFlagsCreation
 	
-	filterOpts_VolumeSizeLtFlag = flags.NewInt(cmd, "volume-size-lt", 0, " (required)")//CobraFlagsCreation
+	filterOpts_VolumeSizeLtFlag = flags.NewInt(cmd, "volume-size-lt", 0, "")//CobraFlagsCreation
 	
-	filterOpts_VolumeSizeLteFlag = flags.NewInt(cmd, "volume-size-lte", 0, " (required)")//CobraFlagsCreation
+	filterOpts_VolumeSizeLteFlag = flags.NewInt(cmd, "volume-size-lte", 0, "")//CobraFlagsCreation
 	
 
 

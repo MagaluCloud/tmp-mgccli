@@ -14,8 +14,6 @@ import (
 	"context"
 
 	
-	"fmt"
-	
 	"github.com/magaluCloud/mgccli/beautiful"
 	
 	"github.com/spf13/cobra"
@@ -43,7 +41,7 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 	
 
 	cmd := &cobra.Command{
-		Use:     "list [allows-encryption] [offset] [limit] [sort] [availability-zone] [name]",
+		Use:     "list",
 		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -56,30 +54,20 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 
 		
 			
-			if len(args) > 0{
-				cmd.Flags().Set("availability-zone", args[4])
-			}
-			if opts_AvailabilityZoneFlag.IsChanged() {
-				opts.AvailabilityZone = *opts_AvailabilityZoneFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o availability-zone como argumento ou usar a flag --availability-zone")
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
-				cmd.Flags().Set("name", args[5])
-			}
-			if opts_NameFlag.IsChanged() {
-				opts.Name = *opts_NameFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o name como argumento ou usar a flag --name")
-			}// CobraFlagsAssign
-			
 			if opts_AllowsEncryptionFlag.IsChanged() {
 				opts.AllowsEncryption = opts_AllowsEncryptionFlag.Value
 			}// CobraFlagsAssign
 			
+			if opts_AvailabilityZoneFlag.IsChanged() {
+				opts.AvailabilityZone = *opts_AvailabilityZoneFlag.Value
+			}// CobraFlagsAssign
+			
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
+			}// CobraFlagsAssign
+			
+			if opts_NameFlag.IsChanged() {
+				opts.Name = *opts_NameFlag.Value
 			}// CobraFlagsAssign
 			
 			if opts_OffsetFlag.IsChanged() {
@@ -104,17 +92,17 @@ func List(ctx context.Context, parent *cobra.Command, volumeTypeService blocksto
 	}
 	
 	
-	opts_AllowsEncryptionFlag = flags.NewBool(cmd, "allows-encryption", false, " (required)")//CobraFlagsCreation
+	opts_AllowsEncryptionFlag = flags.NewBool(cmd, "allows-encryption", false, "")//CobraFlagsCreation
 	
-	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", " (required)")//CobraFlagsCreation
+	opts_AvailabilityZoneFlag = flags.NewStr(cmd, "availability-zone", "", "")//CobraFlagsCreation
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
-	opts_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	opts_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
 	
 
 

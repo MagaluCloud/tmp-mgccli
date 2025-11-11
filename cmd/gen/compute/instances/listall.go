@@ -35,7 +35,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceService compute
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [sort] [name]",
+		Use:     "list-all",
 		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -79,9 +79,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, instanceService compute
 	
 	opts_ExpandFlag = flags.NewStrSlice(cmd, "expand", []string{}, "")//CobraFlagsCreation
 	
-	opts_NameFlag = flags.NewStr(cmd, "name", "", " (required)")//CobraFlagsCreation
+	opts_NameFlag = flags.NewStr(cmd, "name", "", "")//CobraFlagsCreation
 	
-	opts_SortFlag = flags.NewStr(cmd, "sort", "", " (required)")//CobraFlagsCreation
+	opts_SortFlag = flags.NewStr(cmd, "sort", "", "")//CobraFlagsCreation
 	
 
 

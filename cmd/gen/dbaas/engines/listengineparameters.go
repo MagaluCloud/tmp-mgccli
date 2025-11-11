@@ -41,7 +41,7 @@ func ListEngineParameters(ctx context.Context, parent *cobra.Command, engineServ
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-engine-parameters [engine-id] [offset] [limit] [dynamic] [modifiable]",
+		Use:     "list-engine-parameters [engine-id]",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -97,13 +97,13 @@ func ListEngineParameters(ctx context.Context, parent *cobra.Command, engineServ
 	
 	engineIDFlag = flags.NewStr(cmd, "engine-id", "", " (required)")//CobraFlagsCreation
 	
-	opts_DynamicFlag = flags.NewBool(cmd, "dynamic", false, " (required)")//CobraFlagsCreation
+	opts_DynamicFlag = flags.NewBool(cmd, "dynamic", false, "")//CobraFlagsCreation
 	
-	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, " (required)")//CobraFlagsCreation
+	opts_LimitFlag = flags.NewInt(cmd, "limit", 0, "")//CobraFlagsCreation
 	
-	opts_ModifiableFlag = flags.NewBool(cmd, "modifiable", false, " (required)")//CobraFlagsCreation
+	opts_ModifiableFlag = flags.NewBool(cmd, "modifiable", false, "")//CobraFlagsCreation
 	
-	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, " (required)")//CobraFlagsCreation
+	opts_OffsetFlag = flags.NewInt(cmd, "offset", 0, "")//CobraFlagsCreation
 	
 
 

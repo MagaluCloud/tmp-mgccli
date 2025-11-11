@@ -49,7 +49,7 @@ func Update(ctx context.Context, parent *cobra.Command, networkHealthCheckServic
 	
 
 	cmd := &cobra.Command{
-		Use:     "update [lb-id] [health-check-id] [port]",
+		Use:     "update [lb-id] [health-check-id]",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -84,15 +84,6 @@ func Update(ctx context.Context, parent *cobra.Command, networkHealthCheckServic
 				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
 			}// CobraFlagsAssign
 			
-			if len(args) > 0{
-				cmd.Flags().Set("port", args[2])
-			}
-			if req_PortFlag.IsChanged() {
-				req.Port = *req_PortFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o port como argumento ou usar a flag --port")
-			}// CobraFlagsAssign
-			
 			if req_HealthyStatusCodeFlag.IsChanged() {
 				req.HealthyStatusCode = req_HealthyStatusCodeFlag.Value
 			}// CobraFlagsAssign
@@ -111,6 +102,10 @@ func Update(ctx context.Context, parent *cobra.Command, networkHealthCheckServic
 			
 			if req_PathFlag.IsChanged() {
 				req.Path = req_PathFlag.Value
+			}// CobraFlagsAssign
+			
+			if req_PortFlag.IsChanged() {
+				req.Port = *req_PortFlag.Value
 			}// CobraFlagsAssign
 			
 			if req_TimeoutSecondsFlag.IsChanged() {
@@ -147,7 +142,7 @@ func Update(ctx context.Context, parent *cobra.Command, networkHealthCheckServic
 	
 	req_PathFlag = flags.NewStr(cmd, "path", "", "")//CobraFlagsCreation
 	
-	req_PortFlag = flags.NewInt(cmd, "port", 0, " (required)")//CobraFlagsCreation
+	req_PortFlag = flags.NewInt(cmd, "port", 0, "")//CobraFlagsCreation
 	
 	req_TimeoutSecondsFlag = flags.NewInt(cmd, "timeout-seconds", 0, "")//CobraFlagsCreation
 	

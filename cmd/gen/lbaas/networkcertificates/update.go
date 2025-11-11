@@ -37,7 +37,7 @@ func Update(ctx context.Context, parent *cobra.Command, networkCertificateServic
 	
 
 	cmd := &cobra.Command{
-		Use:     "update [lb-id] [certicate-id] [certificate] [private-key]",
+		Use:     "update [lb-id] [certicate-id]",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -64,15 +64,6 @@ func Update(ctx context.Context, parent *cobra.Command, networkCertificateServic
 			}// CobraFlagsAssign
 			
 			if len(args) > 0{
-				cmd.Flags().Set("certificate", args[2])
-			}
-			if req_CertificateFlag.IsChanged() {
-				req.Certificate = *req_CertificateFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o certificate como argumento ou usar a flag --certificate")
-			}// CobraFlagsAssign
-			
-			if len(args) > 0{
 				cmd.Flags().Set("lb-id", args[0])
 			}
 			if lbIDFlag.IsChanged() {
@@ -81,13 +72,12 @@ func Update(ctx context.Context, parent *cobra.Command, networkCertificateServic
 				return fmt.Errorf("é necessário fornecer o lb-id como argumento ou usar a flag --lb-id")
 			}// CobraFlagsAssign
 			
-			if len(args) > 0{
-				cmd.Flags().Set("private-key", args[3])
-			}
+			if req_CertificateFlag.IsChanged() {
+				req.Certificate = *req_CertificateFlag.Value
+			}// CobraFlagsAssign
+			
 			if req_PrivateKeyFlag.IsChanged() {
 				req.PrivateKey = *req_PrivateKeyFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o private-key como argumento ou usar a flag --private-key")
 			}// CobraFlagsAssign
 			
 
@@ -106,9 +96,9 @@ func Update(ctx context.Context, parent *cobra.Command, networkCertificateServic
 	
 	lbIDFlag = flags.NewStr(cmd, "lb-id", "", " (required)")//CobraFlagsCreation
 	
-	req_CertificateFlag = flags.NewStr(cmd, "certificate", "", " (required)")//CobraFlagsCreation
+	req_CertificateFlag = flags.NewStr(cmd, "certificate", "", "")//CobraFlagsCreation
 	
-	req_PrivateKeyFlag = flags.NewStr(cmd, "private-key", "", " (required)")//CobraFlagsCreation
+	req_PrivateKeyFlag = flags.NewStr(cmd, "private-key", "", "")//CobraFlagsCreation
 	
 
 

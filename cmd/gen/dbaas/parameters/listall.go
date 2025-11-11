@@ -14,8 +14,6 @@ import (
 	"context"
 
 	
-	"fmt"
-	
 	"github.com/magaluCloud/mgccli/beautiful"
 	
 	"github.com/spf13/cobra"
@@ -33,7 +31,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, parameterService dbaasS
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-all [parameter-group-id]",
+		Use:     "list-all",
 		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
@@ -46,13 +44,8 @@ func ListAll(ctx context.Context, parent *cobra.Command, parameterService dbaasS
 
 		
 			
-			if len(args) > 0{
-				cmd.Flags().Set("parameter-group-id", args[0])
-			}
 			if filterOpts_ParameterGroupIDFlag.IsChanged() {
 				filterOpts.ParameterGroupID = *filterOpts_ParameterGroupIDFlag.Value
-			} else {
-				return fmt.Errorf("é necessário fornecer o parameter-group-id como argumento ou usar a flag --parameter-group-id")
 			}// CobraFlagsAssign
 			
 
@@ -69,7 +62,7 @@ func ListAll(ctx context.Context, parent *cobra.Command, parameterService dbaasS
 	}
 	
 	
-	filterOpts_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", " (required)")//CobraFlagsCreation
+	filterOpts_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", "")//CobraFlagsCreation
 	
 
 
