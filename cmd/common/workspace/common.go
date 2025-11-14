@@ -3,8 +3,10 @@ package workspace
 import (
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"path"
+	"path/filepath"
 	"regexp"
 	"runtime"
 	"strings"
@@ -16,6 +18,7 @@ var errorInvalidName = errors.New("name should only contain alphanumric characte
 var errorWorkspaceAlreadyExists = errors.New("workspace already exists")
 var errorDeleteCurrentNotAllowed = errors.New("cannot delete current workspace")
 var errorCopyToSelf = errors.New("cannot copy to itself")
+var errorWorkspaceNotFound = errors.New("workspace not found")
 
 const currentWorkspaceNameFile = "current"
 const defaultWorkspaceName = "default"
@@ -68,7 +71,7 @@ func sanitizePath(p string) string {
 	return strings.Join(result, "/")
 }
 
-func checkWorkspaceName(name string) error {
+func checkWorkspaceName(dirConfigWorkspace string, name string) error {
 	if name == currentWorkspaceNameFile {
 		return errorNameNotAllowed
 	}
@@ -76,9 +79,104 @@ func checkWorkspaceName(name string) error {
 		return errorInvalidName
 	}
 
-	return nil
+	if _, err := os.Stat(path.Join(dirConfigWorkspace, name)); os.IsNotExist(err) {
+		return errorWorkspaceNotFound
+	} else if err != nil {
+		return err
+	}
+
+	return nil // Workspace found
 }
 
 func read(name string) ([]byte, error) {
 	return os.ReadFile(name)
+}
+
+func copyFile(src, dst string) (err error) {
+	in, err := os.Open(src)
+	if err != nil {
+		return
+	}
+	defer in.Close()
+
+	out, err := os.Create(dst)
+	if err != nil {
+		return
+	}
+	defer func() {
+		if e := out.Close(); e != nil {
+			err = e
+		}
+	}()
+
+	_, err = io.Copy(out, in)
+	if err != nil {
+		return
+	}
+
+	err = out.Sync()
+	if err != nil {
+		return
+	}
+
+	si, err := os.Stat(src)
+	if err != nil {
+		return
+	}
+	err = os.Chmod(dst, si.Mode())
+	if err != nil {
+		return
+	}
+
+	return
+}
+
+func copyDir(src string, dst string) (err error) {
+	src = filepath.Clean(src)
+	dst = filepath.Clean(dst)
+
+	si, err := os.Stat(src)
+	if err != nil {
+		return err
+	}
+	if !si.IsDir() {
+		return fmt.Errorf("source is not a directory")
+	}
+
+	_, err = os.Stat(dst)
+	if err != nil && !os.IsNotExist(err) {
+		return
+	}
+	if err == nil {
+		return fmt.Errorf("destination already exists")
+	}
+
+	err = os.MkdirAll(dst, si.Mode())
+	if err != nil {
+		return
+	}
+
+	entries, err := os.ReadDir(src)
+	if err != nil {
+		return
+	}
+
+	for _, entry := range entries {
+		srcPath := filepath.Join(src, entry.Name())
+		dstPath := filepath.Join(dst, entry.Name())
+
+		if entry.IsDir() {
+			err = copyDir(srcPath, dstPath)
+			if err != nil {
+				return
+			}
+		} else {
+			err = copyFile(srcPath, dstPath)
+			if err != nil {
+				return
+			}
+		}
+	}
+
+	return
 }

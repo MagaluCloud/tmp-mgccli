@@ -33,10 +33,11 @@ func RootCmd(ctx context.Context, version string, args cmdutils.ArgsParser) *cob
 	config := config.NewConfig(workspace)
 	auth := auth.NewAuth(workspace)
 
+	ctx = context.WithValue(ctx, cmdutils.CXT_WORKSPACE_KEY, workspace)
 	ctx = context.WithValue(ctx, cmdutils.CTX_AUTH_KEY, auth)
 	ctx = context.WithValue(ctx, cmdutils.CXT_CONFIG_KEY, config)
 
-	lang, err := config.Get(cmdutils.CFG_LANG)
+	lang, err := config.Value(cmdutils.CFG_LANG)
 	if err != nil {
 		panic(err)
 	}
@@ -49,7 +50,6 @@ func RootCmd(ctx context.Context, version string, args cmdutils.ArgsParser) *cob
 		Version: version,
 	}
 
-	rootCmd.SetContext(ctx)
 	rootCmd.SilenceErrors = false
 
 	rootCmd.AddGroup(&cobra.Group{
@@ -104,8 +104,11 @@ func RootCmd(ctx context.Context, version string, args cmdutils.ArgsParser) *cob
 		sdkOptions...,
 	)
 
-	static.RootStatic(rootCmd, *sdkCoreConfig)
-	gen.RootGen(ctx, rootCmd, *sdkCoreConfig)
+	ctx = context.WithValue(ctx, cmdutils.CTX_SDK_KEY, *sdkCoreConfig)
+	rootCmd.SetContext(ctx)
+
+	static.RootStatic(rootCmd)
+	gen.RootGen(rootCmd)
 
 	beautifulPrint(rootCmd)
 	rootCmd.SetArgs(args.AllArgs())
@@ -250,7 +253,7 @@ func beautifulPrint(cmd *cobra.Command) {
 	// // Configurar função de erro personalizada
 	cmd.SetUsageFunc(func(cmd *cobra.Command) error {
 		if cmd.Context() != nil {
-			if errorHandled, ok := cmd.Context().Value("error_already_handled").(bool); ok && errorHandled {
+			if errorHandled, ok := cmd.Context().Value(cmdutils.CTX_ERROR_HANDLED).(bool); ok && errorHandled {
 				return nil
 			}
 		}
@@ -328,12 +331,16 @@ func beautifulPrint(cmd *cobra.Command) {
 
 			if err != nil {
 				msg, detail := cmdutils.ParseSDKError(err)
-				beautifulOutput.PrintError(msg, true)
-				beautifulOutput.PrintError(detail, false)
 
-				cmd.SetContext(context.WithValue(cmd.Context(), "error_already_handled", true))
+				if detail != "" {
+					beautifulOutput.PrintError(fmt.Sprintf("%s: %s", msg, detail))
+				}
+
+				beautifulOutput.PrintError(msg)
+
+				cmd.SetContext(context.WithValue(cmd.Context(), cmdutils.CTX_ERROR_HANDLED, true))
 			}
-
+			cmd.SilenceErrors = true
 			return err
 		}
 	}

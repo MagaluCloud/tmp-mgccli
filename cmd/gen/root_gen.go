@@ -6,8 +6,7 @@
 package gen
 
 import (
-	"context"
-
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	"github.com/magaluCloud/mgccli/cmd/gen/audit"
 
@@ -33,24 +32,27 @@ import (
 
 )
 
-func RootGen(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
+func RootGen(parent *cobra.Command) {
 
-	audit.AuditCmd(ctx, parent, sdkCoreConfig)
+	sdkCoreConfig := parent.Context().Value(cmdutils.CTX_SDK_KEY).(sdk.CoreClient)
 
-	blockstorage.BlockstorageCmd(ctx, parent, sdkCoreConfig)
 
-	compute.ComputeCmd(ctx, parent, sdkCoreConfig)
+	audit.AuditCmd(parent.Context(), parent, sdkCoreConfig)
 
-	containerregistry.ContainerregistryCmd(ctx, parent, sdkCoreConfig)
+	blockstorage.BlockstorageCmd(parent.Context(), parent, sdkCoreConfig)
 
-	dbaas.DbaasCmd(ctx, parent, sdkCoreConfig)
+	compute.ComputeCmd(parent.Context(), parent, sdkCoreConfig)
 
-	kubernetes.KubernetesCmd(ctx, parent, sdkCoreConfig)
+	containerregistry.ContainerregistryCmd(parent.Context(), parent, sdkCoreConfig)
 
-	lbaas.LbaasCmd(ctx, parent, sdkCoreConfig)
+	dbaas.DbaasCmd(parent.Context(), parent, sdkCoreConfig)
 
-	network.NetworkCmd(ctx, parent, sdkCoreConfig)
+	kubernetes.KubernetesCmd(parent.Context(), parent, sdkCoreConfig)
 
-	profile.ProfileCmd(ctx, parent, sdkCoreConfig)
+	lbaas.LbaasCmd(parent.Context(), parent, sdkCoreConfig)
+
+	network.NetworkCmd(parent.Context(), parent, sdkCoreConfig)
+
+	profile.ProfileCmd(parent.Context(), parent, sdkCoreConfig)
 
 }

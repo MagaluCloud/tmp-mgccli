@@ -7,6 +7,35 @@ import (
 	clientSDK "github.com/MagaluCloud/mgc-sdk-go/client"
 )
 
+type CliError struct {
+	Message string
+	Details string
+}
+
+func (e *CliError) Error() string {
+	if e == nil {
+		return "nil CLI error"
+	}
+
+	if e.Details != "" {
+		return fmt.Sprintf("%s: %s", e.Message, e.Details)
+	}
+	return e.Message
+}
+
+func NewCliError(message string) *CliError {
+	return &CliError{
+		Message: message,
+	}
+}
+
+func NewCliErrorWithDetails(message, details string) *CliError {
+	return &CliError{
+		Message: message,
+		Details: details,
+	}
+}
+
 const (
 	simpleHttpError       = "API request failed with HTTP error"
 	simpleValidationError = "Request validation failed"
@@ -69,6 +98,13 @@ func ParseSDKError(err error) (msg, detail string) {
 	}
 
 	switch e := err.(type) {
+	case *CliError:
+
+		if e.Details != "" {
+			detail = fmt.Sprintf("%s\n%s", detail, e.Details)
+		}
+		return e.Message, detail
+
 	case *clientSDK.HTTPError:
 		errorResponse, buildErr := buildFromSDKError(e)
 		if buildErr != nil {

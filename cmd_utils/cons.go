@@ -4,8 +4,11 @@ package cmdutils
 type ContextKey string
 
 const (
-	CTX_AUTH_KEY   ContextKey = "ctxAuth"
-	CXT_CONFIG_KEY ContextKey = "ctxConfig"
+	CTX_AUTH_KEY      ContextKey = "ctxAuth"
+	CXT_CONFIG_KEY    ContextKey = "ctxConfig"
+	CXT_WORKSPACE_KEY ContextKey = "ctxWorkspace"
+	CTX_SDK_KEY       ContextKey = "ctxSdk"
+	CTX_ERROR_HANDLED ContextKey = "ctxErrorHandled"
 )
 
 // Environment constants

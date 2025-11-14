@@ -9,13 +9,11 @@ import (
 	"github.com/fatih/color"
 )
 
-// Output fornece funções para embelezar diferentes tipos de output
 type Output struct {
 	rawMode bool
 	data    interface{}
 }
 
-// NewOutput cria uma nova instância do embelezador de output
 func NewOutput(rawMode bool) *Output {
 
 	return &Output{
@@ -53,10 +51,8 @@ func (bo *Output) PrintData(data interface{}) {
 	fmt.Println(coloredJSON)
 }
 
-// PrintJSON embelezar output JSON com cores e formatação
 func (bo *Output) PrintJSON(data interface{}) error {
 	if bo.rawMode {
-		// Modo raw: output simples sem formatação
 		jsonData, err := json.Marshal(data)
 		if err != nil {
 			return err
@@ -65,19 +61,16 @@ func (bo *Output) PrintJSON(data interface{}) error {
 		return nil
 	}
 
-	// Modo embelezado: JSON formatado com cores
 	jsonData, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return err
 	}
 
-	// Aplicar cores ao JSON
 	coloredJSON := bo.colorizeJSON(string(jsonData))
 	fmt.Println(coloredJSON)
 	return nil
 }
 
-// PrintSuccess embelezar mensagens de sucesso
 func (bo *Output) PrintSuccess(message string) {
 	if bo.rawMode {
 		fmt.Println(message)
@@ -85,25 +78,19 @@ func (bo *Output) PrintSuccess(message string) {
 	}
 
 	successColor := color.New(color.FgGreen, color.Bold)
-	successColor.Printf("✅ %s\n", message)
+	successColor.Printf("%s\n", message)
 }
 
-// PrintError embelezar mensagens de erro
-func (bo *Output) PrintError(message string, emoji bool) {
+func (bo *Output) PrintError(message string) {
 	if bo.rawMode {
 		fmt.Fprintf(os.Stderr, "Error: %s\n", message)
 		return
 	}
 
 	errorColor := color.New(color.FgRed, color.Bold)
-	if emoji {
-		errorColor.Printf("❌ %s\n", message)
-		return
-	}
 	errorColor.Printf("Error: %s\n", message)
 }
 
-// PrintWarning embelezar mensagens de aviso
 func (bo *Output) PrintWarning(message string) {
 	if bo.rawMode {
 		fmt.Printf("Warning: %s\n", message)
@@ -111,10 +98,9 @@ func (bo *Output) PrintWarning(message string) {
 	}
 
 	warningColor := color.New(color.FgYellow, color.Bold)
-	warningColor.Printf("⚠️  %s\n", message)
+	warningColor.Printf("%s\n", message)
 }
 
-// PrintInfo embelezar mensagens informativas
 func (bo *Output) PrintInfo(message string) {
 	if bo.rawMode {
 		fmt.Println(message)
@@ -122,13 +108,11 @@ func (bo *Output) PrintInfo(message string) {
 	}
 
 	infoColor := color.New(color.FgCyan, color.Bold)
-	infoColor.Printf("ℹ️  %s\n", message)
+	infoColor.Printf("%s\n", message)
 }
 
-// PrintTable embelezar dados em formato de tabela
 func (bo *Output) PrintTable(headers []string, rows [][]string) {
 	if bo.rawMode {
-		// Modo raw: output simples
 		fmt.Println(strings.Join(headers, "\t"))
 		for _, row := range rows {
 			fmt.Println(strings.Join(row, "\t"))
@@ -136,11 +120,9 @@ func (bo *Output) PrintTable(headers []string, rows [][]string) {
 		return
 	}
 
-	// Modo embelezado: tabela com cores e bordas
 	headerColor := color.New(color.FgMagenta, color.Bold)
 	rowColor := color.New(color.FgWhite)
 
-	// Calcular larguras das colunas
 	widths := make([]int, len(headers))
 	for i, header := range headers {
 		widths[i] = len(header)
@@ -153,7 +135,6 @@ func (bo *Output) PrintTable(headers []string, rows [][]string) {
 		}
 	}
 
-	// Imprimir cabeçalho
 	headerColor.Print("┌")
 	for i, width := range widths {
 		for j := 0; j < width+2; j++ {
@@ -165,14 +146,12 @@ func (bo *Output) PrintTable(headers []string, rows [][]string) {
 	}
 	headerColor.Println("┐")
 
-	// Imprimir títulos das colunas
 	headerColor.Print("│")
 	for i, header := range headers {
 		headerColor.Printf(" %-*s │", widths[i], header)
 	}
 	headerColor.Println()
 
-	// Imprimir separador
 	headerColor.Print("├")
 	for i, width := range widths {
 		for j := 0; j < width+2; j++ {
@@ -184,7 +163,6 @@ func (bo *Output) PrintTable(headers []string, rows [][]string) {
 	}
 	headerColor.Println("┤")
 
-	// Imprimir linhas de dados
 	for _, row := range rows {
 		rowColor.Print("│")
 		for i, cell := range row {
@@ -195,7 +173,6 @@ func (bo *Output) PrintTable(headers []string, rows [][]string) {
 		rowColor.Println()
 	}
 
-	// Imprimir rodapé
 	headerColor.Print("└")
 	for i, width := range widths {
 		for j := 0; j < width+2; j++ {
@@ -208,7 +185,6 @@ func (bo *Output) PrintTable(headers []string, rows [][]string) {
 	headerColor.Println("┘")
 }
 
-// PrintList embelezar listas
 func (bo *Output) PrintList(title string, items []string) {
 	if bo.rawMode {
 		fmt.Println(title)
@@ -219,7 +195,7 @@ func (bo *Output) PrintList(title string, items []string) {
 	}
 
 	titleColor := color.New(color.FgBlue, color.Bold)
-	titleColor.Printf("📋 %s:\n", title)
+	titleColor.Printf("%s:\n", title)
 
 	itemColor := color.New(color.FgCyan)
 	for i, item := range items {
@@ -227,13 +203,11 @@ func (bo *Output) PrintList(title string, items []string) {
 	}
 }
 
-// colorizeJSON aplica cores ao JSON formatado
 func (bo *Output) colorizeJSON(jsonStr string) string {
 	if bo.rawMode {
 		return jsonStr
 	}
 
-	// Cores para diferentes elementos do JSON
 	braceColor := color.New(color.FgWhite, color.Bold)
 	keyColor := color.New(color.FgYellow, color.Bold)
 	stringColor := color.New(color.FgGreen)
@@ -245,7 +219,6 @@ func (bo *Output) colorizeJSON(jsonStr string) string {
 	var result []string
 
 	for _, line := range lines {
-		// Aplicar cores baseadas no conteúdo da linha
 		coloredLine := bo.colorizeJSONLine(line, braceColor, keyColor, stringColor, numberColor, booleanColor, nullColor)
 		result = append(result, coloredLine)
 	}
@@ -253,13 +226,11 @@ func (bo *Output) colorizeJSON(jsonStr string) string {
 	return strings.Join(result, "\n")
 }
 
-// colorizeJSONLine aplica cores a uma linha específica do JSON
 func (bo *Output) colorizeJSONLine(line string, braceColor, keyColor, stringColor, numberColor, booleanColor, nullColor *color.Color) string {
 	if bo.rawMode {
 		return line
 	}
 
-	// Processar a linha caractere por caractere
 	var result strings.Builder
 	inString := false
 	escapeNext := false
@@ -270,7 +241,6 @@ func (bo *Output) colorizeJSONLine(line string, braceColor, keyColor, stringColo
 		char := rune(line[i])
 
 		if escapeNext {
-			// Caractere escapado - sempre parte de uma string
 			result.WriteRune(char)
 			escapeNext = false
 			i++
@@ -286,16 +256,13 @@ func (bo *Output) colorizeJSONLine(line string, braceColor, keyColor, stringColo
 
 		if char == '"' {
 			if !inString {
-				// Início de string
 				inString = true
-				// Determinar se é chave ou valor baseado na posição após ':'
 				if afterColon {
 					result.WriteString(stringColor.Sprint(string(char)))
 				} else {
 					result.WriteString(keyColor.Sprint(string(char)))
 				}
 			} else {
-				// Fim de string
 				inString = false
 				if afterColon {
 					result.WriteString(stringColor.Sprint(string(char)))
@@ -308,7 +275,6 @@ func (bo *Output) colorizeJSONLine(line string, braceColor, keyColor, stringColo
 		}
 
 		if inString {
-			// Dentro de uma string - aplicar cor baseada no contexto
 			if afterColon {
 				result.WriteString(stringColor.Sprint(string(char)))
 			} else {
@@ -318,7 +284,6 @@ func (bo *Output) colorizeJSONLine(line string, braceColor, keyColor, stringColo
 			continue
 		}
 
-		// Fora de string - processar outros elementos
 		switch char {
 		case '{', '}', '[', ']':
 			result.WriteString(braceColor.Sprint(string(char)))
@@ -335,20 +300,17 @@ func (bo *Output) colorizeJSONLine(line string, braceColor, keyColor, stringColo
 			result.WriteRune(char)
 			i++
 		default:
-			// Verificar se é um número, booleano ou null
 			if afterColon {
-				// Pode ser um valor
 				if char == 't' && i+3 < len(line) && line[i:i+4] == "true" {
 					result.WriteString(booleanColor.Sprint("true"))
-					i += 4 // Pular os próximos 4 caracteres
+					i += 4
 				} else if char == 'f' && i+4 < len(line) && line[i:i+5] == "false" {
 					result.WriteString(booleanColor.Sprint("false"))
-					i += 5 // Pular os próximos 5 caracteres
+					i += 5
 				} else if char == 'n' && i+3 < len(line) && line[i:i+4] == "null" {
 					result.WriteString(nullColor.Sprint("null"))
-					i += 4 // Pular os próximos 4 caracteres
+					i += 4
 				} else if (char >= '0' && char <= '9') || char == '-' {
-					// Número
 					result.WriteString(numberColor.Sprint(string(char)))
 					i++
 				} else {
@@ -365,7 +327,6 @@ func (bo *Output) colorizeJSONLine(line string, braceColor, keyColor, stringColo
 	return result.String()
 }
 
-// PrintProgress embelezar barras de progresso
 func (bo *Output) PrintProgress(current, total int, message string) {
 	if bo.rawMode {
 		fmt.Printf("%s: %d/%d\n", message, current, total)
@@ -373,10 +334,9 @@ func (bo *Output) PrintProgress(current, total int, message string) {
 	}
 
 	progressColor := color.New(color.FgBlue, color.Bold)
-	progressColor.Printf("🔄 %s: %d/%d\n", message, current, total)
+	progressColor.Printf("%s: %d/%d\n", message, current, total)
 }
 
-// PrintHeader embelezar cabeçalhos de seção
 func (bo *Output) PrintHeader(title string) {
 	if bo.rawMode {
 		fmt.Printf("\n=== %s ===\n", title)
@@ -384,6 +344,6 @@ func (bo *Output) PrintHeader(title string) {
 	}
 
 	headerColor := color.New(color.FgCyan, color.Bold)
-	headerColor.Printf("\n🎯 %s\n", title)
+	headerColor.Printf("\n%s\n", title)
 	headerColor.Println(strings.Repeat("─", len(title)+4))
 }

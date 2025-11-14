@@ -33,8 +33,6 @@ func ClustersCmd(ctx context.Context, parent *cobra.Command, clusterService dbaa
 	
 	List(ctx, cmd, clusterService)
 	
-	ListAll(ctx, cmd, clusterService)
-	
 	Resize(ctx, cmd, clusterService)
 	
 	Start(ctx, cmd, clusterService)

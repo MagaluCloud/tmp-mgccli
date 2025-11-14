@@ -8,6 +8,7 @@ import (
 type Workspace interface {
 	Create(name string) error
 	Delete(name string) error
+	Copy(source string, target string) error
 	Get() Workspace
 	List() ([]Workspace, error)
 	Set(name string) error
@@ -33,7 +34,15 @@ func NewWorkspace() Workspace {
 	}
 }
 
+func (w *workspace) Copy(source string, target string) error {
+	err := copyDir(path.Join(w.dirConfig, source), path.Join(w.dirConfig, target))
+	return err
+}
+
 func (w *workspace) Create(name string) error {
+	if _, err := os.Stat(path.Join(w.dirConfig, name)); err == nil {
+		return errorWorkspaceAlreadyExists
+	}
 	err := os.Mkdir(path.Join(w.dirConfig, name), 0755)
 	if err != nil {
 		return err
@@ -42,6 +51,9 @@ func (w *workspace) Create(name string) error {
 }
 
 func (w *workspace) Delete(name string) error {
+	if _, err := os.Stat(path.Join(w.dirConfig, name)); os.IsNotExist(err) {
+		return errorWorkspaceNotFound
+	}
 	err := os.Remove(path.Join(w.dirConfig, name))
 	if err != nil {
 		return err
@@ -58,7 +70,7 @@ func (w *workspace) Get() Workspace {
 
 func (w *workspace) List() ([]Workspace, error) {
 
-	files, err := os.ReadDir(path.Join(w.dirConfig, "workspaces"))
+	files, err := os.ReadDir(w.dirConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +87,7 @@ func (w *workspace) List() ([]Workspace, error) {
 }
 
 func (w *workspace) Set(name string) error {
-	if err := checkWorkspaceName(name); err != nil {
+	if err := checkWorkspaceName(w.dirConfig, name); err != nil {
 		return err
 	}
 

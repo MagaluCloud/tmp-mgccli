@@ -27,8 +27,6 @@ func ImagesCmd(ctx context.Context, parent *cobra.Command, imageService computeS
 	
 	List(ctx, cmd, imageService)
 	
-	ListAll(ctx, cmd, imageService)
-	
 
 	parent.AddCommand(cmd)
 }

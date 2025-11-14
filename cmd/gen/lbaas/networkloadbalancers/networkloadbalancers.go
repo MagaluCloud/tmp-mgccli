@@ -33,8 +33,6 @@ func NetworkLoadBalancersCmd(ctx context.Context, parent *cobra.Command, network
 	
 	List(ctx, cmd, networkLoadBalancerService)
 	
-	ListAll(ctx, cmd, networkLoadBalancerService)
-	
 	Update(ctx, cmd, networkLoadBalancerService)
 	
 

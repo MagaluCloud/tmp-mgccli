@@ -37,8 +37,6 @@ func SchedulersCmd(ctx context.Context, parent *cobra.Command, schedulerService 
 	
 	List(ctx, cmd, schedulerService)
 	
-	ListAll(ctx, cmd, schedulerService)
-	
 
 	parent.AddCommand(cmd)
 }

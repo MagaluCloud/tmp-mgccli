@@ -33,8 +33,6 @@ func NetworkCertificatesCmd(ctx context.Context, parent *cobra.Command, networkC
 	
 	List(ctx, cmd, networkCertificateService)
 	
-	ListAll(ctx, cmd, networkCertificateService)
-	
 	Update(ctx, cmd, networkCertificateService)
 	
 

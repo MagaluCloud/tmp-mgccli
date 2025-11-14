@@ -29,8 +29,6 @@ func EnginesCmd(ctx context.Context, parent *cobra.Command, engineService dbaasS
 	
 	List(ctx, cmd, engineService)
 	
-	ListAll(ctx, cmd, engineService)
-	
 	ListEngineParameters(ctx, cmd, engineService)
 	
 

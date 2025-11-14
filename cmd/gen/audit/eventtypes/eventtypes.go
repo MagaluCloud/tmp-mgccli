@@ -27,8 +27,6 @@ func EventTypesCmd(ctx context.Context, parent *cobra.Command, eventTypeService 
 	
 	List(ctx, cmd, eventTypeService)
 	
-	ListAll(ctx, cmd, eventTypeService)
-	
 
 	parent.AddCommand(cmd)
 }
