@@ -27,8 +27,6 @@ func VolumeTypesCmd(ctx context.Context, parent *cobra.Command, volumeTypeServic
 	
 	List(ctx, cmd, volumeTypeService)
 	
-	ListAll(ctx, cmd, volumeTypeService)
-	
 
 	parent.AddCommand(cmd)
 }

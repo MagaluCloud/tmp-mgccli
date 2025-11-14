@@ -1,16 +1,13 @@
 package auth
 
 import (
-	"context"
-
 	"github.com/magaluCloud/mgccli/i18n"
 
-	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
 	"github.com/spf13/cobra"
 )
 
 // AuthCmd cria e configura o comando de autenticação
-func AuthCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
+func AuthCmd(parent *cobra.Command) {
 	manager := i18n.GetInstance()
 
 	cmd := &cobra.Command{
@@ -22,7 +19,7 @@ func AuthCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreC
 	}
 
 	// Adicionar subcomandos
-	cmd.AddCommand(NewLoginCommand(ctx))
+	cmd.AddCommand(NewLoginCommand(parent.Context()))
 
 	parent.AddCommand(cmd)
 }

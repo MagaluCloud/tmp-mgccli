@@ -29,8 +29,6 @@ func InstanceTypesCmd(ctx context.Context, parent *cobra.Command, instanceTypeSe
 	
 	List(ctx, cmd, instanceTypeService)
 	
-	ListAll(ctx, cmd, instanceTypeService)
-	
 
 	parent.AddCommand(cmd)
 }

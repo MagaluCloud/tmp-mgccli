@@ -39,8 +39,6 @@ func InstancesCmd(ctx context.Context, parent *cobra.Command, instanceService db
 	
 	List(ctx, cmd, instanceService)
 	
-	ListAll(ctx, cmd, instanceService)
-	
 	ListAllSnapshots(ctx, cmd, instanceService)
 	
 	ListSnapshots(ctx, cmd, instanceService)

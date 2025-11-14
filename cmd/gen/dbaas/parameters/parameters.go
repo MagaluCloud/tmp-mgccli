@@ -31,8 +31,6 @@ func ParametersCmd(ctx context.Context, parent *cobra.Command, parameterService 
 	
 	List(ctx, cmd, parameterService)
 	
-	ListAll(ctx, cmd, parameterService)
-	
 	Update(ctx, cmd, parameterService)
 	
 

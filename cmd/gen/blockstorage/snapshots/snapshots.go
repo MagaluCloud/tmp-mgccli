@@ -33,8 +33,6 @@ func SnapshotsCmd(ctx context.Context, parent *cobra.Command, snapshotService bl
 	
 	List(ctx, cmd, snapshotService)
 	
-	ListAll(ctx, cmd, snapshotService)
-	
 	Rename(ctx, cmd, snapshotService)
 	
 

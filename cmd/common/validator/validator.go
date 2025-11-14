@@ -4,10 +4,12 @@ import (
 	"reflect"
 
 	integer "github.com/magaluCloud/mgccli/cmd/common/validator/int"
+	str "github.com/magaluCloud/mgccli/cmd/common/validator/str"
 )
 
 type Validator interface {
-	Integer() error
+	integer() error
+	str() error
 	Validate() error
 }
 
@@ -25,11 +27,17 @@ func (v *validator) Validate() error {
 	typ := reflect.TypeOf(v.value)
 	switch typ.Kind() {
 	case reflect.Int:
-		return v.Integer()
+		return v.integer()
+	case reflect.String:
+		return v.str()
 	}
 	return nil
 }
 
-func (v *validator) Integer() error {
+func (v *validator) integer() error {
 	return integer.Validator(v.value.(int), v.validateTag)
+}
+
+func (v *validator) str() error {
+	return str.Validator(v.value.(string), v.validateTag)
 }

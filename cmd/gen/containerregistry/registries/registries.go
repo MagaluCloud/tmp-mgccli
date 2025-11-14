@@ -33,8 +33,6 @@ func RegistriesCmd(ctx context.Context, parent *cobra.Command, registriesService
 	
 	List(ctx, cmd, registriesService)
 	
-	ListAll(ctx, cmd, registriesService)
-	
 
 	parent.AddCommand(cmd)
 }

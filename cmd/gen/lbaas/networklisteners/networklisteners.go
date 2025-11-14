@@ -33,8 +33,6 @@ func NetworkListenersCmd(ctx context.Context, parent *cobra.Command, networkList
 	
 	List(ctx, cmd, networkListenerService)
 	
-	ListAll(ctx, cmd, networkListenerService)
-	
 	Update(ctx, cmd, networkListenerService)
 	
 

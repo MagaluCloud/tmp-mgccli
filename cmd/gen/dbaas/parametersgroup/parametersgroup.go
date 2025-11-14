@@ -33,8 +33,6 @@ func ParametersGroupCmd(ctx context.Context, parent *cobra.Command, parameterGro
 	
 	List(ctx, cmd, parameterGroupService)
 	
-	ListAll(ctx, cmd, parameterGroupService)
-	
 	Update(ctx, cmd, parameterGroupService)
 	
 

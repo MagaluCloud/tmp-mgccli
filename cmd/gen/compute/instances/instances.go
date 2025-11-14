@@ -41,8 +41,6 @@ func InstancesCmd(ctx context.Context, parent *cobra.Command, instanceService co
 	
 	List(ctx, cmd, instanceService)
 	
-	ListAll(ctx, cmd, instanceService)
-	
 	Rename(ctx, cmd, instanceService)
 	
 	Retype(ctx, cmd, instanceService)

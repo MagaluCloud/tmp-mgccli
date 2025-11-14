@@ -27,8 +27,6 @@ func EventsCmd(ctx context.Context, parent *cobra.Command, eventService auditSdk
 	
 	List(ctx, cmd, eventService)
 	
-	ListAll(ctx, cmd, eventService)
-	
 
 	parent.AddCommand(cmd)
 }

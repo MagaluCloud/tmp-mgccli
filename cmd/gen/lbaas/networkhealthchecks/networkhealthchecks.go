@@ -33,8 +33,6 @@ func NetworkHealthChecksCmd(ctx context.Context, parent *cobra.Command, networkH
 	
 	List(ctx, cmd, networkHealthCheckService)
 	
-	ListAll(ctx, cmd, networkHealthCheckService)
-	
 	Update(ctx, cmd, networkHealthCheckService)
 	
 

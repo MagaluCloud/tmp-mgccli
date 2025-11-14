@@ -33,8 +33,6 @@ func NetworkBackendsCmd(ctx context.Context, parent *cobra.Command, networkBacke
 	
 	List(ctx, cmd, networkBackendService)
 	
-	ListAll(ctx, cmd, networkBackendService)
-	
 	Update(ctx, cmd, networkBackendService)
 	
 

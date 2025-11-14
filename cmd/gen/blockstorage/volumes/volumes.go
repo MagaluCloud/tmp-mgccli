@@ -39,8 +39,6 @@ func VolumesCmd(ctx context.Context, parent *cobra.Command, volumeService blocks
 	
 	List(ctx, cmd, volumeService)
 	
-	ListAll(ctx, cmd, volumeService)
-	
 	Rename(ctx, cmd, volumeService)
 	
 	Retype(ctx, cmd, volumeService)
