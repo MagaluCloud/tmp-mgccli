@@ -47,14 +47,6 @@ func getVCSInfo(version string) string {
 	return "v0.0.0 dev"
 }
 
-func getLang() string {
-	lang, isPresent := os.LookupEnv("CLI_LANG")
-	if isPresent {
-		return lang
-	}
-	return ""
-}
-
 func main() {
 	args := cmdutils.NewArgsParser()
 
@@ -64,13 +56,7 @@ func main() {
 	}
 	ctx := context.Background()
 
-	lang := getLang()
-	if lang == "" {
-		langFlagValue, _, _ := args.GetValue(cmd.LangFlag)
-		lang = langFlagValue
-	}
-
-	manager := i18n.Init18n(lang)
+	manager := i18n.Init18n("")
 	version := fmt.Sprintf("%s (%s)", version, manager.GetLanguage())
 
 	rootCmd := cmd.RootCmd(ctx, version, args)

@@ -17,6 +17,7 @@ func WorkspaceCmd(parent *cobra.Command) {
 	cmd.AddCommand(GetCmd(parent))
 	cmd.AddCommand(ListCmd(parent))
 	cmd.AddCommand(SetCmd(parent))
+	cmd.AddCommand(SelectCmd(parent))
 
 	parent.AddCommand(cmd)
 }

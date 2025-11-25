@@ -18,7 +18,7 @@ import (
 
 func PublicIPsCmd(ctx context.Context, parent *cobra.Command, publicIPService networkSdk.PublicIPService) {
 	cmd := &cobra.Command{
-		Use:     "public-i-ps",
+		Use:     "public-ips",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `Dqui1`,
 		

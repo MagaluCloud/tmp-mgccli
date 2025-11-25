@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
-	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"runtime"
@@ -71,13 +71,18 @@ func RootCmd(ctx context.Context, version string, args cmdutils.ArgsParser) *cob
 	addLogDebugFlag(rootCmd)
 	addNoConfirmationFlag(rootCmd)
 	addRawOutputFlag(rootCmd)
-	addLangFlag(rootCmd)
-
-	httpClient := http.DefaultClient
-	httpClient.Timeout = 5 * time.Second
+	addTimeoutFlag(rootCmd)
 
 	// // Init SDK
 	sdkOptions := []sdk.Option{}
+	timeoutValue, timeoutPresent, _ := args.GetValue(timeoutFlag)
+	if timeoutPresent {
+		timeout, err := strconv.Atoi(timeoutValue)
+		if err == nil {
+			sdkOptions = append(sdkOptions, sdk.WithTimeout(time.Duration(timeout)*time.Second))
+		}
+	}
+
 	apiKey := os.Getenv(cmdutils.ENV_API_KEY.String())
 	if apiKey == "" {
 		apiKey, _, _ = args.GetValue(apiKeyFlag)
