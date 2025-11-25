@@ -18,7 +18,7 @@ import (
 
 func NetworkACLsCmd(ctx context.Context, parent *cobra.Command, networkACLService lbaasSdk.NetworkACLService) {
 	cmd := &cobra.Command{
-		Use:     "network-a-c-ls",
+		Use:     "network-acls",
 		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
 		Long:    `Dqui1`,
 		

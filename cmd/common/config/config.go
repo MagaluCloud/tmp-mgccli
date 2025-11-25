@@ -129,14 +129,7 @@ func NewConfig(workspace workspace.Workspace) Config {
 		Default:     false,
 		Scope:       "global",
 	}
-	cliConfig.Items[nameToKey("no_confirm")] = &ConfigItem{
-		Name:        keyToName("no_confirm"),
-		Value:       configYaml.NoConfirm,
-		Type:        "bool",
-		Description: "No confirm",
-		Default:     false,
-		Scope:       "global",
-	}
+
 	cliConfig.Items[nameToKey("raw_output")] = &ConfigItem{
 		Name:        keyToName("raw_output"),
 		Value:       configYaml.RawOutput,

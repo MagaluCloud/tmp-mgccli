@@ -33,7 +33,7 @@ func ListPublicIPs(ctx context.Context, parent *cobra.Command, vPCService networ
 	
 
 	cmd := &cobra.Command{
-		Use:     "list-public-i-ps [vpc-id]",
+		Use:     "list-public-ips [vpc-id]",
 		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
 		Long:    `doto3`,
 		RunE: func(cmd *cobra.Command, args []string) error{
