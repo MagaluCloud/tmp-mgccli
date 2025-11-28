@@ -34,8 +34,8 @@ func Attach(ctx context.Context, parent *cobra.Command, volumeService blockstora
 
 	cmd := &cobra.Command{
 		Use:     "attach [volume-id] [instance-id]",
-		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
-		Long:    `doto3`,
+		Short:   "Attach block storage volume",
+		Long:    `Attach a block storage volume to an instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

@@ -38,8 +38,8 @@ func List(ctx context.Context, parent *cobra.Command, instanceTypeService comput
 
 	cmd := &cobra.Command{
 		Use:     "list",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `doto3`,
+		Short:   "List virtual machine instances",
+		Long:    `List all virtual machine instances in your account`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

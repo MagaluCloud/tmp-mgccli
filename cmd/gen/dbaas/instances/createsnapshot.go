@@ -38,8 +38,8 @@ func CreateSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 
 	cmd := &cobra.Command{
 		Use:     "create-snapshot [instance-id]",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Create database instance snapshot",
+		Long:    `Create a snapshot of a database instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

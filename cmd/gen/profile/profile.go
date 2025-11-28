@@ -24,7 +24,7 @@ func ProfileCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.Co
 	cmd := &cobra.Command{
 		Use:     "profile",
 		Short:   "Manage account settings, including SSH keys and related configurations.",
-		Long:    `defaultLongDesc 1`,
+		Long:    `Manage account settings, including SSH keys and related configurations.`,
 		
 		GroupID: "settings",
 	}

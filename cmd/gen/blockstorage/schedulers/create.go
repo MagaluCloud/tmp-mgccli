@@ -40,8 +40,8 @@ func Create(ctx context.Context, parent *cobra.Command, schedulerService blockst
 
 	cmd := &cobra.Command{
 		Use:     "create",
-		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
-		Long:    `doto3`,
+		Short:   "Create block storage volume",
+		Long:    `Create a new block storage volume`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

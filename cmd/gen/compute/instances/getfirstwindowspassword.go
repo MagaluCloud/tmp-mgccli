@@ -34,8 +34,8 @@ func GetFirstWindowsPassword(ctx context.Context, parent *cobra.Command, instanc
 
 	cmd := &cobra.Command{
 		Use:     "get-first-windows-password [id]",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `doto3`,
+		Short:   "Get first Windows password",
+		Long:    `Get the initial administrator password for a Windows virtual machine instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

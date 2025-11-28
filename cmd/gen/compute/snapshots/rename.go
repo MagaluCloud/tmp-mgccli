@@ -34,8 +34,8 @@ func Rename(ctx context.Context, parent *cobra.Command, snapshotService computeS
 
 	cmd := &cobra.Command{
 		Use:     "rename [id] [new-name]",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `doto3`,
+		Short:   "Rename instance",
+		Long:    `Rename a virtual machine instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

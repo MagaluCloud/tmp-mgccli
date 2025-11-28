@@ -34,8 +34,8 @@ func DeleteSnapshot(ctx context.Context, parent *cobra.Command, instanceService 
 
 	cmd := &cobra.Command{
 		Use:     "delete-snapshot [instance-id] [snapshot-id]",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Delete database instance snapshot",
+		Long:    `Delete a database instance snapshot`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

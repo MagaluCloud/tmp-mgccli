@@ -19,8 +19,8 @@ import (
 func InstanceTypesCmd(ctx context.Context, parent *cobra.Command, instanceTypeService computeSdk.InstanceTypeService) {
 	cmd := &cobra.Command{
 		Use:     "instance-types",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `Dqui1`,
+		Short:   "Manage virtual machine instance types",
+		Long:    `List available virtual machine instance types and their specifications`,
 		
 	}
 

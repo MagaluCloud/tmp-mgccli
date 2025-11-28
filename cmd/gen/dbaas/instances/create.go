@@ -52,8 +52,8 @@ func Create(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk
 
 	cmd := &cobra.Command{
 		Use:     "create",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Create database instance",
+		Long:    `Create a new database instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

@@ -19,8 +19,8 @@ import (
 func InstancesCmd(ctx context.Context, parent *cobra.Command, instanceService computeSdk.InstanceService) {
 	cmd := &cobra.Command{
 		Use:     "instances",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `Dqui1`,
+		Short:   "Manage virtual machine instances",
+		Long:    `Create, manage, and control virtual machine instances`,
 		
 	}
 

@@ -36,8 +36,8 @@ func AttachNetworkInterface(ctx context.Context, parent *cobra.Command, instance
 
 	cmd := &cobra.Command{
 		Use:     "attach-network-interface",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `doto3`,
+		Short:   "Attach network interface",
+		Long:    `Attach a network interface to a virtual machine instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

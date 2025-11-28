@@ -34,8 +34,8 @@ func DetachSecurityGroup(ctx context.Context, parent *cobra.Command, portService
 
 	cmd := &cobra.Command{
 		Use:     "detach-security-group [port-id] [security-group-id]",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `doto3`,
+		Short:   "Detach security group from port",
+		Long:    `Detach a security group from a port`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

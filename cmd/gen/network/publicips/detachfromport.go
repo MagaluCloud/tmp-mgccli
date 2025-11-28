@@ -34,8 +34,8 @@ func DetachFromPort(ctx context.Context, parent *cobra.Command, publicIPService 
 
 	cmd := &cobra.Command{
 		Use:     "detach-from-port [public-ipid] [port-id]",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `doto3`,
+		Short:   "Detach public IP from port",
+		Long:    `Detach a public IP from a port`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

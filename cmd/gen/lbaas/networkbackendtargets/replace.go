@@ -40,8 +40,8 @@ func Replace(ctx context.Context, parent *cobra.Command, networkBackendTargetSer
 
 	cmd := &cobra.Command{
 		Use:     "replace [lb-id] [backend-id]",
-		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Replace network ACL",
+		Long:    `Replace a network access control list`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

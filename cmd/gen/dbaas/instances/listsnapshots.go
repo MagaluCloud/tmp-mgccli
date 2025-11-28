@@ -42,8 +42,8 @@ func ListSnapshots(ctx context.Context, parent *cobra.Command, instanceService d
 
 	cmd := &cobra.Command{
 		Use:     "list-snapshots [instance-id]",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `doto3`,
+		Short:   "List database instance snapshots",
+		Long:    `List all snapshots of a database instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

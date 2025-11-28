@@ -34,8 +34,8 @@ func Delete(ctx context.Context, parent *cobra.Command, repositoriesService cont
 
 	cmd := &cobra.Command{
 		Use:     "delete [registry-id] [repository-name]",
-		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
-		Long:    `doto3`,
+		Short:   "Delete container registry",
+		Long:    `Delete a container registry`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

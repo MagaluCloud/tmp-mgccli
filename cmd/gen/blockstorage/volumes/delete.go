@@ -32,8 +32,8 @@ func Delete(ctx context.Context, parent *cobra.Command, volumeService blockstora
 
 	cmd := &cobra.Command{
 		Use:     "delete [id]",
-		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
-		Long:    `doto3`,
+		Short:   "Delete block storage volume",
+		Long:    `Delete a block storage volume`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

@@ -42,8 +42,8 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotService compute
 
 	cmd := &cobra.Command{
 		Use:     "restore [id]",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `doto3`,
+		Short:   "Restore instance from snapshot",
+		Long:    `Restore a virtual machine instance from a snapshot`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

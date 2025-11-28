@@ -19,8 +19,8 @@ import (
 func RulesCmd(ctx context.Context, parent *cobra.Command, ruleService networkSdk.RuleService) {
 	cmd := &cobra.Command{
 		Use:     "rules",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `Dqui1`,
+		Short:   "Manage security group rules",
+		Long:    `Create and manage firewall rules for security groups`,
 		
 	}
 

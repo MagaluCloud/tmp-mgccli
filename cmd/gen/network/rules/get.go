@@ -34,8 +34,8 @@ func Get(ctx context.Context, parent *cobra.Command, ruleService networkSdk.Rule
 
 	cmd := &cobra.Command{
 		Use:     "get [id]",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `doto3`,
+		Short:   "Get VPC details",
+		Long:    `Get detailed information about a specific VPC`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

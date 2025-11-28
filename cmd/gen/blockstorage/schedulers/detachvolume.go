@@ -32,8 +32,8 @@ func DetachVolume(ctx context.Context, parent *cobra.Command, schedulerService b
 
 	cmd := &cobra.Command{
 		Use:     "detach-volume [id]",
-		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
-		Long:    `doto3`,
+		Short:   "Detach volume",
+		Long:    `Detach a volume from an instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

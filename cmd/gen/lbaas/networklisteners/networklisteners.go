@@ -19,8 +19,8 @@ import (
 func NetworkListenersCmd(ctx context.Context, parent *cobra.Command, networkListenerService lbaasSdk.NetworkListenerService) {
 	cmd := &cobra.Command{
 		Use:     "network-listeners",
-		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
-		Long:    `Dqui1`,
+		Short:   "Manage load balancer listeners",
+		Long:    `Create and manage listeners for load balancers`,
 		
 	}
 

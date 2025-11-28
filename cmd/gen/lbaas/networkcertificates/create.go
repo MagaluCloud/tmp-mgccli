@@ -40,8 +40,8 @@ func Create(ctx context.Context, parent *cobra.Command, networkCertificateServic
 
 	cmd := &cobra.Command{
 		Use:     "create",
-		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Create network ACL",
+		Long:    `Create a new network access control list for load balancers`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

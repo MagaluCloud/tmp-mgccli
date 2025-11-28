@@ -36,8 +36,8 @@ func Retype(ctx context.Context, parent *cobra.Command, instanceService computeS
 
 	cmd := &cobra.Command{
 		Use:     "retype [id]",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `doto3`,
+		Short:   "Change instance type",
+		Long:    `Change the instance type (flavor) of a virtual machine instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

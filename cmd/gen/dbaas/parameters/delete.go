@@ -34,8 +34,8 @@ func Delete(ctx context.Context, parent *cobra.Command, parameterService dbaasSd
 
 	cmd := &cobra.Command{
 		Use:     "delete [group-id] [parameter-id]",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Delete database instance",
+		Long:    `Delete a database instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

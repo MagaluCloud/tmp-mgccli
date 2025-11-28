@@ -34,8 +34,8 @@ func Get(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk.Rep
 
 	cmd := &cobra.Command{
 		Use:     "get [id]",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Get database engine details",
+		Long:    `Get detailed information about a specific database engine`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

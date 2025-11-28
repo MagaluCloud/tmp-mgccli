@@ -28,8 +28,8 @@ func ResetPassword(ctx context.Context, parent *cobra.Command, credentialsServic
 
 	cmd := &cobra.Command{
 		Use:     "reset-password",
-		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
-		Long:    `doto3`,
+		Short:   "Reset container registry credentials",
+		Long:    `Reset the container registry access credentials`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

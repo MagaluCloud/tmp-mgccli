@@ -32,8 +32,8 @@ func Suspend(ctx context.Context, parent *cobra.Command, instanceService compute
 
 	cmd := &cobra.Command{
 		Use:     "suspend [id]",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `doto3`,
+		Short:   "Suspend instance",
+		Long:    `Suspend a running virtual machine instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

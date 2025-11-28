@@ -42,8 +42,8 @@ func ListPorts(ctx context.Context, parent *cobra.Command, vPCService networkSdk
 
 	cmd := &cobra.Command{
 		Use:     "list-ports [vpc-id] [detailed]",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `doto3`,
+		Short:   "List VPC ports",
+		Long:    `List all ports in a VPC`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

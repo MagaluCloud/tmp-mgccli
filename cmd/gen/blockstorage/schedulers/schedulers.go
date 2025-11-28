@@ -19,8 +19,8 @@ import (
 func SchedulersCmd(ctx context.Context, parent *cobra.Command, schedulerService blockstorageSdk.SchedulerService) {
 	cmd := &cobra.Command{
 		Use:     "schedulers",
-		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
-		Long:    `Dqui1`,
+		Short:   "Manage volume schedulers",
+		Long:    `Create and manage volume attachment schedulers`,
 		
 	}
 

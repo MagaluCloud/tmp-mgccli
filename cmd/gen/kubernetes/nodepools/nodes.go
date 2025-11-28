@@ -36,8 +36,8 @@ func Nodes(ctx context.Context, parent *cobra.Command, nodePoolService kubernete
 
 	cmd := &cobra.Command{
 		Use:     "nodes [cluster-id] [node-pool-id]",
-		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
-		Long:    `doto3`,
+		Short:   "Manage nodes in node pools",
+		Long:    `Manage individual nodes within Kubernetes node pools`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

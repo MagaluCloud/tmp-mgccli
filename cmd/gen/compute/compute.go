@@ -29,10 +29,8 @@ import (
 func ComputeCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
 		Use:     "virtual-machine",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `Package compute provides functionality to interact with the MagaluCloud compute service.
-This package allows managing virtual machine instances, images, instance types, and snapshots.
-`,
+		Short:   "Manage virtual machine instances",
+		Long:    `Create, manage, and control virtual machine instances`,
 		Aliases: []string{
 			"vm","virtual-machines","vms","compute",
 		},

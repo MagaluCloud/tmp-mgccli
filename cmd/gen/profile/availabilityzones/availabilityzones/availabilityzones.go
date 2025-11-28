@@ -19,8 +19,8 @@ import (
 func AvailabilityZonesCmd(ctx context.Context, parent *cobra.Command, service availabilityzonesSdk.Service) {
 	cmd := &cobra.Command{
 		Use:     "availability-zones",
-		Short:   "",
-		Long:    `Dqui1`,
+		Short:   "Manage availability zones",
+		Long:    `Manage and list availability zones for resource deployment`,
 		
 	}
 

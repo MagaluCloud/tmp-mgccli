@@ -19,8 +19,8 @@ import (
 func FlavorsCmd(ctx context.Context, parent *cobra.Command, flavorService kubernetesSdk.FlavorService) {
 	cmd := &cobra.Command{
 		Use:     "flavors",
-		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
-		Long:    `Dqui1`,
+		Short:   "Manage Kubernetes flavors",
+		Long:    `List available Kubernetes cluster flavors and configurations`,
 		
 	}
 

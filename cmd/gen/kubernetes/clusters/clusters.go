@@ -19,8 +19,8 @@ import (
 func ClustersCmd(ctx context.Context, parent *cobra.Command, clusterService kubernetesSdk.ClusterService) {
 	cmd := &cobra.Command{
 		Use:     "clusters",
-		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
-		Long:    `Dqui1`,
+		Short:   "Manage Kubernetes clusters",
+		Long:    `Create, configure, and manage Kubernetes clusters`,
 		
 	}
 

@@ -35,10 +35,8 @@ import (
 func LbaasCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
 		Use:     "lbaas",
-		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
-		Long:    `Package lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.
-This package allows you to manage network load balancers, listeners, backends, health checks, certificates, and ACLs.
-`,
+		Short:   "Manage load balancers",
+		Long:    `Create, configure, and manage load balancers`,
 		Aliases: []string{
 			"load-balancer",
 		},

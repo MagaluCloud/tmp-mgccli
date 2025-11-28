@@ -19,8 +19,8 @@ import (
 func SnapshotsCmd(ctx context.Context, parent *cobra.Command, snapshotService computeSdk.SnapshotService) {
 	cmd := &cobra.Command{
 		Use:     "snapshots",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `Dqui1`,
+		Short:   "Manage instance snapshots",
+		Long:    `Create, manage, and restore virtual machine snapshots`,
 		
 	}
 

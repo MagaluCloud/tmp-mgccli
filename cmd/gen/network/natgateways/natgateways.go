@@ -19,8 +19,8 @@ import (
 func NatGatewaysCmd(ctx context.Context, parent *cobra.Command, natGatewayService networkSdk.NatGatewayService) {
 	cmd := &cobra.Command{
 		Use:     "nat-gateways",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `Dqui1`,
+		Short:   "Manage NAT gateways",
+		Long:    `Create and manage Network Address Translation gateways`,
 		
 	}
 

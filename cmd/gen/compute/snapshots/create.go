@@ -32,8 +32,8 @@ func Create(ctx context.Context, parent *cobra.Command, snapshotService computeS
 
 	cmd := &cobra.Command{
 		Use:     "create",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `doto3`,
+		Short:   "Create virtual machine instance",
+		Long:    `Create a new virtual machine instance with specified configuration`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

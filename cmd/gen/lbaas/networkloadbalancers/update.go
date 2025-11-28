@@ -38,8 +38,8 @@ func Update(ctx context.Context, parent *cobra.Command, networkLoadBalancerServi
 
 	cmd := &cobra.Command{
 		Use:     "update [id]",
-		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Update network backend",
+		Long:    `Update configuration of a backend server`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
