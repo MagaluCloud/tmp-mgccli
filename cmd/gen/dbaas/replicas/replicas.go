@@ -19,8 +19,8 @@ import (
 func ReplicasCmd(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk.ReplicaService) {
 	cmd := &cobra.Command{
 		Use:     "replicas",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `Dqui1`,
+		Short:   "Manage database replicas",
+		Long:    `Create and manage database read replicas`,
 		
 	}
 

@@ -34,8 +34,8 @@ func Create(ctx context.Context, parent *cobra.Command, vPCService networkSdk.VP
 
 	cmd := &cobra.Command{
 		Use:     "create",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `doto3`,
+		Short:   "Create VPC",
+		Long:    `Create a new VPC`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

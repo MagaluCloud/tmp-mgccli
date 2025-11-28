@@ -28,8 +28,8 @@ func List(ctx context.Context, parent *cobra.Command, vPCService networkSdk.VPCS
 
 	cmd := &cobra.Command{
 		Use:     "list",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `doto3`,
+		Short:   "List VPCs",
+		Long:    `List all VPCs`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

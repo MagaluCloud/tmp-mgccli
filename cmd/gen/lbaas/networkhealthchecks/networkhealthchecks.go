@@ -19,8 +19,8 @@ import (
 func NetworkHealthChecksCmd(ctx context.Context, parent *cobra.Command, networkHealthCheckService lbaasSdk.NetworkHealthCheckService) {
 	cmd := &cobra.Command{
 		Use:     "network-health-checks",
-		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
-		Long:    `Dqui1`,
+		Short:   "Manage health checks",
+		Long:    `Configure and manage health check monitors for load balancers`,
 		
 	}
 

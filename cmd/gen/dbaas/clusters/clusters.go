@@ -19,8 +19,8 @@ import (
 func ClustersCmd(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk.ClusterService) {
 	cmd := &cobra.Command{
 		Use:     "clusters",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `Dqui1`,
+		Short:   "Manage database clusters",
+		Long:    `Create, manage, and control database clusters`,
 		
 	}
 

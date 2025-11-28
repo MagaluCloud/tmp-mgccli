@@ -19,8 +19,8 @@ import (
 func NetworkCertificatesCmd(ctx context.Context, parent *cobra.Command, networkCertificateService lbaasSdk.NetworkCertificateService) {
 	cmd := &cobra.Command{
 		Use:     "network-certificates",
-		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
-		Long:    `Dqui1`,
+		Short:   "Manage SSL/TLS certificates",
+		Long:    `Create and manage SSL/TLS certificates for load balancers`,
 		
 	}
 

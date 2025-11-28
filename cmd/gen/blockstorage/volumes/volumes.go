@@ -19,8 +19,8 @@ import (
 func VolumesCmd(ctx context.Context, parent *cobra.Command, volumeService blockstorageSdk.VolumeService) {
 	cmd := &cobra.Command{
 		Use:     "volumes",
-		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
-		Long:    `Dqui1`,
+		Short:   "Manage block storage volumes",
+		Long:    `Create, manage, and attach block storage volumes`,
 		
 	}
 

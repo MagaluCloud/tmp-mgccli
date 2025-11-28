@@ -19,8 +19,8 @@ import (
 func NetworkBackendsCmd(ctx context.Context, parent *cobra.Command, networkBackendService lbaasSdk.NetworkBackendService) {
 	cmd := &cobra.Command{
 		Use:     "network-backends",
-		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
-		Long:    `Dqui1`,
+		Short:   "Manage load balancer backends",
+		Long:    `Create and manage backend servers for load balancers`,
 		
 	}
 

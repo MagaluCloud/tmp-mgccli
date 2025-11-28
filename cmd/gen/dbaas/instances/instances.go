@@ -19,8 +19,8 @@ import (
 func InstancesCmd(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.InstanceService) {
 	cmd := &cobra.Command{
 		Use:     "instances",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `Dqui1`,
+		Short:   "Manage database instances",
+		Long:    `Create, manage, and control database instances and snapshots`,
 		
 	}
 

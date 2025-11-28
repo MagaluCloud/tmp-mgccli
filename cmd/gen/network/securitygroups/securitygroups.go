@@ -19,8 +19,8 @@ import (
 func SecurityGroupsCmd(ctx context.Context, parent *cobra.Command, securityGroupService networkSdk.SecurityGroupService) {
 	cmd := &cobra.Command{
 		Use:     "security-groups",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `Dqui1`,
+		Short:   "Manage security groups",
+		Long:    `Create and manage network security groups`,
 		
 	}
 

@@ -34,8 +34,8 @@ func Rename(ctx context.Context, parent *cobra.Command, snapshotService blocksto
 
 	cmd := &cobra.Command{
 		Use:     "rename [id] [new-name]",
-		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
-		Long:    `doto3`,
+		Short:   "Rename block storage volume",
+		Long:    `Rename a block storage volume`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

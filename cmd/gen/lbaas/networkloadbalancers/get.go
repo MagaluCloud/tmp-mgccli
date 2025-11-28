@@ -34,8 +34,8 @@ func Get(ctx context.Context, parent *cobra.Command, networkLoadBalancerService 
 
 	cmd := &cobra.Command{
 		Use:     "get [id]",
-		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Get network backend details",
+		Long:    `Get detailed information about a specific backend server`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

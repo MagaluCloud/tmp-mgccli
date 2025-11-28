@@ -42,8 +42,8 @@ func List(ctx context.Context, parent *cobra.Command, nodePoolService kubernetes
 
 	cmd := &cobra.Command{
 		Use:     "list [cluster-id]",
-		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
-		Long:    `doto3`,
+		Short:   "List Kubernetes clusters",
+		Long:    `List all Kubernetes clusters`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

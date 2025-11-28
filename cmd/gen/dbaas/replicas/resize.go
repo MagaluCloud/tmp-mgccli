@@ -36,8 +36,8 @@ func Resize(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk.
 
 	cmd := &cobra.Command{
 		Use:     "resize [id]",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Resize database instance",
+		Long:    `Resize a database instance to a different instance type`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

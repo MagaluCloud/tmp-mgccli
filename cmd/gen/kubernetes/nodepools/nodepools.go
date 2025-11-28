@@ -19,8 +19,8 @@ import (
 func NodepoolsCmd(ctx context.Context, parent *cobra.Command, nodePoolService kubernetesSdk.NodePoolService) {
 	cmd := &cobra.Command{
 		Use:     "nodepools",
-		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
-		Long:    `Dqui1`,
+		Short:   "Manage Kubernetes node pools",
+		Long:    `Create and manage Kubernetes node pools and their nodes`,
 		
 	}
 

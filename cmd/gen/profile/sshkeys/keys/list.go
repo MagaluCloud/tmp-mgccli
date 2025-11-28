@@ -36,8 +36,8 @@ func List(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.KeyS
 
 	cmd := &cobra.Command{
 		Use:     "list",
-		Short:   "",
-		Long:    `doto3`,
+		Short:   "List SSH keys",
+		Long:    `List all SSH keys associated with your account`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

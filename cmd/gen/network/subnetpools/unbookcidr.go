@@ -34,8 +34,8 @@ func UnbookCIDR(ctx context.Context, parent *cobra.Command, subnetPoolService ne
 
 	cmd := &cobra.Command{
 		Use:     "unbook-cidr [id]",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `doto3`,
+		Short:   "Unbook CIDR block",
+		Long:    `Unbook a CIDR block from a subnet pool`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

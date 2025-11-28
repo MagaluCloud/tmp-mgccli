@@ -38,8 +38,8 @@ func List(ctx context.Context, parent *cobra.Command, parameterGroupService dbaa
 
 	cmd := &cobra.Command{
 		Use:     "list",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `doto3`,
+		Short:   "List database engines",
+		Long:    `List all database engines`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

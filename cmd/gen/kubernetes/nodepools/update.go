@@ -38,8 +38,8 @@ func Update(ctx context.Context, parent *cobra.Command, nodePoolService kubernet
 
 	cmd := &cobra.Command{
 		Use:     "update [cluster-id] [node-pool-id]",
-		Short:   "Kubernetes provides a client for interacting with the Magalu Cloud Kubernetes API.",
-		Long:    `doto3`,
+		Short:   "Update Kubernetes cluster",
+		Long:    `Update configuration of a Kubernetes cluster`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

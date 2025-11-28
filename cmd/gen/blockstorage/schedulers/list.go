@@ -38,8 +38,8 @@ func List(ctx context.Context, parent *cobra.Command, schedulerService blockstor
 
 	cmd := &cobra.Command{
 		Use:     "list",
-		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
-		Long:    `doto3`,
+		Short:   "List block storage volumes",
+		Long:    `List all block storage volumes`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

@@ -36,8 +36,8 @@ func DetachNetworkInterface(ctx context.Context, parent *cobra.Command, instance
 
 	cmd := &cobra.Command{
 		Use:     "detach-network-interface",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `doto3`,
+		Short:   "Detach network interface",
+		Long:    `Detach a network interface from a virtual machine instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

@@ -36,8 +36,8 @@ func Get(ctx context.Context, parent *cobra.Command, schedulerService blockstora
 
 	cmd := &cobra.Command{
 		Use:     "get [id]",
-		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
-		Long:    `doto3`,
+		Short:   "Get block storage volume details",
+		Long:    `Get detailed information about a specific block storage volume`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

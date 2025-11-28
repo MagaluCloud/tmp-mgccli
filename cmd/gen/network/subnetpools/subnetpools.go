@@ -19,8 +19,8 @@ import (
 func SubnetPoolsCmd(ctx context.Context, parent *cobra.Command, subnetPoolService networkSdk.SubnetPoolService) {
 	cmd := &cobra.Command{
 		Use:     "subnet-pools",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `Dqui1`,
+		Short:   "Manage subnet pools",
+		Long:    `Create and manage CIDR pools for subnet allocation`,
 		
 	}
 

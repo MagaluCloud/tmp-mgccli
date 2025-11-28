@@ -40,8 +40,8 @@ func List(ctx context.Context, parent *cobra.Command, networkListenerService lba
 
 	cmd := &cobra.Command{
 		Use:     "list [lb-id]",
-		Short:   "Lbaas provides a client for interacting with the Magalu Cloud Load Balancer as a Service (LBaaS) API.",
-		Long:    `doto3`,
+		Short:   "List network backends",
+		Long:    `List all backend servers for load balancers`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

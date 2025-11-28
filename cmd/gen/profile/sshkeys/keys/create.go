@@ -34,8 +34,8 @@ func Create(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.Ke
 
 	cmd := &cobra.Command{
 		Use:     "create",
-		Short:   "",
-		Long:    `doto3`,
+		Short:   "Create SSH key",
+		Long:    `Create a new SSH key for secure server access`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

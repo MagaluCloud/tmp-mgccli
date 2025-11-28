@@ -34,8 +34,8 @@ func Extend(ctx context.Context, parent *cobra.Command, volumeService blockstora
 
 	cmd := &cobra.Command{
 		Use:     "extend [id]",
-		Short:   "Blockstorage provides functionality to interact with the MagaluCloud block storage service.",
-		Long:    `doto3`,
+		Short:   "Extend block storage volume",
+		Long:    `Extend the size of a block storage volume`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

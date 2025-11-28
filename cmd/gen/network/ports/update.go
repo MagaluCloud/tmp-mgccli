@@ -34,8 +34,8 @@ func Update(ctx context.Context, parent *cobra.Command, portService networkSdk.P
 
 	cmd := &cobra.Command{
 		Use:     "update [id]",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `doto3`,
+		Short:   "Update subnet",
+		Long:    `Update configuration of a subnet`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

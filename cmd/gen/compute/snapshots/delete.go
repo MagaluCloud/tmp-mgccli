@@ -32,8 +32,8 @@ func Delete(ctx context.Context, parent *cobra.Command, snapshotService computeS
 
 	cmd := &cobra.Command{
 		Use:     "delete [id]",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `doto3`,
+		Short:   "Delete virtual machine instance",
+		Long:    `Delete a virtual machine instance from your account`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

@@ -38,8 +38,8 @@ func BookCIDR(ctx context.Context, parent *cobra.Command, subnetPoolService netw
 
 	cmd := &cobra.Command{
 		Use:     "book-cidr [id]",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `doto3`,
+		Short:   "Book CIDR block",
+		Long:    `Book a CIDR block in a subnet pool`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

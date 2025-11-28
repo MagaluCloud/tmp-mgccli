@@ -36,8 +36,8 @@ func Update(ctx context.Context, parent *cobra.Command, parameterService dbaasSd
 
 	cmd := &cobra.Command{
 		Use:     "update [group-id] [parameter-id]",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Update database instance",
+		Long:    `Update configuration of a database instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

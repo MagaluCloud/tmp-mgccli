@@ -19,8 +19,8 @@ import (
 func EventsCmd(ctx context.Context, parent *cobra.Command, eventService auditSdk.EventService) {
 	cmd := &cobra.Command{
 		Use:     "events",
-		Short:   "Audit provides functionality to interact with the MagaluCloud audit service.",
-		Long:    `Dqui1`,
+		Short:   "Manage audit events",
+		Long:    `List and query audit events for system activity tracking`,
 		
 	}
 

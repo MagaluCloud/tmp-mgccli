@@ -28,8 +28,8 @@ func Get(ctx context.Context, parent *cobra.Command, credentialsService containe
 
 	cmd := &cobra.Command{
 		Use:     "get",
-		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
-		Long:    `doto3`,
+		Short:   "Get container registry credentials",
+		Long:    `Get detailed information about the container registry access credentials`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

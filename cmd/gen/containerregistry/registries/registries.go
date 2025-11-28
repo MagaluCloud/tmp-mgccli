@@ -19,8 +19,8 @@ import (
 func RegistriesCmd(ctx context.Context, parent *cobra.Command, registriesService containerregistrySdk.RegistriesService) {
 	cmd := &cobra.Command{
 		Use:     "registries",
-		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
-		Long:    `Dqui1`,
+		Short:   "Manage container registries",
+		Long:    `Create, list, and manage container registries`,
 		
 	}
 

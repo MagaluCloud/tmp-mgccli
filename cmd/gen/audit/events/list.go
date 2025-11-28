@@ -50,8 +50,8 @@ func List(ctx context.Context, parent *cobra.Command, eventService auditSdk.Even
 
 	cmd := &cobra.Command{
 		Use:     "list",
-		Short:   "Audit provides functionality to interact with the MagaluCloud audit service.",
-		Long:    `doto3`,
+		Short:   "List audit events",
+		Long:    `List all audit events`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

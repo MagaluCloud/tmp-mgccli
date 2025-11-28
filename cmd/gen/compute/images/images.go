@@ -19,8 +19,8 @@ import (
 func ImagesCmd(ctx context.Context, parent *cobra.Command, imageService computeSdk.ImageService) {
 	cmd := &cobra.Command{
 		Use:     "images",
-		Short:   "Compute provides functionality to interact with the MagaluCloud compute service.",
-		Long:    `Dqui1`,
+		Short:   "Manage virtual machine images",
+		Long:    `List and manage virtual machine images available for instance deployment`,
 		
 	}
 

@@ -25,10 +25,8 @@ import (
 func AuditCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
 		Use:     "audit",
-		Short:   "Audit provides functionality to interact with the MagaluCloud audit service.",
-		Long:    `Package audit provides functionality to interact with the MagaluCloud audit service.
-This package allows listing audit events and event types.
-`,
+		Short:   "Manage audit events and event types",
+		Long:    `Manage audit events and event types`,
 		
 		GroupID: "products",
 	}

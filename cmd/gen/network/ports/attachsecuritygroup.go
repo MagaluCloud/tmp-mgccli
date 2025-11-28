@@ -34,8 +34,8 @@ func AttachSecurityGroup(ctx context.Context, parent *cobra.Command, portService
 
 	cmd := &cobra.Command{
 		Use:     "attach-security-group [port-id] [security-group-id]",
-		Short:   "Network provides a client for interacting with the Magalu Cloud Network API.",
-		Long:    `doto3`,
+		Short:   "Attach security group to port",
+		Long:    `Attach a security group to a port`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

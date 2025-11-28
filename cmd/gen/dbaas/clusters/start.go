@@ -34,8 +34,8 @@ func Start(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk.C
 
 	cmd := &cobra.Command{
 		Use:     "start [id]",
-		Short:   "Dbaas provides a client for interacting with the Magalu Cloud Database as a Service (DBaaS) API.",
-		Long:    `doto3`,
+		Short:   "Start database instance",
+		Long:    `Stop a running database instance`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			

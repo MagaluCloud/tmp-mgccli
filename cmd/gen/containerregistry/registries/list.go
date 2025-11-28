@@ -36,8 +36,8 @@ func List(ctx context.Context, parent *cobra.Command, registriesService containe
 
 	cmd := &cobra.Command{
 		Use:     "list",
-		Short:   "Containerregistry provides a client for interacting with the Magalu Cloud Container Registry API.",
-		Long:    `doto3`,
+		Short:   "List container registries",
+		Long:    `List all container registries`,
 		RunE: func(cmd *cobra.Command, args []string) error{
 			
 			
