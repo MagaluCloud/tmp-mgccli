@@ -9,37 +9,31 @@ package audit
 import (
 	"context"
 
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/audit/events"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/audit/eventtypes"
-	
+
 	"github.com/spf13/cobra"
-	
+
 	auditSdk "github.com/MagaluCloud/mgc-sdk-go/audit"
-	
+
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
 )
 
 func AuditCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
-		Use:     "audit",
-		Short:   "Manage audit events and event types",
-		Long:    `Manage audit events and event types`,
-		
+		Use:   "audit",
+		Short: "Manage audit events and event types",
+		Long:  `Manage audit events and event types`,
+
 		GroupID: "products",
 	}
 
-    
-    auditService := auditSdk.New(&sdkCoreConfig)
-    
+	auditService := auditSdk.New(&sdkCoreConfig)
 
-	
 	eventtypes.EventTypesCmd(ctx, cmd, auditService.EventTypes())
-	
+
 	events.EventsCmd(ctx, cmd, auditService.Events())
-	
 
 	parent.AddCommand(cmd)
 }

@@ -9,44 +9,39 @@ package vpcs
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
 )
 
 func VPCsCmd(ctx context.Context, parent *cobra.Command, vPCService networkSdk.VPCService) {
 	cmd := &cobra.Command{
-		Use:     "vpcs",
-		Short:   "Manage virtual private clouds",
-		Long:    `Create, manage, and configure virtual private clouds with subnets, ports, and public IPs`,
-		
+		Use:   "vpcs",
+		Short: "Manage virtual private clouds",
+		Long:  `Create, manage, and configure virtual private clouds with subnets, ports, and public IPs`,
 	}
 
-	
 	Create(ctx, cmd, vPCService)
-	
+
 	CreatePort(ctx, cmd, vPCService)
-	
+
 	CreatePublicIP(ctx, cmd, vPCService)
-	
+
 	CreateSubnet(ctx, cmd, vPCService)
-	
+
 	Delete(ctx, cmd, vPCService)
-	
+
 	Get(ctx, cmd, vPCService)
-	
+
 	List(ctx, cmd, vPCService)
-	
+
 	ListPorts(ctx, cmd, vPCService)
-	
+
 	ListPublicIPs(ctx, cmd, vPCService)
-	
+
 	ListSubnets(ctx, cmd, vPCService)
-	
+
 	Rename(ctx, cmd, vPCService)
-	
 
 	parent.AddCommand(cmd)
 }

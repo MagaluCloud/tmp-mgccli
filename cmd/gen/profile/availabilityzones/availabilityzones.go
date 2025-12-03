@@ -9,24 +9,19 @@ package availabilityzones
 import (
 	"context"
 
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/profile/availabilityzones/availabilityzones"
-	
+
 	"github.com/spf13/cobra"
-	
+
 	availabilityzonesSdk "github.com/MagaluCloud/mgc-sdk-go/availabilityzones"
-	
+
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
 )
 
 func AvailabilityzonesCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
-    
-    availabilityzonesService := availabilityzonesSdk.New(&sdkCoreConfig)
-    
 
-	
+	availabilityzonesService := availabilityzonesSdk.New(&sdkCoreConfig)
+
 	availabilityzones.AvailabilityZonesCmd(ctx, parent, availabilityzonesService.AvailabilityZones())
-	
 
 }

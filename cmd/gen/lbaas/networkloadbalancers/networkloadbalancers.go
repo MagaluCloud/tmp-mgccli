@@ -9,32 +9,27 @@ package networkloadbalancers
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
 )
 
 func NetworkLoadBalancersCmd(ctx context.Context, parent *cobra.Command, networkLoadBalancerService lbaasSdk.NetworkLoadBalancerService) {
 	cmd := &cobra.Command{
-		Use:     "network-load-balancers",
-		Short:   "Manage load balancers",
-		Long:    `Create, configure, and manage network load balancers`,
-		
+		Use:   "network-load-balancers",
+		Short: "Manage load balancers",
+		Long:  `Create, configure, and manage network load balancers`,
 	}
 
-	
 	Create(ctx, cmd, networkLoadBalancerService)
-	
+
 	Delete(ctx, cmd, networkLoadBalancerService)
-	
+
 	Get(ctx, cmd, networkLoadBalancerService)
-	
+
 	List(ctx, cmd, networkLoadBalancerService)
-	
+
 	Update(ctx, cmd, networkLoadBalancerService)
-	
 
 	parent.AddCommand(cmd)
 }

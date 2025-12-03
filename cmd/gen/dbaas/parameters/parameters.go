@@ -9,30 +9,25 @@ package parameters
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
-	
 )
 
 func ParametersCmd(ctx context.Context, parent *cobra.Command, parameterService dbaasSdk.ParameterService) {
 	cmd := &cobra.Command{
-		Use:     "parameters",
-		Short:   "Manage database parameters",
-		Long:    `Create and manage database configuration parameters`,
-		
+		Use:   "parameters",
+		Short: "Manage database parameters",
+		Long:  `Create and manage database configuration parameters`,
 	}
 
-	
 	Create(ctx, cmd, parameterService)
-	
+
 	Delete(ctx, cmd, parameterService)
-	
+
 	List(ctx, cmd, parameterService)
-	
+
 	Update(ctx, cmd, parameterService)
-	
 
 	parent.AddCommand(cmd)
 }

@@ -9,36 +9,31 @@ package snapshots
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
-	
 )
 
 func SnapshotsCmd(ctx context.Context, parent *cobra.Command, snapshotService computeSdk.SnapshotService) {
 	cmd := &cobra.Command{
-		Use:     "snapshots",
-		Short:   "Manage instance snapshots",
-		Long:    `Create, manage, and restore virtual machine snapshots`,
-		
+		Use:   "snapshots",
+		Short: "Manage instance snapshots",
+		Long:  `Create, manage, and restore virtual machine snapshots`,
 	}
 
-	
 	Copy(ctx, cmd, snapshotService)
-	
+
 	Create(ctx, cmd, snapshotService)
-	
+
 	Delete(ctx, cmd, snapshotService)
-	
+
 	Get(ctx, cmd, snapshotService)
-	
+
 	List(ctx, cmd, snapshotService)
-	
+
 	Rename(ctx, cmd, snapshotService)
-	
+
 	Restore(ctx, cmd, snapshotService)
-	
 
 	parent.AddCommand(cmd)
 }

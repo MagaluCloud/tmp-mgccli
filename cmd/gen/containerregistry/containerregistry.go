@@ -9,47 +9,41 @@ package containerregistry
 import (
 	"context"
 
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/credentials"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/images"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/registries"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/repositories"
-	
+
 	"github.com/spf13/cobra"
-	
+
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
-	
+
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
 )
 
 func ContainerregistryCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
-		Use:     "container-registry",
-		Short:   "Manage container registries",
-		Long:    `Create, manage, and control container registries`,
+		Use:   "container-registry",
+		Short: "Manage container registries",
+		Long:  `Create, manage, and control container registries`,
 		Aliases: []string{
 			"cr",
 		},
 		GroupID: "products",
 	}
 
-    
-    containerregistryService := containerregistrySdk.New(&sdkCoreConfig)
-    
+	containerregistryService := containerregistrySdk.New(&sdkCoreConfig)
 
-	
 	credentials.CredentialsCmd(ctx, cmd, containerregistryService.Credentials())
-	
+
 	images.ImagesCmd(ctx, cmd, containerregistryService.Images())
-	
+
 	registries.RegistriesCmd(ctx, cmd, containerregistryService.Registries())
-	
+
 	repositories.RepositoriesCmd(ctx, cmd, containerregistryService.Repositories())
-	
 
 	parent.AddCommand(cmd)
 }

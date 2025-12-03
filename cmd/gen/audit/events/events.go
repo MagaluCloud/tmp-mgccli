@@ -9,24 +9,19 @@ package events
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	auditSdk "github.com/MagaluCloud/mgc-sdk-go/audit"
-	
 )
 
 func EventsCmd(ctx context.Context, parent *cobra.Command, eventService auditSdk.EventService) {
 	cmd := &cobra.Command{
-		Use:     "events",
-		Short:   "Manage audit events",
-		Long:    `List and query audit events for system activity tracking`,
-		
+		Use:   "events",
+		Short: "Manage audit events",
+		Long:  `List and query audit events for system activity tracking`,
 	}
 
-	
 	List(ctx, cmd, eventService)
-	
 
 	parent.AddCommand(cmd)
 }

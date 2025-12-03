@@ -9,34 +9,29 @@ package subnetpools
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
 )
 
 func SubnetPoolsCmd(ctx context.Context, parent *cobra.Command, subnetPoolService networkSdk.SubnetPoolService) {
 	cmd := &cobra.Command{
-		Use:     "subnet-pools",
-		Short:   "Manage subnet pools",
-		Long:    `Create and manage CIDR pools for subnet allocation`,
-		
+		Use:   "subnet-pools",
+		Short: "Manage subnet pools",
+		Long:  `Create and manage CIDR pools for subnet allocation`,
 	}
 
-	
 	BookCIDR(ctx, cmd, subnetPoolService)
-	
+
 	Create(ctx, cmd, subnetPoolService)
-	
+
 	Delete(ctx, cmd, subnetPoolService)
-	
+
 	Get(ctx, cmd, subnetPoolService)
-	
+
 	List(ctx, cmd, subnetPoolService)
-	
+
 	UnbookCIDR(ctx, cmd, subnetPoolService)
-	
 
 	parent.AddCommand(cmd)
 }

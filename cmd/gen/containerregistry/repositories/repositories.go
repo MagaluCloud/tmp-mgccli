@@ -9,28 +9,23 @@ package repositories
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
-	
 )
 
 func RepositoriesCmd(ctx context.Context, parent *cobra.Command, repositoriesService containerregistrySdk.RepositoriesService) {
 	cmd := &cobra.Command{
-		Use:     "repositories",
-		Short:   "Manage container repositories",
-		Long:    `List and manage container image repositories`,
-		
+		Use:   "repositories",
+		Short: "Manage container repositories",
+		Long:  `List and manage container image repositories`,
 	}
 
-	
 	Delete(ctx, cmd, repositoriesService)
-	
+
 	Get(ctx, cmd, repositoriesService)
-	
+
 	List(ctx, cmd, repositoriesService)
-	
 
 	parent.AddCommand(cmd)
 }

@@ -9,32 +9,27 @@ package publicips
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
 )
 
 func PublicIPsCmd(ctx context.Context, parent *cobra.Command, publicIPService networkSdk.PublicIPService) {
 	cmd := &cobra.Command{
-		Use:     "public-ips",
-		Short:   "Manage public IP addresses",
-		Long:    `List, get, and manage public IP addresses and their attachments`,
-		
+		Use:   "public-ips",
+		Short: "Manage public IP addresses",
+		Long:  `List, get, and manage public IP addresses and their attachments`,
 	}
 
-	
 	AttachToPort(ctx, cmd, publicIPService)
-	
+
 	Delete(ctx, cmd, publicIPService)
-	
+
 	DetachFromPort(ctx, cmd, publicIPService)
-	
+
 	Get(ctx, cmd, publicIPService)
-	
+
 	List(ctx, cmd, publicIPService)
-	
 
 	parent.AddCommand(cmd)
 }

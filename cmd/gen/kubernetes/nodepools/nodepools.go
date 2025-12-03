@@ -9,34 +9,29 @@ package nodepools
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
-	
 )
 
 func NodepoolsCmd(ctx context.Context, parent *cobra.Command, nodePoolService kubernetesSdk.NodePoolService) {
 	cmd := &cobra.Command{
-		Use:     "nodepools",
-		Short:   "Manage Kubernetes node pools",
-		Long:    `Create and manage Kubernetes node pools and their nodes`,
-		
+		Use:   "nodepools",
+		Short: "Manage Kubernetes node pools",
+		Long:  `Create and manage Kubernetes node pools and their nodes`,
 	}
 
-	
 	Create(ctx, cmd, nodePoolService)
-	
+
 	Delete(ctx, cmd, nodePoolService)
-	
+
 	Get(ctx, cmd, nodePoolService)
-	
+
 	List(ctx, cmd, nodePoolService)
-	
+
 	Nodes(ctx, cmd, nodePoolService)
-	
+
 	Update(ctx, cmd, nodePoolService)
-	
 
 	parent.AddCommand(cmd)
 }

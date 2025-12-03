@@ -9,26 +9,21 @@ package credentials
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
-	
 )
 
 func CredentialsCmd(ctx context.Context, parent *cobra.Command, credentialsService containerregistrySdk.CredentialsService) {
 	cmd := &cobra.Command{
-		Use:     "credentials",
-		Short:   "Manage container registry credentials",
-		Long:    `Get and manage container registry access credentials`,
-		
+		Use:   "credentials",
+		Short: "Manage container registry credentials",
+		Long:  `Get and manage container registry access credentials`,
 	}
 
-	
 	Get(ctx, cmd, credentialsService)
-	
+
 	ResetPassword(ctx, cmd, credentialsService)
-	
 
 	parent.AddCommand(cmd)
 }

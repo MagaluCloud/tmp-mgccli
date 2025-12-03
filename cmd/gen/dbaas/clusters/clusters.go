@@ -9,38 +9,33 @@ package clusters
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
-	
 )
 
 func ClustersCmd(ctx context.Context, parent *cobra.Command, clusterService dbaasSdk.ClusterService) {
 	cmd := &cobra.Command{
-		Use:     "clusters",
-		Short:   "Manage database clusters",
-		Long:    `Create, manage, and control database clusters`,
-		
+		Use:   "clusters",
+		Short: "Manage database clusters",
+		Long:  `Create, manage, and control database clusters`,
 	}
 
-	
 	Create(ctx, cmd, clusterService)
-	
+
 	Delete(ctx, cmd, clusterService)
-	
+
 	Get(ctx, cmd, clusterService)
-	
+
 	List(ctx, cmd, clusterService)
-	
+
 	Resize(ctx, cmd, clusterService)
-	
+
 	Start(ctx, cmd, clusterService)
-	
+
 	Stop(ctx, cmd, clusterService)
-	
+
 	Update(ctx, cmd, clusterService)
-	
 
 	parent.AddCommand(cmd)
 }

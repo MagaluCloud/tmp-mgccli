@@ -9,32 +9,27 @@ package networkcertificates
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
 )
 
 func NetworkCertificatesCmd(ctx context.Context, parent *cobra.Command, networkCertificateService lbaasSdk.NetworkCertificateService) {
 	cmd := &cobra.Command{
-		Use:     "network-certificates",
-		Short:   "Manage SSL/TLS certificates",
-		Long:    `Create and manage SSL/TLS certificates for load balancers`,
-		
+		Use:   "network-certificates",
+		Short: "Manage SSL/TLS certificates",
+		Long:  `Create and manage SSL/TLS certificates for load balancers`,
 	}
 
-	
 	Create(ctx, cmd, networkCertificateService)
-	
+
 	Delete(ctx, cmd, networkCertificateService)
-	
+
 	Get(ctx, cmd, networkCertificateService)
-	
+
 	List(ctx, cmd, networkCertificateService)
-	
+
 	Update(ctx, cmd, networkCertificateService)
-	
 
 	parent.AddCommand(cmd)
 }

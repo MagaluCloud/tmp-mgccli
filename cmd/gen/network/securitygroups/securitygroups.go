@@ -9,30 +9,25 @@ package securitygroups
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
 )
 
 func SecurityGroupsCmd(ctx context.Context, parent *cobra.Command, securityGroupService networkSdk.SecurityGroupService) {
 	cmd := &cobra.Command{
-		Use:     "security-groups",
-		Short:   "Manage security groups",
-		Long:    `Create and manage network security groups`,
-		
+		Use:   "security-groups",
+		Short: "Manage security groups",
+		Long:  `Create and manage network security groups`,
 	}
 
-	
 	Create(ctx, cmd, securityGroupService)
-	
+
 	Delete(ctx, cmd, securityGroupService)
-	
+
 	Get(ctx, cmd, securityGroupService)
-	
+
 	List(ctx, cmd, securityGroupService)
-	
 
 	parent.AddCommand(cmd)
 }

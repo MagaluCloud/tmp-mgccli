@@ -9,28 +9,23 @@ package images
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
-	
 )
 
 func ImagesCmd(ctx context.Context, parent *cobra.Command, imagesService containerregistrySdk.ImagesService) {
 	cmd := &cobra.Command{
-		Use:     "images",
-		Short:   "Manage container images",
-		Long:    `List, get, and manage container images in repositories`,
-		
+		Use:   "images",
+		Short: "Manage container images",
+		Long:  `List, get, and manage container images in repositories`,
 	}
 
-	
 	Delete(ctx, cmd, imagesService)
-	
+
 	Get(ctx, cmd, imagesService)
-	
+
 	List(ctx, cmd, imagesService)
-	
 
 	parent.AddCommand(cmd)
 }

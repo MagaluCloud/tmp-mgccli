@@ -9,52 +9,47 @@ package instances
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
-	
 )
 
 func InstancesCmd(ctx context.Context, parent *cobra.Command, instanceService dbaasSdk.InstanceService) {
 	cmd := &cobra.Command{
-		Use:     "instances",
-		Short:   "Manage database instances",
-		Long:    `Create, manage, and control database instances and snapshots`,
-		
+		Use:   "instances",
+		Short: "Manage database instances",
+		Long:  `Create, manage, and control database instances and snapshots`,
 	}
 
-	
 	Create(ctx, cmd, instanceService)
-	
+
 	CreateSnapshot(ctx, cmd, instanceService)
-	
+
 	Delete(ctx, cmd, instanceService)
-	
+
 	DeleteSnapshot(ctx, cmd, instanceService)
-	
+
 	Get(ctx, cmd, instanceService)
-	
+
 	GetSnapshot(ctx, cmd, instanceService)
-	
+
 	List(ctx, cmd, instanceService)
-	
+
 	ListAllSnapshots(ctx, cmd, instanceService)
-	
+
 	ListSnapshots(ctx, cmd, instanceService)
-	
+
 	Resize(ctx, cmd, instanceService)
-	
+
 	RestoreSnapshot(ctx, cmd, instanceService)
-	
+
 	Start(ctx, cmd, instanceService)
-	
+
 	Stop(ctx, cmd, instanceService)
-	
+
 	Update(ctx, cmd, instanceService)
-	
+
 	UpdateSnapshot(ctx, cmd, instanceService)
-	
 
 	parent.AddCommand(cmd)
 }

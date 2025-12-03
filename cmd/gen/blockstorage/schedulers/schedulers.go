@@ -9,34 +9,29 @@ package schedulers
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
-	
 )
 
 func SchedulersCmd(ctx context.Context, parent *cobra.Command, schedulerService blockstorageSdk.SchedulerService) {
 	cmd := &cobra.Command{
-		Use:     "schedulers",
-		Short:   "Manage volume schedulers",
-		Long:    `Create and manage volume attachment schedulers`,
-		
+		Use:   "schedulers",
+		Short: "Manage volume schedulers",
+		Long:  `Create and manage volume attachment schedulers`,
 	}
 
-	
 	AttachVolume(ctx, cmd, schedulerService)
-	
+
 	Create(ctx, cmd, schedulerService)
-	
+
 	Delete(ctx, cmd, schedulerService)
-	
+
 	DetachVolume(ctx, cmd, schedulerService)
-	
+
 	Get(ctx, cmd, schedulerService)
-	
+
 	List(ctx, cmd, schedulerService)
-	
 
 	parent.AddCommand(cmd)
 }

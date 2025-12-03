@@ -9,32 +9,27 @@ package parametersgroup
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
-	
 )
 
 func ParametersGroupCmd(ctx context.Context, parent *cobra.Command, parameterGroupService dbaasSdk.ParameterGroupService) {
 	cmd := &cobra.Command{
-		Use:     "parameters-group",
-		Short:   "Manage parameter groups",
-		Long:    `Create and manage database parameter groups`,
-		
+		Use:   "parameters-group",
+		Short: "Manage parameter groups",
+		Long:  `Create and manage database parameter groups`,
 	}
 
-	
 	Create(ctx, cmd, parameterGroupService)
-	
+
 	Delete(ctx, cmd, parameterGroupService)
-	
+
 	Get(ctx, cmd, parameterGroupService)
-	
+
 	List(ctx, cmd, parameterGroupService)
-	
+
 	Update(ctx, cmd, parameterGroupService)
-	
 
 	parent.AddCommand(cmd)
 }

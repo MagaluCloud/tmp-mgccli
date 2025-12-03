@@ -9,59 +9,53 @@ package lbaas
 import (
 	"context"
 
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas/networkacls"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas/networkbackends"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas/networkbackendtargets"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas/networkcertificates"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas/networkhealthchecks"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas/networklisteners"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/lbaas/networkloadbalancers"
-	
+
 	"github.com/spf13/cobra"
-	
+
 	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
+
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
 )
 
 func LbaasCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
-		Use:     "lbaas",
-		Short:   "Manage load balancers",
-		Long:    `Create, configure, and manage load balancers`,
+		Use:   "lbaas",
+		Short: "Manage load balancers",
+		Long:  `Create, configure, and manage load balancers`,
 		Aliases: []string{
 			"load-balancer",
 		},
 		GroupID: "products",
 	}
 
-    
-    lbaasService := lbaasSdk.New(&sdkCoreConfig)
-    
+	lbaasService := lbaasSdk.New(&sdkCoreConfig)
 
-	
 	networkacls.NetworkACLsCmd(ctx, cmd, lbaasService.NetworkACLs())
-	
+
 	networkbackendtargets.NetworkBackendTargetsCmd(ctx, cmd, lbaasService.NetworkBackendTargets())
-	
+
 	networkbackends.NetworkBackendsCmd(ctx, cmd, lbaasService.NetworkBackends())
-	
+
 	networkcertificates.NetworkCertificatesCmd(ctx, cmd, lbaasService.NetworkCertificates())
-	
+
 	networkhealthchecks.NetworkHealthChecksCmd(ctx, cmd, lbaasService.NetworkHealthChecks())
-	
+
 	networklisteners.NetworkListenersCmd(ctx, cmd, lbaasService.NetworkListeners())
-	
+
 	networkloadbalancers.NetworkLoadBalancersCmd(ctx, cmd, lbaasService.NetworkLoadBalancers())
-	
 
 	parent.AddCommand(cmd)
 }

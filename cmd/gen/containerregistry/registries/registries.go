@@ -9,30 +9,25 @@ package registries
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
-	
 )
 
 func RegistriesCmd(ctx context.Context, parent *cobra.Command, registriesService containerregistrySdk.RegistriesService) {
 	cmd := &cobra.Command{
-		Use:     "registries",
-		Short:   "Manage container registries",
-		Long:    `Create, list, and manage container registries`,
-		
+		Use:   "registries",
+		Short: "Manage container registries",
+		Long:  `Create, list, and manage container registries`,
 	}
 
-	
 	Create(ctx, cmd, registriesService)
-	
+
 	Delete(ctx, cmd, registriesService)
-	
+
 	Get(ctx, cmd, registriesService)
-	
+
 	List(ctx, cmd, registriesService)
-	
 
 	parent.AddCommand(cmd)
 }

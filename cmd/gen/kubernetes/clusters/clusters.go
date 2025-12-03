@@ -9,34 +9,29 @@ package clusters
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
-	
 )
 
 func ClustersCmd(ctx context.Context, parent *cobra.Command, clusterService kubernetesSdk.ClusterService) {
 	cmd := &cobra.Command{
-		Use:     "clusters",
-		Short:   "Manage Kubernetes clusters",
-		Long:    `Create, configure, and manage Kubernetes clusters`,
-		
+		Use:   "clusters",
+		Short: "Manage Kubernetes clusters",
+		Long:  `Create, configure, and manage Kubernetes clusters`,
 	}
 
-	
 	Create(ctx, cmd, clusterService)
-	
+
 	Delete(ctx, cmd, clusterService)
-	
+
 	Get(ctx, cmd, clusterService)
-	
+
 	GetKubeConfig(ctx, cmd, clusterService)
-	
+
 	List(ctx, cmd, clusterService)
-	
+
 	Update(ctx, cmd, clusterService)
-	
 
 	parent.AddCommand(cmd)
 }

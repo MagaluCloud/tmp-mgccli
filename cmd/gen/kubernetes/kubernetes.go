@@ -9,47 +9,41 @@ package kubernetes
 import (
 	"context"
 
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/kubernetes/clusters"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/kubernetes/flavors"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/kubernetes/nodepools"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/kubernetes/versions"
-	
+
 	"github.com/spf13/cobra"
-	
+
 	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
-	
+
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
 )
 
 func KubernetesCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
-		Use:     "kubernetes",
-		Short:   "Manage Kubernetes clusters",
-		Long:    `Create, configure, and manage Kubernetes clusters`,
+		Use:   "kubernetes",
+		Short: "Manage Kubernetes clusters",
+		Long:  `Create, configure, and manage Kubernetes clusters`,
 		Aliases: []string{
 			"k8s",
 		},
 		GroupID: "products",
 	}
 
-    
-    kubernetesService := kubernetesSdk.New(&sdkCoreConfig)
-    
+	kubernetesService := kubernetesSdk.New(&sdkCoreConfig)
 
-	
 	clusters.ClustersCmd(ctx, cmd, kubernetesService.Clusters())
-	
+
 	flavors.FlavorsCmd(ctx, cmd, kubernetesService.Flavors())
-	
+
 	nodepools.NodepoolsCmd(ctx, cmd, kubernetesService.Nodepools())
-	
+
 	versions.VersionsCmd(ctx, cmd, kubernetesService.Versions())
-	
 
 	parent.AddCommand(cmd)
 }

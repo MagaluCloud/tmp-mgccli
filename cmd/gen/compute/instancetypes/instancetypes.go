@@ -9,24 +9,19 @@ package instancetypes
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
-	
 )
 
 func InstanceTypesCmd(ctx context.Context, parent *cobra.Command, instanceTypeService computeSdk.InstanceTypeService) {
 	cmd := &cobra.Command{
-		Use:     "instance-types",
-		Short:   "Manage virtual machine instance types",
-		Long:    `List available virtual machine instance types and their specifications`,
-		
+		Use:   "instance-types",
+		Short: "Manage virtual machine instance types",
+		Long:  `List available virtual machine instance types and their specifications`,
 	}
 
-	
 	List(ctx, cmd, instanceTypeService)
-	
 
 	parent.AddCommand(cmd)
 }

@@ -9,32 +9,27 @@ package snapshots
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
-	
 )
 
 func SnapshotsCmd(ctx context.Context, parent *cobra.Command, snapshotService blockstorageSdk.SnapshotService) {
 	cmd := &cobra.Command{
-		Use:     "snapshots",
-		Short:   "Manage volume snapshots",
-		Long:    `Create and manage snapshots of block storage volumes`,
-		
+		Use:   "snapshots",
+		Short: "Manage volume snapshots",
+		Long:  `Create and manage snapshots of block storage volumes`,
 	}
 
-	
 	Create(ctx, cmd, snapshotService)
-	
+
 	Delete(ctx, cmd, snapshotService)
-	
+
 	Get(ctx, cmd, snapshotService)
-	
+
 	List(ctx, cmd, snapshotService)
-	
+
 	Rename(ctx, cmd, snapshotService)
-	
 
 	parent.AddCommand(cmd)
 }

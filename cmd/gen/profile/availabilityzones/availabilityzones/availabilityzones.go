@@ -9,24 +9,19 @@ package availabilityzones
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	availabilityzonesSdk "github.com/MagaluCloud/mgc-sdk-go/availabilityzones"
-	
 )
 
 func AvailabilityZonesCmd(ctx context.Context, parent *cobra.Command, service availabilityzonesSdk.Service) {
 	cmd := &cobra.Command{
-		Use:     "availability-zones",
-		Short:   "Manage availability zones",
-		Long:    `Manage and list availability zones for resource deployment`,
-		
+		Use:   "availability-zones",
+		Short: "Manage availability zones",
+		Long:  `Manage and list availability zones for resource deployment`,
 	}
 
-	
 	List(ctx, cmd, service)
-	
 
 	parent.AddCommand(cmd)
 }

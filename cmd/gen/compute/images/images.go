@@ -9,24 +9,19 @@ package images
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
-	
 )
 
 func ImagesCmd(ctx context.Context, parent *cobra.Command, imageService computeSdk.ImageService) {
 	cmd := &cobra.Command{
-		Use:     "images",
-		Short:   "Manage virtual machine images",
-		Long:    `List and manage virtual machine images available for instance deployment`,
-		
+		Use:   "images",
+		Short: "Manage virtual machine images",
+		Long:  `List and manage virtual machine images available for instance deployment`,
 	}
 
-	
 	List(ctx, cmd, imageService)
-	
 
 	parent.AddCommand(cmd)
 }
