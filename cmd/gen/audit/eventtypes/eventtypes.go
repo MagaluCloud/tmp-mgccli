@@ -9,24 +9,19 @@ package eventtypes
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	auditSdk "github.com/MagaluCloud/mgc-sdk-go/audit"
-	
 )
 
 func EventTypesCmd(ctx context.Context, parent *cobra.Command, eventTypeService auditSdk.EventTypeService) {
 	cmd := &cobra.Command{
-		Use:     "event-types",
-		Short:   "Manage event types",
-		Long:    `List available audit event types`,
-		
+		Use:   "event-types",
+		Short: "Manage event types",
+		Long:  `List available audit event types`,
 	}
 
-	
 	List(ctx, cmd, eventTypeService)
-	
 
 	parent.AddCommand(cmd)
 }

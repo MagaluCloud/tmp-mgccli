@@ -9,63 +9,57 @@ package network
 import (
 	"context"
 
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/network/natgateways"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/network/ports"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/network/publicips"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/network/rules"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/network/securitygroups"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/network/subnetpools"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/network/subnets"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/network/vpcs"
-	
+
 	"github.com/spf13/cobra"
-	
+
 	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
+
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
 )
 
 func NetworkCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
-		Use:     "network",
-		Short:   "Manage virtual private clouds",
-		Long:    `Create, manage, and configure virtual private clouds with subnets, ports, and public IPs`,
+		Use:   "network",
+		Short: "Manage virtual private clouds",
+		Long:  `Create, manage, and configure virtual private clouds with subnets, ports, and public IPs`,
 		Aliases: []string{
-			"networks","net","vpc",
+			"networks", "net", "vpc",
 		},
 		GroupID: "products",
 	}
 
-    
-    networkService := networkSdk.New(&sdkCoreConfig)
-    
+	networkService := networkSdk.New(&sdkCoreConfig)
 
-	
 	natgateways.NatGatewaysCmd(ctx, cmd, networkService.NatGateways())
-	
+
 	ports.PortsCmd(ctx, cmd, networkService.Ports())
-	
+
 	publicips.PublicIPsCmd(ctx, cmd, networkService.PublicIPs())
-	
+
 	rules.RulesCmd(ctx, cmd, networkService.Rules())
-	
+
 	securitygroups.SecurityGroupsCmd(ctx, cmd, networkService.SecurityGroups())
-	
+
 	subnetpools.SubnetPoolsCmd(ctx, cmd, networkService.SubnetPools())
-	
+
 	subnets.SubnetsCmd(ctx, cmd, networkService.Subnets())
-	
+
 	vpcs.VPCsCmd(ctx, cmd, networkService.VPCs())
-	
 
 	parent.AddCommand(cmd)
 }

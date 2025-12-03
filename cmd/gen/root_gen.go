@@ -29,13 +29,11 @@ import (
 	"github.com/spf13/cobra"
 
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-
 )
 
 func RootGen(parent *cobra.Command) {
 
 	sdkCoreConfig := parent.Context().Value(cmdutils.CTX_SDK_KEY).(sdk.CoreClient)
-
 
 	audit.AuditCmd(parent.Context(), parent, sdkCoreConfig)
 

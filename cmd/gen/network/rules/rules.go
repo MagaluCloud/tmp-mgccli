@@ -9,30 +9,25 @@ package rules
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
 )
 
 func RulesCmd(ctx context.Context, parent *cobra.Command, ruleService networkSdk.RuleService) {
 	cmd := &cobra.Command{
-		Use:     "rules",
-		Short:   "Manage security group rules",
-		Long:    `Create and manage firewall rules for security groups`,
-		
+		Use:   "rules",
+		Short: "Manage security group rules",
+		Long:  `Create and manage firewall rules for security groups`,
 	}
 
-	
 	Create(ctx, cmd, ruleService)
-	
+
 	Delete(ctx, cmd, ruleService)
-	
+
 	Get(ctx, cmd, ruleService)
-	
+
 	List(ctx, cmd, ruleService)
-	
 
 	parent.AddCommand(cmd)
 }

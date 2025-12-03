@@ -9,47 +9,41 @@ package compute
 import (
 	"context"
 
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/compute/images"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/compute/instances"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/compute/instancetypes"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/compute/snapshots"
-	
+
 	"github.com/spf13/cobra"
-	
+
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
-	
+
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
 )
 
 func ComputeCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
-		Use:     "virtual-machine",
-		Short:   "Manage virtual machine instances",
-		Long:    `Create, manage, and control virtual machine instances`,
+		Use:   "virtual-machine",
+		Short: "Manage virtual machine instances",
+		Long:  `Create, manage, and control virtual machine instances`,
 		Aliases: []string{
-			"vm","virtual-machines","vms","compute",
+			"vm", "virtual-machines", "vms", "compute",
 		},
 		GroupID: "products",
 	}
 
-    
-    computeService := computeSdk.New(&sdkCoreConfig)
-    
+	computeService := computeSdk.New(&sdkCoreConfig)
 
-	
 	images.ImagesCmd(ctx, cmd, computeService.Images())
-	
+
 	instancetypes.InstanceTypesCmd(ctx, cmd, computeService.InstanceTypes())
-	
+
 	instances.InstancesCmd(ctx, cmd, computeService.Instances())
-	
+
 	snapshots.SnapshotsCmd(ctx, cmd, computeService.Snapshots())
-	
 
 	parent.AddCommand(cmd)
 }

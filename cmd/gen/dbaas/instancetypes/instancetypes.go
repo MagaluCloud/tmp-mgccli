@@ -9,26 +9,21 @@ package instancetypes
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
-	
 )
 
 func InstanceTypesCmd(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasSdk.InstanceTypeService) {
 	cmd := &cobra.Command{
-		Use:     "instance-types",
-		Short:   "Manage database instance types",
-		Long:    `List available database instance types and specifications`,
-		
+		Use:   "instance-types",
+		Short: "Manage database instance types",
+		Long:  `List available database instance types and specifications`,
 	}
 
-	
 	Get(ctx, cmd, instanceTypeService)
-	
+
 	List(ctx, cmd, instanceTypeService)
-	
 
 	parent.AddCommand(cmd)
 }

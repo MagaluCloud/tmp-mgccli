@@ -9,30 +9,25 @@ package natgateways
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
 )
 
 func NatGatewaysCmd(ctx context.Context, parent *cobra.Command, natGatewayService networkSdk.NatGatewayService) {
 	cmd := &cobra.Command{
-		Use:     "nat-gateways",
-		Short:   "Manage NAT gateways",
-		Long:    `Create and manage Network Address Translation gateways`,
-		
+		Use:   "nat-gateways",
+		Short: "Manage NAT gateways",
+		Long:  `Create and manage Network Address Translation gateways`,
 	}
 
-	
 	Create(ctx, cmd, natGatewayService)
-	
+
 	Delete(ctx, cmd, natGatewayService)
-	
+
 	Get(ctx, cmd, natGatewayService)
-	
+
 	List(ctx, cmd, natGatewayService)
-	
 
 	parent.AddCommand(cmd)
 }

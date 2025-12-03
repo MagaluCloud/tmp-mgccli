@@ -9,28 +9,23 @@ package engines
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
-	
 )
 
 func EnginesCmd(ctx context.Context, parent *cobra.Command, engineService dbaasSdk.EngineService) {
 	cmd := &cobra.Command{
-		Use:     "engines",
-		Short:   "Manage database engines",
-		Long:    `List database engines and their parameters`,
-		
+		Use:   "engines",
+		Short: "Manage database engines",
+		Long:  `List database engines and their parameters`,
 	}
 
-	
 	Get(ctx, cmd, engineService)
-	
+
 	List(ctx, cmd, engineService)
-	
+
 	ListEngineParameters(ctx, cmd, engineService)
-	
 
 	parent.AddCommand(cmd)
 }

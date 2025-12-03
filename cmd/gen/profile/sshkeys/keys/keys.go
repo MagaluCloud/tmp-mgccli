@@ -9,30 +9,25 @@ package keys
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	sshkeysSdk "github.com/MagaluCloud/mgc-sdk-go/sshkeys"
-	
 )
 
 func KeysCmd(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.KeyService) {
 	cmd := &cobra.Command{
-		Use:     "keys",
-		Short:   "Manage SSH keys",
-		Long:    `Manage SSH keys for secure server access`,
-		
+		Use:   "keys",
+		Short: "Manage SSH keys",
+		Long:  `Manage SSH keys for secure server access`,
 	}
 
-	
 	Create(ctx, cmd, keyService)
-	
+
 	Delete(ctx, cmd, keyService)
-	
+
 	Get(ctx, cmd, keyService)
-	
+
 	List(ctx, cmd, keyService)
-	
 
 	parent.AddCommand(cmd)
 }

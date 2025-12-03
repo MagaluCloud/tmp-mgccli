@@ -9,28 +9,23 @@ package networkacls
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
 )
 
 func NetworkACLsCmd(ctx context.Context, parent *cobra.Command, networkACLService lbaasSdk.NetworkACLService) {
 	cmd := &cobra.Command{
-		Use:     "network-acls",
-		Short:   "Manage network ACLs",
-		Long:    `Create and manage network access control lists for load balancers`,
-		
+		Use:   "network-acls",
+		Short: "Manage network ACLs",
+		Long:  `Create and manage network access control lists for load balancers`,
 	}
 
-	
 	Create(ctx, cmd, networkACLService)
-	
+
 	Delete(ctx, cmd, networkACLService)
-	
+
 	Replace(ctx, cmd, networkACLService)
-	
 
 	parent.AddCommand(cmd)
 }

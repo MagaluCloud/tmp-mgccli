@@ -9,47 +9,41 @@ package blockstorage
 import (
 	"context"
 
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage/schedulers"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage/snapshots"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage/volumes"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/blockstorage/volumetypes"
-	
+
 	"github.com/spf13/cobra"
-	
+
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
-	
+
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
 )
 
 func BlockstorageCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
-		Use:     "block-storage",
-		Short:   "Manage block storage volumes",
-		Long:    `Create, manage, and attach block storage volumes`,
+		Use:   "block-storage",
+		Short: "Manage block storage volumes",
+		Long:  `Create, manage, and attach block storage volumes`,
 		Aliases: []string{
 			"bs",
 		},
 		GroupID: "products",
 	}
 
-    
-    blockstorageService := blockstorageSdk.New(&sdkCoreConfig)
-    
+	blockstorageService := blockstorageSdk.New(&sdkCoreConfig)
 
-	
 	schedulers.SchedulersCmd(ctx, cmd, blockstorageService.Schedulers())
-	
+
 	snapshots.SnapshotsCmd(ctx, cmd, blockstorageService.Snapshots())
-	
+
 	volumetypes.VolumeTypesCmd(ctx, cmd, blockstorageService.VolumeTypes())
-	
+
 	volumes.VolumesCmd(ctx, cmd, blockstorageService.Volumes())
-	
 
 	parent.AddCommand(cmd)
 }

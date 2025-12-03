@@ -9,34 +9,29 @@ package ports
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
 )
 
 func PortsCmd(ctx context.Context, parent *cobra.Command, portService networkSdk.PortService) {
 	cmd := &cobra.Command{
-		Use:     "ports",
-		Short:   "Manage network ports",
-		Long:    `List, manage, and configure network ports with security groups`,
-		
+		Use:   "ports",
+		Short: "Manage network ports",
+		Long:  `List, manage, and configure network ports with security groups`,
 	}
 
-	
 	AttachSecurityGroup(ctx, cmd, portService)
-	
+
 	Delete(ctx, cmd, portService)
-	
+
 	DetachSecurityGroup(ctx, cmd, portService)
-	
+
 	Get(ctx, cmd, portService)
-	
+
 	List(ctx, cmd, portService)
-	
+
 	Update(ctx, cmd, portService)
-	
 
 	parent.AddCommand(cmd)
 }

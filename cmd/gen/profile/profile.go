@@ -9,33 +9,27 @@ package profile
 import (
 	"context"
 
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/profile/availabilityzones"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/profile/sshkeys"
-	
+
 	"github.com/spf13/cobra"
-	
+
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
 )
 
 func ProfileCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
-		Use:     "profile",
-		Short:   "Manage account settings, including SSH keys and related configurations.",
-		Long:    `Manage account settings, including SSH keys and related configurations.`,
-		
+		Use:   "profile",
+		Short: "Manage account settings, including SSH keys and related configurations.",
+		Long:  `Manage account settings, including SSH keys and related configurations.`,
+
 		GroupID: "settings",
 	}
 
-    
-
-	
 	availabilityzones.AvailabilityzonesCmd(ctx, cmd, sdkCoreConfig)
-	
+
 	sshkeys.SshkeysCmd(ctx, cmd, sdkCoreConfig)
-	
 
 	parent.AddCommand(cmd)
 }

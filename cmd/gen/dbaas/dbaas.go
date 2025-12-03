@@ -9,59 +9,53 @@ package dbaas
 import (
 	"context"
 
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/clusters"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/engines"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/instances"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/instancetypes"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/parameters"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/parametersgroup"
-	
+
 	"github.com/magaluCloud/mgccli/cmd/gen/dbaas/replicas"
-	
+
 	"github.com/spf13/cobra"
-	
+
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
-	
+
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
 )
 
 func DbaasCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
-		Use:     "dbaas",
-		Short:   "Manage database instances and snapshots",
-		Long:    `Create, manage, and control database instances and snapshots`,
+		Use:   "dbaas",
+		Short: "Manage database instances and snapshots",
+		Long:  `Create, manage, and control database instances and snapshots`,
 		Aliases: []string{
-			"db","database",
+			"db", "database",
 		},
 		GroupID: "products",
 	}
 
-    
-    dbaasService := dbaasSdk.New(&sdkCoreConfig)
-    
+	dbaasService := dbaasSdk.New(&sdkCoreConfig)
 
-	
 	clusters.ClustersCmd(ctx, cmd, dbaasService.Clusters())
-	
+
 	engines.EnginesCmd(ctx, cmd, dbaasService.Engines())
-	
+
 	instancetypes.InstanceTypesCmd(ctx, cmd, dbaasService.InstanceTypes())
-	
+
 	instances.InstancesCmd(ctx, cmd, dbaasService.Instances())
-	
+
 	parameters.ParametersCmd(ctx, cmd, dbaasService.Parameters())
-	
+
 	parametersgroup.ParametersGroupCmd(ctx, cmd, dbaasService.ParametersGroup())
-	
+
 	replicas.ReplicasCmd(ctx, cmd, dbaasService.Replicas())
-	
 
 	parent.AddCommand(cmd)
 }

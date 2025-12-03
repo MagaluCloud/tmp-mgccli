@@ -9,32 +9,27 @@ package networklisteners
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
 )
 
 func NetworkListenersCmd(ctx context.Context, parent *cobra.Command, networkListenerService lbaasSdk.NetworkListenerService) {
 	cmd := &cobra.Command{
-		Use:     "network-listeners",
-		Short:   "Manage load balancer listeners",
-		Long:    `Create and manage listeners for load balancers`,
-		
+		Use:   "network-listeners",
+		Short: "Manage load balancer listeners",
+		Long:  `Create and manage listeners for load balancers`,
 	}
 
-	
 	Create(ctx, cmd, networkListenerService)
-	
+
 	Delete(ctx, cmd, networkListenerService)
-	
+
 	Get(ctx, cmd, networkListenerService)
-	
+
 	List(ctx, cmd, networkListenerService)
-	
+
 	Update(ctx, cmd, networkListenerService)
-	
 
 	parent.AddCommand(cmd)
 }

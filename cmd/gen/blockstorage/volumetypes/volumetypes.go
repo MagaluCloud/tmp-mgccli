@@ -9,24 +9,19 @@ package volumetypes
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
-	
 )
 
 func VolumeTypesCmd(ctx context.Context, parent *cobra.Command, volumeTypeService blockstorageSdk.VolumeTypeService) {
 	cmd := &cobra.Command{
-		Use:     "volume-types",
-		Short:   "Manage volume types",
-		Long:    `List available block storage volume types`,
-		
+		Use:   "volume-types",
+		Short: "Manage volume types",
+		Long:  `List available block storage volume types`,
 	}
 
-	
 	List(ctx, cmd, volumeTypeService)
-	
 
 	parent.AddCommand(cmd)
 }

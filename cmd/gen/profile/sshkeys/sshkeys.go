@@ -9,24 +9,19 @@ package sshkeys
 import (
 	"context"
 
-	
 	"github.com/magaluCloud/mgccli/cmd/gen/profile/sshkeys/keys"
-	
+
 	"github.com/spf13/cobra"
-	
+
 	sdk "github.com/MagaluCloud/mgc-sdk-go/client"
-	
+
 	sshkeysSdk "github.com/MagaluCloud/mgc-sdk-go/sshkeys"
-	
 )
 
 func SshkeysCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
-    
-    sshkeysService := sshkeysSdk.New(&sdkCoreConfig)
-    
 
-	
+	sshkeysService := sshkeysSdk.New(&sdkCoreConfig)
+
 	keys.KeysCmd(ctx, parent, sshkeysService.Keys())
-	
 
 }

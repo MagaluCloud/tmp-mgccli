@@ -9,28 +9,23 @@ package networkbackendtargets
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
 )
 
 func NetworkBackendTargetsCmd(ctx context.Context, parent *cobra.Command, networkBackendTargetService lbaasSdk.NetworkBackendTargetService) {
 	cmd := &cobra.Command{
-		Use:     "network-backend-targets",
-		Short:   "Manage backend targets",
-		Long:    `Manage target servers for load balancer backends`,
-		
+		Use:   "network-backend-targets",
+		Short: "Manage backend targets",
+		Long:  `Manage target servers for load balancer backends`,
 	}
 
-	
 	Create(ctx, cmd, networkBackendTargetService)
-	
+
 	Delete(ctx, cmd, networkBackendTargetService)
-	
+
 	Replace(ctx, cmd, networkBackendTargetService)
-	
 
 	parent.AddCommand(cmd)
 }

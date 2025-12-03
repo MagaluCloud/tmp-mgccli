@@ -9,48 +9,43 @@ package instances
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
-	
 )
 
 func InstancesCmd(ctx context.Context, parent *cobra.Command, instanceService computeSdk.InstanceService) {
 	cmd := &cobra.Command{
-		Use:     "instances",
-		Short:   "Manage virtual machine instances",
-		Long:    `Create, manage, and control virtual machine instances`,
-		
+		Use:   "instances",
+		Short: "Manage virtual machine instances",
+		Long:  `Create, manage, and control virtual machine instances`,
 	}
 
-	
 	AttachNetworkInterface(ctx, cmd, instanceService)
-	
+
 	Create(ctx, cmd, instanceService)
-	
+
 	Delete(ctx, cmd, instanceService)
-	
+
 	DetachNetworkInterface(ctx, cmd, instanceService)
-	
+
 	Get(ctx, cmd, instanceService)
-	
+
 	GetFirstWindowsPassword(ctx, cmd, instanceService)
-	
+
 	InitLog(ctx, cmd, instanceService)
-	
+
 	List(ctx, cmd, instanceService)
-	
+
 	Rename(ctx, cmd, instanceService)
-	
+
 	Retype(ctx, cmd, instanceService)
-	
+
 	Start(ctx, cmd, instanceService)
-	
+
 	Stop(ctx, cmd, instanceService)
-	
+
 	Suspend(ctx, cmd, instanceService)
-	
 
 	parent.AddCommand(cmd)
 }

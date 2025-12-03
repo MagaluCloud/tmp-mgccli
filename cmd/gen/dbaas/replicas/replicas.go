@@ -9,36 +9,31 @@ package replicas
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
-	
 )
 
 func ReplicasCmd(ctx context.Context, parent *cobra.Command, replicaService dbaasSdk.ReplicaService) {
 	cmd := &cobra.Command{
-		Use:     "replicas",
-		Short:   "Manage database replicas",
-		Long:    `Create and manage database read replicas`,
-		
+		Use:   "replicas",
+		Short: "Manage database replicas",
+		Long:  `Create and manage database read replicas`,
 	}
 
-	
 	Create(ctx, cmd, replicaService)
-	
+
 	Delete(ctx, cmd, replicaService)
-	
+
 	Get(ctx, cmd, replicaService)
-	
+
 	List(ctx, cmd, replicaService)
-	
+
 	Resize(ctx, cmd, replicaService)
-	
+
 	Start(ctx, cmd, replicaService)
-	
+
 	Stop(ctx, cmd, replicaService)
-	
 
 	parent.AddCommand(cmd)
 }

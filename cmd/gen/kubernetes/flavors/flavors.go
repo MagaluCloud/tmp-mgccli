@@ -9,24 +9,19 @@ package flavors
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
-	
 )
 
 func FlavorsCmd(ctx context.Context, parent *cobra.Command, flavorService kubernetesSdk.FlavorService) {
 	cmd := &cobra.Command{
-		Use:     "flavors",
-		Short:   "Manage Kubernetes flavors",
-		Long:    `List available Kubernetes cluster flavors and configurations`,
-		
+		Use:   "flavors",
+		Short: "Manage Kubernetes flavors",
+		Long:  `List available Kubernetes cluster flavors and configurations`,
 	}
 
-	
 	List(ctx, cmd, flavorService)
-	
 
 	parent.AddCommand(cmd)
 }

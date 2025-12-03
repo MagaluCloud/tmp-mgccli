@@ -9,28 +9,23 @@ package subnets
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	networkSdk "github.com/MagaluCloud/mgc-sdk-go/network"
-	
 )
 
 func SubnetsCmd(ctx context.Context, parent *cobra.Command, subnetService networkSdk.SubnetService) {
 	cmd := &cobra.Command{
-		Use:     "subnets",
-		Short:   "Manage network subnets",
-		Long:    `Get, update, and delete network subnets`,
-		
+		Use:   "subnets",
+		Short: "Manage network subnets",
+		Long:  `Get, update, and delete network subnets`,
 	}
 
-	
 	Delete(ctx, cmd, subnetService)
-	
+
 	Get(ctx, cmd, subnetService)
-	
+
 	Update(ctx, cmd, subnetService)
-	
 
 	parent.AddCommand(cmd)
 }

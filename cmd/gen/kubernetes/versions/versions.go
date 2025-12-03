@@ -9,24 +9,19 @@ package versions
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
-	
 )
 
 func VersionsCmd(ctx context.Context, parent *cobra.Command, versionService kubernetesSdk.VersionService) {
 	cmd := &cobra.Command{
-		Use:     "versions",
-		Short:   "Manage Kubernetes versions",
-		Long:    `List available Kubernetes versions for cluster deployment`,
-		
+		Use:   "versions",
+		Short: "Manage Kubernetes versions",
+		Long:  `List available Kubernetes versions for cluster deployment`,
 	}
 
-	
 	List(ctx, cmd, versionService)
-	
 
 	parent.AddCommand(cmd)
 }

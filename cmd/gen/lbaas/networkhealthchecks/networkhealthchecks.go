@@ -9,32 +9,27 @@ package networkhealthchecks
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	lbaasSdk "github.com/MagaluCloud/mgc-sdk-go/lbaas"
-	
 )
 
 func NetworkHealthChecksCmd(ctx context.Context, parent *cobra.Command, networkHealthCheckService lbaasSdk.NetworkHealthCheckService) {
 	cmd := &cobra.Command{
-		Use:     "network-health-checks",
-		Short:   "Manage health checks",
-		Long:    `Configure and manage health check monitors for load balancers`,
-		
+		Use:   "network-health-checks",
+		Short: "Manage health checks",
+		Long:  `Configure and manage health check monitors for load balancers`,
 	}
 
-	
 	Create(ctx, cmd, networkHealthCheckService)
-	
+
 	Delete(ctx, cmd, networkHealthCheckService)
-	
+
 	Get(ctx, cmd, networkHealthCheckService)
-	
+
 	List(ctx, cmd, networkHealthCheckService)
-	
+
 	Update(ctx, cmd, networkHealthCheckService)
-	
 
 	parent.AddCommand(cmd)
 }

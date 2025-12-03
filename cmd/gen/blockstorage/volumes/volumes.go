@@ -9,40 +9,35 @@ package volumes
 import (
 	"context"
 
-	
 	"github.com/spf13/cobra"
-	
+
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
-	
 )
 
 func VolumesCmd(ctx context.Context, parent *cobra.Command, volumeService blockstorageSdk.VolumeService) {
 	cmd := &cobra.Command{
-		Use:     "volumes",
-		Short:   "Manage block storage volumes",
-		Long:    `Create, manage, and attach block storage volumes`,
-		
+		Use:   "volumes",
+		Short: "Manage block storage volumes",
+		Long:  `Create, manage, and attach block storage volumes`,
 	}
 
-	
 	Attach(ctx, cmd, volumeService)
-	
+
 	Create(ctx, cmd, volumeService)
-	
+
 	Delete(ctx, cmd, volumeService)
-	
+
 	Detach(ctx, cmd, volumeService)
-	
+
 	Extend(ctx, cmd, volumeService)
-	
+
 	Get(ctx, cmd, volumeService)
-	
+
 	List(ctx, cmd, volumeService)
-	
+
 	Rename(ctx, cmd, volumeService)
-	
+
 	Retype(ctx, cmd, volumeService)
-	
 
 	parent.AddCommand(cmd)
 }
