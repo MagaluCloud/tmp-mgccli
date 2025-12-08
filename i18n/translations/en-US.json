@@ -50,8 +50,8 @@
     "cli.i18n.set.note_1": "1. Define the CLI_LANG environment variable:",
     "cli.i18n.set.note_2": "   export CLI_LANG=%s\n",
     "cli.i18n.set.note_3": "2. Use the --lang flag in each command:",
-    "cli.i18n.set.note_4": "   cli --lang=%s [command]\n"
-
-
+    "cli.i18n.set.note_4": "   cli --lang=%s [command]\n",
+    "cli.auth.short": "Actions with ID Magalu to log in, API Keys, refresh tokens, change tenants and others",
+    "cli.auth.long": "The authentication credentials set here will be used as a basis for a variety of HTTP requests using the MgcSDK. Authentication is done via Magalu Cloud account (Object Storage requires special keys, refer to it for more info)"
   }
-} 
+}

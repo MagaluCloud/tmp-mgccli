@@ -21,6 +21,8 @@ func SnapshotsCmd(ctx context.Context, parent *cobra.Command, snapshotService bl
 		Long:  `Create and manage snapshots of block storage volumes`,
 	}
 
+	Copy(ctx, cmd, snapshotService)
+
 	Create(ctx, cmd, snapshotService)
 
 	Delete(ctx, cmd, snapshotService)

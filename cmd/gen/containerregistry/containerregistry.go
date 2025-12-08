@@ -13,6 +13,8 @@ import (
 
 	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/images"
 
+	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/proxycaches"
+
 	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/registries"
 
 	"github.com/magaluCloud/mgccli/cmd/gen/containerregistry/repositories"
@@ -40,6 +42,8 @@ func ContainerregistryCmd(ctx context.Context, parent *cobra.Command, sdkCoreCon
 	credentials.CredentialsCmd(ctx, cmd, containerregistryService.Credentials())
 
 	images.ImagesCmd(ctx, cmd, containerregistryService.Images())
+
+	proxycaches.ProxyCachesCmd(ctx, cmd, containerregistryService.ProxyCaches())
 
 	registries.RegistriesCmd(ctx, cmd, containerregistryService.Registries())
 
