@@ -39,7 +39,7 @@ func (s *Service) Login(ctx context.Context, opts LoginOptions) (*TokenResponse,
 	}
 
 	if opts.Headless {
-		return s.headlessLogin(ctx)
+		return s.headlessLogin(ctx, opts.Show)
 	}
 
 	return s.browserLogin(ctx, opts.Show)
@@ -138,9 +138,50 @@ func (s *Service) browserLogin(ctx context.Context, showToken bool) (*TokenRespo
 }
 
 // headlessLogin executa o fluxo de login sem abrir navegador
-// TODO: Implementar fluxo headless (device flow)
-func (s *Service) headlessLogin(ctx context.Context) (*TokenResponse, error) {
-	return nil, fmt.Errorf("headless login not implemented yet")
+func (s *Service) headlessLogin(ctx context.Context, showToken bool) (*TokenResponse, error) {
+	// Criar cliente OAuth
+	client, err := NewOAuthClient(s.config)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create OAuth client: %w", err)
+	}
+
+	// Construir URL de autenticação
+	authURL, err := client.BuildAuthURL()
+	if err != nil {
+		return nil, fmt.Errorf("failed to build auth URL: %w", err)
+	}
+
+	fmt.Print(authURL.String() + "\n\n")
+
+	var responseUrl string
+	fmt.Println("Insira a URL de resposta:")
+	_, _ = fmt.Scanln(&responseUrl)
+
+	url, err := url.Parse(responseUrl)
+	if err != nil {
+		return nil, err
+	}
+
+	authCode := url.Query().Get("code")
+	if authCode == "" {
+		return nil, fmt.Errorf("invalid response URL")
+	}
+
+	// Trocar código por token
+	token, err := client.ExchangeCodeForToken(ctx, authCode)
+	if err != nil {
+		return nil, err
+	}
+
+	// Exibir token se solicitado
+	if showToken && token != nil {
+		fmt.Printf("\nAccess Token: %s\n", token.AccessToken)
+		if token.RefreshToken != "" {
+			fmt.Printf("Refresh Token: %s\n", token.RefreshToken)
+		}
+	}
+
+	return token, nil
 }
 
 // qrCodeLogin executa o fluxo de login exibindo um QR code

@@ -1,5 +1,5 @@
-github.com/MagaluCloud/mgc-sdk-go v1.0.0 h1:Zfpzy7OxbAmHdr3v4yvolEJ0OmAGN0r6L2Rs5cxiIls=
-github.com/MagaluCloud/mgc-sdk-go v1.0.0/go.mod h1:kNVX4v1CBlkIcKxnzNcQ0jgs5Awu3Vk0Bd+vaG7GvUs=
+github.com/MagaluCloud/mgc-sdk-go v1.2.1 h1:/zeS03kplbJ/HgUCaLaXuyeOzpYXnKi4bd4q4fKirGc=
+github.com/MagaluCloud/mgc-sdk-go v1.2.1/go.mod h1:kNVX4v1CBlkIcKxnzNcQ0jgs5Awu3Vk0Bd+vaG7GvUs=
 github.com/MakeNowJust/heredoc v1.0.0 h1:cXCdzVdstXyiTqTvfqk9SDHpKNjxuom+DOlyEeQ4pzQ=
 github.com/MakeNowJust/heredoc v1.0.0/go.mod h1:mG5amYoWBHf8vpLOuehzbGGw0EHxpZZ6lCpQ4fNJ8LE=
 github.com/atotto/clipboard v0.1.4 h1:EH0zSVneZPSuFR11BlR9YppQTVDbh5+16AmcJi4g1z4=
