@@ -41,6 +41,8 @@ type Auth interface {
 
 	ValidateToken() error
 	RefreshToken(ctx context.Context) error
+
+	Logout() error
 }
 
 type authValue struct {
@@ -116,7 +118,7 @@ func (a *authValue) SetAccessKeyID(key string) error {
 	return a.Write()
 }
 
-func (a *authValue) Logout(name string) error {
+func (a *authValue) Logout() error {
 	a.SetAccessToken("")
 	a.SetRefreshToken("")
 	a.SetSecretAccessKey("")
@@ -129,6 +131,12 @@ func (a *authValue) Write() error {
 	if err != nil {
 		return err
 	}
+
+	err = os.MkdirAll(a.workspace.Dir(), 0744)
+	if err != nil {
+		return err
+	}
+
 	err = os.WriteFile(path.Join(a.workspace.Dir(), "auth.yaml"), data, 0644)
 	if err != nil {
 		return err

@@ -52,6 +52,8 @@
     "cli.i18n.set.note_3": "2. Usar la bandera --lang en cada comando:",
     "cli.i18n.set.note_4": "   cli --lang=%s [comando]\n",
     "cli.auth.short": "Acciones con ID Magalu para iniciar sesión, administrar claves API, actualizar tokens, cambiar tenants y otras operaciones",
-    "cli.auth.long": "Las credenciales de autenticación configuradas aquí se utilizarán como base para diversas solicitudes HTTP realizadas con el MgcSDK. La autenticación se realiza mediante una cuenta de Magalu Cloud (Object Storage requiere claves especiales; consulte su documentación para más información)"
+    "cli.auth.long": "Las credenciales de autenticación configuradas aquí se utilizarán como base para diversas solicitudes HTTP realizadas con el MgcSDK. La autenticación se realiza mediante una cuenta de Magalu Cloud (Object Storage requiere claves especiales; consulte su documentación para más información)",
+    "cli.auth.logout.short": "Cerrar la sesión actual",
+    "cli.auth.logout.long": "Finaliza la sesión actual eliminando el token utilizado por Magalu Cloud para la autenticación"
   }
 }

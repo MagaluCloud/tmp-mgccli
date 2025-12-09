@@ -20,6 +20,7 @@ func AuthCmd(parent *cobra.Command) {
 
 	// Adicionar subcomandos
 	cmd.AddCommand(NewLoginCommand(parent.Context()))
+	cmd.AddCommand(NewLogoutCommand(parent.Context()))
 
 	parent.AddCommand(cmd)
 }
