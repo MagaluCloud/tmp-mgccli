@@ -54,6 +54,8 @@
     "cli.auth.short": "Acciones con ID Magalu para iniciar sesión, administrar claves API, actualizar tokens, cambiar tenants y otras operaciones",
     "cli.auth.long": "Las credenciales de autenticación configuradas aquí se utilizarán como base para diversas solicitudes HTTP realizadas con el MgcSDK. La autenticación se realiza mediante una cuenta de Magalu Cloud (Object Storage requiere claves especiales; consulte su documentación para más información)",
     "cli.auth.logout.short": "Cerrar la sesión actual",
-    "cli.auth.logout.long": "Finaliza la sesión actual eliminando el token utilizado por Magalu Cloud para la autenticación"
+    "cli.auth.logout.long": "Finaliza la sesión actual eliminando el token utilizado por Magalu Cloud para la autenticación",
+    "cli.auth.access_token.short": "Recupera el token de acceso utilizado en las APIs",
+    "cli.auth.access_token.long": "Recupera el token de acceso utilizado en las APIs, valida su vigencia actual y realiza la renovación automática (refresh) cuando sea necesario, garantizando que el token devuelto esté siempre actualizado y listo para su uso"
   }
 }
