@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"runtime"
@@ -147,6 +148,18 @@ func beautifulPrint(cmd *cobra.Command) {
 			usageText := color.New(color.FgWhite)
 			usageText.Printf("%s", cmd.UseLine())
 			fmt.Println()
+		}
+
+		// Atalhos
+		if len(cmd.Aliases) > 0 {
+			fmt.Println()
+
+			aliasHeader := color.New(color.FgMagenta, color.Bold)
+			aliasHeader.Println(manager.T("cli.aliases") + ":")
+
+			aliasLine := color.New(color.FgWhite)
+			aliases := append([]string{cmd.Name()}, cmd.Aliases...)
+			aliasLine.Printf("  %s\n", strings.Join(aliases, ", "))
 		}
 
 		// Comandos disponíveis organizados por grupos

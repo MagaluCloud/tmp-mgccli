@@ -14,13 +14,13 @@ func AuthCmd(parent *cobra.Command) {
 		Use:     "auth",
 		Short:   manager.T("cli.auth.short"),
 		Long:    manager.T("cli.auth.long"),
-		Aliases: []string{"auth"},
 		GroupID: "settings",
 	}
 
 	// Adicionar subcomandos
 	cmd.AddCommand(NewLoginCommand(parent.Context()))
 	cmd.AddCommand(NewLogoutCommand(parent.Context()))
+	cmd.AddCommand(NewAccessTokenCommand(parent.Context()))
 
 	parent.AddCommand(cmd)
 }
