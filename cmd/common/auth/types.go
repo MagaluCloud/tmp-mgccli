@@ -2,6 +2,7 @@ package auth
 
 import (
 	"context"
+	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -46,4 +47,33 @@ type TemplateData struct {
 	Title            string
 	Lines            []string
 	ErrorDescription string
+}
+
+// Tenant representa as informações de um tenant
+type Tenant struct {
+	UUID        string `json:"uuid"`
+	Name        string `json:"legal_name"`
+	Email       string `json:"email"`
+	IsManaged   bool   `json:"is_managed"`
+	IsDelegated bool   `json:"is_delegated"`
+}
+
+// TenantResult representa o retorno da alteração do tenant
+type TenantResult struct {
+	AccessToken  string `json:"access_token"`
+	CreatedAt    int    `json:"created_at"`
+	ExpiresIn    int    `json:"expires_in"`
+	IDToken      string `json:"id_token"`
+	RefreshToken string `json:"refresh_token"`
+	Scope        string `json:"scope"`
+	TokenType    string `json:"scope_type"`
+}
+
+// TokenExchangeResult representa o resultado da troca de token
+type TokenExchangeResult struct {
+	TenantID     string    `json:"uuid"`
+	CreatedAt    time.Time `json:"created_at"`
+	AccessToken  string    `json:"access_token"`
+	RefreshToken string    `json:"refresh_token"`
+	Scope        []string  `json:"scope"`
 }

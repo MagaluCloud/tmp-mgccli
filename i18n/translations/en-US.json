@@ -56,6 +56,17 @@
     "cli.auth.logout.short": "End the current session",
     "cli.auth.logout.long": "Ends the current session by removing the token used by Magalu Cloud for authentication",
     "cli.auth.access_token.short": "Retrieve the access token used in the APIs",
-    "cli.auth.access_token.long": "Retrieves the access token used in the APIs, validates its current status, and automatically refreshes it when needed, ensuring the returned token is always up-to-date and ready for use"
+    "cli.auth.access_token.long": "Retrieves the access token used in the APIs, validates its current status, and automatically refreshes it when needed, ensuring the returned token is always up-to-date and ready for use",
+    "cli.auth.tenant.short": "Manage tenants",
+    "cli.auth.tenant.long": "Tenants work like sub-accounts. You may have more than one Tenant under your Magalu Cloud account and they each store their data separately, but are billed under the same account",
+    "cli.auth.tenant.current.short": "Get the currently active tenant",
+    "cli.auth.tenant.current.long": "The active tenant is used for all HTTP requests sent to Magalu Cloud",
+    "cli.auth.tenant.list.short": "List all available tenants for the current login",
+    "cli.auth.tenant.list.long": "Returns a list of all tenants available for the current login, including UUID, name, email, management status (isManaged), and delegation status (isDelegated)",
+    "cli.auth.tenant.set.short": "Set the active tenant to be used for all subsequent requests",
+    "cli.auth.tenant.set.long": "Sets the active tenant for all subsequent requests by providing the desired tenant's UUID",
+    "cli.auth.tenant.set.observation": "If you have an API Key set, changing the tenant will unset it",
+    "cli.auth.tenant.select.short": "Interactively list, select, and set the active tenant",
+    "cli.auth.tenant.select.long": "Runs an interactive flow that lists available tenants, prompts the user to select one, and then sets the chosen tenant as active"
   }
 }

@@ -27,6 +27,9 @@ import (
 	"github.com/spf13/pflag"
 )
 
+const red = "\033[31m"
+const reset = "\033[0m"
+
 func RootCmd(ctx context.Context, version string, args cmdutils.ArgsParser) *cobra.Command {
 	manager := i18n.GetInstance()
 
@@ -212,6 +215,23 @@ func beautifulPrint(cmd *cobra.Command) {
 				}
 			}
 		}
+
+		// Flags obrigatórias
+		cmd.Flags().VisitAll(func(flag *pflag.Flag) {
+			usage := flag.Usage
+
+			containsRequiredText := strings.Contains(usage, "(required)")
+
+			if isFlagRequired(flag) && !containsRequiredText {
+				flag.Usage = fmt.Sprintf("%s %s(required)%s", usage, red, reset)
+			} else if containsRequiredText {
+				flag.Usage = strings.ReplaceAll(
+					usage,
+					"(required)",
+					fmt.Sprintf("%s(required)%s", red, reset),
+				)
+			}
+		})
 
 		// Flags locais
 		if cmd.HasAvailableLocalFlags() {
@@ -399,4 +419,10 @@ func helpTemplate() string {
 	return `{{with (or .Long .Short)}}{{. | trimTrailingWhitespaces}}
 
 {{end}}{{if or .Runnable .HasSubCommands}}{{.UsageString}}{{end}}`
+}
+
+func isFlagRequired(flag *pflag.Flag) bool {
+	req, found := flag.Annotations[cobra.BashCompOneRequiredFlag]
+
+	return found && len(req) > 0 && req[0] == "true"
 }

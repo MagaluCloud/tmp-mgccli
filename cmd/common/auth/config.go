@@ -19,8 +19,10 @@ type Config struct {
 	Timeout    time.Duration
 
 	// External Links
-	TermsURL   string
-	PrivacyURL string
+	TermsURL         string
+	PrivacyURL       string
+	TenantsListURL   string
+	TokenExchangeURL string
 }
 
 // DefaultConfig retorna a configuração padrão para autenticação
@@ -40,10 +42,12 @@ func DefaultConfig() *Config {
 			"lba.loadbalancer.write", "gdb:azs-r", "lbaas.read", "lbaas.write",
 			"iam:read", "iam:write",
 		},
-		ListenAddr: getListenAddr(),
-		Timeout:    500 * time.Millisecond,
-		TermsURL:   "https://magalu.cloud/termos-legais/termos-de-uso-magalu-cloud/",
-		PrivacyURL: "https://magalu.cloud/termos-legais/politica-de-privacidade/",
+		ListenAddr:       getListenAddr(),
+		Timeout:          500 * time.Millisecond,
+		TermsURL:         "https://magalu.cloud/termos-legais/termos-de-uso-magalu-cloud/",
+		PrivacyURL:       "https://magalu.cloud/termos-legais/politica-de-privacidade/",
+		TenantsListURL:   "https://id.magalu.com/account/api/v2/whoami/tenants",
+		TokenExchangeURL: "https://id.magalu.com/oauth/token/exchange",
 	}
 }
 
