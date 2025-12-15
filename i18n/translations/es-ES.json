@@ -56,6 +56,17 @@
     "cli.auth.logout.short": "Cerrar la sesión actual",
     "cli.auth.logout.long": "Finaliza la sesión actual eliminando el token utilizado por Magalu Cloud para la autenticación",
     "cli.auth.access_token.short": "Recupera el token de acceso utilizado en las APIs",
-    "cli.auth.access_token.long": "Recupera el token de acceso utilizado en las APIs, valida su vigencia actual y realiza la renovación automática (refresh) cuando sea necesario, garantizando que el token devuelto esté siempre actualizado y listo para su uso"
+    "cli.auth.access_token.long": "Recupera el token de acceso utilizado en las APIs, valida su vigencia actual y realiza la renovación automática (refresh) cuando sea necesario, garantizando que el token devuelto esté siempre actualizado y listo para su uso",
+    "cli.auth.tenant.short": "Gestionar tenants",
+    "cli.auth.tenant.long": "Los tenants funcionan como subcuentas. Puedes tener más de un tenant dentro de tu cuenta de Magalu Cloud, y cada uno almacena sus datos por separado, pero todos se facturan en la misma cuenta",
+    "cli.auth.tenant.current.short": "Obtener el tenant actualmente activo",
+    "cli.auth.tenant.current.long": "El tenant activo se utiliza en todas las solicitudes HTTP enviadas a Magalu Cloud",
+    "cli.auth.tenant.list.short": "Listar todos los tenants disponibles para el inicio de sesión actual",
+    "cli.auth.tenant.list.long": "Devuelve una lista de todos los tenants disponibles para el inicio de sesión actual, incluyendo UUID, nombre, correo electrónico, estado de gestión (isManaged) y estado de delegación (isDelegated)",
+    "cli.auth.tenant.set.short": "Establecer el tenant activo para ser usado en todas las solicitudes posteriores",
+    "cli.auth.tenant.set.long": "Establece el tenant activo para todas las solicitudes posteriores proporcionando el UUID del tenant deseado",
+    "cli.auth.tenant.set.observation": "Si tienes una API Key configurada, cambiar el tenant la desactivará",
+    "cli.auth.tenant.select.short": "Listar, seleccionar interactivamente y establecer el tenant activo",
+    "cli.auth.tenant.select.long": "Ejecuta un flujo interactivo que lista los tenants disponibles, solicita al usuario que elija uno y luego establece el tenant seleccionado como activo"
   }
 }

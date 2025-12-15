@@ -56,6 +56,17 @@
     "cli.auth.logout.short": "Encerrar a sessão atual",
     "cli.auth.logout.long": "Finaliza a sessão atual removendo o token usado pela Magalu Cloud para autenticação",
     "cli.auth.access_token.short": "Recuperar o token de acesso usado nas APIs",
-    "cli.auth.access_token.long": "Recupera o token de acesso utilizado nas APIs, valida sua validade atual e realiza a renovação automática (refresh) quando necessário, garantindo que o token retornado esteja sempre atualizado e pronto para uso"
+    "cli.auth.access_token.long": "Recupera o token de acesso utilizado nas APIs, valida sua validade atual e realiza a renovação automática (refresh) quando necessário, garantindo que o token retornado esteja sempre atualizado e pronto para uso",
+    "cli.auth.tenant.short": "Gerenciar tenants",
+    "cli.auth.tenant.long": "Tenants funcionam como subcontas. Você pode ter mais de um tenant dentro da sua conta Magalu Cloud, e cada um armazena seus dados separadamente, mas todos são faturados na mesma conta",
+    "cli.auth.tenant.current.short": "Obter o tenant ativo",
+    "cli.auth.tenant.current.long": "O tenant ativo é utilizado em todas as requisições HTTP feitas à Magalu Cloud",
+    "cli.auth.tenant.list.short": "Listar todos os tenants disponíveis para o login atual",
+    "cli.auth.tenant.list.long": "Retorna uma lista de todos os tenants disponíveis no login atual, incluindo UUID, nome, e-mail, indicadores de gerenciamento (isManaged) e delegação (isDelegated)",
+    "cli.auth.tenant.set.short": "Definir o tenant ativo para ser usado em todas as próximas requisições",
+    "cli.auth.tenant.set.long": "Define o tenant ativo para todas as requisições subsequentes, especificando o UUID do tenant desejado",
+    "cli.auth.tenant.set.observation": "Se você tiver uma API Key configurada, alterar o tenant irá removê-la",
+    "cli.auth.tenant.select.short": "Listar, selecionar interativamente e definir o tenant ativo",
+    "cli.auth.tenant.select.long": "Executa um fluxo interativo que lista os tenants disponíveis, solicita ao usuário que escolha um deles e então define o tenant selecionado como ativo"
   }
 }

@@ -1,7 +1,11 @@
 package cmdutils
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
+	"mime"
+	"net/http"
 	"strings"
 
 	clientSDK "github.com/MagaluCloud/mgc-sdk-go/client"
@@ -51,15 +55,32 @@ type HttpErrorResponse struct {
 	URL        string
 	RequestID  string
 	MgcTraceID string
+	Payload    []byte
+	Message    string // MGC reports this in the json body
+	Slug       string // MGC reports this in the json body
+
+}
+
+type IdentifiableHttpError struct {
+	*HttpErrorResponse
+	RequestID string `json:"requestID"`
+}
+
+type BaseApiError struct {
+	Message string `json:"message"`
+	Slug    string `json:"slug"`
 }
 
 func (e HttpErrorResponse) String() string {
-	return fmt.Sprintf("HTTP Error:\n  Status: %s\n  Body: %s\n  URL: %s\n  Request ID: %s\n  MGC Trace ID: %s",
+	return fmt.Sprintf("\nHTTP Error:\n  Status: %s\n  Body: %s\n  URL: %s\n  Request ID: %s\n  MGC Trace ID: %s\n  Message: %s\n  Slug: %s\n  Payload: %s",
 		e.Status,
 		e.Body,
 		e.URL,
 		e.RequestID,
 		e.MgcTraceID,
+		e.Message,
+		e.Slug,
+		e.Payload,
 	)
 }
 
@@ -137,4 +158,61 @@ func ParseSDKError(err error) (msg, detail string) {
 	default:
 		return simpleGenericError, err.Error()
 	}
+}
+
+func NewHttpErrorFromResponse(resp *http.Response, req *http.Request) *IdentifiableHttpError {
+	slug := "unknown"
+	message := resp.Status
+
+	defer resp.Body.Close()
+	payload, _ := io.ReadAll(resp.Body)
+
+	contentType, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+	if err != nil {
+		fmt.Println(
+			"ignored invalid response",
+			"Content-Type:", resp.Header.Get("Content-Type"),
+			"error:", err.Error(),
+		)
+	}
+	if contentType == "application/json" {
+		data := BaseApiError{}
+		if err := json.Unmarshal(payload, &data); err == nil {
+			if data.Message != "" {
+				message = data.Message
+			}
+			if data.Slug != "" {
+				slug = data.Slug
+			}
+		}
+	}
+
+	body, _ := io.ReadAll(resp.Body)
+
+	httpError := &HttpErrorResponse{
+		Body:    string(body),
+		URL:     req.URL.String(),
+		Status:  resp.Status,
+		Payload: payload,
+		Message: message,
+		Slug:    slug,
+	}
+
+	return NewIdentifiableHttpError(httpError, req, resp)
+}
+
+func NewIdentifiableHttpError(httpError *HttpErrorResponse, request *http.Request, response *http.Response) *IdentifiableHttpError {
+	a := IdentifiableHttpError{
+		HttpErrorResponse: httpError,
+	}
+	if response != nil {
+		if id := response.Header.Get("X-Request-Id"); id != "" {
+			a.RequestID = id
+		}
+		if id := response.Header.Get("X-Mgc-Trace-Id"); id != "" {
+			a.MgcTraceID = id
+		}
+	}
+
+	return &a
 }
