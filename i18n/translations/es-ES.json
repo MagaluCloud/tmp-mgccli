@@ -67,6 +67,23 @@
     "cli.auth.tenant.set.long": "Establece el tenant activo para todas las solicitudes posteriores proporcionando el UUID del tenant deseado",
     "cli.auth.tenant.set.observation": "Si tienes una API Key configurada, cambiar el tenant la desactivará",
     "cli.auth.tenant.select.short": "Listar, seleccionar interactivamente y establecer el tenant activo",
-    "cli.auth.tenant.select.long": "Ejecuta un flujo interactivo que lista los tenants disponibles, solicita al usuario que elija uno y luego establece el tenant seleccionado como activo"
+    "cli.auth.tenant.select.long": "Ejecuta un flujo interactivo que lista los tenants disponibles, solicita al usuario que elija uno y luego establece el tenant seleccionado como activo",
+    "cli.auth.api_key.short": "Gestiona tus API Keys de ID Magalu",
+    "cli.auth.api_key.long": "Las API Keys de ID Magalu se utilizan para la autenticación en varias plataformas (CLI, SDK, Terraform, solicitudes API). Una API Key tiene tres componentes:\n\nAPI Key: Usada para la autenticación en la API Magalu, CLI, SDK y Terraform.\nKey Pair ID: Usado para la autenticación en el Almacenamiento de Objetos.\nKey Pair Secret: Funciona con el Key Pair ID para la autenticación en el Almacenamiento de Objetos.\n\nLa API Key autentica con los servicios principales de Magalu, mientras que el Key Pair ID y el Key Pair Secret son específicos para el Almacenamiento de Objetos. El uso adecuado de estos componentes permite una interacción segura con los servicios y recursos de Magalu.",
+    "cli.auth.api_key.list.short": "Lista las API Keys de tu cuenta",
+    "cli.auth.api_key.list.long": "Estas API Keys son de tu cuenta y pueden usarse para autenticarse en Magalu Cloud",
+    "cli.auth.api_key.list.invalid_keys": "Incluir Revocación Inválida y Claves Expiradas",
+    "cli.auth.api_key.revoke.id": "El ID de la API Key que se va a revocar. Para listar todos los IDs posibles, ejecute 'auth api-key list' (required)",
+    "cli.auth.api_key.revoke.short": "Revocar una API Key por su ID",
+    "cli.auth.api_key.revoke.long": "Revoca una API Key proporcionando su ID único. Una vez revocada, la clave se vuelve inválida y ya no podrá usarse para autenticación. Use 'auth api-key list' para ver los IDs disponibles.",
+    "cli.auth.api_key.get.id": "El ID de la API Key deseada. Para listar todos los IDs posibles, ejecute 'auth api-key list' (required)",
+    "cli.auth.api_key.get.short": "Obtener una API Key específica por su ID",
+    "cli.auth.api_key.get.long": "Recupere una API Key específica proporcionando su ID único. Use 'auth api-key list' para ver todos los IDs disponibles",
+    "cli.auth.api_key.create.short": "Crear una nueva API Key para su tenant",
+    "cli.auth.api_key.create.long": "Cree una nueva API Key para su tenant especificando nombre, descripción, fecha de expiración y una lista de scopes",
+    "cli.auth.api_key.create.name": "Nombre de la nueva API Key",
+    "cli.auth.api_key.create.description": "Descripción de la nueva API Key",
+    "cli.auth.api_key.create.scopes": "Lista de scopes para asignar a la nueva API Key",
+    "cli.auth.api_key.create.expiration": "Fecha de expiración de la nueva API Key (YYYY-MM-DD)"
   }
 }

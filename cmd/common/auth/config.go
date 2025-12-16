@@ -23,6 +23,9 @@ type Config struct {
 	PrivacyURL       string
 	TenantsListURL   string
 	TokenExchangeURL string
+	ApiKeysURLV1     string
+	ApiKeysURLV2     string
+	ScopesURL        string
 }
 
 // DefaultConfig retorna a configuração padrão para autenticação
@@ -40,7 +43,7 @@ func DefaultConfig() *Config {
 			"virtual-machine.write", "dbaas.read", "mcr.write", "gdb:ssh-pkey-r",
 			"gdb:ssh-pkey-w", "pa:sa:manage", "lba.loadbalancer.read",
 			"lba.loadbalancer.write", "gdb:azs-r", "lbaas.read", "lbaas.write",
-			"iam:read", "iam:write",
+			"iam:read", "iam:write", "pa:cloud-cli:features",
 		},
 		ListenAddr:       getListenAddr(),
 		Timeout:          500 * time.Millisecond,
@@ -48,6 +51,9 @@ func DefaultConfig() *Config {
 		PrivacyURL:       "https://magalu.cloud/termos-legais/politica-de-privacidade/",
 		TenantsListURL:   "https://id.magalu.com/account/api/v2/whoami/tenants",
 		TokenExchangeURL: "https://id.magalu.com/oauth/token/exchange",
+		ApiKeysURLV1:     "https://id.magalu.com/account/api/v1/api-keys",
+		ApiKeysURLV2:     "https://id.magalu.com/account/api/v2/api-keys",
+		ScopesURL:        "https://api.magalu.cloud/iam/api/v1/scopes",
 	}
 }
 
