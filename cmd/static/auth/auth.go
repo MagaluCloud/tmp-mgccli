@@ -1,6 +1,7 @@
 package auth
 
 import (
+	apikey "github.com/magaluCloud/mgccli/cmd/static/auth/api_key"
 	"github.com/magaluCloud/mgccli/cmd/static/auth/tenant"
 	"github.com/magaluCloud/mgccli/i18n"
 
@@ -24,6 +25,7 @@ func AuthCmd(parent *cobra.Command) {
 	cmd.AddCommand(NewAccessTokenCommand(parent.Context()))
 
 	cmd.AddCommand(tenant.TenantCommand(parent.Context()))
+	cmd.AddCommand(apikey.ApiKeyCommand(parent.Context()))
 
 	parent.AddCommand(cmd)
 }
