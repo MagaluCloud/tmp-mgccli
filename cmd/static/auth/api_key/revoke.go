@@ -3,10 +3,11 @@ package apikey
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	"github.com/charmbracelet/huh"
 	"github.com/magaluCloud/mgccli/beautiful"
-	"github.com/magaluCloud/mgccli/cmd/common/auth"
+	authPkg "github.com/magaluCloud/mgccli/cmd/common/auth"
 	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/magaluCloud/mgccli/i18n"
 	"github.com/spf13/cobra"
@@ -59,14 +60,53 @@ func runRevoke(ctx context.Context, args []string, opts RevokeOptions) error {
 		return nil
 	}
 
-	auth := ctx.Value(cmdutils.CTX_AUTH_KEY).(auth.Auth)
-
-	err := auth.RevokeApiKey(ctx, ID)
+	err := revokeApiKey(ctx, ID)
 	if err != nil {
 		return fmt.Errorf("erro ao revogar a API Key: %w", err)
 	}
 
 	fmt.Printf("API Key %s revogada com sucesso!\n", ID)
+
+	return nil
+}
+
+func revokeApiKey(ctx context.Context, ID string) error {
+	authCtx := ctx.Value(cmdutils.CTX_AUTH_KEY).(authPkg.Auth)
+
+	config := authCtx.GetConfig()
+
+	client, err := authPkg.NewOAuthClient(config)
+	if err != nil {
+		return fmt.Errorf("failed to create OAuth client: %w", err)
+	}
+
+	httpClient := client.AuthenticatedHttpClientFromContext(ctx)
+	if httpClient == nil {
+		return fmt.Errorf("programming error: unable to get HTTP Client from context")
+	}
+
+	url := fmt.Sprintf("%s/%s/revoke", config.ApiKeysURLV1, ID)
+
+	req, err := http.NewRequestWithContext(
+		ctx,
+		http.MethodPost,
+		url,
+		nil,
+	)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return cmdutils.NewHttpErrorFromResponse(resp, req)
+	}
 
 	return nil
 }

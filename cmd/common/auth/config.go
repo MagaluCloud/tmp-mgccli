@@ -8,11 +8,12 @@ import (
 // Config contém todas as configurações necessárias para autenticação OAuth
 type Config struct {
 	// OAuth Configuration
-	ClientID    string
-	AuthURL     string
-	TokenURL    string
-	RedirectURI string
-	Scopes      []string
+	ClientID              string
+	AuthURL               string
+	TokenURL              string
+	RedirectURI           string
+	Scopes                []string
+	PublicClientsScopeIDs map[string]string
 
 	// Server Configuration
 	ListenAddr string
@@ -26,6 +27,8 @@ type Config struct {
 	ApiKeysURLV1     string
 	ApiKeysURLV2     string
 	ScopesURL        string
+	ClientsURLV2     string
+	PublicClientsURL string
 }
 
 // DefaultConfig retorna a configuração padrão para autenticação
@@ -45,15 +48,18 @@ func DefaultConfig() *Config {
 			"lba.loadbalancer.write", "gdb:azs-r", "lbaas.read", "lbaas.write",
 			"iam:read", "iam:write", "pa:cloud-cli:features",
 		},
-		ListenAddr:       getListenAddr(),
-		Timeout:          500 * time.Millisecond,
-		TermsURL:         "https://magalu.cloud/termos-legais/termos-de-uso-magalu-cloud/",
-		PrivacyURL:       "https://magalu.cloud/termos-legais/politica-de-privacidade/",
-		TenantsListURL:   "https://id.magalu.com/account/api/v2/whoami/tenants",
-		TokenExchangeURL: "https://id.magalu.com/oauth/token/exchange",
-		ApiKeysURLV1:     "https://id.magalu.com/account/api/v1/api-keys",
-		ApiKeysURLV2:     "https://id.magalu.com/account/api/v2/api-keys",
-		ScopesURL:        "https://api.magalu.cloud/iam/api/v1/scopes",
+		PublicClientsScopeIDs: map[string]string{"openid": "2836b3ba-093c-416a-92f0-7fc4ee5ac961", "profile": "50447cbf-8a42-4426-8e53-fe84bf0726ad"},
+		ListenAddr:            getListenAddr(),
+		Timeout:               500 * time.Millisecond,
+		TermsURL:              "https://magalu.cloud/termos-legais/termos-de-uso-magalu-cloud/",
+		PrivacyURL:            "https://magalu.cloud/termos-legais/politica-de-privacidade/",
+		TenantsListURL:        "https://id.magalu.com/account/api/v2/whoami/tenants",
+		TokenExchangeURL:      "https://id.magalu.com/oauth/token/exchange",
+		ApiKeysURLV1:          "https://id.magalu.com/account/api/v1/api-keys",
+		ApiKeysURLV2:          "https://id.magalu.com/account/api/v2/api-keys",
+		ScopesURL:             "https://api.magalu.cloud/iam/api/v1/scopes",
+		ClientsURLV2:          "https://id.magalu.com/account/api/v2/clients",
+		PublicClientsURL:      "https://id.magalu.com/account/api/v1/external/clients",
 	}
 }
 
