@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/magaluCloud/mgccli/beautiful"
+	apiKeyPkg "github.com/magaluCloud/mgccli/cmd/common/api_key"
 	"github.com/magaluCloud/mgccli/cmd/common/auth"
 	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/magaluCloud/mgccli/i18n"
@@ -51,10 +52,11 @@ func ListCommand(ctx context.Context) *cobra.Command {
 
 // runList executa o processo de exibir todas API Keys
 func runList(ctx context.Context, opts ListOptions, rawMode bool) error {
-	auth := ctx.Value(cmdutils.CTX_AUTH_KEY).(auth.Auth)
+	authCtx := ctx.Value(cmdutils.CTX_AUTH_KEY).(auth.Auth)
 
-	apiKeys, err := auth.ListApiKeys(ctx, opts.InvalidKeys)
+	apiKey := apiKeyPkg.NewApiKey(authCtx)
 
+	apiKeys, err := apiKey.List(ctx, opts.InvalidKeys)
 	if err != nil {
 		return fmt.Errorf("erro ao listar as API Keys: %w", err)
 	}

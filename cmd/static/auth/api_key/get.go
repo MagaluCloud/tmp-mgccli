@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/magaluCloud/mgccli/beautiful"
+	apiKeyPkg "github.com/magaluCloud/mgccli/cmd/common/api_key"
 	authPkg "github.com/magaluCloud/mgccli/cmd/common/auth"
 	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/magaluCloud/mgccli/i18n"
@@ -66,8 +67,9 @@ func runGet(ctx context.Context, args []string, opts GetOptions, rawMode bool) e
 	}
 
 	auth := ctx.Value(cmdutils.CTX_AUTH_KEY).(authPkg.Auth)
+	apiKey := apiKeyPkg.NewApiKey(auth)
 
-	apiKeys, err := auth.ListApiKeys(ctx, true)
+	apiKeys, err := apiKey.List(ctx, true)
 	if err != nil {
 		return fmt.Errorf("erro ao listar as API Keys: %w", err)
 	}

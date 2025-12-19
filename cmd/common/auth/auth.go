@@ -11,7 +11,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/charmbracelet/huh"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/magaluCloud/mgccli/cmd/common/structs"
 	"github.com/magaluCloud/mgccli/cmd/common/workspace"
@@ -38,6 +37,7 @@ type Auth interface {
 	GetRefreshToken() string
 	GetSecretAccessKey() string
 	GetService() *Service
+	GetConfig() *Config
 	GetCurrentTenantID() (string, error)
 	GetCurrentTenant(ctx context.Context) (*Tenant, error)
 	GetScopes() (string, error)
@@ -55,10 +55,6 @@ type Auth interface {
 	Logout() error
 
 	ListTenants(ctx context.Context) ([]*Tenant, error)
-	ListApiKeys(ctx context.Context, showInvalidKeys bool) ([]*ApiKeys, error)
-
-	CreateApiKey(ctx context.Context, name, description, expiration string, scopes []string) (*ApiKeyResult, error)
-	RevokeApiKey(ctx context.Context, ID string) error
 }
 
 type authValue struct {
@@ -83,6 +79,10 @@ func NewAuth(workspace workspace.Workspace) Auth {
 
 func (a *authValue) GetService() *Service {
 	return a.service
+}
+
+func (a *authValue) GetConfig() *Config {
+	return a.service.config
 }
 
 func (a *authValue) GetAccessKeyID() string {
@@ -361,274 +361,4 @@ func (a *authValue) runTokenExchange(
 		RefreshToken: payload.RefreshToken,
 		Scope:        strings.Split(payload.Scope, " "),
 	}, nil
-}
-
-func (a *authValue) ListApiKeys(ctx context.Context, showInvalidKeys bool) ([]*ApiKeys, error) {
-	client, err := NewOAuthClient(a.service.config)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create OAuth client: %w", err)
-	}
-
-	httpClient := client.AuthenticatedHttpClientFromContext(ctx)
-	if httpClient == nil {
-		return nil, fmt.Errorf("programming error: unable to get HTTP Client from context")
-	}
-
-	r, err := http.NewRequestWithContext(
-		ctx,
-		http.MethodGet,
-		a.service.config.ApiKeysURLV1,
-		nil,
-	)
-	if err != nil {
-		return nil, err
-	}
-	r.Header.Set("Content-Type", "application/json")
-
-	resp, err := httpClient.Do(r)
-	if err != nil {
-		return nil, err
-	}
-
-	var apiKeys []*ApiKeys
-	if resp.StatusCode == http.StatusNoContent {
-		return apiKeys, nil
-	}
-
-	if resp.StatusCode != http.StatusOK {
-		return nil, cmdutils.NewHttpErrorFromResponse(resp, r)
-	}
-
-	defer resp.Body.Close()
-	var result []*ApiKeys
-	if err = json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		return nil, err
-	}
-
-	for _, key := range result {
-		if !showInvalidKeys && key.RevokedAt != nil {
-			continue
-		}
-
-		if !showInvalidKeys && key.EndValidity != nil {
-			expDate, _ := time.Parse(time.RFC3339, *key.EndValidity)
-			if expDate.Before(time.Now()) {
-				continue
-			}
-		}
-
-		apiKeys = append(apiKeys, key)
-	}
-
-	return apiKeys, nil
-}
-
-func (a *authValue) CreateApiKey(ctx context.Context, name, description, expiration string, scopes []string) (*ApiKeyResult, error) {
-	client, err := NewOAuthClient(a.service.config)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create OAuth client: %w", err)
-	}
-
-	httpClient := client.AuthenticatedHttpClientFromContext(ctx)
-	if httpClient == nil {
-		return nil, fmt.Errorf("programming error: unable to get HTTP Client from context")
-	}
-
-	scopesCreateList, err := a.processScopes(ctx, scopes)
-	if err != nil {
-		return nil, err
-	}
-
-	currentTenantID, err := a.GetCurrentTenantID()
-	if err != nil {
-		return nil, err
-	}
-
-	newApiKey := &CreateApiKey{
-		Name:          name,
-		TenantID:      currentTenantID,
-		ScopesList:    scopesCreateList,
-		StartValidity: time.Now().Format(time.DateOnly),
-		Description:   description,
-	}
-
-	if expiration != "" {
-		if _, err = time.Parse(time.DateOnly, expiration); err != nil {
-			return nil, fmt.Errorf("invalid date format for expiration, use YYYY-MM-DD")
-		}
-
-		newApiKey.EndValidity = expiration
-	}
-
-	var buf bytes.Buffer
-	err = json.NewEncoder(&buf).Encode(newApiKey)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequestWithContext(
-		ctx,
-		http.MethodPost,
-		a.service.config.ApiKeysURLV2,
-		&buf,
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-
-	resp, err := httpClient.Do(req)
-	if err != nil {
-		return nil, err
-	}
-
-	if resp.StatusCode != http.StatusCreated {
-		return nil, cmdutils.NewHttpErrorFromResponse(resp, req)
-	}
-
-	defer resp.Body.Close()
-
-	var result ApiKeyResult
-	if err = json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		return nil, err
-	}
-
-	return &result, nil
-}
-
-func (a *authValue) processScopes(ctx context.Context, scopes []string) ([]ScopesCreate, error) {
-	client, err := NewOAuthClient(a.service.config)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create OAuth client: %w", err)
-	}
-
-	httpClient := client.AuthenticatedHttpClientFromContext(ctx)
-	if httpClient == nil {
-		return nil, fmt.Errorf("programming error: unable to get HTTP Client from context")
-	}
-
-	r, err := http.NewRequestWithContext(
-		ctx,
-		http.MethodGet,
-		a.service.config.ScopesURL,
-		nil,
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	resp, err := httpClient.Do(r)
-	if err != nil {
-		return nil, err
-	}
-
-	var scopesListFile PlatformsResponse
-
-	defer resp.Body.Close()
-	if err = json.NewDecoder(resp.Body).Decode(&scopesListFile); err != nil {
-		return nil, err
-	}
-
-	scopesTitleMap := make(map[string]string)
-	scopesNameMap := make(map[string]string)
-
-	for _, company := range scopesListFile {
-		if company.Name == "Magalu Cloud" {
-			for _, product := range company.APIProducts {
-				for _, scope := range product.Scopes {
-					scopeName := product.Name + " [" + scope.Name + "]" + " - " + scope.Title
-					scopesTitleMap[scopeName] = scope.UUID
-					scopesNameMap[strings.ToLower(scope.Name)] = scope.UUID
-				}
-			}
-		}
-	}
-
-	var scopesCreateList []ScopesCreate
-	var invalidScopes []string
-
-	if len(scopes) > 0 {
-		for _, scope := range scopes {
-			if id, ok := scopesNameMap[strings.ToLower(scope)]; ok {
-				scopesCreateList = append(scopesCreateList, ScopesCreate{
-					ID: id,
-				})
-			} else {
-				invalidScopes = append(invalidScopes, scope)
-			}
-		}
-
-		if len(invalidScopes) > 0 {
-			return nil, fmt.Errorf("invalid scopes: %s", strings.Join(invalidScopes, ", "))
-		}
-	} else {
-		options := []huh.Option[string]{}
-		for title, id := range scopesTitleMap {
-			options = append(options, huh.NewOption(title, id))
-		}
-
-		var selectedScopes []string
-
-		multiSelect := huh.NewMultiSelect[string]()
-		multiSelect.Title("Scopes:")
-		multiSelect.Description("enter: confirm | space: select | ctrl + a: select/unselect all | /: to filter")
-		multiSelect.Options(options...)
-		multiSelect.Height(14)
-		multiSelect.Filterable(true)
-		multiSelect.Value(&selectedScopes)
-		err = multiSelect.Run()
-		if err != nil {
-			return nil, cmdutils.NewCliError(err.Error())
-		}
-
-		if len(selectedScopes) == 0 {
-			return nil, fmt.Errorf("nenhum scope selecionado")
-		}
-
-		for _, scopeID := range selectedScopes {
-			scopesCreateList = append(scopesCreateList, ScopesCreate{
-				ID: scopeID,
-			})
-		}
-	}
-
-	return scopesCreateList, nil
-}
-
-func (a *authValue) RevokeApiKey(ctx context.Context, ID string) error {
-	client, err := NewOAuthClient(a.service.config)
-	if err != nil {
-		return fmt.Errorf("failed to create OAuth client: %w", err)
-	}
-
-	httpClient := client.AuthenticatedHttpClientFromContext(ctx)
-	if httpClient == nil {
-		return fmt.Errorf("programming error: unable to get HTTP Client from context")
-	}
-
-	url := fmt.Sprintf("%s/%s/revoke", a.service.config.ApiKeysURLV1, ID)
-
-	req, err := http.NewRequestWithContext(
-		ctx,
-		http.MethodPost,
-		url,
-		nil,
-	)
-	if err != nil {
-		return err
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-
-	resp, err := httpClient.Do(req)
-	if err != nil {
-		return err
-	}
-
-	if resp.StatusCode != http.StatusOK {
-		return cmdutils.NewHttpErrorFromResponse(resp, req)
-	}
-
-	return nil
 }
