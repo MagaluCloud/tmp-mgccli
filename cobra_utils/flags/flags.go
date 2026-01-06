@@ -129,3 +129,16 @@ func NewFloat64P(cmd *cobra.Command, name string, shorthand string, defaultValue
 	cmd.Flags().Float64VarP(value, name, shorthand, defaultValue, usage)
 	return &Float64Flag{baseFlag: baseFlag{cmd, name}, Value: value}
 }
+
+func NilIfNotChanged[T any](
+	cmd *cobra.Command,
+	flag string,
+	target **T,
+	value T,
+) {
+	if !cmd.Flags().Changed(flag) {
+		*target = nil
+	} else {
+		*target = &value
+	}
+}

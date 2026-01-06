@@ -1,22 +1,5 @@
 package clients
 
-import (
-	"github.com/spf13/cobra"
-)
-
-func NilIfNotChanged[T any](
-	cmd *cobra.Command,
-	flag string,
-	target **T,
-	value T,
-) {
-	if !cmd.Flags().Changed(flag) {
-		*target = nil
-	} else {
-		*target = &value
-	}
-}
-
 const (
 	ID                               = "id"
 	Name                             = "name"
