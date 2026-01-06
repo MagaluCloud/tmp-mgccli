@@ -11,6 +11,7 @@ import (
 	"github.com/magaluCloud/mgccli/beautiful"
 	"github.com/magaluCloud/mgccli/cmd/common/auth"
 	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
+	cobrautils "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	"github.com/magaluCloud/mgccli/i18n"
 	"github.com/spf13/cobra"
 )
@@ -87,7 +88,7 @@ func UpdateCommand(ctx context.Context) *cobra.Command {
 	manager := i18n.GetInstance()
 
 	cmd := &cobra.Command{
-		Use:     "update",
+		Use:     "update [id]",
 		Short:   manager.T("cli.auth.clients.update.short"),
 		Long:    manager.T("cli.auth.clients.update.long"),
 		Example: `mgc auth clients update --access-token-expiration=7200 --audiences="public" --description="Client description" --name="Client Name" --refresh-token-exp=15552000`,
@@ -98,24 +99,24 @@ func UpdateCommand(ctx context.Context) *cobra.Command {
 				ID: opts.ID,
 			}
 
-			NilIfNotChanged(cmd, Name, &params.Name, opts.Name)
-			NilIfNotChanged(cmd, Description, &params.Description, opts.Description)
-			NilIfNotChanged(cmd, RedirectURIs, &params.RedirectURIs, opts.RedirectURIs)
-			NilIfNotChanged(cmd, BackchannelLogoutSessionEnabled, &params.BackchannelLogoutSessionEnabled, opts.BackchannelLogoutSessionEnabled)
-			NilIfNotChanged(cmd, ClientTermsURL, &params.ClientTermsURL, opts.ClientTermsURL)
-			NilIfNotChanged(cmd, ClientPrivacyTermURL, &params.ClientPrivacyTermURL, opts.ClientPrivacyTermURL)
-			NilIfNotChanged(cmd, Audiences, &params.Audiences, opts.Audiences)
-			NilIfNotChanged(cmd, Reason, &params.Reason, opts.Reason)
-			NilIfNotChanged(cmd, Icon, &params.Icon, opts.Icon)
-			NilIfNotChanged(cmd, AccessTokenExp, &params.AccessTokenExp, opts.AccessTokenExp)
-			NilIfNotChanged(cmd, AlwaysRequireLogin, &params.AlwaysRequireLogin, opts.AlwaysRequireLogin)
-			NilIfNotChanged(cmd, BackchannelLogoutURI, &params.BackchannelLogoutURI, opts.BackchannelLogoutURI)
-			NilIfNotChanged(cmd, OidcAudience, &params.OidcAudience, opts.OidcAudience)
-			NilIfNotChanged(cmd, RefreshTokenCustomExpiresEnabled, &params.RefreshTokenCustomExpiresEnabled, opts.RefreshTokenCustomExpiresEnabled)
-			NilIfNotChanged(cmd, RefreshTokenExp, &params.RefreshTokenExp, opts.RefreshTokenExp)
-			NilIfNotChanged(cmd, SupportURL, &params.SupportURL, opts.SupportURL)
+			cobrautils.NilIfNotChanged(cmd, Name, &params.Name, opts.Name)
+			cobrautils.NilIfNotChanged(cmd, Description, &params.Description, opts.Description)
+			cobrautils.NilIfNotChanged(cmd, RedirectURIs, &params.RedirectURIs, opts.RedirectURIs)
+			cobrautils.NilIfNotChanged(cmd, BackchannelLogoutSessionEnabled, &params.BackchannelLogoutSessionEnabled, opts.BackchannelLogoutSessionEnabled)
+			cobrautils.NilIfNotChanged(cmd, ClientTermsURL, &params.ClientTermsURL, opts.ClientTermsURL)
+			cobrautils.NilIfNotChanged(cmd, ClientPrivacyTermURL, &params.ClientPrivacyTermURL, opts.ClientPrivacyTermURL)
+			cobrautils.NilIfNotChanged(cmd, Audiences, &params.Audiences, opts.Audiences)
+			cobrautils.NilIfNotChanged(cmd, Reason, &params.Reason, opts.Reason)
+			cobrautils.NilIfNotChanged(cmd, Icon, &params.Icon, opts.Icon)
+			cobrautils.NilIfNotChanged(cmd, AccessTokenExp, &params.AccessTokenExp, opts.AccessTokenExp)
+			cobrautils.NilIfNotChanged(cmd, AlwaysRequireLogin, &params.AlwaysRequireLogin, opts.AlwaysRequireLogin)
+			cobrautils.NilIfNotChanged(cmd, BackchannelLogoutURI, &params.BackchannelLogoutURI, opts.BackchannelLogoutURI)
+			cobrautils.NilIfNotChanged(cmd, OidcAudience, &params.OidcAudience, opts.OidcAudience)
+			cobrautils.NilIfNotChanged(cmd, RefreshTokenCustomExpiresEnabled, &params.RefreshTokenCustomExpiresEnabled, opts.RefreshTokenCustomExpiresEnabled)
+			cobrautils.NilIfNotChanged(cmd, RefreshTokenExp, &params.RefreshTokenExp, opts.RefreshTokenExp)
+			cobrautils.NilIfNotChanged(cmd, SupportURL, &params.SupportURL, opts.SupportURL)
 
-			return runUpdate(ctx, params, raw)
+			return runUpdate(ctx, params, args, raw)
 		},
 	}
 
@@ -137,13 +138,25 @@ func UpdateCommand(ctx context.Context) *cobra.Command {
 	cmd.Flags().IntVar(&opts.RefreshTokenExp, RefreshTokenExp, 15552000, manager.T("cli.auth.clients.create.refresh_token_exp"))
 	cmd.Flags().StringVar(&opts.SupportURL, SupportURL, "", manager.T("cli.auth.clients.create.support_url"))
 
-	cmd.MarkFlagRequired(ID)
-
 	return cmd
 }
 
 // runUpdate executa o processo de atualizar as informações de um cliente
-func runUpdate(ctx context.Context, opts UpdateClientParams, rawMode bool) error {
+func runUpdate(ctx context.Context, opts UpdateClientParams, args []string, rawMode bool) error {
+	id := opts.ID
+
+	if len(args) > 0 {
+		id = args[0]
+	}
+
+	if id == "" {
+		beautiful.NewOutput(rawMode).PrintError("é necessário fornecer o ID como argumento ou usar a flag --id")
+
+		return nil
+	}
+
+	opts.ID = id
+
 	var confirm bool
 	huh.NewConfirm().Title(fmt.Sprintf("This operation may disable your client %s until updates are approved by the ID Magalu. Do you wish to continue?", opts.ID)).
 		Affirmative("Yes").

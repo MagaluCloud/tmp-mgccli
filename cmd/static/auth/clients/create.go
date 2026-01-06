@@ -11,6 +11,7 @@ import (
 	"github.com/magaluCloud/mgccli/beautiful"
 	"github.com/magaluCloud/mgccli/cmd/common/auth"
 	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
+	cobrautils "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	"github.com/magaluCloud/mgccli/i18n"
 	"github.com/spf13/cobra"
 )
@@ -115,17 +116,17 @@ func CreateCommand(ctx context.Context) *cobra.Command {
 				RefreshTokenExp:      opts.RefreshTokenExp,
 			}
 
-			NilIfNotChanged(cmd, BackchannelLogoutSessionEnabled, &params.BackchannelLogoutSessionEnabled, opts.BackchannelLogoutSessionEnabled)
-			NilIfNotChanged(cmd, Audiences, &params.Audiences, opts.Audiences)
-			NilIfNotChanged(cmd, Reason, &params.Reason, opts.Reason)
-			NilIfNotChanged(cmd, Icon, &params.Icon, opts.Icon)
-			NilIfNotChanged(cmd, AlwaysRequireLogin, &params.AlwaysRequireLogin, opts.AlwaysRequireLogin)
-			NilIfNotChanged(cmd, BackchannelLogoutURI, &params.BackchannelLogoutURI, opts.BackchannelLogoutURI)
-			NilIfNotChanged(cmd, OidcAudience, &params.OidcAudience, opts.OidcAudience)
-			NilIfNotChanged(cmd, RefreshTokenCustomExpiresEnabled, &params.RefreshTokenCustomExpiresEnabled, opts.RefreshTokenCustomExpiresEnabled)
-			NilIfNotChanged(cmd, SupportURL, &params.SupportURL, opts.SupportURL)
-			NilIfNotChanged(cmd, Email, &params.Email, opts.Email)
-			NilIfNotChanged(cmd, GrantTypes, &params.GrantTypes, opts.GrantTypes)
+			cobrautils.NilIfNotChanged(cmd, BackchannelLogoutSessionEnabled, &params.BackchannelLogoutSessionEnabled, opts.BackchannelLogoutSessionEnabled)
+			cobrautils.NilIfNotChanged(cmd, Audiences, &params.Audiences, opts.Audiences)
+			cobrautils.NilIfNotChanged(cmd, Reason, &params.Reason, opts.Reason)
+			cobrautils.NilIfNotChanged(cmd, Icon, &params.Icon, opts.Icon)
+			cobrautils.NilIfNotChanged(cmd, AlwaysRequireLogin, &params.AlwaysRequireLogin, opts.AlwaysRequireLogin)
+			cobrautils.NilIfNotChanged(cmd, BackchannelLogoutURI, &params.BackchannelLogoutURI, opts.BackchannelLogoutURI)
+			cobrautils.NilIfNotChanged(cmd, OidcAudience, &params.OidcAudience, opts.OidcAudience)
+			cobrautils.NilIfNotChanged(cmd, RefreshTokenCustomExpiresEnabled, &params.RefreshTokenCustomExpiresEnabled, opts.RefreshTokenCustomExpiresEnabled)
+			cobrautils.NilIfNotChanged(cmd, SupportURL, &params.SupportURL, opts.SupportURL)
+			cobrautils.NilIfNotChanged(cmd, Email, &params.Email, opts.Email)
+			cobrautils.NilIfNotChanged(cmd, GrantTypes, &params.GrantTypes, opts.GrantTypes)
 
 			return runCreate(ctx, params, raw)
 		},

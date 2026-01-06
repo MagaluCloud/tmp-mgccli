@@ -27,7 +27,9 @@ func (rt *authRoundTripper) RoundTrip(req *http.Request) (*http.Response, error)
 		return nil, fmt.Errorf("não foi possível obter o token de acesso. Você esqueceu de fazer login?")
 	}
 
-	req.Header.Set("Authorization", "Bearer "+token)
+	if req.Header.Get("Authorization") == "" {
+		req.Header.Set("Authorization", "Bearer "+token)
+	}
 
 	waitBeforeRetry := 100 * time.Millisecond
 	var res *http.Response
