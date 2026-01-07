@@ -27,6 +27,9 @@ func (j *JSONValue[T]) Set(val string) error {
 
 // String serializa o valor atual para JSON
 func (j *JSONValue[T]) String() string {
+	if j.Value == nil {
+		return "{}"
+	}
 	b, err := json.Marshal(*j.Value)
 	if err != nil {
 		return "{}"

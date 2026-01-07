@@ -1,6 +1,10 @@
 package cobrautils
 
-import "github.com/spf13/cobra"
+import (
+	"encoding/json"
+
+	"github.com/spf13/cobra"
+)
 
 type baseFlag struct {
 	cmd  *cobra.Command
@@ -128,6 +132,16 @@ func NewFloat64P(cmd *cobra.Command, name string, shorthand string, defaultValue
 	var value *float64 = new(float64)
 	cmd.Flags().Float64VarP(value, name, shorthand, defaultValue, usage)
 	return &Float64Flag{baseFlag: baseFlag{cmd, name}, Value: value}
+}
+
+func StrSliceFlagToSlice[T any](flag *StrSliceFlag) []T {
+	var slice []T
+	for _, value := range *flag.Value {
+		var t T
+		json.Unmarshal([]byte(value), &t)
+		slice = append(slice, t)
+	}
+	return slice
 }
 
 func NilIfNotChanged[T any](
