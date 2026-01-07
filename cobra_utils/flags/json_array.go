@@ -31,6 +31,9 @@ func (j *JSONArrayValue[T]) Set(val string) error {
 
 // String serializa o valor atual para JSON
 func (j *JSONArrayValue[T]) String() string {
+	if j.Value == nil {
+		return "[]"
+	}
 	j.Value = new([]T)
 	b, err := json.Marshal(*j.Value)
 	if err != nil || len(b) == 0 {

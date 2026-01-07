@@ -24,17 +24,19 @@ func SelectCmd(parent *cobra.Command) *cobra.Command {
 				options = append(options, huh.NewOption(w.Name(), w.Name()))
 			}
 
-			selectedWorkspace := huh.NewSelect[string]()
-			selectedWorkspace.Options(options...)
-			err = selectedWorkspace.Run()
+			selectedWorkspaces := huh.NewMultiSelect[string]()
+			selectedWorkspaces.Options(options...)
+			err = selectedWorkspaces.Run()
 			if err != nil {
 				return cmdutils.NewCliError(err.Error())
 			}
-			var name string
-			selectedWorkspace.Value(&name)
-			err = workspace.Set(name)
-			if err != nil {
-				return cmdutils.NewCliError(err.Error())
+			var names []string
+			selectedWorkspaces.Value(&names)
+			for _, name := range names {
+				err = workspace.Set(name)
+				if err != nil {
+					return cmdutils.NewCliError(err.Error())
+				}
 			}
 			return nil
 		},
