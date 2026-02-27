@@ -47,6 +47,9 @@ func List(ctx context.Context, parent *cobra.Command, eventsService auditSdk.Eve
 			//ServiceSDKParamCreate
 			var params *auditSdk.ListEventsParams
 
+			//CobraStructInitialize
+			params = &auditSdk.ListEventsParams{}
+
 			//CobraFlagsAssign
 			if params_AuthIDFlag.IsChanged() {
 				params.AuthID = params_AuthIDFlag.Value

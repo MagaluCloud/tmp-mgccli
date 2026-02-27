@@ -33,6 +33,9 @@ func List(ctx context.Context, parent *cobra.Command, eventtypesService auditSdk
 			//ServiceSDKParamCreate
 			var params *auditSdk.ListEventTypesParams
 
+			//CobraStructInitialize
+			params = &auditSdk.ListEventTypesParams{}
+
 			//CobraFlagsAssign
 			if params_LimitFlag.IsChanged() {
 				params.Limit = params_LimitFlag.Value

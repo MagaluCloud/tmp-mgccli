@@ -31,6 +31,9 @@ func Create(ctx context.Context, parent *cobra.Command, registriesService contai
 			//ServiceSDKParamCreate
 			var request *containerregistrySdk.RegistryRequest
 
+			//CobraStructInitialize
+			request = &containerregistrySdk.RegistryRequest{}
+
 			//CobraFlagsAssign
 			if len(args) > 0 {
 				cmd.Flags().Set("name", args[0])
