@@ -29,6 +29,9 @@ func ListAll(ctx context.Context, parent *cobra.Command, eventtypesService audit
 			//ServiceSDKParamCreate
 			var params *auditSdk.EventTypeFilterParams
 
+			//CobraStructInitialize
+			params = &auditSdk.EventTypeFilterParams{}
+
 			//CobraFlagsAssign
 			if params_TenantIDFlag.IsChanged() {
 				params.TenantID = params_TenantIDFlag.Value
