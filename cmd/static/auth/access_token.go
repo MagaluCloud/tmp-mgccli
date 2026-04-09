@@ -2,9 +2,8 @@ package auth
 
 import (
 	"context"
-	"fmt"
-	"os"
 
+	"github.com/magaluCloud/mgccli/beautiful"
 	"github.com/magaluCloud/mgccli/cmd/common/auth"
 	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/magaluCloud/mgccli/i18n"
@@ -34,13 +33,10 @@ func runAccessToken(ctx context.Context) error {
 
 	token := auth.GetAccessToken(ctx)
 	if token == "" {
-		fmt.Fprintln(os.Stderr, "✕ Seu token de acesso está vazio. Por favor, faça login novamente.")
-
-		return nil
+		return cmdutils.NewCliError("your access token is empty. Please log in again.")
 	}
 
-	// Exibir token de acesso
-	fmt.Fprintf(os.Stderr, "access_token:\n%s\n", token)
+	beautiful.NewOutput(false).PrintData(map[string]any{"access_token": token})
 
 	return nil
 }

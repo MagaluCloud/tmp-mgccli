@@ -34,6 +34,9 @@ func LbaasCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.Core
 	cmd := &cobra.Command{
 		Use: "lbaas",
 
+		Aliases: []string{
+			"lb", "lbaas",
+		},
 		GroupID: "products",
 	}
 

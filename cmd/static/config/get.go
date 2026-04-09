@@ -1,30 +1,45 @@
 package config
 
 import (
-	"fmt"
-
-	"github.com/fatih/color"
+	"github.com/magaluCloud/mgccli/beautiful"
 	"github.com/magaluCloud/mgccli/cmd/common/config"
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/spf13/cobra"
 )
 
+type GetOptions struct {
+	Key string
+}
+
 func Get(config config.Config) *cobra.Command {
+	var opts GetOptions
+
 	cmd := &cobra.Command{
-		Use:   "get [config]",
+		Use:   "get [key]",
 		Short: "Obter configurações",
 		Long:  `Obter configurações`,
-		Run: func(cmd *cobra.Command, args []string) {
-			if len(args) == 0 {
-				fmt.Println("Erro: configuração não especificada")
-				return
+		RunE: func(cmd *cobra.Command, args []string) error {
+			key := opts.Key
+			if len(args) > 0 {
+				key = args[0]
 			}
-			value, err := config.Get(args[0])
+
+			if key == "" {
+				return cmdutils.NewCliError("missing required flag: --key=string")
+			}
+
+			value, err := config.Get(key)
 			if err != nil {
-				fmt.Println("Erro ao obter configuração:", err)
-				return
+				return cmdutils.NewCliError(err.Error())
 			}
-			fmt.Printf("%s: %v\n", color.BlueString(args[0]), color.YellowString(fmt.Sprintf("%v", value.Value)))
+
+			beautiful.NewOutput(false).PrintData(map[string]any{key: value.Value})
+
+			return nil
 		},
 	}
+
+	cmd.Flags().StringVar(&opts.Key, "key", "", "Name of the desired config (required)")
+
 	return cmd
 }

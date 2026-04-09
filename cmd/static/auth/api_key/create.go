@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/charmbracelet/huh"
+	"github.com/magaluCloud/mgccli/beautiful"
 	authPkg "github.com/magaluCloud/mgccli/cmd/common/auth"
 	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/magaluCloud/mgccli/i18n"
@@ -64,11 +65,17 @@ func CreateCommand(ctx context.Context) *cobra.Command {
 	manager := i18n.GetInstance()
 
 	cmd := &cobra.Command{
-		Use:     "create",
+		Use:     "create [name]",
 		Short:   manager.T("cli.auth.api_key.create.short"),
 		Long:    manager.T("cli.auth.api_key.create.long"),
 		Example: `mgc auth api-key create --description="created from MGC CLI" --expiration="2024-11-07" --name="My MGC Key" --scopes=["dbaas.read"]`,
 		RunE: func(cmd *cobra.Command, args []string) error {
+			if len(args) > 0 {
+				opts.Name = args[0]
+			}
+			if opts.Name == "" {
+				return cmdutils.NewCliError("missing required flag: --name=string")
+			}
 
 			return runCreate(ctx, opts)
 		},
@@ -79,8 +86,6 @@ func CreateCommand(ctx context.Context) *cobra.Command {
 	cmd.Flags().StringSliceVar(&opts.Scopes, "scopes", nil, manager.T("cli.auth.api_key.create.scopes"))
 	cmd.Flags().StringVar(&opts.Expiration, "expiration", "", manager.T("cli.auth.api_key.create.expiration"))
 
-	cmd.MarkFlagRequired("name")
-
 	return cmd
 }
 
@@ -88,10 +93,12 @@ func CreateCommand(ctx context.Context) *cobra.Command {
 func runCreate(ctx context.Context, opts CreateOptions) error {
 	apiKey, err := createApiKey(ctx, opts.Name, opts.Description, opts.Expiration, opts.Scopes)
 	if err != nil {
-		return fmt.Errorf("erro ao criar a API Key: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
-	fmt.Printf("API Key criada com sucesso!\nID: %s\n", apiKey.UUID)
+	beautiful.NewOutput(false).PrintData(map[string]string{
+		"id": apiKey.UUID,
+	})
 
 	return nil
 }

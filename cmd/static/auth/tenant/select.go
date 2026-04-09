@@ -37,7 +37,7 @@ func runSelect(ctx context.Context, rawMode bool) error {
 
 	tenants, err := auth.ListTenants(ctx)
 	if err != nil {
-		return fmt.Errorf("erro ao listar os tenants: %w", err)
+		return cmdutils.NewCliError(fmt.Errorf("erro ao listar os tenants: %w", err).Error())
 	}
 
 	options := []huh.Option[string]{}
@@ -67,12 +67,12 @@ func runSelect(ctx context.Context, rawMode bool) error {
 
 		err := auth.SetAccessKeyID("")
 		if err != nil {
-			return fmt.Errorf("erro ao remover o access key id: %w", err)
+			return cmdutils.NewCliError(fmt.Errorf("erro ao remover o access key id: %w", err).Error())
 		}
 
 		err = auth.SetSecretAccessKey("")
 		if err != nil {
-			return fmt.Errorf("erro ao remover o secret access key: %w", err)
+			return cmdutils.NewCliError(fmt.Errorf("erro ao remover o secret access key: %w", err).Error())
 		}
 	}
 

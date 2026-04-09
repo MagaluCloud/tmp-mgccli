@@ -11,7 +11,7 @@ go 1.25.3
 
 require (
 	github.com/MagaluCloud/mgc-sdk-go v1.5.0
-	github.com/charmbracelet/huh v0.8.0
+	github.com/charmbracelet/huh v1.0.0
 	github.com/fatih/color v1.16.0
 	github.com/geffersonFerraz/brazilian-words-sorter v1.1.0
 	github.com/google/uuid v1.6.0
