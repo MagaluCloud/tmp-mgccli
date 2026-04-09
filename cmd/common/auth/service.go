@@ -36,14 +36,14 @@ func NewService(config *Config) *Service {
 // Login executa o fluxo de autenticação OAuth com as opções fornecidas
 func (s *Service) Login(ctx context.Context, opts LoginOptions) (*TokenResponse, error) {
 	if opts.QRCode {
-		return s.qrCodeLogin(ctx, opts.Show)
+		return s.qrCodeLogin(ctx)
 	}
 
 	if opts.Headless {
-		return s.headlessLogin(ctx, opts.Show)
+		return s.headlessLogin(ctx)
 	}
 
-	return s.browserLogin(ctx, opts.Show)
+	return s.browserLogin(ctx)
 }
 
 func (s *Service) RefreshToken(ctx context.Context, refreshToken string) (*TokenResponse, error) {
@@ -86,7 +86,7 @@ func (s *Service) RefreshToken(ctx context.Context, refreshToken string) (*Token
 }
 
 // browserLogin executa o fluxo de login padrão abrindo o navegador
-func (s *Service) browserLogin(ctx context.Context, showToken bool) (*TokenResponse, error) {
+func (s *Service) browserLogin(ctx context.Context) (*TokenResponse, error) {
 	// Preparar template HTML
 	tmpl, err := template.New("html").Parse(htmlTemplateContent)
 	if err != nil {
@@ -127,16 +127,11 @@ func (s *Service) browserLogin(ctx context.Context, showToken bool) (*TokenRespo
 		return nil, result.Error
 	}
 
-	// Exibir token se solicitado
-	if showToken {
-		s.printTokens(result.Token)
-	}
-
 	return result.Token, nil
 }
 
 // headlessLogin executa o fluxo de login sem abrir navegador
-func (s *Service) headlessLogin(ctx context.Context, showToken bool) (*TokenResponse, error) {
+func (s *Service) headlessLogin(ctx context.Context) (*TokenResponse, error) {
 	// Criar cliente OAuth
 	client, err := NewOAuthClient(s.config)
 	if err != nil {
@@ -156,16 +151,11 @@ func (s *Service) headlessLogin(ctx context.Context, showToken bool) (*TokenResp
 		return nil, err
 	}
 
-	// Exibir token se solicitado
-	if showToken {
-		s.printTokens(token)
-	}
-
 	return token, nil
 }
 
 // qrCodeLogin executa o fluxo de login exibindo um QR code
-func (s *Service) qrCodeLogin(ctx context.Context, showToken bool) (*TokenResponse, error) {
+func (s *Service) qrCodeLogin(ctx context.Context) (*TokenResponse, error) {
 	// Criar cliente OAuth
 	client, err := NewOAuthClient(s.config)
 	if err != nil {
@@ -190,11 +180,6 @@ func (s *Service) qrCodeLogin(ctx context.Context, showToken bool) (*TokenRespon
 	token, err := s.manualTokenRetrieval(ctx, client)
 	if err != nil {
 		return nil, err
-	}
-
-	// Exibir token se solicitado
-	if showToken {
-		s.printTokens(token)
 	}
 
 	return token, nil
@@ -223,14 +208,4 @@ func (s *Service) manualTokenRetrieval(ctx context.Context, client *OAuthClient)
 	}
 
 	return token, nil
-}
-
-// printTokens exibe o access token e o refresh token
-func (s *Service) printTokens(token *TokenResponse) {
-	if token != nil {
-		fmt.Printf("\nAccess Token: %s\n", token.AccessToken)
-		if token.RefreshToken != "" {
-			fmt.Printf("Refresh Token: %s\n", token.RefreshToken)
-		}
-	}
 }

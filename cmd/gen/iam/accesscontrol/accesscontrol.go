@@ -17,7 +17,7 @@ import (
 func AccessControlCmd(ctx context.Context, parent *cobra.Command, accessControlService iamSdk.AccessControlService) {
 
 	cmd := &cobra.Command{
-		Use: "accesscontrol",
+		Use: "access-control",
 	}
 
 	Create(ctx, cmd, accessControlService)

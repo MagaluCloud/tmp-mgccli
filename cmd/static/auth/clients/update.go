@@ -150,9 +150,7 @@ func runUpdate(ctx context.Context, opts UpdateClientParams, args []string, rawM
 	}
 
 	if id == "" {
-		beautiful.NewOutput(rawMode).PrintError("é necessário fornecer o ID como argumento ou usar a flag --id")
-
-		return nil
+		return cmdutils.NewCliError("missing required flag: --id")
 	}
 
 	opts.ID = id
@@ -167,7 +165,7 @@ func runUpdate(ctx context.Context, opts UpdateClientParams, args []string, rawM
 
 	result, err := updateClient(ctx, opts)
 	if err != nil {
-		return fmt.Errorf("erro ao atualizar o cliente: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
 	beautiful.NewOutput(rawMode).PrintData(result)

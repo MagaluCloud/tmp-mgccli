@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 
@@ -36,25 +36,19 @@ func Rename(ctx context.Context, parent *cobra.Command, snapshotsService compute
 			var newName string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
+				return cmdutils.NewCliError("missing required flag: --id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("new-name", args[0])
-			}
 			if newNameFlag.IsChanged() {
 				newName = *newNameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o newName como argumento ou usar a flag --newName")
+				return cmdutils.NewCliError("missing required flag: --new-name")
 			}
 
 			err := snapshotsService.Rename(ctx, id, newName)

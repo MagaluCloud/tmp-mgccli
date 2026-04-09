@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -44,25 +44,11 @@ func Create(ctx context.Context, parent *cobra.Command, networkaclsService lbaas
 			var req lbaasSdk.CreateNetworkACLRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("lb-id", args[0])
-			}
 			if lbIDFlag.IsChanged() {
 				lbID = *lbIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o lbID como argumento ou usar a flag --lbID")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("remote-ipprefix", args[0])
-			}
-			if req_RemoteIPPrefixFlag.IsChanged() {
-				req.RemoteIPPrefix = *req_RemoteIPPrefixFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_RemoteIPPrefix como argumento ou usar a flag --RemoteIPPrefix")
+				return cmdutils.NewCliError("missing required flag: --lb-id")
 			}
 
 			//CobraFlagsAssign
@@ -93,6 +79,14 @@ func Create(ctx context.Context, parent *cobra.Command, networkaclsService lbaas
 
 				req.Protocol = localVar
 
+			}
+
+			//CobraFlagsAssign
+			if req_RemoteIPPrefixFlag.IsChanged() {
+				req.RemoteIPPrefix = *req_RemoteIPPrefixFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --remote-ipprefix")
 			}
 
 			result0, err := networkaclsService.Create(ctx, lbID, req)

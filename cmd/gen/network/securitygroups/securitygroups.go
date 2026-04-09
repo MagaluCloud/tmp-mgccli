@@ -17,7 +17,7 @@ import (
 func SecurityGroupsCmd(ctx context.Context, parent *cobra.Command, securityGroupService networkSdk.SecurityGroupService) {
 
 	cmd := &cobra.Command{
-		Use: "securitygroups",
+		Use: "security-groups",
 	}
 
 	Create(ctx, cmd, securityGroupService)

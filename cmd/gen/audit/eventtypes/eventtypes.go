@@ -17,7 +17,7 @@ import (
 func EventTypesCmd(ctx context.Context, parent *cobra.Command, eventTypeService auditSdk.EventTypeService) {
 
 	cmd := &cobra.Command{
-		Use: "eventtypes",
+		Use: "event-types",
 	}
 
 	List(ctx, cmd, eventTypeService)

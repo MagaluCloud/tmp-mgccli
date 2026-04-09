@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -36,31 +36,25 @@ func Create(ctx context.Context, parent *cobra.Command, replicasService dbaasSdk
 			var req dbaasSdk.ReplicaCreateRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
+			if req_InstanceTypeIDFlag.IsChanged() {
+				req.InstanceTypeID = req_InstanceTypeIDFlag.Value
+
 			}
+
+			//CobraFlagsAssign
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
+				return cmdutils.NewCliError("missing required flag: --name")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("source-id", args[0])
-			}
 			if req_SourceIDFlag.IsChanged() {
 				req.SourceID = *req_SourceIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_SourceID como argumento ou usar a flag --SourceID")
-			}
-
-			//CobraFlagsAssign
-			if req_InstanceTypeIDFlag.IsChanged() {
-				req.InstanceTypeID = req_InstanceTypeIDFlag.Value
-
+				return cmdutils.NewCliError("missing required flag: --source-id")
 			}
 
 			result0, err := replicasService.Create(ctx, req)

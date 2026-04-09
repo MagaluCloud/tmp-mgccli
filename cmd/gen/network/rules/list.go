@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -32,14 +32,11 @@ func List(ctx context.Context, parent *cobra.Command, rulesService networkSdk.Ru
 			var securityGroupID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("security-group-id", args[0])
-			}
 			if securityGroupIDFlag.IsChanged() {
 				securityGroupID = *securityGroupIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o securityGroupID como argumento ou usar a flag --securityGroupID")
+				return cmdutils.NewCliError("missing required flag: --security-group-id")
 			}
 
 			result0, err := rulesService.List(ctx, securityGroupID)

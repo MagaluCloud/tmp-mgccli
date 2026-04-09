@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -48,28 +48,6 @@ func Create(ctx context.Context, parent *cobra.Command, rulesService networkSdk.
 			var securityGroupID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("ether-type", args[0])
-			}
-			if req_EtherTypeFlag.IsChanged() {
-				req.EtherType = *req_EtherTypeFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_EtherType como argumento ou usar a flag --EtherType")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("security-group-id", args[0])
-			}
-			if securityGroupIDFlag.IsChanged() {
-				securityGroupID = *securityGroupIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o securityGroupID como argumento ou usar a flag --securityGroupID")
-			}
-
-			//CobraFlagsAssign
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
 
@@ -79,6 +57,14 @@ func Create(ctx context.Context, parent *cobra.Command, rulesService networkSdk.
 			if req_DirectionFlag.IsChanged() {
 				req.Direction = req_DirectionFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if req_EtherTypeFlag.IsChanged() {
+				req.EtherType = *req_EtherTypeFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --ether-type")
 			}
 
 			//CobraFlagsAssign
@@ -103,6 +89,14 @@ func Create(ctx context.Context, parent *cobra.Command, rulesService networkSdk.
 			if req_RemoteIPPrefixFlag.IsChanged() {
 				req.RemoteIPPrefix = req_RemoteIPPrefixFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if securityGroupIDFlag.IsChanged() {
+				securityGroupID = *securityGroupIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --security-group-id")
 			}
 
 			result0, err := rulesService.Create(ctx, securityGroupID, req)

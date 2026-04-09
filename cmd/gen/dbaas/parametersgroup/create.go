@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -36,31 +36,25 @@ func Create(ctx context.Context, parent *cobra.Command, parametersgroupService d
 			var req dbaasSdk.ParameterGroupCreateRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("engine-id", args[0])
+			if req_DescriptionFlag.IsChanged() {
+				req.Description = req_DescriptionFlag.Value
+
 			}
+
+			//CobraFlagsAssign
 			if req_EngineIDFlag.IsChanged() {
 				req.EngineID = *req_EngineIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_EngineID como argumento ou usar a flag --EngineID")
+				return cmdutils.NewCliError("missing required flag: --engine-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if req_DescriptionFlag.IsChanged() {
-				req.Description = req_DescriptionFlag.Value
-
+				return cmdutils.NewCliError("missing required flag: --name")
 			}
 
 			result0, err := parametersgroupService.Create(ctx, req)

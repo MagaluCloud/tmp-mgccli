@@ -17,7 +17,7 @@ import (
 func NatGatewaysCmd(ctx context.Context, parent *cobra.Command, natGatewayService networkSdk.NatGatewayService) {
 
 	cmd := &cobra.Command{
-		Use: "natgateways",
+		Use: "nat-gateways",
 	}
 
 	Create(ctx, cmd, natGatewayService)

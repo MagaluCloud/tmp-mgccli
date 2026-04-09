@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -40,27 +40,13 @@ func Add(ctx context.Context, parent *cobra.Command, grantsService iamSdk.Member
 			var uuid string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("operation", args[0])
-			}
 			if req_OperationFlag.IsChanged() {
 				localVar := iamSdk.OperationType(*req_OperationFlag.Value)
 
 				req.Operation = localVar
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Operation como argumento ou usar a flag --Operation")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("uuid", args[0])
-			}
-			if uuidFlag.IsChanged() {
-				uuid = *uuidFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o uuid como argumento ou usar a flag --uuid")
+				return cmdutils.NewCliError("missing required flag: --operation")
 			}
 
 			//CobraFlagsAssign
@@ -73,6 +59,14 @@ func Add(ctx context.Context, parent *cobra.Command, grantsService iamSdk.Member
 			if req_RolesFlag.IsChanged() {
 				req.Roles = *req_RolesFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if uuidFlag.IsChanged() {
+				uuid = *uuidFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --uuid")
 			}
 
 			err := grantsService.Add(ctx, uuid, req)

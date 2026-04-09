@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -50,53 +50,17 @@ func CreateSubnet(ctx context.Context, parent *cobra.Command, vpcsService networ
 			var vpcID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("cidrblock", args[0])
+			if opts_ZoneFlag.IsChanged() {
+				opts.Zone = opts_ZoneFlag.Value
+
 			}
+
+			//CobraFlagsAssign
 			if req_CIDRBlockFlag.IsChanged() {
 				req.CIDRBlock = *req_CIDRBlockFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_CIDRBlock como argumento ou usar a flag --CIDRBlock")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("ipversion", args[0])
-			}
-			if req_IPVersionFlag.IsChanged() {
-				req.IPVersion = *req_IPVersionFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_IPVersion como argumento ou usar a flag --IPVersion")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("vpc-id", args[0])
-			}
-			if vpcIDFlag.IsChanged() {
-				vpcID = *vpcIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o vpcID como argumento ou usar a flag --vpcID")
-			}
-
-			//CobraFlagsAssign
-			if opts_ZoneFlag.IsChanged() {
-				opts.Zone = opts_ZoneFlag.Value
-
+				return cmdutils.NewCliError("missing required flag: --cidrblock")
 			}
 
 			//CobraFlagsAssign
@@ -112,9 +76,33 @@ func CreateSubnet(ctx context.Context, parent *cobra.Command, vpcsService networ
 			}
 
 			//CobraFlagsAssign
+			if req_IPVersionFlag.IsChanged() {
+				req.IPVersion = *req_IPVersionFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --ipversion")
+			}
+
+			//CobraFlagsAssign
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
+			}
+
+			//CobraFlagsAssign
 			if req_SubnetPoolIDFlag.IsChanged() {
 				req.SubnetPoolID = req_SubnetPoolIDFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if vpcIDFlag.IsChanged() {
+				vpcID = *vpcIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --vpc-id")
 			}
 
 			result0, err := vpcsService.CreateSubnet(ctx, vpcID, req, opts)

@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 
@@ -46,36 +46,11 @@ func List(ctx context.Context, parent *cobra.Command, imagesService containerreg
 			var repositoryName string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("expand", args[0])
-			}
 			if opts_ExpandFlag.IsChanged() {
 				opts.Expand = flags.StrSliceFlagToSlice[containerregistrySdk.ImageExpand](opts_ExpandFlag)
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o opts_Expand como argumento ou usar a flag --Expand")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("registry-id", args[0])
-			}
-			if registryIDFlag.IsChanged() {
-				registryID = *registryIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o registryID como argumento ou usar a flag --registryID")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("repository-name", args[0])
-			}
-			if repositoryNameFlag.IsChanged() {
-				repositoryName = *repositoryNameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o repositoryName como argumento ou usar a flag --repositoryName")
+				return cmdutils.NewCliError("missing required flag: --expand")
 			}
 
 			//CobraFlagsAssign
@@ -94,6 +69,22 @@ func List(ctx context.Context, parent *cobra.Command, imagesService containerreg
 			if opts_SortFlag.IsChanged() {
 				opts.Sort = opts_SortFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if registryIDFlag.IsChanged() {
+				registryID = *registryIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --registry-id")
+			}
+
+			//CobraFlagsAssign
+			if repositoryNameFlag.IsChanged() {
+				repositoryName = *repositoryNameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --repository-name")
 			}
 
 			result0, err := imagesService.List(ctx, registryID, repositoryName, opts)

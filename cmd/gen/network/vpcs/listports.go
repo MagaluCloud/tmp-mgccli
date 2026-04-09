@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -44,25 +44,11 @@ func ListPorts(ctx context.Context, parent *cobra.Command, vpcsService networkSd
 			var vpcID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("detailed", args[0])
-			}
 			if detailedFlag.IsChanged() {
 				detailed = *detailedFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o detailed como argumento ou usar a flag --detailed")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("vpc-id", args[0])
-			}
-			if vpcIDFlag.IsChanged() {
-				vpcID = *vpcIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o vpcID como argumento ou usar a flag --vpcID")
+				return cmdutils.NewCliError("missing required flag: --detailed")
 			}
 
 			//CobraFlagsAssign
@@ -81,6 +67,14 @@ func ListPorts(ctx context.Context, parent *cobra.Command, vpcsService networkSd
 			if opts_SortFlag.IsChanged() {
 				opts.Sort = opts_SortFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if vpcIDFlag.IsChanged() {
+				vpcID = *vpcIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --vpc-id")
 			}
 
 			result0, err := vpcsService.ListPorts(ctx, vpcID, detailed, opts)

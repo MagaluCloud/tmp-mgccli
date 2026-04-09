@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -36,25 +36,19 @@ func Get(ctx context.Context, parent *cobra.Command, networkbackendsService lbaa
 			var lbID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("backend-id", args[0])
-			}
 			if backendIDFlag.IsChanged() {
 				backendID = *backendIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o backendID como argumento ou usar a flag --backendID")
+				return cmdutils.NewCliError("missing required flag: --backend-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("lb-id", args[0])
-			}
 			if lbIDFlag.IsChanged() {
 				lbID = *lbIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o lbID como argumento ou usar a flag --lbID")
+				return cmdutils.NewCliError("missing required flag: --lb-id")
 			}
 
 			result0, err := networkbackendsService.Get(ctx, lbID, backendID)

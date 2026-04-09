@@ -17,7 +17,7 @@ import (
 func ProxyCachesCmd(ctx context.Context, parent *cobra.Command, proxyCachesService containerregistrySdk.ProxyCachesService) {
 
 	cmd := &cobra.Command{
-		Use: "proxycaches",
+		Use: "proxy-caches",
 	}
 
 	Create(ctx, cmd, proxyCachesService)

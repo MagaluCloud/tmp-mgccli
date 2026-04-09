@@ -17,7 +17,7 @@ import (
 func NetworkBackendTargetsCmd(ctx context.Context, parent *cobra.Command, networkBackendTargetService lbaasSdk.NetworkBackendTargetService) {
 
 	cmd := &cobra.Command{
-		Use: "networkbackendtargets",
+		Use: "network-backend-targets",
 	}
 
 	Create(ctx, cmd, networkBackendTargetService)

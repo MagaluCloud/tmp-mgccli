@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -34,25 +34,19 @@ func Create(ctx context.Context, parent *cobra.Command, keysService sshkeysSdk.K
 			var req sshkeysSdk.CreateSSHKeyRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("key", args[0])
-			}
 			if req_KeyFlag.IsChanged() {
 				req.Key = *req_KeyFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Key como argumento ou usar a flag --Key")
+				return cmdutils.NewCliError("missing required flag: --key")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
+				return cmdutils.NewCliError("missing required flag: --name")
 			}
 
 			result0, err := keysService.Create(ctx, req)

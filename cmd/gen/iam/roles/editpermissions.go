@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -38,17 +38,6 @@ func EditPermissions(ctx context.Context, parent *cobra.Command, rolesService ia
 			var roleName string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("role-name", args[0])
-			}
-			if roleNameFlag.IsChanged() {
-				roleName = *roleNameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o roleName como argumento ou usar a flag --roleName")
-			}
-
-			//CobraFlagsAssign
 			if req_AddFlag.IsChanged() {
 				req.Add = *req_AddFlag.Value
 
@@ -58,6 +47,14 @@ func EditPermissions(ctx context.Context, parent *cobra.Command, rolesService ia
 			if req_RemoveFlag.IsChanged() {
 				req.Remove = *req_RemoveFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if roleNameFlag.IsChanged() {
+				roleName = *roleNameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --role-name")
 			}
 
 			result0, err := rolesService.EditPermissions(ctx, roleName, req)

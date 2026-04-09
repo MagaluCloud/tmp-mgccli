@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 
@@ -36,25 +36,19 @@ func Get(ctx context.Context, parent *cobra.Command, instancesService computeSdk
 			var id string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("expand", args[0])
-			}
 			if expandFlag.IsChanged() {
 				expand = flags.StrSliceFlagToSlice[computeSdk.InstanceExpand](expandFlag)
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o expand como argumento ou usar a flag --expand")
+				return cmdutils.NewCliError("missing required flag: --expand")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
+				return cmdutils.NewCliError("missing required flag: --id")
 			}
 
 			result0, err := instancesService.Get(ctx, id, expand)

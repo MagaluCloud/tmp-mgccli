@@ -17,7 +17,7 @@ import (
 func NetworkHealthChecksCmd(ctx context.Context, parent *cobra.Command, networkHealthCheckService lbaasSdk.NetworkHealthCheckService) {
 
 	cmd := &cobra.Command{
-		Use: "networkhealthchecks",
+		Use: "network-healthchecks",
 	}
 
 	Create(ctx, cmd, networkHealthCheckService)

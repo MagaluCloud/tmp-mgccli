@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -32,14 +32,11 @@ func Delete(ctx context.Context, parent *cobra.Command, membersService iamSdk.Me
 			var uuid string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("uuid", args[0])
-			}
 			if uuidFlag.IsChanged() {
 				uuid = *uuidFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o uuid como argumento ou usar a flag --uuid")
+				return cmdutils.NewCliError("missing required flag: --uuid")
 			}
 
 			err := membersService.Delete(ctx, uuid)

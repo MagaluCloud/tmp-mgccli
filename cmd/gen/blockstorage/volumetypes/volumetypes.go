@@ -17,7 +17,7 @@ import (
 func VolumeTypesCmd(ctx context.Context, parent *cobra.Command, volumeTypeService blockstorageSdk.VolumeTypeService) {
 
 	cmd := &cobra.Command{
-		Use: "volumetypes",
+		Use: "volume-types",
 	}
 
 	List(ctx, cmd, volumeTypeService)

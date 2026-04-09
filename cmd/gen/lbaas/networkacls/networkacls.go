@@ -17,7 +17,7 @@ import (
 func NetworkACLsCmd(ctx context.Context, parent *cobra.Command, networkACLService lbaasSdk.NetworkACLService) {
 
 	cmd := &cobra.Command{
-		Use: "networkacls",
+		Use: "network-acls",
 	}
 
 	Create(ctx, cmd, networkACLService)

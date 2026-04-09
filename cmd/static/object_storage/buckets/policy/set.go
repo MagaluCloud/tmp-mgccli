@@ -9,6 +9,8 @@ import (
 
 	objSdk "github.com/MagaluCloud/mgc-sdk-go/objectstorage"
 	"github.com/magaluCloud/mgccli/beautiful"
+	objectstorage "github.com/magaluCloud/mgccli/cmd/common/object_storage"
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/magaluCloud/mgccli/i18n"
 	"github.com/spf13/cobra"
 )
@@ -19,7 +21,7 @@ type setOptions struct {
 }
 
 // SetCommand cria o comando de configurar a política do bucket
-func SetCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra.Command {
+func SetCommand(ctx context.Context) *cobra.Command {
 	manager := i18n.GetInstance()
 	var opts setOptions
 
@@ -34,7 +36,7 @@ func SetCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra.
 
 			raw, _ := cmd.Root().PersistentFlags().GetBool("raw")
 
-			return runSet(ctx, bucketService, args, opts, raw)
+			return runSet(ctx, args, opts, raw)
 		},
 	}
 
@@ -47,10 +49,12 @@ func SetCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra.
 }
 
 // runSet executa o processo de configurar a política do bucket
-func runSet(ctx context.Context, bucketService objSdk.BucketService, args []string, opts setOptions, rawMode bool) error {
-	if bucketService == nil {
-		return nil
+func runSet(ctx context.Context, args []string, opts setOptions, rawMode bool) error {
+	objectStorageService, err := objectstorage.NewObjectStorage(ctx)
+	if err != nil {
+		return cmdutils.NewCliError(err.Error())
 	}
+	bucketService := objectStorageService.GetBucketService()
 
 	bucketName := opts.Dst
 
@@ -59,9 +63,7 @@ func runSet(ctx context.Context, bucketService objSdk.BucketService, args []stri
 	}
 
 	if bucketName == "" {
-		beautiful.NewOutput(rawMode).PrintError("é necessário fornecer o nome do bucket como argumento ou usar a flag --dst")
-
-		return nil
+		return cmdutils.NewCliError("missing required flag: --dst=string")
 	}
 
 	policyData, err := resolvePolicyInput(opts.Policy)
@@ -71,12 +73,12 @@ func runSet(ctx context.Context, bucketService objSdk.BucketService, args []stri
 
 	var policy *objSdk.Policy
 	if err := json.Unmarshal([]byte(policyData), &policy); err != nil {
-		return fmt.Errorf("--policy JSON inválido: %w", err)
+		return cmdutils.NewCliError(fmt.Errorf("--policy JSON inválido: %w", err).Error())
 	}
 
 	err = bucketService.SetPolicy(ctx, bucketName, policy)
 	if err != nil {
-		return fmt.Errorf("erro ao setar a política: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
 	beautiful.NewOutput(rawMode).PrintData(policy)

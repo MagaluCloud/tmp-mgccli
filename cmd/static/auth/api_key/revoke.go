@@ -47,9 +47,7 @@ func runRevoke(ctx context.Context, args []string, opts RevokeOptions) error {
 	}
 
 	if ID == "" {
-		beautiful.NewOutput(false).PrintError("é necessário fornecer o ID como argumento ou usar a flag --id")
-
-		return nil
+		return cmdutils.NewCliError("missing required flag: --id=string")
 	}
 
 	var confirm bool
@@ -62,10 +60,10 @@ func runRevoke(ctx context.Context, args []string, opts RevokeOptions) error {
 
 	err := revokeApiKey(ctx, ID)
 	if err != nil {
-		return fmt.Errorf("erro ao revogar a API Key: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
-	fmt.Printf("API Key %s revogada com sucesso!\n", ID)
+	beautiful.NewOutput(false).PrintSuccess(fmt.Sprintf("API key %s revoked successfully!", ID))
 
 	return nil
 }

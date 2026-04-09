@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -32,14 +32,11 @@ func Stop(ctx context.Context, parent *cobra.Command, clustersService dbaasSdk.C
 			var ID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if IDFlag.IsChanged() {
 				ID = *IDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o ID como argumento ou usar a flag --ID")
+				return cmdutils.NewCliError("missing required flag: --id")
 			}
 
 			result0, err := clustersService.Stop(ctx, ID)

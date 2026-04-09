@@ -10,11 +10,11 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
 
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 )
@@ -38,20 +38,17 @@ func Create(ctx context.Context, parent *cobra.Command, schedulersService blocks
 			var req blockstorageSdk.SchedulerPayload
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
+			if req_DescriptionFlag.IsChanged() {
+				req.Description = req_DescriptionFlag.Value
+
 			}
+
+			//CobraFlagsAssign
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if req_DescriptionFlag.IsChanged() {
-				req.Description = req_DescriptionFlag.Value
-
+				return cmdutils.NewCliError("missing required flag: --name")
 			}
 
 			//CobraFlagsAssign

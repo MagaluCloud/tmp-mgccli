@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -36,25 +36,19 @@ func DetachSecurityGroup(ctx context.Context, parent *cobra.Command, portsServic
 			var securityGroupID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("port-id", args[0])
-			}
 			if portIDFlag.IsChanged() {
 				portID = *portIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o portID como argumento ou usar a flag --portID")
+				return cmdutils.NewCliError("missing required flag: --port-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("security-group-id", args[0])
-			}
 			if securityGroupIDFlag.IsChanged() {
 				securityGroupID = *securityGroupIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o securityGroupID como argumento ou usar a flag --securityGroupID")
+				return cmdutils.NewCliError("missing required flag: --security-group-id")
 			}
 
 			err := portsService.DetachSecurityGroup(ctx, portID, securityGroupID)

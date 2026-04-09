@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -24,6 +24,8 @@ func Create(ctx context.Context, parent *cobra.Command, clustersService dbaasSdk
 	var req_BackupRetentionDaysFlag *flags.IntFlag //CobraFlagsDefinition
 
 	var req_BackupStartAtFlag *flags.StrFlag //CobraFlagsDefinition
+
+	var req_DeletionProtectedFlag *flags.BoolFlag //CobraFlagsDefinition
 
 	var req_EngineIDFlag *flags.StrFlag //CobraFlagsDefinition
 
@@ -48,61 +50,6 @@ func Create(ctx context.Context, parent *cobra.Command, clustersService dbaasSdk
 			var req dbaasSdk.ClusterCreateRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("engine-id", args[0])
-			}
-			if req_EngineIDFlag.IsChanged() {
-				req.EngineID = *req_EngineIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_EngineID como argumento ou usar a flag --EngineID")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("instance-type-id", args[0])
-			}
-			if req_InstanceTypeIDFlag.IsChanged() {
-				req.InstanceTypeID = *req_InstanceTypeIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_InstanceTypeID como argumento ou usar a flag --InstanceTypeID")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("password", args[0])
-			}
-			if req_PasswordFlag.IsChanged() {
-				req.Password = *req_PasswordFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Password como argumento ou usar a flag --Password")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("user", args[0])
-			}
-			if req_UserFlag.IsChanged() {
-				req.User = *req_UserFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_User como argumento ou usar a flag --User")
-			}
-
-			//CobraFlagsAssign
 			if req_BackupRetentionDaysFlag.IsChanged() {
 				req.BackupRetentionDays = req_BackupRetentionDaysFlag.Value
 
@@ -115,9 +62,55 @@ func Create(ctx context.Context, parent *cobra.Command, clustersService dbaasSdk
 			}
 
 			//CobraFlagsAssign
+			if req_DeletionProtectedFlag.IsChanged() {
+				req.DeletionProtected = req_DeletionProtectedFlag.Value
+
+			}
+
+			//CobraFlagsAssign
+			if req_EngineIDFlag.IsChanged() {
+				req.EngineID = *req_EngineIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --engine-id")
+			}
+
+			//CobraFlagsAssign
+			if req_InstanceTypeIDFlag.IsChanged() {
+				req.InstanceTypeID = *req_InstanceTypeIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --instance-type-id")
+			}
+
+			//CobraFlagsAssign
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
+			}
+
+			//CobraFlagsAssign
 			if req_ParameterGroupIDFlag.IsChanged() {
 				req.ParameterGroupID = req_ParameterGroupIDFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if req_PasswordFlag.IsChanged() {
+				req.Password = *req_PasswordFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --password")
+			}
+
+			//CobraFlagsAssign
+			if req_UserFlag.IsChanged() {
+				req.User = *req_UserFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --user")
 			}
 
 			//CobraFlagsAssign
@@ -142,6 +135,8 @@ func Create(ctx context.Context, parent *cobra.Command, clustersService dbaasSdk
 	req_BackupRetentionDaysFlag = flags.NewInt(cmd, "backup-retention-days", 0, "")
 	//CobraFlagsCreation
 	req_BackupStartAtFlag = flags.NewStr(cmd, "backup-start-at", "", "")
+	//CobraFlagsCreation
+	req_DeletionProtectedFlag = flags.NewBool(cmd, "deletion-protected", false, "")
 	//CobraFlagsCreation
 	req_EngineIDFlag = flags.NewStr(cmd, "engine-id", "", "")
 	//CobraFlagsCreation

@@ -2,10 +2,10 @@ package objectlock
 
 import (
 	"context"
-	"fmt"
 
-	objSdk "github.com/MagaluCloud/mgc-sdk-go/objectstorage"
 	"github.com/magaluCloud/mgccli/beautiful"
+	objectstorage "github.com/magaluCloud/mgccli/cmd/common/object_storage"
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/magaluCloud/mgccli/i18n"
 	"github.com/spf13/cobra"
 )
@@ -15,7 +15,7 @@ type getOptions struct {
 }
 
 // GetCommand cria o comando de exibir a configuração de bloqueio de objetos
-func GetCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra.Command {
+func GetCommand(ctx context.Context) *cobra.Command {
 	manager := i18n.GetInstance()
 	var opts getOptions
 
@@ -25,7 +25,7 @@ func GetCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra.
 		RunE: func(cmd *cobra.Command, args []string) error {
 			raw, _ := cmd.Root().PersistentFlags().GetBool("raw")
 
-			return runGet(ctx, bucketService, args, opts, raw)
+			return runGet(ctx, args, opts, raw)
 		},
 	}
 
@@ -35,10 +35,12 @@ func GetCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra.
 }
 
 // runGet executa o processo de exibir a configuração de bloqueio de objetos
-func runGet(ctx context.Context, bucketService objSdk.BucketService, args []string, opts getOptions, rawMode bool) error {
-	if bucketService == nil {
-		return nil
+func runGet(ctx context.Context, args []string, opts getOptions, rawMode bool) error {
+	objectStorageService, err := objectstorage.NewObjectStorage(ctx)
+	if err != nil {
+		return cmdutils.NewCliError(err.Error())
 	}
+	bucketService := objectStorageService.GetBucketService()
 
 	bucketName := opts.Dst
 
@@ -47,13 +49,12 @@ func runGet(ctx context.Context, bucketService objSdk.BucketService, args []stri
 	}
 
 	if bucketName == "" {
-		beautiful.NewOutput(rawMode).PrintError("é necessário fornecer o nome do bucket como argumento ou usar a flag --dst")
-		return nil
+		return cmdutils.NewCliError("missing required flag: --dst=string")
 	}
 
 	config, err := bucketService.GetBucketLockConfig(ctx, bucketName)
 	if err != nil {
-		return fmt.Errorf("erro ao pegar a configuração de bloqueio: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
 	beautiful.NewOutput(rawMode).PrintData(config)

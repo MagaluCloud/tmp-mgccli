@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -32,14 +32,11 @@ func Delete(ctx context.Context, parent *cobra.Command, clustersService kubernet
 			var clusterID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("cluster-id", args[0])
-			}
 			if clusterIDFlag.IsChanged() {
 				clusterID = *clusterIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o clusterID como argumento ou usar a flag --clusterID")
+				return cmdutils.NewCliError("missing required flag: --cluster-id")
 			}
 
 			err := clustersService.Delete(ctx, clusterID)

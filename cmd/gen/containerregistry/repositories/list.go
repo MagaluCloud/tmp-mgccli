@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 
@@ -40,17 +40,6 @@ func List(ctx context.Context, parent *cobra.Command, repositoriesService contai
 			var registryID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("registry-id", args[0])
-			}
-			if registryIDFlag.IsChanged() {
-				registryID = *registryIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o registryID como argumento ou usar a flag --registryID")
-			}
-
-			//CobraFlagsAssign
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
 
@@ -66,6 +55,14 @@ func List(ctx context.Context, parent *cobra.Command, repositoriesService contai
 			if opts_SortFlag.IsChanged() {
 				opts.Sort = opts_SortFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if registryIDFlag.IsChanged() {
+				registryID = *registryIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --registry-id")
 			}
 
 			result0, err := repositoriesService.List(ctx, registryID, opts)

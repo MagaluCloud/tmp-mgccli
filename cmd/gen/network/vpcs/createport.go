@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -26,6 +26,8 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vpcsService networkS
 	var req_HasPIPFlag *flags.BoolFlag //CobraFlagsDefinition
 
 	var req_HasSGFlag *flags.BoolFlag //CobraFlagsDefinition
+
+	var req_IPAddressFlag *flags.StrFlag //CobraFlagsDefinition
 
 	var req_NameFlag *flags.StrFlag //CobraFlagsDefinition
 
@@ -48,28 +50,6 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vpcsService networkS
 			var vpcID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("vpc-id", args[0])
-			}
-			if vpcIDFlag.IsChanged() {
-				vpcID = *vpcIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o vpcID como argumento ou usar a flag --vpcID")
-			}
-
-			//CobraFlagsAssign
 			if opts_ZoneFlag.IsChanged() {
 				opts.Zone = opts_ZoneFlag.Value
 
@@ -88,6 +68,20 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vpcsService networkS
 			}
 
 			//CobraFlagsAssign
+			if req_IPAddressFlag.IsChanged() {
+				req.IPAddress = req_IPAddressFlag.Value
+
+			}
+
+			//CobraFlagsAssign
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
+			}
+
+			//CobraFlagsAssign
 			if req_SecurityGroupsFlag.IsChanged() {
 				req.SecurityGroups = req_SecurityGroupsFlag.Value
 
@@ -97,6 +91,14 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vpcsService networkS
 			if req_SubnetsFlag.IsChanged() {
 				req.Subnets = req_SubnetsFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if vpcIDFlag.IsChanged() {
+				vpcID = *vpcIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --vpc-id")
 			}
 
 			result0, err := vpcsService.CreatePort(ctx, vpcID, req, opts)
@@ -117,6 +119,8 @@ func CreatePort(ctx context.Context, parent *cobra.Command, vpcsService networkS
 	req_HasPIPFlag = flags.NewBool(cmd, "has-pip", false, "")
 	//CobraFlagsCreation
 	req_HasSGFlag = flags.NewBool(cmd, "has-sg", false, "")
+	//CobraFlagsCreation
+	req_IPAddressFlag = flags.NewStr(cmd, "ipaddress", "", "")
 	//CobraFlagsCreation
 	req_NameFlag = flags.NewStr(cmd, "name", "", "")
 	//CobraFlagsCreation

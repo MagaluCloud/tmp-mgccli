@@ -2,9 +2,8 @@ package auth
 
 import (
 	"context"
-	"fmt"
-	"os"
 
+	"github.com/magaluCloud/mgccli/beautiful"
 	"github.com/magaluCloud/mgccli/cmd/common/auth"
 	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/magaluCloud/mgccli/i18n"
@@ -34,11 +33,10 @@ func runLogout(ctx context.Context) error {
 	// Executar logout
 	err := auth.Logout()
 	if err != nil {
-		return fmt.Errorf("falha ao encerrar a sessão: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
-	// Exibir mensagem de sucesso
-	fmt.Fprintln(os.Stderr, "✓ Sessão encerrada com sucesso!")
+	beautiful.NewOutput(false).PrintSuccess("Session ended successfully!")
 
 	return nil
 }

@@ -10,11 +10,11 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
 
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 )
@@ -44,31 +44,25 @@ func ListAll(ctx context.Context, parent *cobra.Command, volumetypesService bloc
 			}
 
 			//CobraFlagsAssign
-			if filterOpts_SortFlag.IsChanged() {
-				filterOpts.Sort = filterOpts_SortFlag.Value
-
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("availability-zone", args[0])
-			}
 			if filterOpts_AvailabilityZoneFlag.IsChanged() {
 				filterOpts.AvailabilityZone = *filterOpts_AvailabilityZoneFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o filterOpts_AvailabilityZone como argumento ou usar a flag --AvailabilityZone")
+				return cmdutils.NewCliError("missing required flag: --availability-zone")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
 			if filterOpts_NameFlag.IsChanged() {
 				filterOpts.Name = *filterOpts_NameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o filterOpts_Name como argumento ou usar a flag --Name")
+				return cmdutils.NewCliError("missing required flag: --name")
+			}
+
+			//CobraFlagsAssign
+			if filterOpts_SortFlag.IsChanged() {
+				filterOpts.Sort = filterOpts_SortFlag.Value
+
 			}
 
 			result0, err := volumetypesService.ListAll(ctx, filterOpts)

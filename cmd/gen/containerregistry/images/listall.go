@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 
@@ -42,42 +42,33 @@ func ListAll(ctx context.Context, parent *cobra.Command, imagesService container
 			var repositoryName string
 
 			//CobraFlagsAssign
+			if filterOpts_ExpandFlag.IsChanged() {
+				filterOpts.Expand = flags.StrSliceFlagToSlice[containerregistrySdk.ImageExpand](filterOpts_ExpandFlag)
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --expand")
+			}
+
+			//CobraFlagsAssign
 			if filterOpts_SortFlag.IsChanged() {
 				filterOpts.Sort = filterOpts_SortFlag.Value
 
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("expand", args[0])
-			}
-			if filterOpts_ExpandFlag.IsChanged() {
-				filterOpts.Expand = flags.StrSliceFlagToSlice[containerregistrySdk.ImageExpand](filterOpts_ExpandFlag)
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o filterOpts_Expand como argumento ou usar a flag --Expand")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("registry-id", args[0])
-			}
 			if registryIDFlag.IsChanged() {
 				registryID = *registryIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o registryID como argumento ou usar a flag --registryID")
+				return cmdutils.NewCliError("missing required flag: --registry-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("repository-name", args[0])
-			}
 			if repositoryNameFlag.IsChanged() {
 				repositoryName = *repositoryNameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o repositoryName como argumento ou usar a flag --repositoryName")
+				return cmdutils.NewCliError("missing required flag: --repository-name")
 			}
 
 			result0, err := imagesService.ListAll(ctx, registryID, repositoryName, filterOpts)

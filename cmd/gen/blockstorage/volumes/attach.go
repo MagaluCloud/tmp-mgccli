@@ -10,11 +10,11 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
 
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 )
@@ -36,25 +36,19 @@ func Attach(ctx context.Context, parent *cobra.Command, volumesService blockstor
 			var volumeID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("instance-id", args[0])
-			}
 			if instanceIDFlag.IsChanged() {
 				instanceID = *instanceIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o instanceID como argumento ou usar a flag --instanceID")
+				return cmdutils.NewCliError("missing required flag: --instance-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("volume-id", args[0])
-			}
 			if volumeIDFlag.IsChanged() {
 				volumeID = *volumeIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o volumeID como argumento ou usar a flag --volumeID")
+				return cmdutils.NewCliError("missing required flag: --volume-id")
 			}
 
 			err := volumesService.Attach(ctx, volumeID, instanceID)

@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -38,27 +38,21 @@ func BatchUpdate(ctx context.Context, parent *cobra.Command, grantsService iamSd
 			var req iamSdk.BatchUpdateMembers
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("member-ids", args[0])
-			}
 			if req_MemberIDsFlag.IsChanged() {
 				req.MemberIDs = *req_MemberIDsFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_MemberIDs como argumento ou usar a flag --MemberIDs")
+				return cmdutils.NewCliError("missing required flag: --member-ids")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("operation", args[0])
-			}
 			if req_OperationFlag.IsChanged() {
 				localVar := iamSdk.OperationType(*req_OperationFlag.Value)
 
 				req.Operation = localVar
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Operation como argumento ou usar a flag --Operation")
+				return cmdutils.NewCliError("missing required flag: --operation")
 			}
 
 			//CobraFlagsAssign

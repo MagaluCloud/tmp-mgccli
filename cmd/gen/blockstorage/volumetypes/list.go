@@ -10,11 +10,11 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
 
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 )
@@ -42,37 +42,31 @@ func List(ctx context.Context, parent *cobra.Command, volumetypesService blockst
 			var opts blockstorageSdk.ListVolumeTypesOptions
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("availability-zone", args[0])
-			}
-			if opts_AvailabilityZoneFlag.IsChanged() {
-				opts.AvailabilityZone = *opts_AvailabilityZoneFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o opts_AvailabilityZone como argumento ou usar a flag --AvailabilityZone")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if opts_NameFlag.IsChanged() {
-				opts.Name = *opts_NameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o opts_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
 			if opts_AllowsEncryptionFlag.IsChanged() {
 				opts.AllowsEncryption = opts_AllowsEncryptionFlag.Value
 
 			}
 
 			//CobraFlagsAssign
+			if opts_AvailabilityZoneFlag.IsChanged() {
+				opts.AvailabilityZone = *opts_AvailabilityZoneFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --availability-zone")
+			}
+
+			//CobraFlagsAssign
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if opts_NameFlag.IsChanged() {
+				opts.Name = *opts_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
 			}
 
 			//CobraFlagsAssign

@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -38,25 +38,19 @@ func Create(ctx context.Context, parent *cobra.Command, parametersService dbaasS
 			var req dbaasSdk.ParameterCreateRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("group-id", args[0])
-			}
 			if groupIDFlag.IsChanged() {
 				groupID = *groupIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o groupID como argumento ou usar a flag --groupID")
+				return cmdutils.NewCliError("missing required flag: --group-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
+				return cmdutils.NewCliError("missing required flag: --name")
 			}
 
 			//CobraFlagsAssign

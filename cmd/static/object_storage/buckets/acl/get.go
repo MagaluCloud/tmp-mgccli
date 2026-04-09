@@ -73,16 +73,14 @@ func runGet(ctx context.Context, args []string, opts getOptions, rawMode bool) e
 	}
 
 	if bucketName == "" {
-		beautiful.NewOutput(rawMode).PrintError("é necessário fornecer o nome do bucket como argumento ou usar a flag --dst")
-
-		return nil
+		return cmdutils.NewCliError("missing required flag: --dst=string")
 	}
 
 	config := ctx.Value(cmdutils.CXT_CONFIG_KEY).(configPkg.Config)
 
 	region, err := config.Get("region")
 	if err != nil {
-		return fmt.Errorf("erro ao pegar a região: %w", err)
+		return cmdutils.NewCliError(fmt.Sprintf("erro ao pegar a região: %s", err.Error()))
 	}
 
 	host, err := common.BuildHost(bucketName, region.Value.(string))

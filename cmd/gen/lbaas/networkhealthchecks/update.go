@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -56,36 +56,19 @@ func Update(ctx context.Context, parent *cobra.Command, networkhealthchecksServi
 			var req lbaasSdk.UpdateNetworkHealthCheckRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("health-check-id", args[0])
-			}
 			if healthCheckIDFlag.IsChanged() {
 				healthCheckID = *healthCheckIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o healthCheckID como argumento ou usar a flag --healthCheckID")
+				return cmdutils.NewCliError("missing required flag: --health-check-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("lb-id", args[0])
-			}
 			if lbIDFlag.IsChanged() {
 				lbID = *lbIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o lbID como argumento ou usar a flag --lbID")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("port", args[0])
-			}
-			if req_PortFlag.IsChanged() {
-				req.Port = *req_PortFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Port como argumento ou usar a flag --Port")
+				return cmdutils.NewCliError("missing required flag: --lb-id")
 			}
 
 			//CobraFlagsAssign
@@ -116,6 +99,14 @@ func Update(ctx context.Context, parent *cobra.Command, networkhealthchecksServi
 			if req_PathFlag.IsChanged() {
 				req.Path = req_PathFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if req_PortFlag.IsChanged() {
+				req.Port = *req_PortFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --port")
 			}
 
 			//CobraFlagsAssign

@@ -12,6 +12,8 @@ import (
 
 	"github.com/magaluCloud/mgccli/beautiful"
 
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
+
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
 	kubernetesSdk "github.com/MagaluCloud/mgc-sdk-go/kubernetes"
@@ -36,6 +38,8 @@ func List(ctx context.Context, parent *cobra.Command, versionsService kubernetes
 			if opts_IncludeDeprecatedFlag.IsChanged() {
 				opts.IncludeDeprecated = *opts_IncludeDeprecatedFlag.Value
 
+			} else {
+				return cmdutils.NewCliError("missing required flag: --include-deprecated")
 			}
 
 			result0, err := versionsService.List(ctx, opts)
@@ -51,7 +55,7 @@ func List(ctx context.Context, parent *cobra.Command, versionsService kubernetes
 	}
 
 	//CobraFlagsCreation
-	opts_IncludeDeprecatedFlag = flags.NewBool(cmd, "include-deprecated", false, "Include deprecated version (default = false)")
+	opts_IncludeDeprecatedFlag = flags.NewBool(cmd, "include-deprecated", false, "")
 
 	parent.AddCommand(cmd)
 

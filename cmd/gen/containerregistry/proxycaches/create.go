@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 
@@ -42,39 +42,6 @@ func Create(ctx context.Context, parent *cobra.Command, proxycachesService conta
 			var req containerregistrySdk.CreateProxyCacheRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("provider", args[0])
-			}
-			if req_ProviderFlag.IsChanged() {
-				req.Provider = *req_ProviderFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Provider como argumento ou usar a flag --Provider")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("url", args[0])
-			}
-			if req_URLFlag.IsChanged() {
-				req.URL = *req_URLFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_URL como argumento ou usar a flag --URL")
-			}
-
-			//CobraFlagsAssign
 			if req_AccessKeyFlag.IsChanged() {
 				req.AccessKey = req_AccessKeyFlag.Value
 
@@ -90,6 +57,30 @@ func Create(ctx context.Context, parent *cobra.Command, proxycachesService conta
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
+			}
+
+			//CobraFlagsAssign
+			if req_ProviderFlag.IsChanged() {
+				req.Provider = *req_ProviderFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --provider")
+			}
+
+			//CobraFlagsAssign
+			if req_URLFlag.IsChanged() {
+				req.URL = *req_URLFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --url")
 			}
 
 			result0, err := proxycachesService.Create(ctx, req)

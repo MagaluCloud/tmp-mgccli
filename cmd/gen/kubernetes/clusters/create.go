@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -49,17 +49,6 @@ func Create(ctx context.Context, parent *cobra.Command, clustersService kubernet
 			req.NodePools = &[]kubernetesSdk.CreateNodePoolRequest{}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
 			if req_AllowedCIDRsFlag.IsChanged() {
 				req.AllowedCIDRs = req_AllowedCIDRsFlag.Value
 
@@ -81,6 +70,14 @@ func Create(ctx context.Context, parent *cobra.Command, clustersService kubernet
 			if req_EnabledServerGroupFlag.IsChanged() {
 				req.EnabledServerGroup = req_EnabledServerGroupFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
 			}
 
 			//CobraFlagsAssign

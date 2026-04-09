@@ -3,8 +3,8 @@ package auth
 import (
 	"context"
 	"fmt"
-	"os"
 
+	"github.com/magaluCloud/mgccli/beautiful"
 	"github.com/magaluCloud/mgccli/cmd/common/auth"
 	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/spf13/cobra"
@@ -42,14 +42,21 @@ func runLogin(ctx context.Context, opts auth.LoginOptions) error {
 	fmt.Println("Iniciando processo de autenticação...")
 	token, err := auth.GetService().Login(ctx, opts)
 	if err != nil {
-		return fmt.Errorf("falha na autenticação: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
 	// Exibir mensagem de sucesso
-	fmt.Fprintln(os.Stderr, "\n✓ Autenticação realizada com sucesso!")
+	beautiful.NewOutput(false).PrintSuccess("Authentication successful!")
 
 	auth.SetAccessToken(token.AccessToken)
 	auth.SetRefreshToken(token.RefreshToken)
+
+	if opts.Show {
+		beautiful.NewOutput(false).PrintData(map[string]any{
+			"access_token":  token.AccessToken,
+			"refresh_token": token.RefreshToken,
+		})
+	}
 
 	return nil
 }

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/magaluCloud/mgccli/beautiful"
 	"github.com/magaluCloud/mgccli/cmd/static/object_storage/buckets/common"
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	cobrautils "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	"github.com/magaluCloud/mgccli/i18n"
 	"github.com/spf13/cobra"
@@ -41,15 +41,13 @@ func SetCommand(ctx context.Context) *cobra.Command {
 				return nil
 			}
 
-			raw, _ := cmd.Root().PersistentFlags().GetBool("raw")
-
 			params.Dst = flags.Dst
 
 			cobrautils.NilIfNotChanged(cmd, "grant-write", &params.GrantWrite, flags.GrantWrite)
 			cobrautils.NilIfNotChanged(cmd, "private", &params.Private, flags.Private)
 			cobrautils.NilIfNotChanged(cmd, "public-read", &params.PublicRead, flags.PublicRead)
 
-			return runSet(ctx, args, params, raw)
+			return runSet(ctx, args, params)
 		},
 	}
 
@@ -62,7 +60,7 @@ func SetCommand(ctx context.Context) *cobra.Command {
 }
 
 // runSet executa o processo de retornar o ACL do bucket
-func runSet(ctx context.Context, args []string, opts setParams, rawMode bool) error {
+func runSet(ctx context.Context, args []string, opts setParams) error {
 	bucketName := opts.Dst
 
 	if len(args) > 0 {
@@ -70,9 +68,7 @@ func runSet(ctx context.Context, args []string, opts setParams, rawMode bool) er
 	}
 
 	if bucketName == "" {
-		beautiful.NewOutput(rawMode).PrintError("é necessário fornecer o nome do bucket como argumento ou usar a flag --dst")
-
-		return nil
+		return cmdutils.NewCliError("missing required flag: --dst=string")
 	}
 
 	aclOptions := common.Options{
@@ -82,7 +78,7 @@ func runSet(ctx context.Context, args []string, opts setParams, rawMode bool) er
 	}
 
 	if common.PermissionsIsEmpty(aclOptions) {
-		return fmt.Errorf("needs to pass either grant permissions or canned info")
+		return cmdutils.NewCliError("needs to pass either grant permissions or canned info")
 	}
 
 	err := common.SetACL(ctx, bucketName, aclOptions)

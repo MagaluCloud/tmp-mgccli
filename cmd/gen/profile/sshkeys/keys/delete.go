@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -24,7 +24,7 @@ func Delete(ctx context.Context, parent *cobra.Command, keysService sshkeysSdk.K
 	var keyIDFlag *flags.StrFlag //CobraFlagsDefinition
 
 	cmd := &cobra.Command{
-		Use: "delete",
+		Use: "delete [key-id]",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 
@@ -39,7 +39,7 @@ func Delete(ctx context.Context, parent *cobra.Command, keysService sshkeysSdk.K
 				keyID = *keyIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o keyID como argumento ou usar a flag --keyID")
+				return cmdutils.NewCliError("missing required flag: --key-id")
 			}
 
 			result0, err := keysService.Delete(ctx, keyID)

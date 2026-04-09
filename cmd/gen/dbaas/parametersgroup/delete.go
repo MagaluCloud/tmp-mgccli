@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -32,14 +32,11 @@ func Delete(ctx context.Context, parent *cobra.Command, parametersgroupService d
 			var ID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if IDFlag.IsChanged() {
 				ID = *IDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o ID como argumento ou usar a flag --ID")
+				return cmdutils.NewCliError("missing required flag: --id")
 			}
 
 			err := parametersgroupService.Delete(ctx, ID)

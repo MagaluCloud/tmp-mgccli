@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -36,20 +36,17 @@ func CreatePublicIP(ctx context.Context, parent *cobra.Command, vpcsService netw
 			var vpcID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("vpc-id", args[0])
+			if req_DescriptionFlag.IsChanged() {
+				req.Description = req_DescriptionFlag.Value
+
 			}
+
+			//CobraFlagsAssign
 			if vpcIDFlag.IsChanged() {
 				vpcID = *vpcIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o vpcID como argumento ou usar a flag --vpcID")
-			}
-
-			//CobraFlagsAssign
-			if req_DescriptionFlag.IsChanged() {
-				req.Description = req_DescriptionFlag.Value
-
+				return cmdutils.NewCliError("missing required flag: --vpc-id")
 			}
 
 			result0, err := vpcsService.CreatePublicIP(ctx, vpcID, req)

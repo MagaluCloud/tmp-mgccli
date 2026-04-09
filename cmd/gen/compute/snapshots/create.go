@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 
@@ -34,20 +34,17 @@ func Create(ctx context.Context, parent *cobra.Command, snapshotsService compute
 			var req computeSdk.CreateSnapshotRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
+			if req_InstanceFlag.IsChanged() {
+				req.Instance = *req_InstanceFlag.Value
+
 			}
+
+			//CobraFlagsAssign
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if req_InstanceFlag.IsChanged() {
-				req.Instance = *req_InstanceFlag.Value
-
+				return cmdutils.NewCliError("missing required flag: --name")
 			}
 
 			result0, err := snapshotsService.Create(ctx, req)

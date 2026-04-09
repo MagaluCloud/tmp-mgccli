@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -84,6 +84,14 @@ func Create(ctx context.Context, parent *cobra.Command, networkloadbalancersServ
 			}
 
 			//CobraFlagsAssign
+			if create_NameFlag.IsChanged() {
+				create.Name = *create_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
+			}
+
+			//CobraFlagsAssign
 			if create_PublicIPIDFlag.IsChanged() {
 				create.PublicIPID = create_PublicIPIDFlag.Value
 
@@ -108,33 +116,19 @@ func Create(ctx context.Context, parent *cobra.Command, networkloadbalancersServ
 			}
 
 			//CobraFlagsAssign
+			if create_VPCIDFlag.IsChanged() {
+				create.VPCID = *create_VPCIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --vpcid")
+			}
+
+			//CobraFlagsAssign
 			if create_VisibilityFlag.IsChanged() {
 				localVar := lbaasSdk.LoadBalancerVisibility(*create_VisibilityFlag.Value)
 
 				create.Visibility = localVar
 
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if create_NameFlag.IsChanged() {
-				create.Name = *create_NameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o create_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("vpcid", args[0])
-			}
-			if create_VPCIDFlag.IsChanged() {
-				create.VPCID = *create_VPCIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o create_VPCID como argumento ou usar a flag --VPCID")
 			}
 
 			result0, err := networkloadbalancersService.Create(ctx, create)

@@ -32,8 +32,11 @@ import (
 
 func LbaasCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
-		Use: "lbaas",
+		Use: "load-balancer",
 
+		Aliases: []string{
+			"lb", "lbaas",
+		},
 		GroupID: "products",
 	}
 

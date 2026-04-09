@@ -28,6 +28,9 @@ func KubernetesCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk
 	cmd := &cobra.Command{
 		Use: "kubernetes",
 
+		Aliases: []string{
+			"k8s", "kub", "kube",
+		},
 		GroupID: "products",
 	}
 

@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 
@@ -55,25 +55,11 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotsService comput
 			req.Network.Vpc = &computeSdk.IDOrName{}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
+				return cmdutils.NewCliError("missing required flag: --id")
 			}
 
 			//CobraFlagsAssign
@@ -86,6 +72,14 @@ func Restore(ctx context.Context, parent *cobra.Command, snapshotsService comput
 			if req_MachineTypeFlag.IsChanged() {
 				req.MachineType = *req_MachineTypeFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
 			}
 
 			//CobraFlagsAssign

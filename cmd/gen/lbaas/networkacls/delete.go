@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -36,25 +36,19 @@ func Delete(ctx context.Context, parent *cobra.Command, networkaclsService lbaas
 			var lbID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("acl-id", args[0])
-			}
 			if aclIDFlag.IsChanged() {
 				aclID = *aclIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o aclID como argumento ou usar a flag --aclID")
+				return cmdutils.NewCliError("missing required flag: --acl-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("lb-id", args[0])
-			}
 			if lbIDFlag.IsChanged() {
 				lbID = *lbIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o lbID como argumento ou usar a flag --lbID")
+				return cmdutils.NewCliError("missing required flag: --lb-id")
 			}
 
 			err := networkaclsService.Delete(ctx, lbID, aclID)

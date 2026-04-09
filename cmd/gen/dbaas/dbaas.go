@@ -34,6 +34,9 @@ func DbaasCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.Core
 	cmd := &cobra.Command{
 		Use: "dbaas",
 
+		Aliases: []string{
+			"database", "db",
+		},
 		GroupID: "products",
 	}
 

@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -42,14 +42,11 @@ func ListEngineParameters(ctx context.Context, parent *cobra.Command, enginesSer
 			var opts dbaasSdk.ListEngineParametersOptions
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("engine-id", args[0])
-			}
 			if engineIDFlag.IsChanged() {
 				engineID = *engineIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o engineID como argumento ou usar a flag --engineID")
+				return cmdutils.NewCliError("missing required flag: --engine-id")
 			}
 
 			//CobraFlagsAssign
