@@ -24,6 +24,7 @@ func ConfigCmd(parent *cobra.Command) {
 	cmd.AddCommand(Delete(config))
 	cmd.AddCommand(Get(config))
 	cmd.AddCommand(Set(config))
+	cmd.AddCommand(GetSchema(config))
 
 	parent.AddCommand(cmd)
 }

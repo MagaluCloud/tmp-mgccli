@@ -16,6 +16,7 @@ import (
 
 type Config interface {
 	Get(name string) (*ConfigItem, error)
+	GetSchema(name string) (*ConfigSchema, error)
 	Set(name string, value any) error
 	Delete(name string) error
 	List() (map[string]*ConfigItem, error)
@@ -24,13 +25,22 @@ type Config interface {
 }
 
 type ConfigItem struct {
-	Name        string
-	Value       any
-	Type        string
-	Description string
-	Validator   *string
-	Default     any
-	Scope       string
+	Name        string  `json:"name"`
+	Value       any     `json:"value"`
+	Type        string  `json:"type"`
+	Description string  `json:"description"`
+	Validator   *string `json:"validator,omitempty"`
+	Default     any     `json:"default"`
+	Scope       string  `json:"scope"`
+}
+
+type ConfigSchema struct {
+	Name        string  `json:"name"`
+	Type        string  `json:"type"`
+	Description string  `json:"description"`
+	Validator   *string `json:"validator,omitempty"`
+	Default     any     `json:"default"`
+	Scope       string  `json:"scope"`
 }
 
 type CliConfig struct {
@@ -190,30 +200,20 @@ func (c *config) Set(name string, value any) error {
 		return err
 	}
 
-	if item.Validator != nil {
-		err = validator.NewValidator(value, *item.Validator).Validate()
+	if value != nil {
+		updatedValue, err := formattedValue(name, item.Type, value)
 		if err != nil {
 			return err
 		}
+
+		item.Value = updatedValue
 	}
 
-	switch item.Type {
-	case "string":
-		item.Value = anyToString(value)
-	case "int":
-		val, err := strconv.Atoi(anyToString(value))
+	if item.Validator != nil {
+		err = validator.NewValidator(item.Value, *item.Validator).Validate()
 		if err != nil {
 			return err
 		}
-		item.Value = val
-	case "bool":
-		val, err := strconv.ParseBool(anyToString(value))
-		if err != nil {
-			return err
-		}
-		item.Value = val
-	default:
-		return fmt.Errorf("unsupported type for config %s", name)
 	}
 
 	err = structs.Set(&c.configYaml, keyToName(name), value)
@@ -247,6 +247,22 @@ func (c *config) List() (map[string]*ConfigItem, error) {
 	return c.cliConfig.Items, nil
 }
 
+func (c *config) GetSchema(name string) (*ConfigSchema, error) {
+	config := c.cliConfig.Items[name]
+	if config == nil {
+		return nil, fmt.Errorf(`config "%s" not found`, name)
+	}
+
+	return &ConfigSchema{
+		Name:        config.Name,
+		Type:        config.Type,
+		Description: config.Description,
+		Validator:   config.Validator,
+		Default:     config.Default,
+		Scope:       config.Scope,
+	}, nil
+}
+
 // name_to_key -> name-to-key
 func nameToKey(name string) string {
 	return strings.ToLower(strings.ReplaceAll(name, "_", "-"))
@@ -255,4 +271,25 @@ func nameToKey(name string) string {
 // key-to-name -> key_to_name
 func keyToName(key string) string {
 	return strings.ToLower(strings.ReplaceAll(key, "-", "_"))
+}
+
+func formattedValue(configName string, configType string, value any) (any, error) {
+	switch configType {
+	case "string":
+		return anyToString(value), nil
+	case "int":
+		val, err := strconv.Atoi(anyToString(value))
+		if err != nil {
+			return nil, err
+		}
+		return val, nil
+	case "bool":
+		val, err := strconv.ParseBool(anyToString(value))
+		if err != nil {
+			return nil, err
+		}
+		return val, nil
+	default:
+		return nil, fmt.Errorf("unsupported type for config %s", configName)
+	}
 }

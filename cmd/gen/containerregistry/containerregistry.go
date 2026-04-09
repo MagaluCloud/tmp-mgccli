@@ -30,6 +30,9 @@ func ContainerregistryCmd(ctx context.Context, parent *cobra.Command, sdkCoreCon
 	cmd := &cobra.Command{
 		Use: "containerregistry",
 
+		Aliases: []string{
+			"cr", "registry",
+		},
 		GroupID: "products",
 	}
 
