@@ -28,6 +28,9 @@ func ComputeCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.Co
 	cmd := &cobra.Command{
 		Use: "compute",
 
+		Aliases: []string{
+			"machines", "virtual-machines", "vm", "vmachine", "vms",
+		},
 		GroupID: "products",
 	}
 

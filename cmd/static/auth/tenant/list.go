@@ -2,7 +2,6 @@ package tenant
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/magaluCloud/mgccli/beautiful"
 	"github.com/magaluCloud/mgccli/cmd/common/auth"
@@ -36,7 +35,7 @@ func runList(ctx context.Context, rawMode bool) error {
 	tenants, err := auth.ListTenants(ctx)
 
 	if err != nil {
-		return fmt.Errorf("erro ao listar os tenants: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
 	beautiful.NewOutput(rawMode).PrintData(tenants)

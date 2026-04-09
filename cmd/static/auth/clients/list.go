@@ -85,7 +85,7 @@ func ListCommand(ctx context.Context) *cobra.Command {
 func runList(ctx context.Context, rawMode bool) error {
 	clients, err := listClients(ctx)
 	if err != nil {
-		return fmt.Errorf("erro ao listar os clientes: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
 	result := []*ListClientResult{}

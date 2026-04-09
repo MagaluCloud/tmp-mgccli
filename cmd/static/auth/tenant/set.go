@@ -48,16 +48,14 @@ func runSet(ctx context.Context, args []string, opts SetOptions, rawMode bool) e
 	}
 
 	if uuid == "" {
-		beautiful.NewOutput(rawMode).PrintError("é necessário fornecer o uuid como argumento ou usar a flag --uuid")
-
-		return nil
+		return cmdutils.NewCliError("missing required flag: --uuid")
 	}
 
 	auth := ctx.Value(cmdutils.CTX_AUTH_KEY).(auth.Auth)
 
 	tokenInfo, err := auth.SetTenant(ctx, uuid)
 	if err != nil {
-		return fmt.Errorf("erro ao alterar o tenant: %w", err)
+		return cmdutils.NewCliError(fmt.Errorf("erro ao alterar o tenant: %w", err).Error())
 	}
 
 	accessKeyId := auth.GetAccessKeyID()
@@ -68,12 +66,12 @@ func runSet(ctx context.Context, args []string, opts SetOptions, rawMode bool) e
 
 		err := auth.SetAccessKeyID("")
 		if err != nil {
-			return fmt.Errorf("erro ao remover o access key id: %w", err)
+			return cmdutils.NewCliError(fmt.Errorf("erro ao remover o access key id: %w", err).Error())
 		}
 
 		err = auth.SetSecretAccessKey("")
 		if err != nil {
-			return fmt.Errorf("erro ao remover o secret access key: %w", err)
+			return cmdutils.NewCliError(fmt.Errorf("erro ao remover o secret access key: %w", err).Error())
 		}
 	}
 

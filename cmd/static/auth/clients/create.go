@@ -164,12 +164,12 @@ func CreateCommand(ctx context.Context) *cobra.Command {
 func runCreate(ctx context.Context, opts CreateClientParams, rawMode bool) error {
 
 	if opts.BackchannelLogoutSessionEnabled != nil && *opts.BackchannelLogoutSessionEnabled && opts.BackchannelLogoutURI == nil {
-		return fmt.Errorf("backchannel-logout-uri is required when backchannel-logout-session is true")
+		return cmdutils.NewCliError("backchannel-logout-uri is required when backchannel-logout-session is true")
 	}
 
 	result, err := createClient(ctx, opts)
 	if err != nil {
-		return fmt.Errorf("erro ao criar o cliente: %w", err)
+		return cmdutils.NewCliError(fmt.Errorf("erro ao criar o cliente: %w", err).Error())
 	}
 
 	fmt.Fprintln(os.Stderr, "Client created successfully! We'll analise your requisition and approve your client. You can check the approval status using client list command.")
