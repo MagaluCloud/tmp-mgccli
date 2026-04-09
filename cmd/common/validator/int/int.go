@@ -37,11 +37,11 @@ func Validator(value int, validateTag string) error {
 	}
 
 	if minimumValue > 0 && value < minimumValue {
-		return fmt.Errorf("value %d must be greater than %d", value, minimumValue)
+		return fmt.Errorf("value must be greater than %d", minimumValue)
 	}
 
 	if maximumValue > 0 && value > maximumValue {
-		return fmt.Errorf("value %d must be less than %d", value, maximumValue)
+		return fmt.Errorf("value must be less than %d", maximumValue)
 	}
 
 	return nil
