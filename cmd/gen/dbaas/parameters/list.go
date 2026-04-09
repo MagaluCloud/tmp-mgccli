@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -36,17 +36,6 @@ func List(ctx context.Context, parent *cobra.Command, parametersService dbaasSdk
 			var opts dbaasSdk.ListParametersOptions
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("parameter-group-id", args[0])
-			}
-			if opts_ParameterGroupIDFlag.IsChanged() {
-				opts.ParameterGroupID = *opts_ParameterGroupIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o opts_ParameterGroupID como argumento ou usar a flag --ParameterGroupID")
-			}
-
-			//CobraFlagsAssign
 			if opts_LimitFlag.IsChanged() {
 				opts.Limit = opts_LimitFlag.Value
 
@@ -56,6 +45,14 @@ func List(ctx context.Context, parent *cobra.Command, parametersService dbaasSdk
 			if opts_OffsetFlag.IsChanged() {
 				opts.Offset = opts_OffsetFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if opts_ParameterGroupIDFlag.IsChanged() {
+				opts.ParameterGroupID = *opts_ParameterGroupIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --parameter-group-id")
 			}
 
 			result0, err := parametersService.List(ctx, opts)

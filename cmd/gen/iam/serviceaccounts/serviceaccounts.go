@@ -17,7 +17,7 @@ import (
 func ServiceAccountsCmd(ctx context.Context, parent *cobra.Command, serviceAccountService iamSdk.ServiceAccountService) {
 
 	cmd := &cobra.Command{
-		Use: "serviceaccounts",
+		Use: "service-accounts",
 	}
 
 	APIKeys(ctx, cmd, serviceAccountService)

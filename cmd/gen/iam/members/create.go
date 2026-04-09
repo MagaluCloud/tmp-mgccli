@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -36,14 +36,11 @@ func Create(ctx context.Context, parent *cobra.Command, membersService iamSdk.Me
 			var req iamSdk.CreateMember
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("email", args[0])
-			}
 			if req_EmailFlag.IsChanged() {
 				req.Email = *req_EmailFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Email como argumento ou usar a flag --Email")
+				return cmdutils.NewCliError("missing required flag: --email")
 			}
 
 			//CobraFlagsAssign

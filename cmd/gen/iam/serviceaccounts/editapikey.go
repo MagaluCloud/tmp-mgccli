@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -44,25 +44,11 @@ func EditAPIKey(ctx context.Context, parent *cobra.Command, serviceaccountsServi
 			var saUUID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("apikey-uuid", args[0])
-			}
 			if apikeyUUIDFlag.IsChanged() {
 				apikeyUUID = *apikeyUUIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o apikeyUUID como argumento ou usar a flag --apikeyUUID")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("sa-uuid", args[0])
-			}
-			if saUUIDFlag.IsChanged() {
-				saUUID = *saUUIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o saUUID como argumento ou usar a flag --saUUID")
+				return cmdutils.NewCliError("missing required flag: --apikey-uuid")
 			}
 
 			//CobraFlagsAssign
@@ -81,6 +67,14 @@ func EditAPIKey(ctx context.Context, parent *cobra.Command, serviceaccountsServi
 			if req_ScopesFlag.IsChanged() {
 				req.Scopes = *req_ScopesFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if saUUIDFlag.IsChanged() {
+				saUUID = *saUUIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --sa-uuid")
 			}
 
 			result0, err := serviceaccountsService.EditAPIKey(ctx, saUUID, apikeyUUID, req)

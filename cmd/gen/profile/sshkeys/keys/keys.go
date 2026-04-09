@@ -17,7 +17,7 @@ import (
 func KeysCmd(ctx context.Context, parent *cobra.Command, keyService sshkeysSdk.KeyService) {
 
 	cmd := &cobra.Command{
-		Use: "keys",
+		Use: "ssh-keys",
 	}
 
 	Create(ctx, cmd, keyService)

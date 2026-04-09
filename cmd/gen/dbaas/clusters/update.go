@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -27,6 +27,8 @@ func Update(ctx context.Context, parent *cobra.Command, clustersService dbaasSdk
 
 	var req_BackupStartAtFlag *flags.StrFlag //CobraFlagsDefinition
 
+	var req_DeletionProtectedFlag *flags.BoolFlag //CobraFlagsDefinition
+
 	var req_ParameterGroupIDFlag *flags.StrFlag //CobraFlagsDefinition
 
 	cmd := &cobra.Command{
@@ -40,14 +42,11 @@ func Update(ctx context.Context, parent *cobra.Command, clustersService dbaasSdk
 			var req dbaasSdk.ClusterUpdateRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if IDFlag.IsChanged() {
 				ID = *IDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o ID como argumento ou usar a flag --ID")
+				return cmdutils.NewCliError("missing required flag: --id")
 			}
 
 			//CobraFlagsAssign
@@ -59,6 +58,12 @@ func Update(ctx context.Context, parent *cobra.Command, clustersService dbaasSdk
 			//CobraFlagsAssign
 			if req_BackupStartAtFlag.IsChanged() {
 				req.BackupStartAt = req_BackupStartAtFlag.Value
+
+			}
+
+			//CobraFlagsAssign
+			if req_DeletionProtectedFlag.IsChanged() {
+				req.DeletionProtected = req_DeletionProtectedFlag.Value
 
 			}
 
@@ -86,6 +91,8 @@ func Update(ctx context.Context, parent *cobra.Command, clustersService dbaasSdk
 	req_BackupRetentionDaysFlag = flags.NewInt(cmd, "backup-retention-days", 0, "")
 	//CobraFlagsCreation
 	req_BackupStartAtFlag = flags.NewStr(cmd, "backup-start-at", "", "")
+	//CobraFlagsCreation
+	req_DeletionProtectedFlag = flags.NewBool(cmd, "deletion-protected", false, "")
 	//CobraFlagsCreation
 	req_ParameterGroupIDFlag = flags.NewStr(cmd, "parameter-group-id", "", "")
 

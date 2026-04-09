@@ -10,11 +10,11 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
 
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 )
@@ -36,25 +36,19 @@ func Copy(ctx context.Context, parent *cobra.Command, snapshotsService blockstor
 			var id string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("destination-region", args[0])
-			}
 			if destinationRegionFlag.IsChanged() {
 				destinationRegion = *destinationRegionFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o destinationRegion como argumento ou usar a flag --destinationRegion")
+				return cmdutils.NewCliError("missing required flag: --destination-region")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
+				return cmdutils.NewCliError("missing required flag: --id")
 			}
 
 			err := snapshotsService.Copy(ctx, id, destinationRegion)

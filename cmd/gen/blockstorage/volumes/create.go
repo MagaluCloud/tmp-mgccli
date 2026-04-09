@@ -10,11 +10,11 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
 
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 )
@@ -45,28 +45,6 @@ func Create(ctx context.Context, parent *cobra.Command, volumesService blockstor
 			req.Snapshot = &blockstorageSdk.IDOrName{}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("size", args[0])
-			}
-			if req_SizeFlag.IsChanged() {
-				req.Size = *req_SizeFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Size como argumento ou usar a flag --Size")
-			}
-
-			//CobraFlagsAssign
 			if req_AvailabilityZoneFlag.IsChanged() {
 				req.AvailabilityZone = req_AvailabilityZoneFlag.Value
 
@@ -76,6 +54,22 @@ func Create(ctx context.Context, parent *cobra.Command, volumesService blockstor
 			if req_EncryptedFlag.IsChanged() {
 				req.Encrypted = req_EncryptedFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
+			}
+
+			//CobraFlagsAssign
+			if req_SizeFlag.IsChanged() {
+				req.Size = *req_SizeFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --size")
 			}
 
 			//CobraFlagsAssign

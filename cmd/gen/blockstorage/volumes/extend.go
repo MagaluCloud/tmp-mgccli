@@ -10,11 +10,11 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
 
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 )
@@ -36,25 +36,19 @@ func Extend(ctx context.Context, parent *cobra.Command, volumesService blockstor
 			var req blockstorageSdk.ExtendVolumeRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
+				return cmdutils.NewCliError("missing required flag: --id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("size", args[0])
-			}
 			if req_SizeFlag.IsChanged() {
 				req.Size = *req_SizeFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Size como argumento ou usar a flag --Size")
+				return cmdutils.NewCliError("missing required flag: --size")
 			}
 
 			err := volumesService.Extend(ctx, id, req)

@@ -17,7 +17,7 @@ import (
 func ClustersCmd(ctx context.Context, parent *cobra.Command, clusterService kubernetesSdk.ClusterService) {
 
 	cmd := &cobra.Command{
-		Use: "clusters",
+		Use: "cluster",
 	}
 
 	Create(ctx, cmd, clusterService)

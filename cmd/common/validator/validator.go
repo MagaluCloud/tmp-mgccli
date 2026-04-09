@@ -25,6 +25,9 @@ func NewValidator(value any, validateTag string) Validator {
 func (v *validator) Validate() error {
 	//reflect on type of v.value and call the appropriate validator
 	typ := reflect.TypeOf(v.value)
+	if typ == nil {
+		return nil
+	}
 	switch typ.Kind() {
 	case reflect.Int:
 		return v.integer()

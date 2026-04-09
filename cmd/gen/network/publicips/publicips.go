@@ -17,7 +17,7 @@ import (
 func PublicIPsCmd(ctx context.Context, parent *cobra.Command, publicIPService networkSdk.PublicIPService) {
 
 	cmd := &cobra.Command{
-		Use: "publicips",
+		Use: "public-ips",
 	}
 
 	AttachToPort(ctx, cmd, publicIPService)

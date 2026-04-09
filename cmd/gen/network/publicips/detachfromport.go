@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -36,25 +36,19 @@ func DetachFromPort(ctx context.Context, parent *cobra.Command, publicipsService
 			var publicIPID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("port-id", args[0])
-			}
 			if portIDFlag.IsChanged() {
 				portID = *portIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o portID como argumento ou usar a flag --portID")
+				return cmdutils.NewCliError("missing required flag: --port-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("public-ipid", args[0])
-			}
 			if publicIPIDFlag.IsChanged() {
 				publicIPID = *publicIPIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o publicIPID como argumento ou usar a flag --publicIPID")
+				return cmdutils.NewCliError("missing required flag: --public-ipid")
 			}
 
 			err := publicipsService.DetachFromPort(ctx, publicIPID, portID)

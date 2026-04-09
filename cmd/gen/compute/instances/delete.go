@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 
@@ -36,25 +36,19 @@ func Delete(ctx context.Context, parent *cobra.Command, instancesService compute
 			var id string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("delete-public-ip", args[0])
-			}
 			if deletePublicIPFlag.IsChanged() {
 				deletePublicIP = *deletePublicIPFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o deletePublicIP como argumento ou usar a flag --deletePublicIP")
+				return cmdutils.NewCliError("missing required flag: --delete-public-ip")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
+				return cmdutils.NewCliError("missing required flag: --id")
 			}
 
 			err := instancesService.Delete(ctx, id, deletePublicIP)

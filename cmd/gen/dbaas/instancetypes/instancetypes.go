@@ -17,7 +17,7 @@ import (
 func InstanceTypesCmd(ctx context.Context, parent *cobra.Command, instanceTypeService dbaasSdk.InstanceTypeService) {
 
 	cmd := &cobra.Command{
-		Use: "instancetypes",
+		Use: "instance-types",
 	}
 
 	Get(ctx, cmd, instanceTypeService)

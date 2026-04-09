@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	objSdk "github.com/MagaluCloud/mgc-sdk-go/objectstorage"
-	"github.com/magaluCloud/mgccli/beautiful"
+	objectstorage "github.com/magaluCloud/mgccli/cmd/common/object_storage"
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/magaluCloud/mgccli/i18n"
 	"github.com/spf13/cobra"
 )
@@ -16,7 +16,7 @@ type deleteOptions struct {
 }
 
 // DeleteCommand cria o comando de deletar a política do bucket
-func DeleteCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra.Command {
+func DeleteCommand(ctx context.Context) *cobra.Command {
 	manager := i18n.GetInstance()
 	var opts deleteOptions
 
@@ -26,7 +26,7 @@ func DeleteCommand(ctx context.Context, bucketService objSdk.BucketService) *cob
 		RunE: func(cmd *cobra.Command, args []string) error {
 			raw, _ := cmd.Root().PersistentFlags().GetBool("raw")
 
-			return runDelete(ctx, bucketService, args, opts, raw)
+			return runDelete(ctx, args, opts, raw)
 		},
 	}
 
@@ -36,10 +36,12 @@ func DeleteCommand(ctx context.Context, bucketService objSdk.BucketService) *cob
 }
 
 // runDelete executa o processo de deletar a política do bucket
-func runDelete(ctx context.Context, bucketService objSdk.BucketService, args []string, opts deleteOptions, rawMode bool) error {
-	if bucketService == nil {
-		return nil
+func runDelete(ctx context.Context, args []string, opts deleteOptions, rawMode bool) error {
+	objectStorageService, err := objectstorage.NewObjectStorage(ctx)
+	if err != nil {
+		return cmdutils.NewCliError(err.Error())
 	}
+	bucketService := objectStorageService.GetBucketService()
 
 	bucketName := opts.Dst
 
@@ -48,14 +50,12 @@ func runDelete(ctx context.Context, bucketService objSdk.BucketService, args []s
 	}
 
 	if bucketName == "" {
-		beautiful.NewOutput(rawMode).PrintError("é necessário fornecer o nome do bucket como argumento ou usar a flag --dst")
-
-		return nil
+		return cmdutils.NewCliError("missing required flag: --dst=string")
 	}
 
-	err := bucketService.DeletePolicy(ctx, bucketName)
+	err = bucketService.DeletePolicy(ctx, bucketName)
 	if err != nil {
-		return fmt.Errorf("erro ao deletar a política: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
 	fmt.Fprintln(os.Stderr, "✓ Deletado com sucesso!")

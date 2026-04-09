@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -55,47 +55,11 @@ func Create(ctx context.Context, parent *cobra.Command, nodepoolsService kuberne
 			req.Taints = &[]kubernetesSdk.Taint{}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("cluster-id", args[0])
-			}
 			if clusterIDFlag.IsChanged() {
 				clusterID = *clusterIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o clusterID como argumento ou usar a flag --clusterID")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("flavor", args[0])
-			}
-			if req_FlavorFlag.IsChanged() {
-				req.Flavor = *req_FlavorFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Flavor como argumento ou usar a flag --Flavor")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("replicas", args[0])
-			}
-			if req_ReplicasFlag.IsChanged() {
-				req.Replicas = *req_ReplicasFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Replicas como argumento ou usar a flag --Replicas")
+				return cmdutils.NewCliError("missing required flag: --cluster-id")
 			}
 
 			//CobraFlagsAssign
@@ -111,9 +75,33 @@ func Create(ctx context.Context, parent *cobra.Command, nodepoolsService kuberne
 			}
 
 			//CobraFlagsAssign
+			if req_FlavorFlag.IsChanged() {
+				req.Flavor = *req_FlavorFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --flavor")
+			}
+
+			//CobraFlagsAssign
 			if req_MaxPodsPerNodeFlag.IsChanged() {
 				req.MaxPodsPerNode = req_MaxPodsPerNodeFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
+			}
+
+			//CobraFlagsAssign
+			if req_ReplicasFlag.IsChanged() {
+				req.Replicas = *req_ReplicasFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --replicas")
 			}
 
 			//CobraFlagsAssign

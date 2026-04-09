@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 
@@ -36,25 +36,19 @@ func Copy(ctx context.Context, parent *cobra.Command, snapshotsService computeSd
 			var req computeSdk.CopySnapshotRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("destination-region", args[0])
-			}
-			if req_DestinationRegionFlag.IsChanged() {
-				req.DestinationRegion = *req_DestinationRegionFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_DestinationRegion como argumento ou usar a flag --DestinationRegion")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
+				return cmdutils.NewCliError("missing required flag: --id")
+			}
+
+			//CobraFlagsAssign
+			if req_DestinationRegionFlag.IsChanged() {
+				req.DestinationRegion = *req_DestinationRegionFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --destination-region")
 			}
 
 			err := snapshotsService.Copy(ctx, id, req)

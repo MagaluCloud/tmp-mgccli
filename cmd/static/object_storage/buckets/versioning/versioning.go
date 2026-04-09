@@ -3,13 +3,12 @@ package versioning
 import (
 	"context"
 
-	objSdk "github.com/MagaluCloud/mgc-sdk-go/objectstorage"
 	"github.com/magaluCloud/mgccli/i18n"
 	"github.com/spf13/cobra"
 )
 
 // VersioningCommand cria e configura o comando de versionamento
-func VersioningCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra.Command {
+func VersioningCommand(ctx context.Context) *cobra.Command {
 	manager := i18n.GetInstance()
 
 	cmd := &cobra.Command{
@@ -17,9 +16,9 @@ func VersioningCommand(ctx context.Context, bucketService objSdk.BucketService) 
 		Short: manager.T("cli.auth.object_storage.buckets.versioning.short"),
 	}
 
-	cmd.AddCommand(EnableCommand(ctx, bucketService))
-	cmd.AddCommand(SuspendCommand(ctx, bucketService))
-	cmd.AddCommand(GetCommand(ctx, bucketService))
+	cmd.AddCommand(EnableCommand(ctx))
+	cmd.AddCommand(SuspendCommand(ctx))
+	cmd.AddCommand(GetCommand(ctx))
 
 	return cmd
 }

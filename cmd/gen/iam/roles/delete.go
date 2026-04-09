@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -32,14 +32,11 @@ func Delete(ctx context.Context, parent *cobra.Command, rolesService iamSdk.Role
 			var roleName string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("role-name", args[0])
-			}
 			if roleNameFlag.IsChanged() {
 				roleName = *roleNameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o roleName como argumento ou usar a flag --roleName")
+				return cmdutils.NewCliError("missing required flag: --role-name")
 			}
 
 			err := rolesService.Delete(ctx, roleName)

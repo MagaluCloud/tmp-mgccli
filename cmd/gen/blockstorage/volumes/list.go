@@ -10,11 +10,11 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
 
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 )
@@ -38,14 +38,11 @@ func List(ctx context.Context, parent *cobra.Command, volumesService blockstorag
 			var opts blockstorageSdk.ListOptions
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("expand", args[0])
-			}
 			if opts_ExpandFlag.IsChanged() {
 				opts.Expand = flags.StrSliceFlagToSlice[blockstorageSdk.VolumeExpand](opts_ExpandFlag)
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o opts_Expand como argumento ou usar a flag --Expand")
+				return cmdutils.NewCliError("missing required flag: --expand")
 			}
 
 			//CobraFlagsAssign

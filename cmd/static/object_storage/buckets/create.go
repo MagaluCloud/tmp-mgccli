@@ -5,10 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	objSdk "github.com/MagaluCloud/mgc-sdk-go/objectstorage"
 	bws "github.com/geffersonFerraz/brazilian-words-sorter"
 	"github.com/magaluCloud/mgccli/beautiful"
+	objectstorage "github.com/magaluCloud/mgccli/cmd/common/object_storage"
 	"github.com/magaluCloud/mgccli/cmd/static/object_storage/buckets/common"
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	cobrautils "github.com/magaluCloud/mgccli/cobra_utils/flags"
 	"github.com/magaluCloud/mgccli/i18n"
 	"github.com/spf13/cobra"
@@ -44,7 +45,7 @@ type result struct {
 }
 
 // CreateCommand cria o comando de criar um novo bucket
-func CreateCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra.Command {
+func CreateCommand(ctx context.Context) *cobra.Command {
 	manager := i18n.GetInstance()
 
 	var flags createFlags
@@ -71,7 +72,7 @@ func CreateCommand(ctx context.Context, bucketService objSdk.BucketService) *cob
 			cobrautils.NilIfNotChanged(cmd, "private", &params.Private, flags.Private)
 			cobrautils.NilIfNotChanged(cmd, "public-read", &params.PublicRead, flags.PublicRead)
 
-			return runCreate(ctx, bucketService, params, raw)
+			return runCreate(ctx, params, raw)
 		},
 	}
 
@@ -87,7 +88,13 @@ func CreateCommand(ctx context.Context, bucketService objSdk.BucketService) *cob
 }
 
 // runCreate executa o processo de criar um novo bucket
-func runCreate(ctx context.Context, bucketService objSdk.BucketService, opts createParams, rawMode bool) error {
+func runCreate(ctx context.Context, opts createParams, rawMode bool) error {
+	objectStorageService, err := objectstorage.NewObjectStorage(ctx)
+	if err != nil {
+		return cmdutils.NewCliError(err.Error())
+	}
+	bucketService := objectStorageService.GetBucketService()
+
 	if opts.CliListLinks {
 		beautiful.NewOutput(rawMode).PrintTable(
 			[]string{"Description", "Command"},
@@ -101,17 +108,13 @@ func runCreate(ctx context.Context, bucketService objSdk.BucketService, opts cre
 	}
 
 	if opts.Name == nil {
-		return fmt.Errorf("missing required flag: --bucket=string")
+		return cmdutils.NewCliError("missing required flag: --bucket=string")
 	}
 	if opts.NameIsPrefix == nil {
-		return fmt.Errorf("missing required flag: --bucket-is-prefix=bool")
+		return cmdutils.NewCliError("missing required flag: --bucket-is-prefix=bool")
 	}
 	if opts.EnableVersioning == nil {
-		return fmt.Errorf("missing required flag: --enable-versioning=bool")
-	}
-
-	if bucketService == nil {
-		return nil
+		return cmdutils.NewCliError("missing required flag: --enable-versioning=bool")
 	}
 
 	if *opts.NameIsPrefix {
@@ -120,9 +123,9 @@ func runCreate(ctx context.Context, bucketService objSdk.BucketService, opts cre
 		opts.Name = &name
 	}
 
-	err := bucketService.Create(ctx, *opts.Name)
+	err = bucketService.Create(ctx, *opts.Name)
 	if err != nil {
-		return fmt.Errorf("erro ao criar o bucket: %w", err)
+		return cmdutils.NewCliError(fmt.Sprintf("erro ao criar o bucket: %s", err.Error()))
 	}
 
 	if *opts.EnableVersioning {
@@ -130,14 +133,14 @@ func runCreate(ctx context.Context, bucketService objSdk.BucketService, opts cre
 		if err != nil {
 			_ = bucketService.Delete(ctx, *opts.Name, true)
 
-			return fmt.Errorf("erro ao habilitar o versionamento do bucket: %w", err)
+			return cmdutils.NewCliError(fmt.Sprintf("erro ao habilitar o versionamento do bucket: %s", err.Error()))
 		}
 	} else {
 		err := bucketService.SuspendVersioning(ctx, *opts.Name)
 		if err != nil {
 			_ = bucketService.Delete(ctx, *opts.Name, true)
 
-			return fmt.Errorf("erro ao suspender o versionamento do bucket: %w", err)
+			return cmdutils.NewCliError(fmt.Sprintf("erro ao suspender o versionamento do bucket: %s", err.Error()))
 		}
 	}
 
@@ -155,7 +158,7 @@ func runCreate(ctx context.Context, bucketService objSdk.BucketService, opts cre
 	if opts.GrantWrite != nil && *opts.GrantWrite != "" {
 		err := json.Unmarshal([]byte(*opts.GrantWrite), &grantsFormatted)
 		if err != nil {
-			return fmt.Errorf("invalid --grant-write JSON: %w", err)
+			return cmdutils.NewCliError(fmt.Sprintf("invalid --grant-write JSON: %s", err.Error()))
 		}
 	}
 

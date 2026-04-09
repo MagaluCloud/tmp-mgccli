@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -36,25 +36,19 @@ func UnbookCIDR(ctx context.Context, parent *cobra.Command, subnetpoolsService n
 			var req networkSdk.UnbookCIDRRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("cidr", args[0])
-			}
-			if req_CIDRFlag.IsChanged() {
-				req.CIDR = *req_CIDRFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_CIDR como argumento ou usar a flag --CIDR")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
+				return cmdutils.NewCliError("missing required flag: --id")
+			}
+
+			//CobraFlagsAssign
+			if req_CIDRFlag.IsChanged() {
+				req.CIDR = *req_CIDRFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --cidr")
 			}
 
 			err := subnetpoolsService.UnbookCIDR(ctx, id, req)

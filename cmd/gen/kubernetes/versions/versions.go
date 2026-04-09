@@ -17,7 +17,7 @@ import (
 func VersionsCmd(ctx context.Context, parent *cobra.Command, versionService kubernetesSdk.VersionService) {
 
 	cmd := &cobra.Command{
-		Use: "versions",
+		Use: "version",
 	}
 
 	List(ctx, cmd, versionService)

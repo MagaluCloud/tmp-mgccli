@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 
@@ -38,47 +38,35 @@ func CreateStatus(ctx context.Context, parent *cobra.Command, proxycachesService
 			var req containerregistrySdk.CreateProxyCacheStatusRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("access-key", args[0])
-			}
 			if req_AccessKeyFlag.IsChanged() {
 				req.AccessKey = *req_AccessKeyFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_AccessKey como argumento ou usar a flag --AccessKey")
+				return cmdutils.NewCliError("missing required flag: --access-key")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("access-secret", args[0])
-			}
 			if req_AccessSecretFlag.IsChanged() {
 				req.AccessSecret = *req_AccessSecretFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_AccessSecret como argumento ou usar a flag --AccessSecret")
+				return cmdutils.NewCliError("missing required flag: --access-secret")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("provider", args[0])
-			}
 			if req_ProviderFlag.IsChanged() {
 				req.Provider = *req_ProviderFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Provider como argumento ou usar a flag --Provider")
+				return cmdutils.NewCliError("missing required flag: --provider")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("url", args[0])
-			}
 			if req_URLFlag.IsChanged() {
 				req.URL = *req_URLFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_URL como argumento ou usar a flag --URL")
+				return cmdutils.NewCliError("missing required flag: --url")
 			}
 
 			result0, err := proxycachesService.CreateStatus(ctx, req)

@@ -10,11 +10,11 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
 
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 )
@@ -34,20 +34,17 @@ func ListAll(ctx context.Context, parent *cobra.Command, schedulersService block
 			var filterOpts blockstorageSdk.SchedulerFilterOptions
 
 			//CobraFlagsAssign
-			if filterOpts_SortFlag.IsChanged() {
-				filterOpts.Sort = filterOpts_SortFlag.Value
-
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("expand", args[0])
-			}
 			if filterOpts_ExpandFlag.IsChanged() {
 				filterOpts.Expand = flags.StrSliceFlagToSlice[blockstorageSdk.ExpandSchedulers](filterOpts_ExpandFlag)
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o filterOpts_Expand como argumento ou usar a flag --Expand")
+				return cmdutils.NewCliError("missing required flag: --expand")
+			}
+
+			//CobraFlagsAssign
+			if filterOpts_SortFlag.IsChanged() {
+				filterOpts.Sort = filterOpts_SortFlag.Value
+
 			}
 
 			result0, err := schedulersService.ListAll(ctx, filterOpts)

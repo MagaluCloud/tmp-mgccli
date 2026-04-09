@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -48,53 +48,41 @@ func Create(ctx context.Context, parent *cobra.Command, networklistenersService 
 			var req lbaasSdk.CreateNetworkListenerRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("backend-id", args[0])
-			}
 			if backendIDFlag.IsChanged() {
 				backendID = *backendIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o backendID como argumento ou usar a flag --backendID")
+				return cmdutils.NewCliError("missing required flag: --backend-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("lb-id", args[0])
-			}
 			if lbIDFlag.IsChanged() {
 				lbID = *lbIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o lbID como argumento ou usar a flag --lbID")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("port", args[0])
-			}
-			if req_PortFlag.IsChanged() {
-				req.Port = *req_PortFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Port como argumento ou usar a flag --Port")
+				return cmdutils.NewCliError("missing required flag: --lb-id")
 			}
 
 			//CobraFlagsAssign
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
+			}
+
+			//CobraFlagsAssign
+			if req_PortFlag.IsChanged() {
+				req.Port = *req_PortFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --port")
 			}
 
 			//CobraFlagsAssign

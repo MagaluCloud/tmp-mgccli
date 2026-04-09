@@ -10,11 +10,11 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
 
 	blockstorageSdk "github.com/MagaluCloud/mgc-sdk-go/blockstorage"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 )
@@ -36,25 +36,19 @@ func Get(ctx context.Context, parent *cobra.Command, snapshotsService blockstora
 			var id string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("expand", args[0])
-			}
 			if expandFlag.IsChanged() {
 				expand = flags.StrSliceFlagToSlice[blockstorageSdk.SnapshotExpand](expandFlag)
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o expand como argumento ou usar a flag --expand")
+				return cmdutils.NewCliError("missing required flag: --expand")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("id", args[0])
-			}
 			if idFlag.IsChanged() {
 				id = *idFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o id como argumento ou usar a flag --id")
+				return cmdutils.NewCliError("missing required flag: --id")
 			}
 
 			result0, err := snapshotsService.Get(ctx, id, expand)

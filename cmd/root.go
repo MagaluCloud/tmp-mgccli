@@ -372,9 +372,9 @@ func beautifulPrint(cmd *cobra.Command) {
 
 				if detail != "" {
 					beautifulOutput.PrintError(fmt.Sprintf("%s: %s", msg, detail))
+				} else {
+					beautifulOutput.PrintError(msg)
 				}
-
-				beautifulOutput.PrintError(msg)
 
 				cmd.SetContext(context.WithValue(cmd.Context(), cmdutils.CTX_ERROR_HANDLED, true))
 			}

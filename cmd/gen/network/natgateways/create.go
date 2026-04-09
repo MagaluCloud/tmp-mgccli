@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -38,42 +38,33 @@ func Create(ctx context.Context, parent *cobra.Command, natgatewaysService netwo
 			var req networkSdk.CreateNatGatewayRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
+			if req_DescriptionFlag.IsChanged() {
+				req.Description = req_DescriptionFlag.Value
+
 			}
+
+			//CobraFlagsAssign
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
+				return cmdutils.NewCliError("missing required flag: --name")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("vpcid", args[0])
-			}
 			if req_VPCIDFlag.IsChanged() {
 				req.VPCID = *req_VPCIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_VPCID como argumento ou usar a flag --VPCID")
+				return cmdutils.NewCliError("missing required flag: --vpcid")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("zone", args[0])
-			}
 			if req_ZoneFlag.IsChanged() {
 				req.Zone = *req_ZoneFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Zone como argumento ou usar a flag --Zone")
-			}
-
-			//CobraFlagsAssign
-			if req_DescriptionFlag.IsChanged() {
-				req.Description = req_DescriptionFlag.Value
-
+				return cmdutils.NewCliError("missing required flag: --zone")
 			}
 
 			result0, err := natgatewaysService.Create(ctx, req)

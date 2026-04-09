@@ -2,10 +2,10 @@ package buckets
 
 import (
 	"context"
-	"fmt"
 
-	objSdk "github.com/MagaluCloud/mgc-sdk-go/objectstorage"
 	"github.com/magaluCloud/mgccli/beautiful"
+	objectstorage "github.com/magaluCloud/mgccli/cmd/common/object_storage"
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 	"github.com/magaluCloud/mgccli/i18n"
 	"github.com/spf13/cobra"
 )
@@ -16,7 +16,7 @@ type bucketResponse struct {
 }
 
 // ListCommand cria o comando de listar todos os buckets
-func ListCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra.Command {
+func ListCommand(ctx context.Context) *cobra.Command {
 	manager := i18n.GetInstance()
 
 	cmd := &cobra.Command{
@@ -26,7 +26,7 @@ func ListCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra
 		RunE: func(cmd *cobra.Command, args []string) error {
 			raw, _ := cmd.Root().PersistentFlags().GetBool("raw")
 
-			return runList(ctx, bucketService, raw)
+			return runList(ctx, raw)
 		},
 	}
 
@@ -34,14 +34,16 @@ func ListCommand(ctx context.Context, bucketService objSdk.BucketService) *cobra
 }
 
 // runList executa o processo de exibir todos os buckets
-func runList(ctx context.Context, bucketService objSdk.BucketService, rawMode bool) error {
-	if bucketService == nil {
-		return nil
+func runList(ctx context.Context, rawMode bool) error {
+	objectStorageService, err := objectstorage.NewObjectStorage(ctx)
+	if err != nil {
+		return cmdutils.NewCliError(err.Error())
 	}
+	bucketService := objectStorageService.GetBucketService()
 
 	buckets, err := bucketService.List(ctx)
 	if err != nil {
-		return fmt.Errorf("erro ao listar os buckets: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
 	result := []bucketResponse{}

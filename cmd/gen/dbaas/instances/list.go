@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -50,20 +50,17 @@ func List(ctx context.Context, parent *cobra.Command, instancesService dbaasSdk.
 			var opts dbaasSdk.ListInstanceOptions
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("expanded-fields", args[0])
+			if opts_EngineIDFlag.IsChanged() {
+				opts.EngineID = opts_EngineIDFlag.Value
+
 			}
+
+			//CobraFlagsAssign
 			if opts_ExpandedFieldsFlag.IsChanged() {
 				opts.ExpandedFields = *opts_ExpandedFieldsFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o opts_ExpandedFields como argumento ou usar a flag --ExpandedFields")
-			}
-
-			//CobraFlagsAssign
-			if opts_EngineIDFlag.IsChanged() {
-				opts.EngineID = opts_EngineIDFlag.Value
-
+				return cmdutils.NewCliError("missing required flag: --expanded-fields")
 			}
 
 			//CobraFlagsAssign

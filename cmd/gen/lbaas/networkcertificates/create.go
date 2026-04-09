@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 
@@ -42,53 +42,41 @@ func Create(ctx context.Context, parent *cobra.Command, networkcertificatesServi
 			var req lbaasSdk.CreateNetworkCertificateRequest
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("certificate", args[0])
-			}
-			if req_CertificateFlag.IsChanged() {
-				req.Certificate = *req_CertificateFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_Certificate como argumento ou usar a flag --Certificate")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("lb-id", args[0])
-			}
 			if lbIDFlag.IsChanged() {
 				lbID = *lbIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o lbID como argumento ou usar a flag --lbID")
+				return cmdutils.NewCliError("missing required flag: --lb-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
-			if req_NameFlag.IsChanged() {
-				req.Name = *req_NameFlag.Value
+			if req_CertificateFlag.IsChanged() {
+				req.Certificate = *req_CertificateFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o req_Name como argumento ou usar a flag --Name")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("private-key", args[0])
-			}
-			if req_PrivateKeyFlag.IsChanged() {
-				req.PrivateKey = *req_PrivateKeyFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o req_PrivateKey como argumento ou usar a flag --PrivateKey")
+				return cmdutils.NewCliError("missing required flag: --certificate")
 			}
 
 			//CobraFlagsAssign
 			if req_DescriptionFlag.IsChanged() {
 				req.Description = req_DescriptionFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if req_NameFlag.IsChanged() {
+				req.Name = *req_NameFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --name")
+			}
+
+			//CobraFlagsAssign
+			if req_PrivateKeyFlag.IsChanged() {
+				req.PrivateKey = *req_PrivateKeyFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --private-key")
 			}
 
 			result0, err := networkcertificatesService.Create(ctx, lbID, req)

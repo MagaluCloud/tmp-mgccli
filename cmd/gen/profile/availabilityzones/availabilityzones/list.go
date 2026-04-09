@@ -10,11 +10,11 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
 
 	availabilityzonesSdk "github.com/MagaluCloud/mgc-sdk-go/availabilityzones"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	flags "github.com/magaluCloud/mgccli/cobra_utils/flags"
 )
@@ -32,14 +32,11 @@ func List(ctx context.Context, parent *cobra.Command, availabilityzonesService a
 			var opts availabilityzonesSdk.ListOptions
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("show-blocked", args[0])
-			}
 			if opts_ShowBlockedFlag.IsChanged() {
 				opts.ShowBlocked = *opts_ShowBlockedFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o opts_ShowBlocked como argumento ou usar a flag --ShowBlocked")
+				return cmdutils.NewCliError("missing required flag: --show-blocked")
 			}
 
 			result0, err := availabilityzonesService.List(ctx, opts)

@@ -2,7 +2,6 @@ package tenant
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/magaluCloud/mgccli/beautiful"
 	"github.com/magaluCloud/mgccli/cmd/common/auth"
@@ -35,7 +34,7 @@ func runCurrent(ctx context.Context, rawMode bool) error {
 
 	tenant, err := auth.GetCurrentTenant(ctx)
 	if err != nil {
-		return fmt.Errorf("erro ao pegar o tenant atual: %w", err)
+		return cmdutils.NewCliError(err.Error())
 	}
 
 	beautiful.NewOutput(rawMode).PrintData(tenant)

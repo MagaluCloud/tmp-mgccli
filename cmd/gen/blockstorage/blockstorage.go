@@ -26,8 +26,11 @@ import (
 
 func BlockstorageCmd(ctx context.Context, parent *cobra.Command, sdkCoreConfig sdk.CoreClient) {
 	cmd := &cobra.Command{
-		Use: "blockstorage",
+		Use: "block-storage",
 
+		Aliases: []string{
+			"block", "blocks", "blst", "bs",
+		},
 		GroupID: "products",
 	}
 

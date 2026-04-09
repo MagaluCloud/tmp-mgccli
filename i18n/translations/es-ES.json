@@ -81,7 +81,7 @@
     "cli.auth.api_key.get.long": "Recupere una API Key específica proporcionando su ID único. Use 'auth api-key list' para ver todos los IDs disponibles",
     "cli.auth.api_key.create.short": "Crear una nueva API Key para su tenant",
     "cli.auth.api_key.create.long": "Cree una nueva API Key para su tenant especificando nombre, descripción, fecha de expiración y una lista de scopes",
-    "cli.auth.api_key.create.name": "Nombre de la nueva API Key",
+    "cli.auth.api_key.create.name": "Nombre de la nueva API Key (required)",
     "cli.auth.api_key.create.description": "Descripción de la nueva API Key",
     "cli.auth.api_key.create.scopes": "Lista de scopes para asignar a la nueva API Key",
     "cli.auth.api_key.create.expiration": "Fecha de expiración de la nueva API Key (YYYY-MM-DD)",

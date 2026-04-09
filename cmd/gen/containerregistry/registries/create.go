@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 
@@ -22,6 +22,8 @@ import (
 func Create(ctx context.Context, parent *cobra.Command, registriesService containerregistrySdk.RegistriesService) {
 
 	var request_NameFlag *flags.StrFlag //CobraFlagsDefinition
+
+	var request_ProxyCacheIDFlag *flags.StrFlag //CobraFlagsDefinition
 
 	cmd := &cobra.Command{
 		Use: "create",
@@ -35,14 +37,17 @@ func Create(ctx context.Context, parent *cobra.Command, registriesService contai
 			request = &containerregistrySdk.RegistryRequest{}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("name", args[0])
-			}
 			if request_NameFlag.IsChanged() {
 				request.Name = *request_NameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o request_Name como argumento ou usar a flag --Name")
+				return cmdutils.NewCliError("missing required flag: --name")
+			}
+
+			//CobraFlagsAssign
+			if request_ProxyCacheIDFlag.IsChanged() {
+				request.ProxyCacheID = request_ProxyCacheIDFlag.Value
+
 			}
 
 			result0, err := registriesService.Create(ctx, request)
@@ -59,6 +64,8 @@ func Create(ctx context.Context, parent *cobra.Command, registriesService contai
 
 	//CobraFlagsCreation
 	request_NameFlag = flags.NewStr(cmd, "name", "", "")
+	//CobraFlagsCreation
+	request_ProxyCacheIDFlag = flags.NewStr(cmd, "proxy-cache-id", "", "")
 
 	parent.AddCommand(cmd)
 

@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -42,25 +42,11 @@ func UpdateSnapshot(ctx context.Context, parent *cobra.Command, instancesService
 			var snapshotID string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("instance-id", args[0])
-			}
 			if instanceIDFlag.IsChanged() {
 				instanceID = *instanceIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o instanceID como argumento ou usar a flag --instanceID")
-			}
-
-			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("snapshot-id", args[0])
-			}
-			if snapshotIDFlag.IsChanged() {
-				snapshotID = *snapshotIDFlag.Value
-
-			} else {
-				return fmt.Errorf("é necessário fornecer o snapshotID como argumento ou usar a flag --snapshotID")
+				return cmdutils.NewCliError("missing required flag: --instance-id")
 			}
 
 			//CobraFlagsAssign
@@ -73,6 +59,14 @@ func UpdateSnapshot(ctx context.Context, parent *cobra.Command, instancesService
 			if req_NameFlag.IsChanged() {
 				req.Name = *req_NameFlag.Value
 
+			}
+
+			//CobraFlagsAssign
+			if snapshotIDFlag.IsChanged() {
+				snapshotID = *snapshotIDFlag.Value
+
+			} else {
+				return cmdutils.NewCliError("missing required flag: --snapshot-id")
 			}
 
 			result0, err := instancesService.UpdateSnapshot(ctx, instanceID, snapshotID, req)

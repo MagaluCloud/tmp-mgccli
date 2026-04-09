@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	containerregistrySdk "github.com/MagaluCloud/mgc-sdk-go/containerregistry"
 
@@ -36,25 +36,19 @@ func Get(ctx context.Context, parent *cobra.Command, repositoriesService contain
 			var repositoryName string
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("registry-id", args[0])
-			}
 			if registryIDFlag.IsChanged() {
 				registryID = *registryIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o registryID como argumento ou usar a flag --registryID")
+				return cmdutils.NewCliError("missing required flag: --registry-id")
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("repository-name", args[0])
-			}
 			if repositoryNameFlag.IsChanged() {
 				repositoryName = *repositoryNameFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o repositoryName como argumento ou usar a flag --repositoryName")
+				return cmdutils.NewCliError("missing required flag: --repository-name")
 			}
 
 			result0, err := repositoriesService.Get(ctx, registryID, repositoryName)

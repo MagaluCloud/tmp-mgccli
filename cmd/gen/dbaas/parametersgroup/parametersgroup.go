@@ -17,7 +17,7 @@ import (
 func ParametersGroupCmd(ctx context.Context, parent *cobra.Command, parameterGroupService dbaasSdk.ParameterGroupService) {
 
 	cmd := &cobra.Command{
-		Use: "parametersgroup",
+		Use: "parameter-groups",
 	}
 
 	Create(ctx, cmd, parameterGroupService)

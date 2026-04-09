@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	dbaasSdk "github.com/MagaluCloud/mgc-sdk-go/dbaas"
 
@@ -54,14 +54,11 @@ func ListAllSnapshots(ctx context.Context, parent *cobra.Command, instancesServi
 			}
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("instance-id", args[0])
-			}
 			if instanceIDFlag.IsChanged() {
 				instanceID = *instanceIDFlag.Value
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o instanceID como argumento ou usar a flag --instanceID")
+				return cmdutils.NewCliError("missing required flag: --instance-id")
 			}
 
 			result0, err := instancesService.ListAllSnapshots(ctx, instanceID, filterOpts)

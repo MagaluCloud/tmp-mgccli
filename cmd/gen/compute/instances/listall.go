@@ -10,9 +10,9 @@ import (
 	"context"
 	"github.com/spf13/cobra"
 
-	"fmt"
-
 	"github.com/magaluCloud/mgccli/beautiful"
+
+	cmdutils "github.com/magaluCloud/mgccli/cmd_utils"
 
 	computeSdk "github.com/MagaluCloud/mgc-sdk-go/compute"
 
@@ -36,14 +36,11 @@ func ListAll(ctx context.Context, parent *cobra.Command, instancesService comput
 			var opts computeSdk.InstanceFilterOptions
 
 			//CobraFlagsAssign
-			if len(args) > 0 {
-				cmd.Flags().Set("expand", args[0])
-			}
 			if opts_ExpandFlag.IsChanged() {
 				opts.Expand = flags.StrSliceFlagToSlice[computeSdk.InstanceExpand](opts_ExpandFlag)
 
 			} else {
-				return fmt.Errorf("é necessário fornecer o opts_Expand como argumento ou usar a flag --Expand")
+				return cmdutils.NewCliError("missing required flag: --expand")
 			}
 
 			//CobraFlagsAssign

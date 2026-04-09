@@ -17,7 +17,7 @@ import (
 func FlavorsCmd(ctx context.Context, parent *cobra.Command, flavorService kubernetesSdk.FlavorService) {
 
 	cmd := &cobra.Command{
-		Use: "flavors",
+		Use: "flavor",
 	}
 
 	List(ctx, cmd, flavorService)

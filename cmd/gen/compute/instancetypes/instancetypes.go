@@ -17,7 +17,7 @@ import (
 func InstanceTypesCmd(ctx context.Context, parent *cobra.Command, instanceTypeService computeSdk.InstanceTypeService) {
 
 	cmd := &cobra.Command{
-		Use: "instancetypes",
+		Use: "machine-types",
 	}
 
 	List(ctx, cmd, instanceTypeService)
